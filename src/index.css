@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for Design System - Logo Aligned */
+:root {
+  --primary: 42 50% 60%; /* #D4B26F - Primary gold from logo */
+  --secondary: 42 50% 70%; /* #E6C47A - Secondary gold from logo */
+  --accent: 0 70% 55%; /* #E53935 - Accent red from logo */
+  --success: 122 53% 40%; /* #4CAF50 */
+  --destructive: 0 81% 71%; /* #FF6B6B */
+  --muted: 210 20% 92%; /* #E0E5E9 */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --surface: 0 0% 100%;
+  --premium: 42 50% 60%; /* #D4B26F */
+  
+  /* Enhanced brand colors aligned with logo */
+  --brand-warm: 42 70% 85%; /* #F4E4BC - Light warm tone */
+  --brand-neutral: 42 25% 45%; /* #8B7355 - Muted gold */
+  --brand-deep: 42 35% 55%; /* #B8956A - Deep gold */
+  --brand-accent: 42 30% 65%; /* #C4A484 - Soft accent */
+}
+
+.dark {
+  --primary: 42 50% 70%; /* #E6C47A - Brighter for dark mode */
+  --background: 0 0% 10%; /* #1A1A1A */
+  --foreground: 0 0% 96%; /* #F5F5F5 */
+  --muted: 0 0% 25%; /* #404040 */
+  --destructive: 0 85% 72%; /* #FF6B6B */
+  --success: 160 84% 39%; /* #10B981 */
+  --surface: 0 0% 18%; /* #2D2D2D */
+  --premium: 42 50% 60%; /* #D4B26F */
+  --accent: 0 70% 65%; /* #FF5252 */
+  
+  /* Enhanced dark mode brand colors */
+  --brand-warm: 42 15% 15%; /* #2A2520 - Dark warm tone */
+  --brand-neutral: 42 20% 20%; /* #3D3429 - Dark neutral */
+  --brand-deep: 42 25% 25%; /* #4A3F32 - Dark deep */
+  --brand-accent: 42 20% 30%; /* #5A4F42 - Dark accent */
+}
+
+@layer utilities {
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* Custom scrollbar for dark mode */
+@layer base {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-support-gray dark:bg-dark-support;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-gold/60 dark:bg-dark-primary/60 rounded-full hover:bg-primary-gold dark:hover:bg-dark-primary;
+  }
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Enable smooth scrolling for the entire application */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure consistent scroll behavior for all scrollable elements */
+body, #root, .scroll-container {
+  scroll-behavior: smooth;
+}
+
+/* Override for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html, body, #root, .scroll-container {
+    scroll-behavior: auto;
+  }
+}
+
+/* Focus styles for accessibility using teal colors */
+@layer base {
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-primary-gold ring-offset-2 dark:ring-offset-dark-bg dark:ring-dark-primary;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .dark\:bg-dark-surface,
+  .dark\:bg-dark-bg {
+    background: white !important;
+  }
+  
+  .dark\:text-dark-text,
+  .dark\:text-gray-300 {
+    color: black !important;
+  }
+}
+
+/* Enhanced button styles using design system - Logo Aligned */
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-brand hover:bg-gradient-primary text-white shadow-enhanced transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-gold hover:bg-secondary-gold/90 text-white shadow-sm transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-secondary-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
+  }
+  
+  .btn-accent {
+    @apply bg-accent-red hover:bg-accent-red/90 text-white shadow-glow transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-red focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
+  }
+  
+  .btn-ghost {
+    @apply hover:bg-primary-gold/10 text-brand-neutral dark:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .card-enhanced {
+    @apply bg-surface dark:bg-dark-surface border border-primary-gold/20 dark:border-dark-primary/30 shadow-sm hover:shadow-enhanced hover:-translate-y-2 transition-all duration-300;
+  }
+  
+  /* Brand-aligned header styles */
+  .header-brand {
+    @apply bg-gradient-brand-subtle dark:bg-gradient-dark-brand;
+  }
+  
+  /* Brand-aligned text styles */
+  .text-brand-primary {
+    color: hsl(var(--brand-neutral));
+  }
+  
+  .dark .text-brand-primary {
+    color: hsl(var(--dark-primary));
+  }
+  
+  .text-brand-secondary {
+    color: hsl(var(--brand-deep));
+  }
+  
+  .dark .text-brand-secondary {
+    color: hsl(var(--dark-primary) / 0.8);
+  }
+  
+  .text-brand-accent {
+    color: hsl(var(--brand-accent));
+  }
+  
+  .dark .text-brand-accent {
+    color: hsl(var(--dark-primary) / 0.6);
+  }
+}
+
+/* Button responsiveness fixes */
+@layer utilities {
+  /* Ensure buttons are always clickable */
+  button {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Fix for buttons that might be covered by other elements */
+  button:not(:disabled) {
+    pointer-events: auto;
+  }
+  
+  /* Ensure proper touch targets on mobile */
+  @media (max-width: 768px) {
+    button {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+  
+  /* Fix for buttons in overlays/modals */
+  .modal button,
+  .overlay button,
+  [role="dialog"] button {
+    z-index: 10;
+  }
+  
+  /* Ensure buttons work properly in dark mode */
+  .dark button:focus-visible {
+    outline: 2px solid hsl(var(--dark-primary));
+    outline-offset: 2px;
+  }
+}
+
+/* Sticky footer layout utilities */
+@layer utilities {
+  .sticky-footer-container {
+    @apply min-h-screen flex flex-col;
+  }
+  
+  .sticky-footer-content {
+    @apply flex-grow;
+  }
+  
+  .sticky-footer {
+    @apply mt-auto;
+  }
+}

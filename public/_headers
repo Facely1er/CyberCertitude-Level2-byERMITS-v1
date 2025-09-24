@@ -1,0 +1,46 @@
+/*
+  # Security Headers
+  # X-Frame-Options: DENY (set via Netlify config)
+  # X-Content-Type-Options: nosniff (set via Netlify config)
+  # X-XSS-Protection: 1; mode=block (legacy; omitted)
+  # Referrer-Policy: strict-origin-when-cross-origin (set via Netlify config)
+  # Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=() (set via Netlify config)
+  
+  # Content Security Policy is set in netlify.toml (single source of truth)
+  
+  # HSTS (only in production)
+  # Strict-Transport-Security: max-age=31536000; includeSubDomains; preload (set via Netlify config)
+  
+  # Cache Control
+  # Cache-Control: public, max-age=0, must-revalidate (set per-route below)
+  
+  # Additional Security Headers
+  # Cross-Origin-Embedder-Policy: require-corp (set via Netlify config)
+  # Cross-Origin-Opener-Policy: same-origin (set via Netlify config)
+  # Cross-Origin-Resource-Policy: same-origin (set via Netlify config)
+
+# Static Assets
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+
+# Service Worker
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  X-Content-Type-Options: nosniff
+
+# API Routes
+/api/*
+  X-Robots-Tag: noindex
+  Cache-Control: no-store, no-cache, must-revalidate
+  X-Content-Type-Options: nosniff
+  
+# Fonts
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Cross-Origin-Resource-Policy: cross-origin
+  
+# Images
+/images/*
+  Cache-Control: public, max-age=86400
+  X-Content-Type-Options: nosniff
