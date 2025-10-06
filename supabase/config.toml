@@ -1,0 +1,145 @@
+# Supabase Configuration for Multi-Project CMMC Platform
+# This configuration supports multiple projects within a single Supabase instance
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "auth", "storage", "realtime"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[db.pooler]
+enabled = false
+port = 54329
+pool_mode = "transaction"
+default_pool_size = 20
+max_client_conn = 100
+
+[realtime]
+enabled = true
+port = 54323
+ip_version = "ipv4"
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://127.0.0.1:54321"
+
+# Inbucket email testing
+[inbucket]
+enabled = true
+port = 54324
+smtp_port = 54325
+pop3_port = 54326
+
+[storage]
+enabled = true
+port = 54327
+file_size_limit = "50MiB"
+buckets = [
+  { name = "evidence", public = false },
+  { name = "documents", public = false },
+  { name = "policies", public = false },
+  { name = "assets", public = false },
+  { name = "reports", public = false }
+]
+
+[edge_functions]
+enabled = true
+port = 54328
+
+[analytics]
+enabled = false
+
+# Auth configuration for multi-project support
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://localhost:3000"]
+jwt_expiry = 3600
+refresh_token_rotation_enabled = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+enable_anonymous_users = false
+enable_confirmations = true
+enable_recoveries = true
+enable_email_change_confirmations = true
+enable_phone_confirmations = false
+minimum_password_length = 12
+require_password_validation = true
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = true
+
+# Multi-project RLS policies
+[auth.row_level_security]
+enabled = true
+
+# Storage policies for project isolation
+[storage.policies]
+evidence_bucket_policy = """
+CREATE POLICY "Users can access evidence from their projects" ON storage.objects
+FOR ALL USING (
+  bucket_id = 'evidence' AND
+  (storage.foldername(name))[1] IN (
+    SELECT p.slug FROM projects p
+    JOIN project_members pm ON p.id = pm.project_id
+    WHERE pm.user_id = auth.uid() AND pm.status = 'active'
+  )
+);
+"""
+
+documents_bucket_policy = """
+CREATE POLICY "Users can access documents from their projects" ON storage.objects
+FOR ALL USING (
+  bucket_id = 'documents' AND
+  (storage.foldername(name))[1] IN (
+    SELECT p.slug FROM projects p
+    JOIN project_members pm ON p.id = pm.project_id
+    WHERE pm.user_id = auth.uid() AND pm.status = 'active'
+  )
+);
+"""
+
+policies_bucket_policy = """
+CREATE POLICY "Users can access policies from their projects" ON storage.objects
+FOR ALL USING (
+  bucket_id = 'policies' AND
+  (storage.foldername(name))[1] IN (
+    SELECT p.slug FROM projects p
+    JOIN project_members pm ON p.id = pm.project_id
+    WHERE pm.user_id = auth.uid() AND pm.status = 'active'
+  )
+);
+"""
+
+assets_bucket_policy = """
+CREATE POLICY "Users can access assets from their projects" ON storage.objects
+FOR ALL USING (
+  bucket_id = 'assets' AND
+  (storage.foldername(name))[1] IN (
+    SELECT p.slug FROM projects p
+    JOIN project_members pm ON p.id = pm.project_id
+    WHERE pm.user_id = auth.uid() AND pm.status = 'active'
+  )
+);
+"""
+
+reports_bucket_policy = """
+CREATE POLICY "Users can access reports from their projects" ON storage.objects
+FOR ALL USING (
+  bucket_id = 'reports' AND
+  (storage.foldername(name))[1] IN (
+    SELECT p.slug FROM projects p
+    JOIN project_members pm ON p.id = pm.project_id
+    WHERE pm.user_id = auth.uid() AND pm.status = 'active'
+  )
+);
+"""

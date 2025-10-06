@@ -1,0 +1,156 @@
+[build]
+  publish = "dist"
+  command = "npm ci && npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
+  NODE_ENV = "production"
+  VITE_SUPABASE_URL = "https://apdkvfhtezenquctnjvq.supabase.co"
+  VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwZGt2Zmh0ZXplbnF1Y3RuanZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMxNjkzNjYsImV4cCI6MjA2ODc0NTM2Nn0.Ohze3FaQCqQm4Lh8LHMCoJOruGUxlvfW-YSHFJcYUrc"
+
+# Security headers for all pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security Headers
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), magnetometer=(), gyroscope=(), accelerometer=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Permitted-Cross-Domain-Policies = "none"
+    Cross-Origin-Embedder-Policy = "require-corp"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Resource-Policy = "same-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://vitals.vercel-analytics.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vitals.vercel-analytics.com https://api.cybercertitude.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; media-src 'self'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests;"
+
+# Cache static assets with long-term caching
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+
+# Cache fonts
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+
+# Cache CSS and JS files
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+# Cache images and fonts
+[[headers]]
+  for = "*.{png,jpg,jpeg,gif,svg,ico,webp}"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "*.{woff,woff2,ttf,eot}"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+# API routes - no caching
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate, private"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+
+# Health check endpoint
+[[headers]]
+  for = "/health"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+
+# Health check endpoint
+[[redirects]]
+  from = "/health"
+  to = "/.netlify/functions/health"
+  status = 200
+
+# Security redirects
+[[redirects]]
+  from = "/.env"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/package.json"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/README.md"
+  to = "/404"
+  status = 404
+
+# Performance optimizations
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# Functions for health monitoring and security
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Edge functions for security headers
+[[edge_functions]]
+  function = "security-headers"
+  path = "/*"
+
+# Build plugins for optimization
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+# Environment-specific settings
+[context.production]
+  [context.production.environment]
+    NODE_ENV = "production"
+    VITE_APP_ENV = "production"
+
+[context.deploy-preview]
+  [context.deploy-preview.environment]
+    NODE_ENV = "staging"
+    VITE_APP_ENV = "staging"
+
+[context.branch-deploy]
+  [context.branch-deploy.environment]
+    NODE_ENV = "development"
+    VITE_APP_ENV = "development"
+
+# SPA fallback - must be last redirect rule
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

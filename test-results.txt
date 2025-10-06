@@ -1,0 +1,30 @@
+
+> cmmc-level2-compliance-platform@2.0.0 test:run
+> vitest run
+
+
+ RUN  v3.2.4 /workspace
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/App.test.tsx [ src/App.test.tsx ]
+ FAIL  src/services/__tests__/mfaService.test.ts [ src/services/__tests__/mfaService.test.ts ]
+ FAIL  src/services/__tests__/securityMiddleware.test.ts [ src/services/__tests__/securityMiddleware.test.ts ]
+ FAIL  src/features/assessment/components/__tests__/AssessmentIntroScreen.test.tsx [ src/features/assessment/components/__tests__/AssessmentIntroScreen.test.tsx ]
+ FAIL  src/features/assets/components/__tests__/AssetDashboard.test.tsx [ src/features/assets/components/__tests__/AssetDashboard.test.tsx ]
+ FAIL  src/features/auth/components/__tests__/MFASetup.test.tsx [ src/features/auth/components/__tests__/MFASetup.test.tsx ]
+ FAIL  src/features/evidence/components/__tests__/EvidenceCollectionDashboard.test.tsx [ src/features/evidence/components/__tests__/EvidenceCollectionDashboard.test.tsx ]
+ FAIL  src/features/reporting/components/__tests__/AssessmentReportsPage.test.tsx [ src/features/reporting/components/__tests__/AssessmentReportsPage.test.tsx ]
+Error: Cannot find module '/workspace/src/test/setup.ts'
+Caused by: Error: Failed to load url /workspace/src/test/setup.ts (resolved id: /workspace/src/test/setup.ts). Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/dep-CuuNgwUk.js:26143:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+
+ Test Files  8 failed (8)
+      Tests  no tests
+   Start at  12:30:50
+   Duration  3.13s (transform 25ms, setup 0ms, collect 0ms, tests 0ms, environment 5.08s, prepare 1.37s)
+
