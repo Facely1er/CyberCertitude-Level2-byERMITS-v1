@@ -61,7 +61,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
     {
       icon: Target,
       title: 'Smart Assessments',
-      description: 'Role-based security assessments aligned with NIST CSF and CMMC requirements for comprehensive gap analysis',
+      description: 'Role-based security assessments aligned with NIST CSF and CMMC 2.0 requirements for comprehensive gap analysis',
       link: '/assessment-intro'
     },
     {
