@@ -708,3 +708,5 @@ export const SecurityAssessmentReportGenerator: React.FC<SecurityAssessmentRepor
     </div>
   );
 };
+
+export default SecurityAssessmentReportGenerator;
