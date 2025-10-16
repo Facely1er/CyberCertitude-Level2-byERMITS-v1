@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => ({
     minify: 'terser',
     sourcemap: false, // Disable in production for security
     cssCodeSplit: true,
-    chunkSizeWarningLimit: 800, // Reduced from 1000
+    chunkSizeWarningLimit: 500, // Reduced for better performance
     rollupOptions: {
       external: ['@sentry/react'],
       output: {

@@ -6,8 +6,6 @@
   NODE_VERSION = "18"
   NPM_VERSION = "9"
   NODE_ENV = "production"
-  VITE_SUPABASE_URL = "https://apdkvfhtezenquctnjvq.supabase.co"
-  VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwZGt2Zmh0ZXplbnF1Y3RuanZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMxNjkzNjYsImV4cCI6MjA2ODc0NTM2Nn0.Ohze3FaQCqQm4Lh8LHMCoJOruGUxlvfW-YSHFJcYUrc"
 
 # Security headers for all pages
 [[headers]]
