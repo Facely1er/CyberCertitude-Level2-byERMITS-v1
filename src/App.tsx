@@ -1625,7 +1625,7 @@ function App() {
                 <SecurityAssessmentReportGenerator
                   assessments={savedAssessments}
                   userProfile={userProfile}
-                  onSaveReport={(report) => {
+                  onSaveReport={() => {
                     addNotification('success', 'Security Assessment Report saved successfully');
                   }}
                   onExportReport={(report, format) => {

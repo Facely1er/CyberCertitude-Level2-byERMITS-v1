@@ -1,248 +1,178 @@
-import React, { useState } from 'react';
-import { TriangleAlert as AlertTriangle, Plus, CreditCard as Edit, Trash2, Save, Download, Clock, Users, FileText, CircleCheck as CheckCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { TriangleAlert as AlertTriangle, Plus, Save, Download, Clock, Users, FileText, CircleCheck as CheckCircle, Shield, Target, AlertCircle, Phone, Mail, Calendar, BarChart3, ChevronDown, ChevronRight, Copy, Check } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import incidentResponseService, { IncidentResponsePlan, ResponseTeamMember, CommunicationTemplate } from '../../../services/incidentResponseService';
 
 interface IncidentResponsePlannerProps {
-  onSave?: (plan: any) => void;
-  onExport?: (plan: any) => void;
+  onSave?: (plan: IncidentResponsePlan) => void;
+  onExport?: (plan: IncidentResponsePlan) => void;
 }
-
-interface IncidentPhase {
-  id: string;
-  name: string;
-  description: string;
-  order: number;
-  duration: string;
-  activities: IncidentActivity[];
-  deliverables: string[];
-  successCriteria: string[];
-}
-
-interface IncidentActivity {
-  id: string;
-  title: string;
-  description: string;
-  responsible: string;
-  duration: string;
-  dependencies: string[];
-  tools: string[];
-  documentation: string[];
-}
-
-interface IncidentRole {
-  id: string;
-  name: string;
-  description: string;
-  responsibilities: string[];
-  skills: string[];
-  training: string[];
-  escalation: string;
-}
-
-interface IncidentContact {
-  id: string;
-  name: string;
-  role: string;
-  organization: string;
-  phone: string;
-  email: string;
-  availability: string;
-  escalation: boolean;
-  priority: 'primary' | 'secondary' | 'tertiary';
-}
-
-const INCIDENT_CATEGORIES = [
-  'Data Breach', 'Malware', 'DDoS', 'Insider Threat', 'Physical Security',
-  'System Compromise', 'Social Engineering', 'Supply Chain', 'Cloud Security', 'Other'
-] as const;
-
-const INCIDENT_SEVERITIES = ['critical', 'high', 'medium', 'low'] as const;
 
 const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
   onSave,
   onExport
 }) => {
-  const [plan, setPlan] = useState({
-    id: '',
-    title: '',
-    description: '',
-    organizationId: '',
-    version: '1.0',
-    phases: [] as IncidentPhase[],
-    roles: [] as IncidentRole[],
-    contacts: [] as IncidentContact[],
-    procedures: [] as any[],
-    templates: [] as any[],
-    createdDate: new Date(),
-    lastUpdated: new Date(),
-    status: 'draft' as const,
-    author: '',
-    tags: [] as string[]
-  });
+  const [plan, setPlan] = useState<IncidentResponsePlan | null>(null);
+  const [activeTab, setActiveTab] = useState<'overview' | 'classifications' | 'team' | 'phases' | 'escalation' | 'communications' | 'testing' | 'training' | 'cmmc'>('overview');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['overview']));
+  const [showForm, setShowForm] = useState<string | null>(null);
+  const [copiedText, setCopiedText] = useState<string | null>(null);
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'phases' | 'roles' | 'contacts' | 'procedures'>('overview');
-  const [showPhaseForm, setShowPhaseForm] = useState(false);
-  const [showRoleForm, setShowRoleForm] = useState(false);
-  const [showContactForm, setShowContactForm] = useState(false);
-  const [editingPhase, setEditingPhase] = useState<string | null>(null);
-  const [editingRole, setEditingRole] = useState<string | null>(null);
-  const [editingContact, setEditingContact] = useState<string | null>(null);
-
-  const [newPhase, setNewPhase] = useState<Partial<IncidentPhase>>({
-    name: '',
-    description: '',
-    order: 0,
-    duration: '',
-    activities: [],
-    deliverables: [],
-    successCriteria: []
-  });
-
-  const [newRole, setNewRole] = useState<Partial<IncidentRole>>({
-    name: '',
-    description: '',
-    responsibilities: [],
-    skills: [],
-    training: [],
-    escalation: ''
-  });
-
-  const [newContact, setNewContact] = useState<Partial<IncidentContact>>({
+  // Form states
+  const [newTeamMember, setNewTeamMember] = useState<Partial<ResponseTeamMember>>({
     name: '',
     role: '',
-    organization: '',
-    phone: '',
     email: '',
+    phone: '',
+    responsibility: 'R',
+    skills: [],
     availability: '',
-    escalation: false,
-    priority: 'primary'
+    escalationLevel: 1
   });
 
-  const [newTag, setNewTag] = useState('');
+  const [newTemplate, setNewTemplate] = useState<Partial<CommunicationTemplate>>({
+    name: '',
+    type: 'internal',
+    subject: '',
+    body: '',
+    recipients: [],
+    sendTiming: '',
+    approvalRequired: false
+  });
 
-  const addPhase = () => {
-    if (!newPhase.name || !newPhase.description) return;
+  useEffect(() => {
+    initializePlan();
+  }, []);
 
-    const phase: IncidentPhase = {
-      id: Date.now().toString(),
-      name: newPhase.name!,
-      description: newPhase.description!,
-      order: plan.phases.length + 1,
-      duration: newPhase.duration || '',
-      activities: [],
-      deliverables: [],
-      successCriteria: []
-    };
-
-    setPlan(prev => ({
-      ...prev,
-      phases: [...prev.phases, phase],
-      lastUpdated: new Date()
-    }));
-
-    setNewPhase({
-      name: '',
-      description: '',
-      order: 0,
-      duration: '',
-      activities: [],
-      deliverables: [],
-      successCriteria: []
-    });
-    setShowPhaseForm(false);
+  const initializePlan = async () => {
+    try {
+      setIsLoading(true);
+      const newPlan = await incidentResponseService.createIncidentResponsePlan({
+        title: 'CMMC Level 2 Incident Response Plan',
+        organization: 'Your Organization',
+        version: '1.0'
+      });
+      setPlan(newPlan);
+    } catch (err) {
+      setError('Failed to initialize incident response plan');
+      console.error('Error initializing plan:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const addRole = () => {
-    if (!newRole.name || !newRole.description) return;
-
-    const role: IncidentRole = {
-      id: Date.now().toString(),
-      name: newRole.name!,
-      description: newRole.description!,
-      responsibilities: newRole.responsibilities || [],
-      skills: newRole.skills || [],
-      training: newRole.training || [],
-      escalation: newRole.escalation || ''
-    };
-
-    setPlan(prev => ({
-      ...prev,
-      roles: [...prev.roles, role],
-      lastUpdated: new Date()
-    }));
-
-    setNewRole({
-      name: '',
-      description: '',
-      responsibilities: [],
-      skills: [],
-      training: [],
-      escalation: ''
-    });
-    setShowRoleForm(false);
+  const toggleSection = (section: string) => {
+    const newExpanded = new Set(expandedSections);
+    if (newExpanded.has(section)) {
+      newExpanded.delete(section);
+    } else {
+      newExpanded.add(section);
+    }
+    setExpandedSections(newExpanded);
   };
 
-  const addContact = () => {
-    if (!newContact.name || !newContact.role || !newContact.email) return;
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedText(text);
+      setTimeout(() => setCopiedText(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy text:', err);
+    }
+  };
 
-    const contact: IncidentContact = {
-      id: Date.now().toString(),
-      name: newContact.name!,
-      role: newContact.role!,
-      organization: newContact.organization || '',
-      phone: newContact.phone || '',
-      email: newContact.email!,
-      availability: newContact.availability || '',
-      escalation: newContact.escalation || false,
-      priority: newContact.priority || 'primary'
+  const addTeamMember = () => {
+    if (!plan || !newTeamMember.name || !newTeamMember.email) return;
+
+    const member: ResponseTeamMember = {
+      id: crypto.randomUUID(),
+      name: newTeamMember.name!,
+      role: newTeamMember.role || '',
+      email: newTeamMember.email!,
+      phone: newTeamMember.phone || '',
+      responsibility: newTeamMember.responsibility || 'R',
+      skills: newTeamMember.skills || [],
+      availability: newTeamMember.availability || '',
+      escalationLevel: newTeamMember.escalationLevel || 1
     };
 
-    setPlan(prev => ({
+    setPlan(prev => prev ? {
       ...prev,
-      contacts: [...prev.contacts, contact],
-      lastUpdated: new Date()
-    }));
+      responseTeam: [...prev.responseTeam, member],
+      updated_at: new Date()
+    } : null);
 
-    setNewContact({
+    setNewTeamMember({
       name: '',
       role: '',
-      organization: '',
-      phone: '',
       email: '',
+      phone: '',
+      responsibility: 'R',
+      skills: [],
       availability: '',
-      escalation: false,
-      priority: 'primary'
+      escalationLevel: 1
     });
-    setShowContactForm(false);
+    setShowForm(null);
   };
 
-  const addTag = () => {
-    if (newTag.trim()) {
-      setPlan(prev => ({
-        ...prev,
-        tags: [...prev.tags, newTag.trim()]
-      }));
-      setNewTag('');
-    }
-  };
+  const addCommunicationTemplate = () => {
+    if (!plan || !newTemplate.name || !newTemplate.subject) return;
 
-  const removeTag = (index: number) => {
-    setPlan(prev => ({
+    const template: CommunicationTemplate = {
+      id: crypto.randomUUID(),
+      name: newTemplate.name!,
+      type: newTemplate.type || 'internal',
+      subject: newTemplate.subject!,
+      body: newTemplate.body || '',
+      recipients: newTemplate.recipients || [],
+      sendTiming: newTemplate.sendTiming || '',
+      approvalRequired: newTemplate.approvalRequired || false
+    };
+
+    setPlan(prev => prev ? {
       ...prev,
-      tags: prev.tags.filter((_, i) => i !== index)
-    }));
+      communicationTemplates: [...prev.communicationTemplates, template],
+      updated_at: new Date()
+    } : null);
+
+    setNewTemplate({
+      name: '',
+      type: 'internal',
+      subject: '',
+      body: '',
+      recipients: [],
+      sendTiming: '',
+      approvalRequired: false
+    });
+    setShowForm(null);
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'primary': return 'text-red-600 bg-red-100';
-      case 'secondary': return 'text-yellow-600 bg-yellow-100';
-      case 'tertiary': return 'text-blue-600 bg-blue-100';
-      default: return 'text-gray-600 bg-gray-100';
+  const getSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'critical': return 'text-red-600 bg-red-100 dark:text-red-400 dark:bg-red-900';
+      case 'high': return 'text-orange-600 bg-orange-100 dark:text-orange-400 dark:bg-orange-900';
+      case 'medium': return 'text-yellow-600 bg-yellow-100 dark:text-yellow-400 dark:bg-yellow-900';
+      case 'low': return 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900';
+      default: return 'text-gray-600 bg-gray-100 dark:text-gray-400 dark:bg-gray-700';
     }
   };
 
-  const renderOverview = () => (
+  const getResponsibilityColor = (responsibility: string) => {
+    switch (responsibility) {
+      case 'R': return 'text-blue-600 bg-blue-100 dark:text-blue-400 dark:bg-blue-900';
+      case 'A': return 'text-purple-600 bg-purple-100 dark:text-purple-400 dark:bg-purple-900';
+      case 'C': return 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900';
+      case 'I': return 'text-gray-600 bg-gray-100 dark:text-gray-400 dark:bg-gray-700';
+      default: return 'text-gray-600 bg-gray-100 dark:text-gray-400 dark:bg-gray-700';
+    }
+  };
+
+  const renderOverview = () => {
+    if (!plan) return null;
+
+    return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
@@ -252,21 +182,21 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
           <input
             type="text"
             value={plan.title}
-            onChange={(e) => setPlan(prev => ({ ...prev, title: e.target.value }))}
+              onChange={(e) => setPlan(prev => prev ? { ...prev, title: e.target.value, updated_at: new Date() } : null)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
             placeholder="Enter plan title"
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Author
+              Organization
           </label>
           <input
             type="text"
-            value={plan.author}
-            onChange={(e) => setPlan(prev => ({ ...prev, author: e.target.value }))}
+              value={plan.organization}
+              onChange={(e) => setPlan(prev => prev ? { ...prev, organization: e.target.value, updated_at: new Date() } : null)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-            placeholder="Enter author name"
+              placeholder="Enter organization name"
           />
         </div>
         <div>
@@ -276,333 +206,605 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
           <input
             type="text"
             value={plan.version}
-            onChange={(e) => setPlan(prev => ({ ...prev, version: e.target.value }))}
+              onChange={(e) => setPlan(prev => prev ? { ...prev, version: e.target.value, updated_at: new Date() } : null)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
             placeholder="Enter version"
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Status
+              Effective Date
           </label>
-          <select
-            value={plan.status}
-            onChange={(e) => setPlan(prev => ({ ...prev, status: e.target.value as any }))}
+            <input
+              type="date"
+              value={plan.effectiveDate.toISOString().split('T')[0]}
+              onChange={(e) => setPlan(prev => prev ? { ...prev, effectiveDate: new Date(e.target.value), updated_at: new Date() } : null)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-          >
-            <option value="draft">Draft</option>
-            <option value="approved">Approved</option>
-            <option value="active">Active</option>
-            <option value="deprecated">Deprecated</option>
-          </select>
-        </div>
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Description
-          </label>
-          <textarea
-            value={plan.description}
-            onChange={(e) => setPlan(prev => ({ ...prev, description: e.target.value }))}
-            rows={3}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-            placeholder="Enter plan description"
           />
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Tags
-        </label>
-        <div className="flex gap-2 mb-2">
-          <input
-            type="text"
-            value={newTag}
-            onChange={(e) => setNewTag(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && addTag()}
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-            placeholder="Enter tag"
-          />
-          <button
-            onClick={addTag}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Add
-          </button>
+        <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+          <h4 className="font-medium text-gray-900 dark:text-white mb-4">Plan Statistics</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{plan.classifications.length}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Classifications</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600 dark:text-green-400">{plan.responseTeam.length}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Team Members</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">{plan.responsePhases.length}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Response Phases</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{plan.communicationTemplates.length}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Templates</div>
+            </div>
+          </div>
         </div>
+
+        <div className="bg-blue-50 dark:bg-blue-900 rounded-lg p-6">
+          <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">CMMC Compliance Status</h4>
+          <p className="text-blue-800 dark:text-blue-200 text-sm mb-4">
+            This incident response plan addresses the following CMMC Level 2 controls:
+          </p>
         <div className="flex flex-wrap gap-2">
-          {plan.tags.map((tag, index) => (
-            <span
-              key={index}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
-            >
-              {tag}
-              <button
-                onClick={() => removeTag(index)}
-                className="ml-1 text-blue-600 hover:text-blue-800"
-              >
-                <XCircle className="w-3 h-3" />
-              </button>
-            </span>
-          ))}
+            <span className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-sm rounded-full">IR.L2-3.6.1</span>
+            <span className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-sm rounded-full">IR.L2-3.6.2</span>
+            <span className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-sm rounded-full">IR.L2-3.6.3</span>
+            <span className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-sm rounded-full">AU.L2-3.3.1</span>
+            <span className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-sm rounded-full">AU.L2-3.3.2</span>
+          </div>
         </div>
       </div>
+    );
+  };
 
-      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-        <h4 className="font-medium text-gray-900 dark:text-white mb-2">Plan Statistics</h4>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-          <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Phases:</span>
-            <p className="text-gray-600 dark:text-gray-400">{plan.phases.length}</p>
-          </div>
-          <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Roles:</span>
-            <p className="text-gray-600 dark:text-gray-400">{plan.roles.length}</p>
-          </div>
-          <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Contacts:</span>
-            <p className="text-gray-600 dark:text-gray-400">{plan.contacts.length}</p>
-          </div>
-          <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Procedures:</span>
-            <p className="text-gray-600 dark:text-gray-400">{plan.procedures.length}</p>
+  const renderClassifications = () => {
+    if (!plan) return null;
+
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Incident Classifications ({plan.classifications.length})
+          </h3>
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            Pre-configured CMMC-compliant classifications
           </div>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {plan.classifications.map((classification) => (
+            <div key={classification.category} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
+                    {classification.category.replace(/-/g, ' ').toUpperCase()}
+                  </h4>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSeverityColor(classification.severity)}`}>
+                      {classification.severity.toUpperCase()}
+                    </span>
+                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
+                      Priority {classification.priority}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">Response Time:</span>
+                  <span className="font-medium text-gray-900 dark:text-white">{classification.responseTime}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">CUI Involved:</span>
+                  <span className={`font-medium ${classification.cuiInvolved ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
+                    {classification.cuiInvolved ? 'Yes' : 'No'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">External Reporting:</span>
+                  <span className={`font-medium ${classification.externalReportingRequired ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
+                    {classification.externalReportingRequired ? 'Required' : 'Not Required'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">Escalation:</span>
+                  <span className={`font-medium ${classification.escalationRequired ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
+                    {classification.escalationRequired ? 'Required' : 'Not Required'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">CMMC Controls:</div>
+                <div className="flex flex-wrap gap-1">
+                  {classification.cmmcControls.map((control) => (
+                    <span key={control} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                      {control}
+                    </span>
+                  ))}
+          </div>
+          </div>
+          </div>
+          ))}
       </div>
     </div>
   );
+  };
 
-  const renderPhases = () => (
-    <div className="space-y-4">
+  const renderTeam = () => {
+    if (!plan) return null;
+
+    return (
+      <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Incident Response Phases ({plan.phases.length})
+            Response Team ({plan.responseTeam.length})
         </h3>
         <button
-          onClick={() => setShowPhaseForm(true)}
+            onClick={() => setShowForm('team')}
           className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
           <Plus className="w-4 h-4" />
-          Add Phase
+            Add Team Member
         </button>
       </div>
 
-      {plan.phases.length === 0 ? (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-          No phases added yet. Click "Add Phase" to get started.
+        {showForm === 'team' && (
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+            <h4 className="font-medium text-gray-900 dark:text-white mb-4">Add Team Member</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                <input
+                  type="text"
+                  value={newTeamMember.name || ''}
+                  onChange={(e) => setNewTeamMember(prev => ({ ...prev, name: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Enter name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Role</label>
+                <input
+                  type="text"
+                  value={newTeamMember.role || ''}
+                  onChange={(e) => setNewTeamMember(prev => ({ ...prev, role: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Enter role"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                <input
+                  type="email"
+                  value={newTeamMember.email || ''}
+                  onChange={(e) => setNewTeamMember(prev => ({ ...prev, email: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phone</label>
+                <input
+                  type="tel"
+                  value={newTeamMember.phone || ''}
+                  onChange={(e) => setNewTeamMember(prev => ({ ...prev, phone: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Enter phone"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Responsibility</label>
+                <select
+                  value={newTeamMember.responsibility || 'R'}
+                  onChange={(e) => setNewTeamMember(prev => ({ ...prev, responsibility: e.target.value as 'R' | 'A' | 'C' | 'I' }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                >
+                  <option value="R">Responsible</option>
+                  <option value="A">Accountable</option>
+                  <option value="C">Consulted</option>
+                  <option value="I">Informed</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Escalation Level</label>
+                <select
+                  value={newTeamMember.escalationLevel || 1}
+                  onChange={(e) => setNewTeamMember(prev => ({ ...prev, escalationLevel: parseInt(e.target.value) }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                >
+                  <option value={1}>Level 1 - Initial Response</option>
+                  <option value={2}>Level 2 - Security Team Lead</option>
+                  <option value={3}>Level 3 - CISO/Executive</option>
+                  <option value={4}>Level 4 - External Authorities</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex gap-2 mt-4">
+              <button
+                onClick={addTeamMember}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Add Member
+              </button>
+              <button
+                onClick={() => setShowForm(null)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
         </div>
-      ) : (
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {plan.responseTeam.map((member) => (
+            <div key={member.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{member.name}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{member.role}</p>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getResponsibilityColor(member.responsibility)}`}>
+                      {member.responsibility === 'R' ? 'Responsible' : member.responsibility === 'A' ? 'Accountable' : member.responsibility === 'C' ? 'Consulted' : 'Informed'}
+                    </span>
+                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
+                      Level {member.escalationLevel}
+                      </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-600 dark:text-gray-400">{member.email}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-600 dark:text-gray-400">{member.phone}</span>
+                </div>
+                {member.availability && (
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-gray-400" />
+                    <span className="text-gray-600 dark:text-gray-400">{member.availability}</span>
+                  </div>
+                )}
+              </div>
+
+              {member.skills.length > 0 && (
+                <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">Skills:</div>
+                  <div className="flex flex-wrap gap-1">
+                    {member.skills.map((skill, index) => (
+                      <span key={index} className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+    </div>
+  );
+  };
+
+  const renderPhases = () => {
+    if (!plan) return null;
+
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Response Phases ({plan.responsePhases.length})
+          </h3>
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            Pre-configured CMMC-compliant response phases
+          </div>
+        </div>
+
         <div className="space-y-4">
-          {plan.phases.map((phase) => (
-            <div key={phase.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
-              <div className="flex items-start justify-between">
+          {plan.responsePhases.map((phase) => (
+            <div key={phase.phase} className="border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+              <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <Clock className="w-5 h-5 text-blue-500" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
                       {phase.name}
                     </h4>
-                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
-                      Phase {phase.order}
+                    <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">
+                      {phase.estimatedDuration}
                     </span>
-                    {phase.duration && (
-                      <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
-                        {phase.duration}
-                      </span>
-                    )}
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                  <p className="text-gray-600 dark:text-gray-300 mb-3">
                     {phase.description}
                   </p>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Activities: {phase.activities.length} | Deliverables: {phase.deliverables.length} | Success Criteria: {phase.successCriteria.length}
+                </div>
+                <button
+                  onClick={() => toggleSection(phase.phase)}
+                  className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                >
+                  {expandedSections.has(phase.phase) ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                </button>
+              </div>
+
+              {expandedSections.has(phase.phase) && (
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="font-medium text-gray-900 dark:text-white mb-2">Objectives</h5>
+                    <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                      {phase.objectives.map((objective, index) => (
+                        <li key={index}>{objective}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h5 className="font-medium text-gray-900 dark:text-white mb-2">Key Activities</h5>
+                    <div className="space-y-3">
+                      {phase.activities.map((activity) => (
+                        <div key={activity.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                          <div className="flex items-start justify-between mb-2">
+                            <h6 className="font-medium text-gray-900 dark:text-white">{activity.name}</h6>
+                            <span className="text-xs text-gray-500 dark:text-gray-400">{activity.estimatedDuration}</span>
+                          </div>
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{activity.description}</p>
+                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                            <span className="font-medium">Responsible:</span> {activity.responsibleRole}
+                            {activity.cmmcControl && (
+                              <span className="ml-2 px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded">
+                                {activity.cmmcControl}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 className="font-medium text-gray-900 dark:text-white mb-2">Success Criteria</h5>
+                    <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                      {phase.successCriteria.map((criteria, index) => (
+                        <li key={index}>{criteria}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h5 className="font-medium text-gray-900 dark:text-white mb-2">CMMC Controls</h5>
+                    <div className="flex flex-wrap gap-2">
+                      {phase.cmmcControls.map((control) => (
+                        <span key={control} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                          {control}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setEditingPhase(phase.id)}
-                    className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
-                  >
-                    <Edit className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setPlan(prev => ({
-                      ...prev,
-                      phases: prev.phases.filter(p => p.id !== phase.id),
-                      lastUpdated: new Date()
-                    }))}
-                    className="p-2 text-gray-500 hover:text-red-600 transition-colors"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
+              )}
             </div>
           ))}
         </div>
-      )}
-    </div>
-  );
-
-  const renderRoles = () => (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Incident Response Roles ({plan.roles.length})
-        </h3>
-        <button
-          onClick={() => setShowRoleForm(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          Add Role
-        </button>
       </div>
+    );
+  };
 
-      {plan.roles.length === 0 ? (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-          No roles added yet. Click "Add Role" to get started.
+  const renderCommunications = () => {
+    if (!plan) return null;
+
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Communication Templates ({plan.communicationTemplates.length})
+          </h3>
+          <button
+            onClick={() => setShowForm('template')}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            Add Template
+          </button>
         </div>
-      ) : (
-        <div className="space-y-4">
-          {plan.roles.map((role) => (
-            <div key={role.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Users className="w-5 h-5 text-green-500" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
-                      {role.name}
-                    </h4>
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-2">
-                    {role.description}
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-500 dark:text-gray-400">
-                    <div>
-                      <span className="font-medium">Responsibilities:</span> {role.responsibilities.length}
-                    </div>
-                    <div>
-                      <span className="font-medium">Skills:</span> {role.skills.length}
-                    </div>
-                    <div>
-                      <span className="font-medium">Training:</span> {role.training.length}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setEditingRole(role.id)}
-                    className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
-                  >
-                    <Edit className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setPlan(prev => ({
-                      ...prev,
-                      roles: prev.roles.filter(r => r.id !== role.id),
-                      lastUpdated: new Date()
-                    }))}
-                    className="p-2 text-gray-500 hover:text-red-600 transition-colors"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+
+        {showForm === 'template' && (
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+            <h4 className="font-medium text-gray-900 dark:text-white mb-4">Add Communication Template</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                <input
+                  type="text"
+                  value={newTemplate.name || ''}
+                  onChange={(e) => setNewTemplate(prev => ({ ...prev, name: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Enter template name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Type</label>
+                <select
+                  value={newTemplate.type || 'internal'}
+                  onChange={(e) => setNewTemplate(prev => ({ ...prev, type: e.target.value as any }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                >
+                  <option value="internal">Internal</option>
+                  <option value="executive">Executive</option>
+                  <option value="external">External</option>
+                  <option value="regulatory">Regulatory</option>
+                  <option value="customer">Customer</option>
+                </select>
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Subject</label>
+                <input
+                  type="text"
+                  value={newTemplate.subject || ''}
+                  onChange={(e) => setNewTemplate(prev => ({ ...prev, subject: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Enter email subject"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Body</label>
+                <textarea
+                  value={newTemplate.body || ''}
+                  onChange={(e) => setNewTemplate(prev => ({ ...prev, body: e.target.value }))}
+                  rows={6}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Enter email body template"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Send Timing</label>
+                <input
+                  type="text"
+                  value={newTemplate.sendTiming || ''}
+                  onChange={(e) => setNewTemplate(prev => ({ ...prev, sendTiming: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="e.g., Immediate, Within 1 hour"
+                />
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={newTemplate.approvalRequired || false}
+                  onChange={(e) => setNewTemplate(prev => ({ ...prev, approvalRequired: e.target.checked }))}
+                  className="mr-2"
+                />
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Approval Required</label>
               </div>
             </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+            <div className="flex gap-2 mt-4">
+              <button
+                onClick={addCommunicationTemplate}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Add Template
+              </button>
+              <button
+                onClick={() => setShowForm(null)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
 
-  const renderContacts = () => (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Incident Response Contacts ({plan.contacts.length})
-        </h3>
-        <button
-          onClick={() => setShowContactForm(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          Add Contact
-        </button>
-      </div>
-
-      {plan.contacts.length === 0 ? (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-          No contacts added yet. Click "Add Contact" to get started.
-        </div>
-      ) : (
         <div className="space-y-4">
-          {plan.contacts.map((contact) => (
-            <div key={contact.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
-              <div className="flex items-start justify-between">
+          {plan.communicationTemplates.map((template) => (
+            <div key={template.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+              <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Users className="w-5 h-5 text-purple-500" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
-                      {contact.name}
-                    </h4>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(contact.priority)}`}>
-                      {contact.priority.toUpperCase()}
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{template.name}</h4>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">
+                      {template.type.toUpperCase()}
                     </span>
-                    {contact.escalation && (
+                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
+                      {template.sendTiming}
+                    </span>
+                    {template.approvalRequired && (
                       <span className="px-2 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs rounded-full">
-                        ESCALATION
+                        APPROVAL REQUIRED
                       </span>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-500 dark:text-gray-400">
-                    <div>
-                      <span className="font-medium">Role:</span> {contact.role}
-                    </div>
-                    <div>
-                      <span className="font-medium">Organization:</span> {contact.organization}
-                    </div>
-                    <div>
-                      <span className="font-medium">Phone:</span> {contact.phone}
-                    </div>
-                    <div>
-                      <span className="font-medium">Email:</span> {contact.email}
-                    </div>
-                    <div>
-                      <span className="font-medium">Availability:</span> {contact.availability}
-                    </div>
+                </div>
+                <button
+                  onClick={() => copyToClipboard(template.body)}
+                  className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                  title="Copy template"
+                >
+                  {copiedText === template.body ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
+
+              <div className="space-y-2 text-sm">
+                <div>
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Subject:</span>
+                  <span className="ml-2 text-gray-600 dark:text-gray-400">{template.subject}</span>
+                </div>
+                <div>
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Recipients:</span>
+                  <span className="ml-2 text-gray-600 dark:text-gray-400">{template.recipients.join(', ')}</span>
+                </div>
+                {template.cmmcRequirement && (
+                  <div>
+                    <span className="font-medium text-gray-700 dark:text-gray-300">CMMC Requirement:</span>
+                    <span className="ml-2 px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded">
+                      {template.cmmcRequirement}
+                    </span>
                   </div>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setEditingContact(contact.id)}
-                    className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
-                  >
-                    <Edit className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setPlan(prev => ({
-                      ...prev,
-                      contacts: prev.contacts.filter(c => c.id !== contact.id),
-                      lastUpdated: new Date()
-                    }))}
-                    className="p-2 text-gray-500 hover:text-red-600 transition-colors"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+                )}
+              </div>
+
+              <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">Template Body:</div>
+                <pre className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-xs text-gray-700 dark:text-gray-300 whitespace-pre-wrap overflow-x-auto">
+                  {template.body}
+                </pre>
               </div>
             </div>
           ))}
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  };
 
   const breadcrumbs = [
     { label: 'Technical Tools', path: '/incident-response' },
     { label: 'Incident Response Planner', isActive: true }
   ];
+
+  if (isLoading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-400">Loading incident response plan...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-6">
+          <div className="flex items-center">
+            <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mr-2" />
+            <h3 className="text-lg font-medium text-red-800 dark:text-red-200">Error</h3>
+          </div>
+          <p className="mt-2 text-red-700 dark:text-red-300">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!plan) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+          No incident response plan available.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -616,10 +818,10 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                 <AlertTriangle className="w-6 h-6 text-red-600" />
-                Incident Response Planner
+                Enhanced Incident Response Planner
               </h1>
               <p className="text-gray-600 dark:text-gray-300 mt-1">
-                Plan and manage incident response procedures for CMMC compliance
+                Comprehensive CMMC Level 2 compliant incident response planning and management
               </p>
             </div>
             <div className="flex gap-2">
@@ -643,18 +845,22 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
 
         {/* Tabs */}
         <div className="border-b border-gray-200 dark:border-gray-700">
-          <nav className="flex space-x-8 px-6">
+          <nav className="flex space-x-8 px-6 overflow-x-auto">
             {[
               { id: 'overview', label: 'Overview', icon: FileText },
-              { id: 'phases', label: 'Phases', icon: Clock },
-              { id: 'roles', label: 'Roles', icon: Users },
-              { id: 'contacts', label: 'Contacts', icon: Users },
-              { id: 'procedures', label: 'Procedures', icon: CheckCircle }
+              { id: 'classifications', label: 'Classifications', icon: Target },
+              { id: 'team', label: 'Response Team', icon: Users },
+              { id: 'phases', label: 'Response Phases', icon: Clock },
+              { id: 'escalation', label: 'Escalation', icon: AlertCircle },
+              { id: 'communications', label: 'Communications', icon: Mail },
+              { id: 'testing', label: 'Testing', icon: CheckCircle },
+              { id: 'training', label: 'Training', icon: Shield },
+              { id: 'cmmc', label: 'CMMC Mapping', icon: BarChart3 }
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm ${
+                className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600 dark:text-blue-400'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
@@ -670,12 +876,28 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
         {/* Content */}
         <div className="p-6">
           {activeTab === 'overview' && renderOverview()}
+          {activeTab === 'classifications' && renderClassifications()}
+          {activeTab === 'team' && renderTeam()}
           {activeTab === 'phases' && renderPhases()}
-          {activeTab === 'roles' && renderRoles()}
-          {activeTab === 'contacts' && renderContacts()}
-          {activeTab === 'procedures' && (
+          {activeTab === 'escalation' && (
             <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-              Procedures management coming soon.
+              Escalation procedures management coming soon.
+            </div>
+          )}
+          {activeTab === 'communications' && renderCommunications()}
+          {activeTab === 'testing' && (
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              Testing schedule management coming soon.
+            </div>
+          )}
+          {activeTab === 'training' && (
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              Training requirements management coming soon.
+            </div>
+          )}
+          {activeTab === 'cmmc' && (
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              CMMC compliance mapping coming soon.
             </div>
           )}
         </div>
