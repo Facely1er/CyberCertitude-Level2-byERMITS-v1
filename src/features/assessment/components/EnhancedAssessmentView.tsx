@@ -1,6 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Save, FileText, Users, Clock, CircleCheck as CheckCircle, Target, Award, Star, BookOpen, TriangleAlert as AlertTriangle, Eye, EyeOff, Download, Upload, ChartBar as BarChart3, Calendar, Shield, Info, Circle as HelpCircle, Lightbulb, FileCheck, MessageCircle, Tag, Activity, Zap, RefreshCw, Plus, CreditCard as Edit3, ArrowRight, Building, Check, Pause, Calendar as CalendarIcon, X, Circle as XCircle } from 'lucide-react';
-import { AssessmentData, Framework, UserProfile, Question, EvidenceRequirement } from '../../../shared/types';
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Save, 
+  FileText, 
+  Users, 
+  Clock, 
+  CircleCheck as CheckCircle, 
+  Target, 
+  TriangleAlert as AlertTriangle, 
+  Info, 
+  Lightbulb, 
+  FileCheck, 
+  MessageCircle, 
+  Building, 
+  Check
+} from 'lucide-react';
+import { AssessmentData, Framework, UserProfile, Question, EvidenceItem } from '../../../shared/types';
 import { EvidenceManager } from './EvidenceManager';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -30,10 +46,8 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [showGuidance, setShowGuidance] = useState(false);
-  const [showEvidence, setShowEvidence] = useState(false);
   const [localAssessment, setLocalAssessment] = useState(assessment);
-  const [autoSaveEnabled, setAutoSaveEnabled] = useState(true);
+  const [autoSaveEnabled] = useState(true);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -52,27 +66,30 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
     return () => clearTimeout(autoSaveTimer);
   }, [localAssessment, autoSaveEnabled]);
 
-  const handleSave = async (isAutoSave = false) => {
+  const handleSave = useCallback(async (isAutoSave = false) => {
     if (isSaving) return;
     
     setIsSaving(true);
     try {
-      // Your existing save logic
-      await onSave(localAssessment);
+      const savedAssessment = await onSave(localAssessment);
+      setLocalAssessment(savedAssessment);
       setLastSaved(new Date());
+      
       if (!isAutoSave) {
         addNotification('success', 'Assessment saved successfully');
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to save assessment';
       if (!isAutoSave) {
-        addNotification('error', 'Failed to save assessment');
+        addNotification('error', `Save failed: ${errorMessage}`);
       }
+      console.error('Assessment save error:', error);
     } finally {
       setIsSaving(false);
     }
-  };
+  }, [isSaving, localAssessment, onSave, addNotification]);
 
-  const handleResponseChange = (questionId: string, value: number) => {
+  const handleResponseChange = useCallback((questionId: string, value: number) => {
     setLocalAssessment(prev => ({
       ...prev,
       responses: {
@@ -81,9 +98,9 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
       },
       lastModified: new Date()
     }));
-  };
+  }, []);
 
-  const handleNoteChange = (questionId: string, note: string) => {
+  const handleNoteChange = useCallback((questionId: string, note: string) => {
     setLocalAssessment(prev => ({
       ...prev,
       questionNotes: {
@@ -92,7 +109,7 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
       },
       lastModified: new Date()
     }));
-  };
+  }, []);
 
   const navigateToQuestion = (direction: 'next' | 'prev') => {
     const totalQuestions = currentCategory?.questions.length || 0;
@@ -164,26 +181,6 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
             </div>
           </div>
 
-          {/* Description Section */}
-          {question.description && (
-            <div className="mb-6">
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <Info className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">
-                      Description
-                    </h3>
-                    <p className="text-blue-800 dark:text-blue-200 leading-relaxed">
-                      {question.description || question.text}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* Implementation Guidance */}
           {question.guidance && (
@@ -438,20 +435,22 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
                     {question.options.find(opt => opt.value === currentResponse)?.description}
                   </p>
                 )}
-                {question.options.find(opt => opt.value === currentResponse)?.recommendedActions && 
-                 question.options.find(opt => opt.value === currentResponse)?.recommendedActions.length > 0 && (
-                  <div>
-                    <h6 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Recommended Actions:</h6>
-                    <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-300">
-                      {question.options.find(opt => opt.value === currentResponse)?.recommendedActions.map((action, index) => (
-                        <li key={index} className="flex items-start space-x-2">
-                          <span className="text-blue-500 mt-1">•</span>
-                          <span>{action}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                {(() => {
+                  const selectedOption = question.options.find(opt => opt.value === currentResponse);
+                  return selectedOption?.recommendedActions && selectedOption.recommendedActions.length > 0 && (
+                    <div>
+                      <h6 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Recommended Actions:</h6>
+                      <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                        {selectedOption.recommendedActions.map((action, index) => (
+                          <li key={index} className="flex items-start space-x-2">
+                            <span className="text-blue-500 mt-1">•</span>
+                            <span>{action}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })()}
               </div>
             )}
           </div>
@@ -502,39 +501,76 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
               }));
             }}
             onUploadEvidence={(file, metadata) => {
-              // Handle evidence upload
-              const newEvidence = {
-                id: Date.now().toString(),
-                name: metadata.name || file.name,
-                type: metadata.type || 'document',
-                description: metadata.description || '',
-                controlIds: [question.id],
-                assetIds: [],
-                uploadedBy: userProfile?.name || 'Current User',
-                uploadedAt: new Date(),
-                status: 'active' as const,
-                confidentialityLevel: metadata.confidentialityLevel || 'internal',
-                retention: {
-                  period: 60,
-                  reason: 'Compliance requirement',
-                  disposalDate: new Date(Date.now() + 5 * 365 * 24 * 60 * 60 * 1000)
-                },
-                metadata: {
-                  version: '1.0',
-                  source: 'assessment-upload',
-                  validFrom: new Date(),
-                  approvalRequired: false
-                },
-                tags: metadata.tags || [],
-                linkedControls: [],
-                complianceMapping: []
-              };
+              try {
+                // Validate file
+                if (!file || file.size === 0) {
+                  addNotification('error', 'Please select a valid file');
+                  return;
+                }
 
-              setLocalAssessment(prev => ({
-                ...prev,
-                evidenceLibrary: [...(prev.evidenceLibrary || []), newEvidence],
-                lastModified: new Date()
-              }));
+                // Check file size (max 50MB)
+                const maxSize = 50 * 1024 * 1024; // 50MB
+                if (file.size > maxSize) {
+                  addNotification('error', 'File size must be less than 50MB');
+                  return;
+                }
+
+                // Validate file type
+                const allowedTypes = [
+                  'application/pdf',
+                  'application/msword',
+                  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                  'image/jpeg',
+                  'image/png',
+                  'image/gif',
+                  'image/webp',
+                  'application/vnd.ms-excel',
+                  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                ];
+
+                if (!allowedTypes.includes(file.type)) {
+                  addNotification('error', 'File type not supported. Please upload PDF, Word, Excel, or image files.');
+                  return;
+                }
+
+                // Create evidence item with proper validation
+                const newEvidence: EvidenceItem = {
+                  id: `evidence_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                  name: metadata.name || file.name,
+                  type: metadata.type || 'document',
+                  description: metadata.description || '',
+                  uploadedAt: new Date(),
+                  uploadedBy: userProfile?.name || 'Current User',
+                  fileSize: file.size,
+                  mimeType: file.type,
+                  tags: metadata.tags || [],
+                  linkedQuestions: [question.id],
+                  version: '1.0',
+                  status: 'active',
+                  confidentialityLevel: metadata.confidentialityLevel || 'internal',
+                  metadata: {
+                    version: '1.0',
+                    source: 'assessment-upload',
+                    validFrom: new Date(),
+                    approvalRequired: false,
+                    originalFileName: file.name,
+                    uploadTimestamp: Date.now()
+                  }
+                };
+
+                // Update assessment with new evidence
+                setLocalAssessment(prev => ({
+                  ...prev,
+                  evidenceLibrary: [...(prev.evidenceLibrary || []), newEvidence],
+                  lastModified: new Date()
+                }));
+
+                addNotification('success', `Evidence "${newEvidence.name}" uploaded successfully`);
+              } catch (error) {
+                const errorMessage = error instanceof Error ? error.message : 'Failed to upload evidence';
+                addNotification('error', `Upload failed: ${errorMessage}`);
+                console.error('Evidence upload error:', error);
+              }
             }}
           />
         </div>

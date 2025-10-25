@@ -1,6 +1,45 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Search, ListFilter as Filter, Download, Upload, ChartBar as BarChart3, Calendar, Clock, CircleCheck as CheckCircle, CircleAlert as AlertCircle, TrendingUp, FileText, Users, Shield, Target, Eye, Trash2, CreditCard as Edit3, Activity, Star, Flag, Bookmark, ChartPie as PieChartIcon, Settings, RefreshCw, ArrowUp, ArrowDown, Info, Award, Zap, Building, ScrollText, ArrowRight, Lightbulb, ExternalLink, Calendar as CalendarIcon, TrendingDown, TriangleAlert as AlertTriangle, Database } from 'lucide-react';
+import { 
+  Plus, 
+  Search, 
+  ListFilter as Filter, 
+  Download, 
+  Upload, 
+  ChartBar as BarChart3, 
+  Calendar, 
+  Clock, 
+  CircleCheck as CheckCircle, 
+  CircleAlert as AlertCircle, 
+  TrendingUp, 
+  FileText, 
+  Users, 
+  Shield, 
+  Target, 
+  Eye, 
+  Trash2, 
+  CreditCard as Edit3, 
+  Activity, 
+  Star, 
+  Flag, 
+  Bookmark, 
+  ChartPie as PieChartIcon, 
+  Settings, 
+  RefreshCw, 
+  ArrowUp, 
+  ArrowDown, 
+  Info, 
+  Award, 
+  Zap, 
+  Building, 
+  ScrollText, 
+  ArrowRight, 
+  Lightbulb, 
+  ExternalLink, 
+  TrendingDown, 
+  TriangleAlert as AlertTriangle, 
+  Database 
+} from 'lucide-react';
 
 import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '@/shared/components/ui';

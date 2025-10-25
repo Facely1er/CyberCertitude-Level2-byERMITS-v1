@@ -1,6 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, useNavigate, useLocation, useParams, Link } from 'react-router-dom';
-import { Shield, ChartBar as BarChart3, CircleCheck as CheckCircle, FileText, ChartBar as FileBarChart, SquareCheck as CheckSquare, Target, Activity, Database, Users, Settings, Circle as HelpCircle, Lock, Menu, Play, BookOpen, ExternalLink, TriangleAlert as AlertTriangle } from 'lucide-react';
+import { 
+  Shield, 
+  ChartBar as BarChart3, 
+  CircleCheck as CheckCircle, 
+  FileText, 
+  SquareCheck as CheckSquare, 
+  Target, 
+  Activity, 
+  Database, 
+  Users, 
+  Settings, 
+  Circle as HelpCircle, 
+  Lock, 
+  Menu, 
+  Play, 
+  BookOpen, 
+  ExternalLink, 
+  TriangleAlert as AlertTriangle, 
+  FileBarChart
+} from 'lucide-react';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { OfflineNotice } from './components/OfflineNotice';
 import { CMMCOnboardingFlow } from './components/CMMCOnboardingFlow';
@@ -22,15 +41,14 @@ import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useAuth } from './shared/hooks/useAuth';
 import { useAssessments } from './shared/hooks/useAssessments';
 import { useScrollToTop } from './hooks/useScrollToTop';
-import { cmmcFramework } from './data/frameworks';
+import { cmmcFramework, getFramework } from './data/frameworks';
 import { AssessmentData, UserProfile, NotificationMessage, OrganizationInfo } from './shared/types';
+import { Asset } from './shared/types/assets';
+import { AssessmentTemplate } from './shared/types/documentation';
 import { dataService } from './services/dataService';
 import { reportService } from './services/reportService';
 import { assetService } from './services/assetService';
-import { getFramework } from './data/frameworks';
 import { logger } from '@/utils/logger';
-import { Asset } from './shared/types/assets';
-import { AssessmentTemplate } from './shared/types/documentation';
 
 // Import lazy-loaded components
 import {
@@ -521,6 +539,7 @@ function App() {
     loadAssessments
   } = useAssessments();
 
+
   // Load user profile on mount
   useEffect(() => {
     const profile = dataService.getUserProfile();
@@ -553,15 +572,27 @@ function App() {
   useKeyboardShortcuts(shortcuts);
 
   // Notification management
-  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
-    const notification: NotificationMessage = {
-      id: Date.now().toString(),
-      type,
-      message,
-      timestamp: new Date()
-    };
-    setNotifications(prev => [...prev, notification]);
-  };
+  const addNotification = useCallback((type: 'success' | 'error' | 'warning' | 'info', message: string) => {
+    try {
+      const notification: NotificationMessage = {
+        id: Date.now().toString(),
+        type,
+        message,
+        timestamp: new Date()
+      };
+      
+      setNotifications(prev => [notification, ...prev.slice(0, 4)]); // Keep only last 5 notifications
+      
+      // Auto-remove success notifications after 5 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          setNotifications(prev => prev.filter(n => n.id !== notification.id));
+        }, 5000);
+      }
+    } catch (error) {
+      console.error('Failed to add notification:', error);
+    }
+  }, []);
 
   const removeNotification = (id: string) => {
     setNotifications(prev => prev.filter(n => n.id !== id));
@@ -675,6 +706,7 @@ function App() {
     const framework = getFramework(template.frameworkId);
     const newAssessment: AssessmentData = {
       id: Date.now().toString(),
+      status: 'in-progress',
       frameworkId: template.frameworkId,
       frameworkName: framework.name,
       responses: template.prefilledResponses,
@@ -722,6 +754,7 @@ function App() {
     
     const newAssessment: AssessmentData = {
       id: Date.now().toString(),
+      status: 'in-progress',
       frameworkId,
       frameworkName: framework.name,
       responses: {},
