@@ -17,7 +17,7 @@ export const scrollToTop = (): void => {
       left: 0,
       behavior: scrollBehavior
     });
-  } catch (_error) {
+  } catch {
     // Fallback for browsers that don't support smooth scrolling
     window.scrollTo(0, 0);
   }
@@ -28,7 +28,7 @@ export const scrollToTop = (): void => {
  * @param element - The element to scroll to
  * @param offset - Optional offset from the top (useful for fixed headers)
  */
-const scrollToElement = (element: HTMLElement, offset: number = 0): void => {
+export const scrollToElement = (element: HTMLElement, offset: number = 0): void => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const scrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
   
@@ -40,7 +40,7 @@ const scrollToElement = (element: HTMLElement, offset: number = 0): void => {
       left: 0,
       behavior: scrollBehavior
     });
-  } catch (_error) {
+  } catch {
     // Fallback for browsers that don't support smooth scrolling
     window.scrollTo(0, elementPosition);
   }
@@ -51,7 +51,7 @@ const scrollToElement = (element: HTMLElement, offset: number = 0): void => {
  * @param top - The vertical position to scroll to
  * @param left - The horizontal position to scroll to (defaults to 0)
  */
-const scrollToPosition = (top: number, left: number = 0): void => {
+export const scrollToPosition = (top: number, left: number = 0): void => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const scrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
   
@@ -61,7 +61,7 @@ const scrollToPosition = (top: number, left: number = 0): void => {
       left,
       behavior: scrollBehavior
     });
-  } catch (_error) {
+  } catch {
     // Fallback for browsers that don't support smooth scrolling
     window.scrollTo(left, top);
   }
@@ -71,7 +71,7 @@ const scrollToPosition = (top: number, left: number = 0): void => {
  * Gets the current scroll position
  * @returns Object with top and left scroll positions
  */
-const getScrollPosition = (): { top: number; left: number } => {
+export const getScrollPosition = (): { top: number; left: number } => {
   return {
     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0
@@ -82,7 +82,7 @@ const getScrollPosition = (): { top: number; left: number } => {
  * Checks if the page is scrolled to the top
  * @returns True if scrolled to top, false otherwise
  */
-const isScrolledToTop = (): boolean => {
+export const isScrolledToTop = (): boolean => {
   return getScrollPosition().top === 0;
 };
 
@@ -90,7 +90,7 @@ const isScrolledToTop = (): boolean => {
  * Checks if the page is scrolled to the bottom
  * @returns True if scrolled to bottom, false otherwise
  */
-const isScrolledToBottom = (): boolean => {
+export const isScrolledToBottom = (): boolean => {
   const { top } = getScrollPosition();
   const documentHeight = document.documentElement.scrollHeight;
   const windowHeight = window.innerHeight;

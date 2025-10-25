@@ -148,7 +148,7 @@ export const RATE_LIMITS = {
 };
 
 // Rate limiting decorator for functions
-function rateLimit(key: string, config: RateLimitConfig) {
+export function rateLimit(key: string, config: RateLimitConfig) {
   return function (target: any, propertyName: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
     const rateLimiter = RateLimiter.getInstance();
@@ -182,11 +182,11 @@ export function useRateLimit(key: string, config: RateLimitConfig) {
 // Utility functions
 export const rateLimiter = RateLimiter.getInstance();
 
-const checkRateLimit = (key: string, config: RateLimitConfig) => {
+export const checkRateLimit = (key: string, config: RateLimitConfig) => {
   return rateLimiter.isAllowed(key, config);
 };
 
-const resetRateLimit = (key: string) => {
+export const resetRateLimit = (key: string) => {
   rateLimiter.reset(key);
 };
 

@@ -38,7 +38,7 @@ class Logger implements LogLevel {
         });
       }
       return String(obj);
-    } catch (error) {
+    } catch {
       return '[Object that could not be stringified]';
     }
   }
@@ -57,7 +57,7 @@ class Logger implements LogLevel {
       } else {
         console.warn(`[${level.toUpperCase()}]`, ...safeArgs);
       }
-    } catch (error) {
+    } catch {
       // Fallback if even the safe logging fails
       console.error('[LOGGER ERROR]', 'Failed to log message safely');
     }
@@ -128,7 +128,7 @@ class Logger implements LogLevel {
 export const logger = new Logger();
 
 // Export a function to force enable logging (useful for debugging production issues)
-const enableProductionLogging = () => {
+export const enableProductionLogging = () => {
   if (isProduction) {
     (window as any).__FORCE_LOGGING__ = true;
     const safeLogger = new Logger();

@@ -1,8 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Permission, ROLE_PERMISSIONS } from '../../lib/security';
 import { authService, AuthUser } from '../../services/authService';
 import { organizationService } from '../../services/organizationService';
-import { rateLimiter, RATE_LIMITS, generateRateLimitKey, getBrowserFingerprint } from '../../utils/rateLimiting';
 import { logger } from '@/utils/logger';
 
 interface UserProfile {

@@ -35,10 +35,8 @@ const organizationSchema = z.string()
 const phoneSchema = z.string()
   .regex(/^\+?1?\d{10,14}$/, 'Invalid phone number format');
 
-const urlSchema = z.string().url('Invalid URL format');
-
 // Form schemas
-const magicLinkSignUpSchema = z.object({
+export const magicLinkSignUpSchema = z.object({
   firstName: nameSchema,
   lastName: nameSchema,
   email: emailSchema,
@@ -47,10 +45,11 @@ const magicLinkSignUpSchema = z.object({
   role: z.string().min(1, 'Role is required')
 });
 
-const magicLinkSignInSchema = z.object({
+export const magicLinkSignInSchema = z.object({
   email: emailSchema
 });
-const profileUpdateSchema = z.object({
+
+export const profileUpdateSchema = z.object({
   firstName: nameSchema,
   lastName: nameSchema,
   email: emailSchema,
@@ -66,7 +65,7 @@ export function sanitizeInput(input: string): string {
   });
 }
 
-function sanitizeHTML(html: string): string {
+export function sanitizeHTML(html: string): string {
   return DOMPurify.sanitize(html, {
     ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     ALLOWED_ATTR: ['href', 'target', 'rel'],
@@ -74,7 +73,7 @@ function sanitizeHTML(html: string): string {
   });
 }
 
-function sanitizeMarkdown(markdown: string): string {
+export function sanitizeMarkdown(markdown: string): string {
   return DOMPurify.sanitize(markdown, {
     ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'code', 'pre', 'blockquote', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     ALLOWED_ATTR: ['href', 'target', 'rel'],
@@ -95,7 +94,7 @@ export function validateEmail(email: string): { isValid: boolean; error?: string
   }
 }
 
-function validatePassword(password: string): { isValid: boolean; error?: string } {
+export function validatePassword(password: string): { isValid: boolean; error?: string } {
   try {
     passwordSchema.parse(password);
     return { isValid: true };
@@ -108,7 +107,7 @@ function validatePassword(password: string): { isValid: boolean; error?: string 
 }
 
 // Form validation hook
-function useFormValidation<T extends z.ZodSchema>(schema: T) {
+export function useFormValidation<T extends z.ZodSchema>(schema: T) {
   return {
     validate: (data: unknown): { isValid: boolean; errors?: Record<string, string> } => {
       try {
@@ -146,7 +145,7 @@ function useFormValidation<T extends z.ZodSchema>(schema: T) {
 }
 
 // XSS prevention utilities
-function escapeHTML(str: string): string {
+export function escapeHTML(str: string): string {
   const escapeMap: Record<string, string> = {
     '&': '&amp;',
     '<': '&lt;',
@@ -159,7 +158,7 @@ function escapeHTML(str: string): string {
   return str.replace(/[&<>"'/]/g, (char) => escapeMap[char] || char);
 }
 
-function unescapeHTML(str: string): string {
+export function unescapeHTML(str: string): string {
   const unescapeMap: Record<string, string> = {
     '&amp;': '&',
     '&lt;': '<',
@@ -173,7 +172,7 @@ function unescapeHTML(str: string): string {
 }
 
 // SQL injection prevention (for dynamic queries if needed)
-function escapeSQLString(str: string): string {
+export function escapeSQLString(str: string): string {
   return str.replace(/'/g, "''");
 }
 
@@ -193,7 +192,7 @@ const allowedFileTypes = {
         'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
 };
 
-function validateFileUpload(file: File, allowedTypes: string[] = allowedFileTypes.all): { isValid: boolean; error?: string } {
+export function validateFileUpload(file: File, allowedTypes: string[] = allowedFileTypes.all): { isValid: boolean; error?: string } {
   try {
     fileUploadSchema.parse({
       name: file.name,
