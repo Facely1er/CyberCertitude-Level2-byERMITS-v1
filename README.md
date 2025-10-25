@@ -71,6 +71,8 @@ This platform provides DoD contractors with a structured approach to achieve CMM
 
 *Note: CMMC 2.0 Level 2 includes 14 domains with 110 security controls aligned with NIST SP 800-171. The framework focuses on protecting Controlled Unclassified Information (CUI) in contractor environments.*
 
+<!-- Deployment trigger: Layout and content quality improvements deployed -->
+
 ### **CMMC 2.0 Level 2 Requirements**
 - **110 Security Controls**: Complete assessment across all required CMMC 2.0 controls
 - **CUI Protection**: Controlled Unclassified Information safeguards and handling
