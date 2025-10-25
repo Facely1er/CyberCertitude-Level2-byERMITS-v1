@@ -32,6 +32,10 @@ export class ErrorBoundary extends Component<Props, State> {
                        error.message.includes('Minified React error #306') ||
                        error.message.includes('Rules of Hooks');
     
+    // Check if this is an illegal constructor error
+    const isConstructorError = error.message.includes('Illegal constructor') ||
+                              error.message.includes('TypeError: Illegal constructor');
+    
     return { 
       hasError: true, 
       error,
@@ -135,6 +139,28 @@ export class ErrorBoundary extends Component<Props, State> {
                   <li>Clear your browser cache and reload the page</li>
                   <li>Try opening the page in an incognito/private window</li>
                   <li>Check if you have multiple React versions installed</li>
+                </ul>
+              </div>
+            ) : this.state.error && (
+              this.state.error.message.includes('Illegal constructor') ||
+              this.state.error.message.includes('TypeError: Illegal constructor')
+            ) ? (
+              <div className="text-gray-600 dark:text-gray-300 mb-6">
+                <p className="mb-4">
+                  <strong>Constructor Error Detected</strong>
+                </p>
+                <p className="mb-4">
+                  This error typically occurs due to browser compatibility issues or conflicts with browser extensions.
+                </p>
+                <p className="mb-4">
+                  <strong>Common solutions:</strong>
+                </p>
+                <ul className="text-sm text-left list-disc list-inside space-y-1 mb-4">
+                  <li>Clear your browser cache and reload the page</li>
+                  <li>Disable browser extensions temporarily</li>
+                  <li>Try opening the page in an incognito/private window</li>
+                  <li>Update your browser to the latest version</li>
+                  <li>Try a different browser (Chrome, Firefox, Safari)</li>
                 </ul>
               </div>
             ) : (

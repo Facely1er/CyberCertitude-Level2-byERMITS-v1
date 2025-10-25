@@ -30,8 +30,24 @@ export default defineConfig(({ mode }) => ({
     sourcemap: false, // Disable in production for security
     cssCodeSplit: true,
     chunkSizeWarningLimit: 500, // Reduced for better performance
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn']
+      },
+      mangle: {
+        safari10: true
+      }
+    },
     rollupOptions: {
       external: ['@sentry/react'],
+      onwarn(warning, warn) {
+        // Suppress certain warnings that can cause issues
+        if (warning.code === 'EVAL') return;
+        if (warning.code === 'CIRCULAR_DEPENDENCY') return;
+        warn(warning);
+      },
       output: {
         manualChunks: (id) => {
           // Core React chunk (smaller, more focused)
@@ -45,9 +61,12 @@ export default defineConfig(({ mode }) => ({
           }
           // UI libraries chunk (optimized)
           if (id.includes('@headlessui/react') || 
-              id.includes('lucide-react') ||
               id.includes('tailwind-merge')) {
             return 'vendor-ui';
+          }
+          // Icons chunk (separate for better compatibility)
+          if (id.includes('lucide-react')) {
+            return 'vendor-icons';
           }
           // Chart libraries chunk (consolidated)
           if (id.includes('recharts') || 
@@ -110,51 +129,6 @@ export default defineConfig(({ mode }) => ({
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
       }
-    },
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.log in production
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
-        passes: 3, // Reduced for better compatibility
-        // Removed unsafe options for better compatibility
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true,
-        reduce_vars: true,
-        sequences: true,
-        side_effects: false,
-        unused: true,
-        // Safe compression options
-        collapse_vars: true,
-        conditionals: true,
-        comparisons: true,
-        booleans: true,
-        loops: true,
-        hoist_funs: true,
-        hoist_vars: false, // Keep false for better compatibility
-        keep_fargs: false,
-        keep_fnames: false,
-        keep_infinity: false,
-        typeofs: true,
-        warnings: false,
-      },
-      mangle: {
-        safari10: true,
-        toplevel: false, // Changed to false for better compatibility
-        properties: {
-          regex: /^_/
-        },
-        keep_fnames: false,
-        keep_classnames: false,
-      },
-      format: {
-        comments: false,
-        ascii_only: true,
-        beautify: false,
-        ecma: 2020, // Match build target
-      },
     },
     reportCompressedSize: false, // Faster builds
   },
