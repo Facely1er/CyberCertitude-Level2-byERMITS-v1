@@ -1,4 +1,5 @@
-import { BrowserRouter } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { AppLayout } from './components/layout/AppLayout';
 import { RouteRenderer } from './routes/RouteRenderer';
@@ -12,16 +13,52 @@ import { useAuth } from './shared/hooks/useAuth';
 import { useAssessments } from './shared/hooks/useAssessments';
 import { useScrollToTop } from './hooks/useScrollToTop';
 import { navigationItems } from './config/navigation';
-import { allRoutes } from './routes/index';
+import { allRoutes } from './routes/index.tsx';
 import { AssessmentRoute } from './routes/AssessmentRoute';
 import { ReportRoute } from './routes/ReportRoute';
+import { AssessmentData, UserProfile } from './shared/types';
 
-function App() {
+// Enhanced Assessment Route Component
+const EnhancedAssessmentRoute: React.FC<{
+  savedAssessments: AssessmentData[];
+  saveAssessment: (assessment: AssessmentData) => Promise<AssessmentData>;
+  userProfile: UserProfile | null;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  navigate: (path: string) => void;
+  onGenerateReport: (assessment: AssessmentData) => Promise<any>;
+}> = ({ savedAssessments, saveAssessment, userProfile, addNotification, navigate, onGenerateReport }) => (
+  <AssessmentRoute
+    savedAssessments={savedAssessments}
+    saveAssessment={saveAssessment}
+    userProfile={userProfile}
+    addNotification={addNotification}
+    navigate={navigate}
+    onGenerateReport={onGenerateReport}
+  />
+);
+
+// Enhanced Report Route Component
+const EnhancedReportRoute: React.FC<{
+  savedAssessments: AssessmentData[];
+  userProfile: UserProfile | null;
+  handleExportAssessment: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => Promise<void>;
+  navigate: (path: string) => void;
+}> = ({ savedAssessments, userProfile, handleExportAssessment, navigate }) => (
+  <ReportRoute
+    savedAssessments={savedAssessments}
+    userProfile={userProfile}
+    handleExportAssessment={handleExportAssessment}
+    navigate={navigate}
+  />
+);
+
+function AppContent() {
+  const navigate = useNavigate();
+  
   // Custom hooks for state management
   const appState = useAppState();
-  const notifications = useNotifications(appState.notifications, appState.setNotifications);
+  const notifications = useNotifications(appState.setNotifications);
   const assetManagement = useAssetManagement(
-    appState.assets,
     appState.setAssets,
     notifications.addNotification
   );
@@ -44,14 +81,13 @@ function App() {
       notifications.addNotification('success', 'Assessment auto-saved');
     }, description: 'Save progress' },
     { key: 'n', ctrlKey: true, action: () => {
-      // Navigate to assessment intro
-      window.location.href = '/assessment-intro';
+      navigate('/assessment-intro');
     }, description: 'New assessment' },
     { key: 'h', ctrlKey: true, action: () => {
-      window.location.href = '/help';
+      navigate('/help');
     }, description: 'Show help' },
     { key: 'd', ctrlKey: true, action: () => {
-      window.location.href = '/dashboard';
+      navigate('/dashboard');
     }, description: 'Go to dashboard' }
   ];
 
@@ -63,17 +99,17 @@ function App() {
   };
 
   // Enhanced route configuration with proper props
-  const enhancedRoutes = allRoutes.map(route => {
+  const enhancedRoutes = allRoutes.map((route: any) => {
     if (route.path === '/assessment/:id') {
       return {
         ...route,
         element: () => (
-          <AssessmentRoute
+          <EnhancedAssessmentRoute
             savedAssessments={savedAssessments}
             saveAssessment={saveAssessment}
             userProfile={appState.userProfile}
             addNotification={notifications.addNotification}
-            navigate={(path: string) => window.location.href = path}
+            navigate={navigate}
             onGenerateReport={assessmentActions.handleGenerateReport}
           />
         )
@@ -84,11 +120,11 @@ function App() {
       return {
         ...route,
         element: () => (
-          <ReportRoute
+          <EnhancedReportRoute
             savedAssessments={savedAssessments}
             userProfile={appState.userProfile}
             handleExportAssessment={assessmentActions.handleExportAssessment}
-            navigate={(path: string) => window.location.href = path}
+            navigate={navigate}
           />
         )
       };
@@ -98,35 +134,41 @@ function App() {
   });
 
   return (
+    <AppLayout
+      navItems={navigationItems}
+      userProfile={appState.userProfile}
+      isAuthenticated={isAuthenticated}
+      onSignOut={signOut}
+      notifications={appState.notifications}
+      removeNotification={notifications.removeNotification}
+      isOnline={isOnline}
+      showOfflineNotice={showOfflineNotice}
+      isFirstVisit={appState.isFirstVisit}
+      setIsFirstVisit={appState.setIsFirstVisit}
+      showMobileMenu={appState.showMobileMenu}
+      setShowMobileMenu={appState.setShowMobileMenu}
+      showAssetModal={appState.showAssetModal}
+      setShowAssetModal={appState.setShowAssetModal}
+      editingAsset={appState.editingAsset}
+      setEditingAsset={appState.setEditingAsset}
+      showTemplateModal={appState.showTemplateModal}
+      setShowTemplateModal={appState.setShowTemplateModal}
+      selectedFramework={appState.selectedFramework}
+      shortcuts={shortcuts}
+      addNotification={notifications.addNotification}
+      handleSaveAsset={assetManagement.handleSaveAsset}
+      handleSelectTemplate={handleSelectTemplate}
+    >
+      <RouteRenderer routes={enhancedRoutes} />
+    </AppLayout>
+  );
+}
+
+function App() {
+  return (
     <ErrorBoundary>
       <BrowserRouter>
-        <AppLayout
-          navItems={navigationItems}
-          userProfile={appState.userProfile}
-          isAuthenticated={isAuthenticated}
-          onSignOut={signOut}
-          notifications={appState.notifications}
-          removeNotification={notifications.removeNotification}
-          isOnline={isOnline}
-          showOfflineNotice={showOfflineNotice}
-          isFirstVisit={appState.isFirstVisit}
-          setIsFirstVisit={appState.setIsFirstVisit}
-          showMobileMenu={appState.showMobileMenu}
-          setShowMobileMenu={appState.setShowMobileMenu}
-          showAssetModal={appState.showAssetModal}
-          setShowAssetModal={appState.setShowAssetModal}
-          editingAsset={appState.editingAsset}
-          setEditingAsset={appState.setEditingAsset}
-          showTemplateModal={appState.showTemplateModal}
-          setShowTemplateModal={appState.setShowTemplateModal}
-          selectedFramework={appState.selectedFramework}
-          shortcuts={shortcuts}
-          addNotification={notifications.addNotification}
-          handleSaveAsset={assetManagement.handleSaveAsset}
-          handleSelectTemplate={handleSelectTemplate}
-        >
-          <RouteRenderer routes={enhancedRoutes} />
-        </AppLayout>
+        <AppContent />
       </BrowserRouter>
     </ErrorBoundary>
   );

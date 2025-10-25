@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { NotificationMessage } from '../shared/types';
 
 export const useNotifications = (
-  notifications: NotificationMessage[],
   setNotifications: React.Dispatch<React.SetStateAction<NotificationMessage[]>>
 ) => {
   const addNotification = useCallback((type: 'success' | 'error' | 'warning' | 'info', message: string) => {

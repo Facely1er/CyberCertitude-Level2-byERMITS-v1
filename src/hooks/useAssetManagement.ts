@@ -3,21 +3,58 @@ import { Asset } from '../shared/types/assets';
 import { assetService } from '../services/assetService';
 
 export const useAssetManagement = (
-  assets: Asset[],
   setAssets: React.Dispatch<React.SetStateAction<Asset[]>>,
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void
 ) => {
   const handleSaveAsset = useCallback(async (asset: Asset) => {
     try {
-      const savedAsset = await assetService.saveAsset(asset);
+      let savedAsset: Asset;
       
       if (asset.id) {
-        // Update existing asset
-        setAssets(prev => prev.map(a => a.id === asset.id ? savedAsset : a));
+        // Update existing asset - convert Asset to AssetUpdateData format
+        const updateData = {
+          id: asset.id,
+          name: asset.name,
+          description: asset.description,
+          category: asset.category,
+          owner: asset.owner,
+          criticality: asset.criticality,
+          informationClassification: asset.informationClassification,
+          businessValue: asset.businessValue,
+          handlesCUI: asset.informationClassification === 'confidential' || asset.informationClassification === 'restricted',
+          cuiCategory: asset.informationClassification === 'confidential' || asset.informationClassification === 'restricted' ? ['confidential'] : [],
+          tags: asset.tags,
+          location: {
+            building: asset.location.split(',')[0] || '',
+            floor: asset.location.split(',')[1] || '',
+            room: asset.location.split(',')[2] || ''
+          }
+        };
+        savedAsset = await assetService.updateAsset(updateData);
         addNotification('success', 'Asset updated successfully');
       } else {
-        // Add new asset
-        setAssets(prev => [...prev, savedAsset]);
+        // Create new asset - convert Asset to AssetCreateData format
+        const createData = {
+          name: asset.name,
+          description: asset.description,
+          category: asset.category,
+          subcategory: asset.category,
+          type: asset.category,
+          owner: asset.owner,
+          custodian: asset.owner,
+          criticality: asset.criticality,
+          informationClassification: asset.informationClassification,
+          businessValue: asset.businessValue,
+          handlesCUI: asset.informationClassification === 'confidential' || asset.informationClassification === 'restricted',
+          cuiCategory: asset.informationClassification === 'confidential' || asset.informationClassification === 'restricted' ? ['confidential'] : [],
+          tags: asset.tags,
+          location: {
+            building: asset.location.split(',')[0] || '',
+            floor: asset.location.split(',')[1] || '',
+            room: asset.location.split(',')[2] || ''
+          }
+        };
+        savedAsset = await assetService.createAsset(createData);
         addNotification('success', 'Asset created successfully');
       }
       
@@ -27,7 +64,7 @@ export const useAssetManagement = (
       addNotification('error', 'Failed to save asset');
       throw error;
     }
-  }, [setAssets, addNotification]);
+  }, [addNotification]);
 
   const handleDeleteAsset = useCallback(async (assetId: string) => {
     try {

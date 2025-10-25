@@ -1,11 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { NotificationMessage, UserProfile } from '../shared/types';
 import { Asset } from '../shared/types/assets';
 import { dataService } from '../services/dataService';
 
 export const useAppState = () => {
-  const location = useLocation();
   
   // Notification state
   const [notifications, setNotifications] = useState<NotificationMessage[]>([]);

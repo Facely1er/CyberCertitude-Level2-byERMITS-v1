@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
-import { AssessmentData } from '../shared/types';
+import { AssessmentData, Framework } from '../shared/types';
 import { reportService } from '../services/reportService';
+import { logger } from '../utils/logger';
 
 export const useAssessmentActions = (
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void
@@ -16,18 +17,31 @@ export const useAssessmentActions = (
     return `/assessment/${assessmentId}`;
   }, [addNotification]);
 
-  const handleDeleteAssessment = useCallback((assessmentId: string) => {
+  const handleDeleteAssessment = useCallback((_assessmentId: string) => {
     addNotification('success', 'Assessment deleted successfully');
   }, [addNotification]);
 
   const handleGenerateReport = useCallback(async (assessment: AssessmentData) => {
     try {
       addNotification('info', 'Generating report...');
-      const report = await reportService.generateReport(assessment);
+      const framework: Framework = {
+        id: 'cmmc',
+        name: 'CMMC 2.0',
+        description: 'Cybersecurity Maturity Model Certification',
+        version: '2.0',
+        sections: [],
+        maturityLevels: [],
+        industry: ['defense'],
+        complexity: 'intermediate',
+        estimatedTime: 120,
+        certificationBody: 'C3PAO',
+        applicableRegulations: ['DFARS', 'NIST SP 800-171']
+      };
+      await reportService.exportReport(assessment, framework, { format: 'pdf' });
       addNotification('success', 'Report generated successfully');
-      return report;
+      return { success: true };
     } catch (error) {
-      console.error('Failed to generate report:', error);
+      logger.error('Failed to generate report:', error);
       addNotification('error', 'Failed to generate report');
       throw error;
     }
@@ -36,22 +50,35 @@ export const useAssessmentActions = (
   const handleExportAssessment = useCallback(async (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => {
     try {
       addNotification('info', `Exporting assessment as ${format.toUpperCase()}...`);
-      await reportService.exportAssessment(assessment, format);
+      const framework: Framework = {
+        id: 'cmmc',
+        name: 'CMMC 2.0',
+        description: 'Cybersecurity Maturity Model Certification',
+        version: '2.0',
+        sections: [],
+        maturityLevels: [],
+        industry: ['defense'],
+        complexity: 'intermediate',
+        estimatedTime: 120,
+        certificationBody: 'C3PAO',
+        applicableRegulations: ['DFARS', 'NIST SP 800-171']
+      };
+      await reportService.exportReport(assessment, framework, { format });
       addNotification('success', `Assessment exported as ${format.toUpperCase()} successfully`);
     } catch (error) {
-      console.error('Failed to export assessment:', error);
+      logger.error('Failed to export assessment:', error);
       addNotification('error', 'Failed to export assessment');
       throw error;
     }
   }, [addNotification]);
 
-  const handleImportAssessment = useCallback(async (file: File) => {
+  const handleImportAssessment = useCallback(async (_file: File) => {
     try {
       addNotification('info', 'Importing assessment...');
       // Import logic would be implemented here
       addNotification('success', 'Assessment imported successfully');
     } catch (error) {
-      console.error('Failed to import assessment:', error);
+      logger.error('Failed to import assessment:', error);
       addNotification('error', 'Failed to import assessment');
       throw error;
     }
