@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { 
   FileText, Download, Eye, Settings, Shield, CheckCircle, 
   AlertTriangle, Clock, Users, Building, Database, 
-  ArrowRight, RefreshCw, Save, Upload
+  ArrowRight, RefreshCw, Save, Upload, BookOpen, X
 } from 'lucide-react';
 import { AssessmentData } from '../shared/types';
 import { sspGenerationService, SSPDocument } from '../services/sspGenerationService';
 import { poamGenerationService, POAMDocument } from '../services/poamGenerationService';
 import { raciMatrixService, RACIMatrix } from '../services/raciMatrixService';
+import { templateService } from '../services/templateService';
+import { TemplateContent } from '../data/templates';
+import { TemplateCustomizationModal } from './TemplateCustomizationModal';
 
 interface SSPGeneratorProps {
   savedAssessments: AssessmentData[];
@@ -33,6 +36,10 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
   const [generatedRACI, setGeneratedRACI] = useState<RACIMatrix | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'ssp' | 'poam' | 'raci'>('ssp');
+  const [useTemplate, setUseTemplate] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateContent | null>(null);
+  const [showTemplatePreview, setShowTemplatePreview] = useState(false);
+  const [customizationTemplate, setCustomizationTemplate] = useState<TemplateContent | null>(null);
 
   const handleGenerate = async () => {
     if (!selectedAssessment) {
@@ -47,9 +54,29 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
 
     setIsGenerating(true);
     try {
-      // Generate SSP
-      const ssp = sspGenerationService.generateSSP(selectedAssessment, organizationInfo);
-      setGeneratedSSP(ssp);
+      if (useTemplate && selectedTemplate) {
+        // Generate SSP using template with auto-population
+        const userData = {
+          companyInfo: {
+            name: organizationInfo.name,
+            address: organizationInfo.address,
+            contact: organizationInfo.contact
+          },
+          systemInfo: {
+            name: organizationInfo.systemName,
+            description: organizationInfo.systemDescription
+          },
+          assessmentData: selectedAssessment
+        };
+
+        const customizedContent = templateService.customizeContentTemplate(selectedTemplate.id, userData);
+        const ssp = sspGenerationService.generateSSPFromTemplate(selectedTemplate, customizedContent, organizationInfo);
+        setGeneratedSSP(ssp);
+      } else {
+        // Generate SSP using traditional method
+        const ssp = sspGenerationService.generateSSP(selectedAssessment, organizationInfo);
+        setGeneratedSSP(ssp);
+      }
 
       // Generate POAM
       const poam = poamGenerationService.generatePOAM(selectedAssessment, {
@@ -76,6 +103,59 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleSelectTemplate = (template: TemplateContent) => {
+    setSelectedTemplate(template);
+    setUseTemplate(true);
+    setShowTemplatePreview(true);
+  };
+
+  const handleCustomizeTemplate = (template: TemplateContent) => {
+    setCustomizationTemplate(template);
+  };
+
+  const handleSaveCustomization = (templateId: string, customizations: any) => {
+    // Auto-populate organization info from customizations
+    if (customizations.companyInfo) {
+      setOrganizationInfo(prev => ({
+        ...prev,
+        name: customizations.companyInfo.name || prev.name,
+        address: customizations.companyInfo.address || prev.address,
+        contact: customizations.companyInfo.contact || prev.contact
+      }));
+    }
+    if (customizations.systemInfo) {
+      setOrganizationInfo(prev => ({
+        ...prev,
+        systemName: customizations.systemInfo.name || prev.systemName,
+        systemDescription: customizations.systemInfo.description || prev.systemDescription
+      }));
+    }
+    setCustomizationTemplate(null);
+    addNotification('success', 'Template customizations saved and applied!');
+  };
+
+  const handleExportCustomization = async (templateId: string, customizations: any, format: string) => {
+    try {
+      const content = await templateService.exportContentTemplate(templateId, customizations, format as any);
+      const template = templateService.getContentTemplate(templateId);
+      downloadContent(content, `${template?.name || 'ssp-template'}.${format}`);
+    } catch (error) {
+      addNotification('error', 'Failed to export customized template: ' + (error as Error).message);
+    }
+  };
+
+  const downloadContent = (content: string | Blob, filename: string) => {
+    const blob = typeof content === 'string' ? new Blob([content], { type: 'text/plain' }) : content;
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   const handleExport = (type: 'ssp' | 'poam' | 'raci', format: 'html' | 'pdf' | 'word') => {
@@ -244,6 +324,99 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
             </div>
           </div>
 
+          {/* Template Options */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">SSP Generation Options</h3>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <input
+                  type="radio"
+                  id="traditional"
+                  name="generationMethod"
+                  checked={!useTemplate}
+                  onChange={() => setUseTemplate(false)}
+                  className="w-4 h-4 text-blue-600"
+                />
+                <label htmlFor="traditional" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Generate from Assessment Data
+                </label>
+              </div>
+              <div className="flex items-center space-x-3">
+                <input
+                  type="radio"
+                  id="template"
+                  name="generationMethod"
+                  checked={useTemplate}
+                  onChange={() => setUseTemplate(true)}
+                  className="w-4 h-4 text-blue-600"
+                />
+                <label htmlFor="template" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Use Complete SSP Template
+                </label>
+              </div>
+              
+              {useTemplate && (
+                <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-medium text-blue-900 dark:text-blue-100">SSP Template</h4>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => setShowTemplatePreview(true)}
+                        className="px-3 py-1 text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-700 transition-colors flex items-center space-x-1"
+                      >
+                        <Eye className="w-3 h-3" />
+                        <span>Preview</span>
+                      </button>
+                      <button
+                        onClick={() => handleCustomizeTemplate(selectedTemplate!)}
+                        disabled={!selectedTemplate}
+                        className="px-3 py-1 text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 rounded hover:bg-green-200 dark:hover:bg-green-700 transition-colors flex items-center space-x-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        <Settings className="w-3 h-3" />
+                        <span>Customize</span>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {selectedTemplate ? (
+                    <div className="text-sm text-blue-800 dark:text-blue-200">
+                      <p><strong>Selected:</strong> {selectedTemplate.name}</p>
+                      <p className="text-xs mt-1">{selectedTemplate.description}</p>
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {selectedTemplate.controls.slice(0, 3).map(control => (
+                          <span key={control} className="px-2 py-1 bg-blue-200 dark:bg-blue-700 text-blue-800 dark:text-blue-100 text-xs rounded">
+                            {control}
+                          </span>
+                        ))}
+                        {selectedTemplate.controls.length > 3 && (
+                          <span className="px-2 py-1 bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 text-xs rounded">
+                            +{selectedTemplate.controls.length - 3} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-sm text-blue-800 dark:text-blue-200">
+                      <p>No template selected. Click "Browse Templates" to choose a complete SSP template.</p>
+                      <button
+                        onClick={() => {
+                          const sspTemplate = templateService.getContentTemplate('ssp-complete');
+                          if (sspTemplate) {
+                            setSelectedTemplate(sspTemplate);
+                          }
+                        }}
+                        className="mt-2 px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors flex items-center space-x-1"
+                      >
+                        <Template className="w-3 h-3" />
+                        <span>Use Default SSP Template</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Generate Button */}
           <button
             onClick={handleGenerate}
@@ -393,6 +566,67 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
           )}
         </div>
       </div>
+
+      {/* Template Preview Modal */}
+      {showTemplatePreview && selectedTemplate && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Template Preview</h2>
+              <button
+                onClick={() => setShowTemplatePreview(false)}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{selectedTemplate.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">{selectedTemplate.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {selectedTemplate.controls.map(control => (
+                    <span key={control} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                      {control}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="prose dark:prose-invert max-w-none">
+                <div dangerouslySetInnerHTML={{ __html: templateService.getTemplatePreview(selectedTemplate.id) }} />
+              </div>
+            </div>
+            <div className="flex items-center justify-end space-x-3 p-6 border-t border-gray-200 dark:border-gray-700">
+              <button
+                onClick={() => setShowTemplatePreview(false)}
+                className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => {
+                  setShowTemplatePreview(false);
+                  handleCustomizeTemplate(selectedTemplate);
+                }}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Customize Template
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Template Customization Modal */}
+      {customizationTemplate && (
+        <TemplateCustomizationModal
+          template={customizationTemplate}
+          isOpen={!!customizationTemplate}
+          onClose={() => setCustomizationTemplate(null)}
+          onSave={handleSaveCustomization}
+          onExport={handleExportCustomization}
+        />
+      )}
     </div>
   );
 };

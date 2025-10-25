@@ -532,6 +532,13 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
         <RelatedLinks
           links={[
            {
+             title: 'Security Assessment Report',
+             description: 'Generate comprehensive CMMC Level 2 security assessment reports',
+             href: '/reports/security-assessment',
+             category: 'feature',
+             priority: 'high'
+           },
+           {
              title: 'Implementation Workflow',
              description: 'Follow structured compliance implementation roadmap',
              href: '/compliance-workflow',

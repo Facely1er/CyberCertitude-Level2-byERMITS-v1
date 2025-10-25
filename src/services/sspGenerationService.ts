@@ -1,5 +1,6 @@
 import { AssessmentData, Framework } from '../shared/types';
 import { cmmcFramework } from '../data/frameworks/cmmc';
+import { TemplateContent } from '../data/templates';
 
 export interface SSPDocument {
   id: string;
@@ -66,6 +67,30 @@ export class SSPGenerationService {
 
     return {
       id: `ssp-${Date.now()}`,
+      title: `System Security Plan - ${organizationInfo.systemName}`,
+      version: '1.0',
+      organization: organizationInfo.name,
+      generatedDate: new Date(),
+      sections,
+      controls,
+      appendices
+    };
+  }
+
+  generateSSPFromTemplate(template: TemplateContent, customizedContent: string, organizationInfo: {
+    name: string;
+    address: string;
+    contact: string;
+    systemName: string;
+    systemDescription: string;
+  }): SSPDocument {
+    // Parse the customized template content to extract sections
+    const sections = this.parseTemplateContent(customizedContent);
+    const controls = this.generateControlImplementationsFromTemplate(template);
+    const appendices = this.generateAppendicesFromTemplate(template);
+
+    return {
+      id: `ssp-template-${Date.now()}`,
       title: `System Security Plan - ${organizationInfo.systemName}`,
       version: '1.0',
       organization: organizationInfo.name,
@@ -356,6 +381,127 @@ export class SSPGenerationService {
     `;
 
     return html;
+  }
+
+  private parseTemplateContent(content: string): SSPSection[] {
+    const sections: SSPSection[] = [];
+    const lines = content.split('\n');
+    let currentSection: SSPSection | null = null;
+    let currentSubsection: SSPSubsection | null = null;
+
+    for (const line of lines) {
+      const trimmedLine = line.trim();
+      
+      // Check for main section headers (##)
+      if (trimmedLine.startsWith('## ') && !trimmedLine.startsWith('### ')) {
+        if (currentSection) {
+          if (currentSubsection) {
+            currentSection.subsections.push(currentSubsection);
+            currentSubsection = null;
+          }
+          sections.push(currentSection);
+        }
+        
+        currentSection = {
+          id: trimmedLine.substring(3).toLowerCase().replace(/\s+/g, '-'),
+          title: trimmedLine.substring(3),
+          content: '',
+          subsections: []
+        };
+      }
+      // Check for subsection headers (###)
+      else if (trimmedLine.startsWith('### ')) {
+        if (currentSection && currentSubsection) {
+          currentSection.subsections.push(currentSubsection);
+        }
+        
+        currentSubsection = {
+          id: trimmedLine.substring(4).toLowerCase().replace(/\s+/g, '-'),
+          title: trimmedLine.substring(4),
+          content: ''
+        };
+      }
+      // Add content to current section or subsection
+      else if (trimmedLine && currentSection) {
+        if (currentSubsection) {
+          currentSubsection.content += (currentSubsection.content ? '\n' : '') + trimmedLine;
+        } else {
+          currentSection.content += (currentSection.content ? '\n' : '') + trimmedLine;
+        }
+      }
+    }
+
+    // Add the last section and subsection
+    if (currentSection) {
+      if (currentSubsection) {
+        currentSection.subsections.push(currentSubsection);
+      }
+      sections.push(currentSection);
+    }
+
+    return sections;
+  }
+
+  private generateControlImplementationsFromTemplate(template: TemplateContent): SSPControl[] {
+    const controls: SSPControl[] = [];
+    
+    template.controls.forEach(controlId => {
+      // Find the control in the CMMC framework
+      let controlInfo = null;
+      cmmcFramework.sections.forEach(section => {
+        section.categories.forEach(category => {
+          category.questions.forEach(question => {
+            if (question.id === controlId) {
+              controlInfo = question;
+            }
+          });
+        });
+      });
+
+      if (controlInfo) {
+        controls.push({
+          id: controlId,
+          title: controlInfo.text,
+          domain: template.category,
+          description: controlInfo.guidance,
+          implementation: this.generateTemplateImplementationDescription(controlInfo),
+          evidence: this.generateTemplateEvidenceRequirements(controlInfo),
+          status: 'implemented', // Template-based assumes implementation
+          priority: controlInfo.priority as 'critical' | 'high' | 'medium' | 'low'
+        });
+      }
+    });
+
+    return controls;
+  }
+
+  private generateAppendicesFromTemplate(template: TemplateContent): SSPAppendix[] {
+    const appendices: SSPAppendix[] = [];
+    
+    // Add template-specific appendices
+    if (template.category === 'core') {
+      appendices.push({
+        id: 'template-reference',
+        title: 'Template Reference',
+        content: `This SSP was generated using the ${template.name} template.`,
+        type: 'reference'
+      });
+    }
+
+    return appendices;
+  }
+
+  private generateTemplateImplementationDescription(control: any): string {
+    return `Implementation details for ${control.text} based on template guidance. This control has been customized according to organizational requirements and industry best practices.`;
+  }
+
+  private generateTemplateEvidenceRequirements(control: any): string[] {
+    return [
+      'Policy documentation',
+      'Implementation evidence',
+      'Testing results',
+      'Audit reports'
+    ];
   }
 }
 

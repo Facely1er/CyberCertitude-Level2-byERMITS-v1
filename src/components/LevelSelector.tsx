@@ -44,7 +44,7 @@ const LevelSelector: React.FC<LevelSelectorProps> = ({
         </p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
         {levels.map((level) => {
           const Icon = level.icon;
           const isSelected = selectedLevel === level.level;
@@ -53,29 +53,29 @@ const LevelSelector: React.FC<LevelSelectorProps> = ({
             <div
               key={level.level}
               onClick={() => onLevelChange(level.level)}
-              className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-200 ${
+              className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-200 overflow-hidden ${
                 isSelected
                   ? `border-${level.color}-500 bg-${level.color}-50 dark:bg-${level.color}-900/20`
                   : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
               }`}
             >
-              <div className="flex items-start gap-3">
-                <div className={`p-2 rounded-lg ${
+              <div className="flex items-start gap-3 h-full">
+                <div className={`p-2 rounded-lg flex-shrink-0 ${
                   isSelected ? `bg-${level.color}-100 text-${level.color}-600` : 'bg-gray-100 text-gray-600'
                 }`}>
                   <Icon className="w-5 h-5" />
                 </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-semibold text-gray-900 dark:text-white text-sm leading-tight mb-1 break-words">
                     {level.name}
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                  <p className="text-xs text-gray-600 dark:text-gray-300 mb-2 leading-relaxed break-words">
                     {level.description}
                   </p>
-                  <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                    <span>{level.controls} controls</span>
+                  <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 flex-wrap">
+                    <span className="whitespace-nowrap">{level.controls} controls</span>
                     <span>•</span>
-                    <span>{level.assessment}</span>
+                    <span className="whitespace-nowrap">{level.assessment}</span>
                   </div>
                 </div>
               </div>

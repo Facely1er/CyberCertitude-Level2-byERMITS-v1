@@ -6,6 +6,17 @@
 import { AssessmentTemplate, TemplateReview, TemplateCustomization } from '../shared/types/documentation';
 import { dataService } from './dataService';
 import { logger } from '../utils/logger';
+import { 
+  templateRegistry, 
+  TemplateContent, 
+  getTemplateById, 
+  getTemplatesByCategory, 
+  getTemplatesByControl,
+  searchTemplates,
+  customizeTemplate,
+  validateTemplateCustomization,
+  getTemplateStatistics
+} from '../data/templates';
 
 export interface TemplateCreateData {
   name: string;
@@ -749,6 +760,285 @@ class TemplateService {
     return this.templates
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice(0, limit);
+  }
+
+  // ========================================================================
+  // ENHANCED TEMPLATE CONTENT METHODS
+  // ========================================================================
+
+  /**
+   * Get content template by ID from the template registry
+   */
+  public getContentTemplate(templateId: string): TemplateContent | null {
+    try {
+      const template = getTemplateById(templateId);
+      logger.debug('Content template retrieved', { templateId, found: !!template });
+      return template;
+    } catch (error) {
+      logger.error('Failed to get content template:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Get all content templates from the registry
+   */
+  public getAllContentTemplates(): TemplateContent[] {
+    try {
+      logger.debug('All content templates retrieved', { count: templateRegistry.length });
+      return [...templateRegistry];
+    } catch (error) {
+      logger.error('Failed to get all content templates:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Get content templates by category
+   */
+  public getContentTemplatesByCategory(category: string): TemplateContent[] {
+    try {
+      const templates = getTemplatesByCategory(category);
+      logger.debug('Content templates retrieved by category', { category, count: templates.length });
+      return templates;
+    } catch (error) {
+      logger.error('Failed to get content templates by category:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Get content templates by CMMC control
+   */
+  public getContentTemplatesByControl(controlId: string): TemplateContent[] {
+    try {
+      const templates = getTemplatesByControl(controlId);
+      logger.debug('Content templates retrieved by control', { controlId, count: templates.length });
+      return templates;
+    } catch (error) {
+      logger.error('Failed to get content templates by control:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Search content templates
+   */
+  public searchContentTemplates(query: string): TemplateContent[] {
+    try {
+      const templates = searchTemplates(query);
+      logger.debug('Content templates searched', { query, count: templates.length });
+      return templates;
+    } catch (error) {
+      logger.error('Failed to search content templates:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Customize template with user data
+   */
+  public customizeContentTemplate(templateId: string, customizations: any): string {
+    try {
+      const customizedContent = customizeTemplate(templateId, customizations);
+      logger.info('Content template customized', { templateId, customizationsCount: Object.keys(customizations).length });
+      return customizedContent;
+    } catch (error) {
+      logger.error('Failed to customize content template:', error);
+      throw new Error(`Failed to customize template: ${(error as Error).message}`);
+    }
+  }
+
+  /**
+   * Validate template customization
+   */
+  public validateContentTemplateCustomization(templateId: string, customizations: any): { valid: boolean; errors: string[] } {
+    try {
+      const validation = validateTemplateCustomization(templateId, customizations);
+      logger.debug('Content template customization validated', { templateId, valid: validation.valid, errors: validation.errors.length });
+      return validation;
+    } catch (error) {
+      logger.error('Failed to validate content template customization:', error);
+      return { valid: false, errors: ['Validation failed'] };
+    }
+  }
+
+  /**
+   * Get template statistics
+   */
+  public getContentTemplateStatistics() {
+    try {
+      const stats = getTemplateStatistics();
+      logger.debug('Content template statistics retrieved', stats);
+      return stats;
+    } catch (error) {
+      logger.error('Failed to get content template statistics:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Export template to different formats
+   */
+  public async exportContentTemplate(templateId: string, customizations: any, format: 'markdown' | 'html' | 'pdf' | 'docx'): Promise<string | Blob> {
+    try {
+      const customizedContent = this.customizeContentTemplate(templateId, customizations);
+      
+      switch (format) {
+        case 'markdown':
+          logger.info('Content template exported to markdown', { templateId });
+          return customizedContent;
+          
+        case 'html':
+          const htmlContent = this.convertMarkdownToHTML(customizedContent);
+          logger.info('Content template exported to HTML', { templateId });
+          return htmlContent;
+          
+        case 'pdf':
+          const pdfBlob = await this.convertHTMLToPDF(customizedContent);
+          logger.info('Content template exported to PDF', { templateId });
+          return pdfBlob;
+          
+        case 'docx':
+          const docxBlob = await this.convertHTMLToDOCX(customizedContent);
+          logger.info('Content template exported to DOCX', { templateId });
+          return docxBlob;
+          
+        default:
+          throw new Error(`Unsupported export format: ${format}`);
+      }
+    } catch (error) {
+      logger.error('Failed to export content template:', error);
+      throw new Error(`Failed to export template: ${(error as Error).message}`);
+    }
+  }
+
+  /**
+   * Convert markdown to HTML
+   */
+  private convertMarkdownToHTML(markdown: string): string {
+    // Basic markdown to HTML conversion
+    let html = markdown
+      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+      .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
+      .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+      .replace(/\*(.*)\*/gim, '<em>$1</em>')
+      .replace(/`(.*)`/gim, '<code>$1</code>')
+      .replace(/^\* (.*$)/gim, '<li>$1</li>')
+      .replace(/^- (.*$)/gim, '<li>$1</li>')
+      .replace(/^\d+\. (.*$)/gim, '<li>$1</li>')
+      .replace(/\n\n/gim, '</p><p>')
+      .replace(/\n/gim, '<br>');
+
+    // Wrap in proper HTML structure
+    html = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>CMMC Template</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; }
+          h1, h2, h3, h4 { color: #333; }
+          table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+          th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+          th { background-color: #f2f2f2; }
+          code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+          li { margin: 5px 0; }
+        </style>
+      </head>
+      <body>
+        <p>${html}</p>
+      </body>
+      </html>
+    `;
+
+    return html;
+  }
+
+  /**
+   * Convert HTML to PDF (placeholder - would use a library like Puppeteer in production)
+   */
+  private async convertHTMLToPDF(html: string): Promise<Blob> {
+    // This is a placeholder implementation
+    // In production, you would use a library like Puppeteer or jsPDF
+    logger.warn('PDF conversion not implemented - returning HTML as text');
+    return new Blob([html], { type: 'text/html' });
+  }
+
+  /**
+   * Convert HTML to DOCX (placeholder - would use a library like docx in production)
+   */
+  private async convertHTMLToDOCX(html: string): Promise<Blob> {
+    // This is a placeholder implementation
+    // In production, you would use a library like docx or mammoth
+    logger.warn('DOCX conversion not implemented - returning HTML as text');
+    return new Blob([html], { type: 'text/html' });
+  }
+
+  /**
+   * Auto-populate template fields from user data
+   */
+  public autoPopulateTemplateFields(templateId: string, userData: any): any {
+    try {
+      const template = this.getContentTemplate(templateId);
+      if (!template) {
+        throw new Error(`Template with id ${templateId} not found`);
+      }
+
+      const autoPopulated = { ...userData };
+
+      // Auto-populate common fields
+      if (userData.userProfile) {
+        autoPopulated.companyName = userData.userProfile.companyName || userData.userProfile.organization;
+        autoPopulated.ciso = userData.userProfile.ciso || userData.userProfile.securityOfficer;
+        autoPopulated.contact = userData.userProfile.email || userData.userProfile.contactEmail;
+      }
+
+      // Auto-populate from assessment data
+      if (userData.assessmentData) {
+        autoPopulated.systemName = userData.assessmentData.systemName || 'CMMC System';
+        autoPopulated.systemDescription = userData.assessmentData.description || 'CMMC 2.0 Level 2 System';
+      }
+
+      // Auto-populate dates
+      autoPopulated.effectiveDate = new Date().toLocaleDateString();
+      autoPopulated.reviewDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString();
+
+      logger.info('Template fields auto-populated', { templateId, fieldsCount: Object.keys(autoPopulated).length });
+      return autoPopulated;
+    } catch (error) {
+      logger.error('Failed to auto-populate template fields:', error);
+      return userData;
+    }
+  }
+
+  /**
+   * Get template preview (first 500 characters)
+   */
+  public getTemplatePreview(templateId: string): string {
+    try {
+      const template = this.getContentTemplate(templateId);
+      if (!template) {
+        return '';
+      }
+
+      // Remove markdown formatting for preview
+      const preview = template.content
+        .replace(/#{1,6}\s+/g, '') // Remove headers
+        .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
+        .replace(/\*(.*?)\*/g, '$1') // Remove italic
+        .replace(/`(.*?)`/g, '$1') // Remove code
+        .replace(/\|.*\|/g, '') // Remove tables
+        .substring(0, 500);
+
+      return preview + (template.content.length > 500 ? '...' : '');
+    } catch (error) {
+      logger.error('Failed to get template preview:', error);
+      return '';
+    }
   }
 }
 

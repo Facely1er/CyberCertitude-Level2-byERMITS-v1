@@ -18,7 +18,13 @@ import {
   BookOpen, 
   ExternalLink, 
   TriangleAlert as AlertTriangle, 
-  FileBarChart
+  FileBarChart,
+  Wrench,
+  Tag,
+  GitBranch,
+  Workflow,
+  Calendar,
+  ArrowRight
 } from 'lucide-react';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { OfflineNotice } from './components/OfflineNotice';
@@ -28,6 +34,25 @@ import KeyboardShortcutsHelp from './components/KeyboardShortcutsHelp';
 import { AssetManagementModal } from './components/AssetManagementModal';
 import { SSPGenerator } from './components/SSPGenerator';
 import { TemplateManagementModal } from './components/TemplateManagementModal';
+import { TemplateLibraryBrowser } from './components/TemplateLibraryBrowser';
+import { TemplateCustomizationModal } from './components/TemplateCustomizationModal';
+import { WorkflowGuidance } from './components/WorkflowGuidance';
+import { ContextualHelp } from './components/ContextualHelp';
+import { 
+  ProjectCharterPage, 
+  CUIScopePage, 
+  DataFlowPage, 
+  TeamRolesPage, 
+  ImplementationWorkbookPage,
+  PolicyTemplatesPage,
+  DocumentRepositoryPage,
+  ControlValidationPage,
+  ComplianceTrackingPage,
+  AuditPackagePage,
+  C3PAOPrepPage,
+  MetricsDashboardPage,
+  CertificationTrackingPage
+} from './components/PlaceholderPages';
 import { NotificationSystem } from './shared/components/ui/NotificationSystem';
 import { ThemeToggle } from './shared/components/ui/ThemeToggle';
 import { StartScreen } from './shared/components/layout/StartScreen';
@@ -41,14 +66,77 @@ import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useAuth } from './shared/hooks/useAuth';
 import { useAssessments } from './shared/hooks/useAssessments';
 import { useScrollToTop } from './hooks/useScrollToTop';
-import { cmmcFramework, getFramework } from './data/frameworks';
-import { AssessmentData, UserProfile, NotificationMessage, OrganizationInfo } from './shared/types';
+import { getFramework } from './data/frameworks';
+import { AssessmentData, UserProfile, NotificationMessage } from './shared/types';
 import { Asset } from './shared/types/assets';
 import { AssessmentTemplate } from './shared/types/documentation';
 import { dataService } from './services/dataService';
 import { reportService } from './services/reportService';
 import { assetService } from './services/assetService';
 import { logger } from '@/utils/logger';
+
+// Template Customization Route Component
+const TemplateCustomizationRoute: React.FC = () => {
+  const { templateId } = useParams<{ templateId: string }>();
+  const [template, setTemplate] = useState<any>(null);
+  const [showCustomizationModal, setShowCustomizationModal] = useState(false);
+
+  useEffect(() => {
+    if (templateId) {
+      // Load template data
+      // This would integrate with templateService
+      setTemplate({ id: templateId, name: 'Template', description: 'Template description' });
+    }
+  }, [templateId]);
+
+  const handleSaveCustomization = (templateId: string, customizations: any) => {
+    logger.info('Template customizations saved', { templateId, customizationsCount: Object.keys(customizations).length });
+  };
+
+  const handleExportCustomization = async (templateId: string, customizations: any, format: string) => {
+    try {
+      logger.info('Exporting customized template', { templateId, format, customizationsCount: Object.keys(customizations).length });
+      // Export logic would be handled here
+    } catch (error) {
+      logger.error('Failed to export customized template:', error);
+    }
+  };
+
+  if (!template) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <TemplateCustomizationModal
+        template={template}
+        isOpen={showCustomizationModal}
+        onClose={() => setShowCustomizationModal(false)}
+        onSave={handleSaveCustomization}
+        onExport={handleExportCustomization}
+      />
+      
+      <div className="text-center py-12">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+          Template Customization
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
+          Template customization functionality will be available here.
+        </p>
+        <button
+          onClick={() => setShowCustomizationModal(true)}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Open Customization Modal
+        </button>
+      </div>
+    </>
+  );
+};
 
 // Import lazy-loaded components
 import {
@@ -269,78 +357,78 @@ function App() {
   // Ensure page scrolls to top on route changes
   useScrollToTop();
 
-  // CMMC 2.0 Level 2 Implementation Phase Navigation
+  // CMMC 2.0 Level 2 Implementation Navigation - Reorganized for Better UX
   const navItems = [
     {
-      label: 'Overview',
-      href: '/overview',
+      label: 'Dashboard',
+      href: '/dashboard',
       icon: BarChart3,
-      description: 'CMMC implementation overview and project status'
+      description: 'Overview and quick access to key features'
     },
     {
-      label: 'Phase 1: Initiation',
-      icon: Play,
+      label: 'Assessment',
+      icon: Target,
       children: [
         {
-          label: 'Project Charter',
+          label: 'Start Assessment',
+          href: '/assessment-intro',
+          icon: Play,
+          description: 'Begin CMMC 2.0 Level 2 assessment'
+        },
+        {
+          label: 'Gap Analysis',
+          href: '/gap-analysis',
+          icon: AlertTriangle,
+          description: 'Identify compliance gaps and requirements'
+        },
+        {
+          label: 'Risk Assessment',
+          href: '/risk-assessment',
+          icon: Shield,
+          description: 'Assess security risks and vulnerabilities'
+        },
+        {
+          label: 'Control Assessor',
+          href: '/control-assessor',
+          icon: CheckCircle,
+          description: 'Review all 110 security controls'
+        }
+      ]
+    },
+    {
+      label: 'Implementation',
+      icon: Wrench,
+      children: [
+        {
+          label: 'Project Setup',
           href: '/project-charter',
           icon: FileText,
           description: 'Define scope, team, and objectives'
         },
         {
-          label: 'CUI Scope Definition',
+          label: 'CUI Scope',
           href: '/cui-scope',
           icon: Target,
           description: 'Identify systems and assets under CUI scope'
         },
         {
-          label: 'Data Flow Diagram',
+          label: 'Data Flow Mapping',
           href: '/data-flow',
           icon: Activity,
           description: 'Map CUI data flows and system boundaries'
         },
         {
-          label: 'Team Roles Assignment',
+          label: 'Team Roles',
           href: '/team-roles',
           icon: Users,
-          description: 'Designate compliance team roles and responsibilities'
-        }
-      ]
-    },
-    {
-      label: 'Phase 2: Readiness Assessment',
-      icon: CheckCircle,
-      children: [
-        {
-          label: 'CMMC Assessment',
-          href: '/assessment-intro',
-          icon: Target,
-          description: 'Perform self-assessment for all controls'
+          description: 'Designate compliance team roles'
         },
         {
-          label: 'Control Assessor',
-          href: '/control-assessor',
-          icon: Shield,
-          description: 'Review all 110 security controls'
+          label: 'Implementation Workbook',
+          href: '/implementation-workbook',
+          icon: BookOpen,
+          description: 'Control-level tasks and evidence checklist'
         },
-        {
-          label: 'Gap Analysis',
-          href: '/gap-analysis',
-          icon: BarChart3,
-          description: 'Identify compliance gaps and priorities'
-        },
-        {
-          label: 'Risk Assessment',
-          href: '/risk-assessment',
-          icon: AlertTriangle,
-          description: 'Assess risks and create risk scorecard'
-        }
-      ]
-    },
-    {
-      label: 'Phase 3: Implementation',
-      icon: CheckSquare,
-      children: [
         {
           label: 'CMMC Journey',
           href: '/cmmc-journey',
@@ -348,40 +436,22 @@ function App() {
           description: 'Guided step-by-step implementation workflow'
         },
         {
-          label: 'Implementation Workbook',
-          href: '/implementation-workbook',
+          label: 'Template Library',
+          href: '/templates/library',
           icon: FileText,
-          description: 'Control-level tasks, owners, and evidence checklist'
-        },
-        {
-          label: 'Asset Management',
-          href: '/assets',
-          icon: Database,
-          description: 'Track systems and data under CUI scope'
-        },
-        {
-          label: 'Controls Management',
-          href: '/controls',
-          icon: Shield,
-          description: 'Implement missing security measures'
+          description: 'Browse and customize CMMC compliance templates'
         }
       ]
     },
     {
-      label: 'Phase 4: Policy Development',
-      icon: FileText,
+      label: 'Compliance',
+      icon: Shield,
       children: [
         {
-          label: 'Policy Templates',
-          href: '/policy-templates',
-          icon: FileText,
-          description: 'Pre-formatted policies aligned with NIST SP 800-171'
-        },
-        {
-          label: 'Policy Management',
-          href: '/policies',
-          icon: FileText,
-          description: 'Create and manage required policies'
+          label: 'Real-time Status',
+          href: '/compliance',
+          icon: Activity,
+          description: 'Monitor compliance progress'
         },
         {
           label: 'Evidence Collection',
@@ -390,130 +460,94 @@ function App() {
           description: 'Collect and organize compliance evidence'
         },
         {
-          label: 'Document Repository',
-          href: '/document-repository',
-          icon: Database,
-          description: 'Centralized storage for all compliance documents'
-        }
-      ]
-    },
-    {
-      label: 'Phase 5: Validation',
-      icon: CheckCircle,
-      children: [
+          label: 'Policy Management',
+          href: '/policies',
+          icon: FileText,
+          description: 'Create and manage required policies'
+        },
         {
-          label: 'Control Validation',
-          href: '/control-validation',
-          icon: Shield,
-          description: 'Verify implemented controls and test results'
+          label: 'Controls Management',
+          href: '/controls',
+          icon: Settings,
+          description: 'Manage CMMC control implementation'
         },
         {
           label: 'POA&M Manager',
           href: '/poam-manager',
           icon: CheckSquare,
-          description: 'Track action plan for unresolved gaps'
+          description: 'Track action plans for gaps'
+        }
+      ]
+    },
+    {
+      label: 'Assets',
+      icon: Database,
+      children: [
+        {
+          label: 'Asset Inventory',
+          href: '/assets/inventory',
+          icon: Database,
+          description: 'Catalog systems and assets'
         },
+        {
+          label: 'Asset Categories',
+          href: '/assets/categories',
+          icon: Tag,
+          description: 'Organize assets by category'
+        },
+        {
+          label: 'Dependencies',
+          href: '/assets/dependencies',
+          icon: GitBranch,
+          description: 'Map asset relationships'
+        },
+        {
+          label: 'Workflow',
+          href: '/assets/workflow',
+          icon: Workflow,
+          description: 'Asset management workflows'
+        }
+      ]
+    },
+    {
+      label: 'Team & Tools',
+      icon: Users,
+      children: [
         {
           label: 'Team Collaboration',
           href: '/team',
           icon: Users,
-          description: 'Coordinate validation activities with team'
+          description: 'Coordinate team activities'
         },
         {
-          label: 'Compliance Tracking',
-          href: '/compliance-tracking',
-          icon: BarChart3,
-          description: 'Monitor progress and compliance status'
-        }
-      ]
-    },
-    {
-      label: 'Phase 6: Audit Preparation',
-      icon: FileText,
-      children: [
+          label: 'Task Management',
+          href: '/tasks',
+          icon: CheckSquare,
+          description: 'Track implementation tasks'
+        },
         {
-          label: 'System Security Plan',
+          label: 'Calendar',
+          href: '/calendar',
+          icon: Calendar,
+          description: 'Schedule compliance activities'
+        },
+        {
+          label: 'Reports',
+          href: '/reports',
+          icon: FileText,
+          description: 'Generate compliance reports'
+        },
+        {
+          label: 'SSP Generator',
           href: '/ssp-generator',
           icon: FileText,
-          description: 'Generate comprehensive SSP documentation'
+          description: 'Generate System Security Plans'
         },
         {
-          label: 'Security Assessment Report',
-          href: '/reports/security-assessment',
-          icon: FileText,
-          description: 'Generate comprehensive security assessment reports'
-        },
-        {
-          label: 'Audit Readiness',
-          href: '/audit-tracker',
-          icon: CheckCircle,
-          description: 'Prepare for C3PAO assessment'
-        },
-        {
-          label: 'Assessment Reports',
-          href: '/reports',
-          icon: FileBarChart,
-          description: 'Create reports and analytics'
-        }
-      ]
-    },
-    {
-      label: 'Phase 7: Certification Support',
-      icon: Shield,
-      children: [
-        {
-          label: 'Audit Readiness Package',
-          href: '/audit-package',
-          icon: FileText,
-          description: 'Final submission-ready package for C3PAO'
-        },
-        {
-          label: 'C3PAO Preparation',
-          href: '/c3pao-prep',
-          icon: CheckCircle,
-          description: 'Final review before C3PAO engagement'
-        },
-        {
-          label: 'Metrics Dashboard',
-          href: '/metrics-dashboard',
-          icon: BarChart3,
-          description: 'Executive summary of compliance posture'
-        },
-        {
-          label: 'Certification Tracking',
-          href: '/certification-tracking',
-          icon: Activity,
-          description: 'Track certification progress and milestones'
-        }
-      ]
-    },
-    {
-      label: 'Advanced Tools',
-      icon: Settings,
-      children: [
-        {
-          label: 'Incident Response Plan',
-          href: '/incident-response-plan-generator',
-          icon: Shield,
-          description: 'Generate comprehensive incident response plans'
-        },
-        {
-          label: 'Configuration Baselines',
-          href: '/config-baselines',
-          icon: Settings,
-          description: 'Generate security configuration baselines'
-        },
-        {
-          label: 'Security Controls',
-          href: '/security-controls',
-          icon: Shield,
-          description: 'Map and manage security controls'
-        },
-        {
-          label: 'Training Program',
-          href: '/training-tracker',
+          label: 'Workflow Guidance',
+          href: '/workflow-guidance',
           icon: BookOpen,
-          description: 'Track staff training progress'
+          description: 'Step-by-step implementation guidance'
         }
       ]
     }
@@ -748,38 +782,6 @@ function App() {
     navigate('/assessment-intro');
   };
 
-  const handleStartAssessmentWithInfo = (organizationInfo?: OrganizationInfo, selectedFramework?: string, selectedLevel?: number) => {
-    const frameworkId = selectedFramework || 'cmmc';
-    const framework = getFramework(frameworkId);
-    
-    const newAssessment: AssessmentData = {
-      id: Date.now().toString(),
-      status: 'in-progress',
-      frameworkId,
-      frameworkName: framework.name,
-      responses: {},
-      createdAt: new Date(),
-      lastModified: new Date(),
-      isComplete: false,
-      version: framework.version,
-      organizationInfo,
-      questionNotes: {},
-      questionEvidence: {},
-      evidenceLibrary: [],
-      assessmentVersion: '1.0.0',
-      versionHistory: [],
-      changeLog: [],
-      tags: [],
-      customFields: {
-        selectedLevel: selectedLevel || selectedCMMCLevel
-      }
-    };
-
-    // Save assessment before navigating to it
-    saveAssessment(newAssessment);
-    navigate(`/assessment/${newAssessment.id}`);
-  };
-
   const handleLoadAssessment = (assessment: AssessmentData) => {
     navigate(`/assessment/${assessment.id}`);
   };
@@ -974,17 +976,18 @@ function App() {
               } 
             />
 
-            {/* Assessment Flow */}
+            {/* Workflow Guidance */}
             <Route 
-              path="/assessment-intro" 
+              path="/workflow-guidance" 
               element={
-                <AssessmentIntroScreen
-                  selectedLevel={selectedCMMCLevel}
-                  frameworks={[cmmcFramework]}
-                  onStartAssessment={handleStartAssessmentWithInfo}
-                  onShowTemplates={handleShowTemplates}
-                  onBack={() => navigate('/dashboard')}
-                />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                  <WorkflowGuidance 
+                    currentPage="/workflow-guidance"
+                    userRole="compliance-officer"
+                    onNavigate={navigate}
+                    className="mb-8"
+                  />
+                </div>
               } 
             />
 
@@ -1619,7 +1622,17 @@ function App() {
             <Route
               path="/reports/security-assessment"
               element={
-                <SecurityAssessmentReportGenerator />
+                <SecurityAssessmentReportGenerator
+                  assessments={savedAssessments}
+                  userProfile={userProfile}
+                  onSaveReport={(report) => {
+                    addNotification('success', 'Security Assessment Report saved successfully');
+                  }}
+                  onExportReport={(report, format) => {
+                    addNotification('success', `Security Assessment Report exported as ${format.toUpperCase()}`);
+                  }}
+                  onBack={() => navigate('/reports')}
+                />
               }
             />
 
@@ -1790,44 +1803,28 @@ function App() {
             <Route 
               path="/project-charter" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Project Charter</h1>
-                  <p className="text-gray-600 mb-6">Define scope, team, and objectives for your CMMC implementation project.</p>
-                  {/* Project Charter component will be implemented */}
-                </div>
+                <ProjectCharterPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
             <Route 
               path="/cui-scope" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">CUI Scope Definition</h1>
-                  <p className="text-gray-600 mb-6">Identify systems and assets under Controlled Unclassified Information (CUI) scope.</p>
-                  {/* CUI Scope component will be implemented */}
-                </div>
+                <CUIScopePage onBack={() => navigate('/dashboard')} />
               } 
             />
 
             <Route 
               path="/data-flow" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Data Flow Diagram</h1>
-                  <p className="text-gray-600 mb-6">Map CUI data flows and system boundaries.</p>
-                  {/* Data Flow component will be implemented */}
-                </div>
+                <DataFlowPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
             <Route 
               path="/team-roles" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Team Roles Assignment</h1>
-                  <p className="text-gray-600 mb-6">Designate compliance team roles and responsibilities.</p>
-                  {/* Team Roles component will be implemented */}
-                </div>
+                <TeamRolesPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
@@ -1835,11 +1832,7 @@ function App() {
             <Route 
               path="/implementation-workbook" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Implementation Workbook</h1>
-                  <p className="text-gray-600 mb-6">Control-level tasks, owners, and evidence checklist.</p>
-                  {/* Implementation Workbook component will be implemented */}
-                </div>
+                <ImplementationWorkbookPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
@@ -1847,22 +1840,14 @@ function App() {
             <Route 
               path="/policy-templates" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Policy Templates</h1>
-                  <p className="text-gray-600 mb-6">Pre-formatted policies aligned with NIST SP 800-171.</p>
-                  {/* Policy Templates component will be implemented */}
-                </div>
+                <PolicyTemplatesPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
             <Route 
               path="/document-repository" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Document Repository</h1>
-                  <p className="text-gray-600 mb-6">Centralized storage for all compliance documents.</p>
-                  {/* Document Repository component will be implemented */}
-                </div>
+                <DocumentRepositoryPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
@@ -1870,22 +1855,14 @@ function App() {
             <Route 
               path="/control-validation" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Control Validation</h1>
-                  <p className="text-gray-600 mb-6">Verify implemented controls and test results.</p>
-                  {/* Control Validation component will be implemented */}
-                </div>
+                <ControlValidationPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
             <Route 
               path="/compliance-tracking" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Compliance Tracking</h1>
-                  <p className="text-gray-600 mb-6">Monitor progress and compliance status.</p>
-                  {/* Compliance Tracking component will be implemented */}
-                </div>
+                <ComplianceTrackingPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
@@ -1893,44 +1870,28 @@ function App() {
             <Route 
               path="/audit-package" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Audit Readiness Package</h1>
-                  <p className="text-gray-600 mb-6">Final submission-ready package for C3PAO.</p>
-                  {/* Audit Package component will be implemented */}
-                </div>
+                <AuditPackagePage onBack={() => navigate('/dashboard')} />
               } 
             />
 
             <Route 
               path="/c3pao-prep" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">C3PAO Preparation</h1>
-                  <p className="text-gray-600 mb-6">Final review before C3PAO engagement.</p>
-                  {/* C3PAO Prep component will be implemented */}
-                </div>
+                <C3PAOPrepPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
             <Route 
               path="/metrics-dashboard" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Metrics Dashboard</h1>
-                  <p className="text-gray-600 mb-6">Executive summary of compliance posture.</p>
-                  {/* Metrics Dashboard component will be implemented */}
-                </div>
+                <MetricsDashboardPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
             <Route 
               path="/certification-tracking" 
               element={
-                <div className="max-w-7xl mx-auto p-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-6">Certification Tracking</h1>
-                  <p className="text-gray-600 mb-6">Track certification progress and milestones.</p>
-                  {/* Certification Tracking component will be implemented */}
-                </div>
+                <CertificationTrackingPage onBack={() => navigate('/dashboard')} />
               } 
             />
 
@@ -2267,6 +2228,60 @@ function App() {
                 </div>
               </div>
             } />
+
+            {/* Template Library Routes */}
+            <Route 
+              path="/templates/library" 
+              element={
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                  <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Template Library</h1>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6">
+                      Browse and customize CMMC compliance templates including SSPs, policies, incident response plans, and more.
+                    </p>
+                  </div>
+                  <TemplateLibraryBrowser
+                    onSelectTemplate={(template) => {
+                      addNotification('success', `Template "${template.name}" selected`);
+                      navigate(`/templates/customize/${template.id}`);
+                    }}
+                    onCustomizeTemplate={(template) => {
+                      navigate(`/templates/customize/${template.id}`);
+                    }}
+                    onExportTemplate={async (template, format) => {
+                      try {
+                        addNotification('info', `Exporting ${template.name} as ${format}...`);
+                        // Export logic would be handled by the component
+                      } catch (error) {
+                        addNotification('error', 'Export failed');
+                      }
+                    }}
+                  />
+                </div>
+              } 
+            />
+
+            <Route 
+              path="/templates/customize/:templateId" 
+              element={
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                  <div className="mb-8">
+                    <button
+                      onClick={() => navigate('/templates/library')}
+                      className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors mb-4"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                      <span>Back to Template Library</span>
+                    </button>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Customize Template</h1>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6">
+                      Customize template fields and preview the final document before export.
+                    </p>
+                  </div>
+                  <TemplateCustomizationRoute />
+                </div>
+              } 
+            />
           </Routes>
         </main>
 
@@ -2550,6 +2565,13 @@ function App() {
             // Store dismissal preference
             localStorage.setItem('pwa-install-dismissed', Date.now().toString());
           }}
+        />
+
+        {/* Contextual Help */}
+        <ContextualHelp 
+          currentPage={location.pathname}
+          userRole="compliance-officer"
+          onNavigate={navigate}
         />
       </div>
     </ErrorBoundary>

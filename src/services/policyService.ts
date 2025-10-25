@@ -1,5 +1,7 @@
 import { dataService } from './dataService';
 import { logger } from '../utils/logger';
+import { TemplateContent } from '../data/templates';
+import { templateService } from './templateService';
 
 export interface Policy {
   id: string;
@@ -137,6 +139,166 @@ export class PolicyService {
       logger.error('Error deleting policy:', error);
       throw error;
     }
+  }
+
+  // Template-based policy methods
+  async getTemplatePolicy(policyType: string): Promise<TemplateContent | null> {
+    try {
+      const policyTemplates = templateService.getContentTemplatesByCategory('policy');
+      return policyTemplates.find(template => 
+        template.name.toLowerCase().includes(policyType.toLowerCase()) ||
+        template.tags.some(tag => tag.toLowerCase().includes(policyType.toLowerCase()))
+      ) || null;
+    } catch (error) {
+      logger.error('Error fetching policy template:', error);
+      return null;
+    }
+  }
+
+  async createPolicyFromTemplate(templateId: string, customizations: any): Promise<Policy> {
+    try {
+      const template = templateService.getContentTemplate(templateId);
+      if (!template) {
+        throw new Error('Template not found');
+      }
+
+      const customizedContent = templateService.customizeContentTemplate(templateId, customizations);
+      
+      const policy: Omit<Policy, 'createdAt' | 'updatedAt'> = {
+        id: `policy-${Date.now()}`,
+        name: customizations.companyInfo?.name ? `${template.name} - ${customizations.companyInfo.name}` : template.name,
+        description: template.description,
+        type: this.mapTemplateToPolicyType(template),
+        framework: 'CMMC 2.0',
+        nistFunction: 'Protect',
+        nistCategory: 'PR.AC',
+        nistSubcategories: template.controls,
+        version: '1.0',
+        status: 'draft',
+        effectiveDate: new Date(),
+        lastReviewed: new Date(),
+        nextReview: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
+        reviewCycle: 'annually',
+        owner: customizations.companyInfo?.contact || 'Policy Owner',
+        approver: customizations.companyInfo?.contact || 'Policy Approver',
+        stakeholders: ['IT Security', 'Compliance', 'Legal'],
+        scope: customizations.systemInfo?.name ? [customizations.systemInfo.name] : ['All Systems'],
+        exceptions: [],
+        relatedPolicies: [],
+        relatedControls: template.controls,
+        evidence: this.generatePolicyEvidence(template),
+        implementationGuide: {
+          steps: this.generateImplementationSteps(template),
+          resources: this.generatePolicyResources(template),
+          training: this.generateTrainingRequirements(template),
+          metrics: this.generatePolicyMetrics(template)
+        },
+        complianceRequirements: template.controls,
+        riskLevel: this.assessPolicyRiskLevel(template),
+        businessImpact: this.assessBusinessImpact(template),
+        implementationStatus: 'not-started',
+        lastUpdated: new Date()
+      };
+
+      return await this.savePolicy(policy);
+    } catch (error) {
+      logger.error('Error creating policy from template:', error);
+      throw error;
+    }
+  }
+
+  async customizePolicyTemplate(templateId: string, customizations: any): Promise<string> {
+    try {
+      return templateService.customizeContentTemplate(templateId, customizations);
+    } catch (error) {
+      logger.error('Error customizing policy template:', error);
+      throw error;
+    }
+  }
+
+  async exportPolicyTemplate(templateId: string, customizations: any, format: 'markdown' | 'html' | 'pdf' | 'docx'): Promise<string | Blob> {
+    try {
+      return await templateService.exportContentTemplate(templateId, customizations, format);
+    } catch (error) {
+      logger.error('Error exporting policy template:', error);
+      throw error;
+    }
+  }
+
+  private mapTemplateToPolicyType(template: TemplateContent): Policy['type'] {
+    const name = template.name.toLowerCase();
+    if (name.includes('access control')) return 'access-control';
+    if (name.includes('incident response')) return 'incident-response';
+    if (name.includes('data protection')) return 'data-protection';
+    if (name.includes('risk management')) return 'risk-management';
+    if (name.includes('governance')) return 'governance';
+    if (name.includes('operational')) return 'operational';
+    if (name.includes('technical')) return 'technical';
+    return 'compliance';
+  }
+
+  private generatePolicyEvidence(template: TemplateContent): string[] {
+    return [
+      'Policy document',
+      'Implementation documentation',
+      'Training records',
+      'Audit reports',
+      'Compliance assessments'
+    ];
+  }
+
+  private generateImplementationSteps(template: TemplateContent): string[] {
+    return [
+      'Review and approve policy',
+      'Communicate policy to stakeholders',
+      'Implement technical controls',
+      'Conduct training',
+      'Monitor compliance',
+      'Regular review and updates'
+    ];
+  }
+
+  private generatePolicyResources(template: TemplateContent): string[] {
+    return [
+      'Policy template',
+      'Implementation guide',
+      'Training materials',
+      'Compliance checklist',
+      'Audit procedures'
+    ];
+  }
+
+  private generateTrainingRequirements(template: TemplateContent): string[] {
+    return [
+      'Policy awareness training',
+      'Role-specific training',
+      'Annual refresher training',
+      'Incident response training'
+    ];
+  }
+
+  private generatePolicyMetrics(template: TemplateContent): string[] {
+    return [
+      'Policy compliance rate',
+      'Training completion rate',
+      'Incident response time',
+      'Audit findings',
+      'Policy effectiveness metrics'
+    ];
+  }
+
+  private assessPolicyRiskLevel(template: TemplateContent): Policy['riskLevel'] {
+    const criticalControls = template.controls.filter(control => 
+      control.includes('AC.1') || control.includes('AU.1') || control.includes('IR.1')
+    );
+    return criticalControls.length > 5 ? 'high' : criticalControls.length > 2 ? 'medium' : 'low';
+  }
+
+  private assessBusinessImpact(template: TemplateContent): Policy['businessImpact'] {
+    const highImpactControls = template.controls.filter(control => 
+      control.includes('SC.1') || control.includes('SC.2') || control.includes('SI.1')
+    );
+    return highImpactControls.length > 3 ? 'high' : highImpactControls.length > 1 ? 'medium' : 'low';
   }
 
   async searchPolicies(filters: PolicyFilters): Promise<Policy[]> {
