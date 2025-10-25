@@ -11,10 +11,9 @@ import {
   AuditPackagePage,
   C3PAOPrepPage,
   MetricsDashboardPage,
-  CertificationTrackingPage,
-  SSPGenerator,
-  C3PAOPreparationTool
-} from '../components/LazyComponents';
+  CertificationTrackingPage
+} from '../components/PlaceholderPages';
+import { SSPGenerator } from '../components/SSPGenerator';
 
 export const implementationRoutes = [
   {

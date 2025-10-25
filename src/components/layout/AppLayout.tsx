@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, Shield, BarChart3, CheckCircle, FileText, Database, FileBarChart, CheckSquare, Users, Settings } from 'lucide-react';
-import { AccessibleNavigation } from '../components/AccessibleNavigation';
-import { AccountDropdown } from '../components/AccountDropdown';
-import { ThemeToggle } from '../shared/components/ui/ThemeToggle';
-import { NotificationSystem } from '../shared/components/ui/NotificationSystem';
-import { OfflineNotice } from '../components/OfflineNotice';
-import { CMMCOnboardingFlow } from '../components/CMMCOnboardingFlow';
-import { ProductionReadinessWidget } from '../components/ProductionReadinessWidget';
-import KeyboardShortcutsHelp from '../components/KeyboardShortcutsHelp';
-import { AssetManagementModal } from '../components/AssetManagementModal';
-import { TemplateManagementModal } from '../components/TemplateManagementModal';
-import { MobileMenu } from '../components/MobileMenu';
-import PWAInstallPrompt from '../components/PWAInstallPrompt';
-import { ContextualHelp } from '../components/ContextualHelp';
-import { NavigationItem } from '../config/navigation';
-import { UserProfile, NotificationMessage } from '../shared/types';
-import { Asset } from '../shared/types/assets';
+import { AccessibleNavigation } from '../AccessibleNavigation';
+import { AccountDropdown } from '../AccountDropdown';
+import { ThemeToggle } from '../../shared/components/ui/ThemeToggle';
+import { NotificationSystem } from '../../shared/components/ui/NotificationSystem';
+import { OfflineNotice } from '../OfflineNotice';
+import { CMMCOnboardingFlow } from '../CMMCOnboardingFlow';
+import { ProductionReadinessWidget } from '../ProductionReadinessWidget';
+import KeyboardShortcutsHelp from '../KeyboardShortcutsHelp';
+import { AssetManagementModal } from '../AssetManagementModal';
+import { TemplateManagementModal } from '../TemplateManagementModal';
+import { MobileMenu } from '../MobileMenu';
+import PWAInstallPrompt from '../PWAInstallPrompt';
+import { ContextualHelp } from '../ContextualHelp';
+import { NavigationItem } from '../../config/navigation';
+import { UserProfile, NotificationMessage } from '../../shared/types';
+import { Asset } from '../../shared/types/assets';
 
 export interface AppLayoutProps {
   children: React.ReactNode;
@@ -79,7 +79,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       {/* Fixed Header */}
       <header className="fixed top-0 left-0 right-0 bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-support-light dark:border-support-dark z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16">
+          <div className="flex items-center justify-between h-16">
             {/* Left Section - Branding */}
             <Link to="/" className="flex items-center space-x-2 flex-shrink-0 min-w-0 hover:opacity-80 transition-opacity duration-200">
               <img src="/cybercertitude.png" alt="CyberCertitude" className="w-12 h-12" />
@@ -97,12 +97,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             </Link>
             
             {/* Center Section - Navigation Menu */}
-            <div className="hidden md:flex flex-1 justify-center px-12">
+            <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
               <AccessibleNavigation items={navItems} />
             </div>
             
             {/* Right Section - User Controls */}
-            <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0 ml-auto">
+            <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setShowMobileMenu(true)}
@@ -414,7 +414,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       <TemplateManagementModal
         isOpen={showTemplateModal}
         onClose={() => setShowTemplateModal(false)}
-        onSelectTemplate={handleSelectTemplate}
+        onSelectTemplate={(template) => handleSelectTemplate(template.id)}
         frameworkId={selectedFramework}
       />
       

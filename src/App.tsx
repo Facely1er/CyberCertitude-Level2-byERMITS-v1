@@ -12,7 +12,7 @@ import { useAuth } from './shared/hooks/useAuth';
 import { useAssessments } from './shared/hooks/useAssessments';
 import { useScrollToTop } from './hooks/useScrollToTop';
 import { navigationItems } from './config/navigation';
-import { allRoutes } from './routes';
+import { allRoutes } from './routes/index';
 import { AssessmentRoute } from './routes/AssessmentRoute';
 import { ReportRoute } from './routes/ReportRoute';
 

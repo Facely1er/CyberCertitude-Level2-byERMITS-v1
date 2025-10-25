@@ -86,7 +86,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
       role="navigation"
       aria-label="Main navigation"
     >
-      <ul className="flex items-center space-x-0" role="menubar">
+      <ul className="flex items-center space-x-1" role="menubar">
         {items.map((item) => (
           <li key={item.label} className="relative" role="none">
             {item.children ? (
@@ -105,7 +105,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 }}
               >
                 <button
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-300 ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-300 ${
                     item.children?.some(child => child.href && isActive(child.href))
                       ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
                       : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
@@ -183,7 +183,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
             ) : (
               <Link
                 to={item.href!}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-300 ${
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-300 ${
                   isActive(item.href!)
                     ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
                     : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'

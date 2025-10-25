@@ -41,6 +41,18 @@ export const navigationItems: NavigationItem[] = [
     description: 'Overview and quick access to key features'
   },
   {
+    label: 'Master Dashboard',
+    href: '/dashboard/master',
+    icon: BarChart3,
+    description: 'Complete implementation tracking and toolkit management'
+  },
+  {
+    label: 'Enhanced Dashboard',
+    href: '/dashboard/enhanced',
+    icon: BarChart3,
+    description: 'Advanced progress tracking with smart recommendations'
+  },
+  {
     label: 'Assessment',
     icon: Target,
     children: [
@@ -67,6 +79,12 @@ export const navigationItems: NavigationItem[] = [
         href: '/control-assessor',
         icon: CheckCircle,
         description: 'Review all 110 security controls'
+      },
+      {
+        label: 'Compliance Wizard',
+        href: '/assessment/wizard',
+        icon: Target,
+        description: 'Interactive CMMC compliance assessment'
       }
     ]
   },
@@ -115,6 +133,18 @@ export const navigationItems: NavigationItem[] = [
         href: '/templates/library',
         icon: FileText,
         description: 'Browse and customize CMMC compliance templates'
+      },
+      {
+        label: 'Compliance Toolkit',
+        href: '/templates/compliance-toolkit',
+        icon: Shield,
+        description: 'Complete CMMC 2.0 toolkit with all templates'
+      },
+      {
+        label: 'Scenario Templates',
+        href: '/templates/scenarios',
+        icon: BookOpen,
+        description: 'Enterprise-grade comprehensive documents'
       }
     ]
   },
