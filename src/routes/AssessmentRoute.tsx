@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { EnhancedAssessmentView } from '../features/assessment/components/EnhancedAssessmentView';
+import EnhancedAssessmentView from '../features/assessment/components/EnhancedAssessmentView';
 import { getFramework } from '../data/frameworks';
 import { AssessmentData, UserProfile } from '../shared/types';
 

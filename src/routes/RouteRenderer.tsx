@@ -18,11 +18,7 @@ export const RouteRenderer: React.FC<RouteRendererProps> = ({ routes }) => {
         <Route
           key={route.path}
           path={route.path}
-          element={
-            typeof route.element === 'function' 
-              ? React.createElement(route.element)
-              : React.createElement(route.element)
-          }
+          element={React.createElement(route.element)}
         />
       ))}
     </Routes>

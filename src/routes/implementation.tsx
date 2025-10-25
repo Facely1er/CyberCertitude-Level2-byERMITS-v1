@@ -1,3 +1,4 @@
+import React from 'react';
 import { 
   ProjectCharterPage,
   CUIScopePage,
@@ -15,21 +16,80 @@ import {
 } from '../components/PlaceholderPages';
 import { SSPGenerator } from '../components/SSPGenerator';
 
+// Implementation Overview Page Component
+const ImplementationOverviewPage: React.FC = () => (
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="card-standard p-8">
+      <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
+        CMMC Implementation Overview
+      </h1>
+      <p className="text-text-secondary-light dark:text-text-secondary-dark">
+        Implementation overview functionality will be implemented here.
+      </p>
+    </div>
+  </div>
+);
+
+// POAM Manager Page Component
+const POAMManagerPage: React.FC = () => (
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="card-standard p-8">
+      <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
+        POAM Manager
+      </h1>
+      <p className="text-text-secondary-light dark:text-text-secondary-dark">
+        POAM (Plan of Action and Milestones) management functionality will be implemented here.
+      </p>
+    </div>
+  </div>
+);
+
+// Audit Tracker Page Component
+const AuditTrackerPage: React.FC = () => (
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="card-standard p-8">
+      <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
+        Audit Tracker
+      </h1>
+      <p className="text-text-secondary-light dark:text-text-secondary-dark">
+        Audit tracking functionality will be implemented here.
+      </p>
+    </div>
+  </div>
+);
+
+// Policy Generator Page Component
+const PolicyGeneratorPage: React.FC = () => (
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="card-standard p-8">
+      <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
+        Policy Generator
+      </h1>
+      <p className="text-text-secondary-light dark:text-text-secondary-dark">
+        Policy generation functionality will be implemented here.
+      </p>
+    </div>
+  </div>
+);
+
+// Training Tracker Page Component
+const TrainingTrackerPage: React.FC = () => (
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="card-standard p-8">
+      <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
+        Training Tracker
+      </h1>
+      <p className="text-text-secondary-light dark:text-text-secondary-dark">
+        Training tracking functionality will be implemented here.
+      </p>
+    </div>
+  </div>
+);
+
 export const implementationRoutes = [
   {
     path: "/overview",
-    element: () => (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="card-standard p-8">
-          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
-            CMMC Implementation Overview
-          </h1>
-          <p className="text-text-secondary-light dark:text-text-secondary-dark">
-            Implementation overview functionality will be implemented here.
-          </p>
-        </div>
-      </div>
-    ),
+    element: ImplementationOverviewPage,
     title: "Implementation Overview"
   },
   {
@@ -104,66 +164,22 @@ export const implementationRoutes = [
   },
   {
     path: "/poam-manager",
-    element: () => (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="card-standard p-8">
-          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
-            POAM Manager
-          </h1>
-          <p className="text-text-secondary-light dark:text-text-secondary-dark">
-            POAM (Plan of Action and Milestones) management functionality will be implemented here.
-          </p>
-        </div>
-      </div>
-    ),
+    element: POAMManagerPage,
     title: "POAM Manager"
   },
   {
     path: "/audit-tracker",
-    element: () => (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="card-standard p-8">
-          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
-            Audit Tracker
-          </h1>
-          <p className="text-text-secondary-light dark:text-text-secondary-dark">
-            Audit tracking functionality will be implemented here.
-          </p>
-        </div>
-      </div>
-    ),
+    element: AuditTrackerPage,
     title: "Audit Tracker"
   },
   {
     path: "/policy-generator",
-    element: () => (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="card-standard p-8">
-          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
-            Policy Generator
-          </h1>
-          <p className="text-text-secondary-light dark:text-text-secondary-dark">
-            Policy generation functionality will be implemented here.
-          </p>
-        </div>
-      </div>
-    ),
+    element: PolicyGeneratorPage,
     title: "Policy Generator"
   },
   {
     path: "/training-tracker",
-    element: () => (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="card-standard p-8">
-          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
-            Training Tracker
-          </h1>
-          <p className="text-text-secondary-light dark:text-text-secondary-dark">
-            Training tracking functionality will be implemented here.
-          </p>
-        </div>
-      </div>
-    ),
+    element: TrainingTrackerPage,
     title: "Training Tracker"
   }
 ];

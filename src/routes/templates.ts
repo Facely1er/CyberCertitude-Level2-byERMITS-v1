@@ -1,4 +1,4 @@
-import { TemplateLibraryBrowser } from '../components/LazyComponents';
+import { TemplateLibraryBrowser } from '../components/TemplateLibraryBrowser';
 import { TemplateCustomizationRoute } from './TemplateCustomizationRoute';
 import ComplianceToolkit from '../components/ComplianceToolkit';
 import ScenarioTemplates from '../components/ScenarioTemplates';
