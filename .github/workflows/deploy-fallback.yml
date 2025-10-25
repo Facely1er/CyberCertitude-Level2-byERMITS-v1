@@ -1,0 +1,53 @@
+name: Deploy to Netlify (Fallback)
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_message:
+        description: 'Deploy message'
+        required: false
+        default: 'Manual deployment'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build application
+      run: |
+        export VITE_SUPABASE_URL="https://savggaohetwcowrprxwp.supabase.co"
+        export VITE_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhdmdnYW9oZXR3Y293cnByeHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczOTc2NjQsImV4cCI6MjA3Mjk3MzY2NH0.hAYPHmonytmwRm1Gj53JndMrjUH9GVURiHKtVzYN2-s"
+        npm run build
+        
+    - name: Verify build output
+      run: |
+        echo "Verifying build output..."
+        ls -la dist/
+        echo "Build verification complete"
+        
+    - name: Deploy to Netlify (Manual)
+      run: |
+        echo "Build completed successfully!"
+        echo "To deploy manually:"
+        echo "1. Go to Netlify dashboard"
+        echo "2. Drag and drop the dist/ folder"
+        echo "3. Or use Netlify CLI: netlify deploy --dir=dist --prod"
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist-build
+        path: dist/
+        retention-days: 1
