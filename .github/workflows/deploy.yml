@@ -25,6 +25,8 @@ jobs:
     - name: Validate environment variables
       run: |
         echo "Checking Supabase configuration..."
+        SUPABASE_URL="${{ secrets.VITE_SUPABASE_URL }}"
+        SUPABASE_KEY="${{ secrets.VITE_SUPABASE_ANON_KEY }}"
         if [ -z "$SUPABASE_URL" ]; then
           echo "Warning: VITE_SUPABASE_URL secret not set, using default"
         else
@@ -35,9 +37,6 @@ jobs:
         else
           echo "VITE_SUPABASE_ANON_KEY is configured"
         fi
-      env:
-        SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-        SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         
     - name: Build application
       run: |
