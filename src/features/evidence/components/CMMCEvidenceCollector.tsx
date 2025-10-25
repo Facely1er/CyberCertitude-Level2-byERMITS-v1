@@ -40,6 +40,7 @@ interface EvidenceCategory {
 }
 
 interface CMMCEvidenceCollectorProps {
+  selectedLevel?: number;
   onSave?: (evidence: any) => void;
   onExport?: (evidence: any) => void;
   onNavigate?: (path: string) => void;
@@ -358,6 +359,7 @@ const CMMC_CONTROLS = [
 ];
 
 const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
+  selectedLevel = 2,
   onSave,
   onExport,
   onNavigate
@@ -372,6 +374,12 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
   const [filterType, setFilterType] = useState<string>('all');
   const [filterPriority, setFilterPriority] = useState<string>('all');
   const [overallProgress, setOverallProgress] = useState(0);
+
+  // Filter controls based on selected level
+  const filteredControls = CMMC_CONTROLS.filter(control => {
+    const controlLevel = parseInt(control.id.split('.')[1]);
+    return controlLevel === selectedLevel;
+  });
 
   const [newItem, setNewItem] = useState<Partial<EvidenceItem>>({
     title: '',
@@ -926,7 +934,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
               <select
                 value={newItem.controlId}
                 onChange={(e) => {
-                  const control = CMMC_CONTROLS.find(c => c.id === e.target.value);
+                  const control = filteredControls.find(c => c.id === e.target.value);
                   setNewItem(prev => ({
                     ...prev,
                     controlId: e.target.value,
@@ -937,7 +945,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
               >
                 <option value="">Select Control</option>
-                {CMMC_CONTROLS.map(control => (
+                {filteredControls.map(control => (
                   <option key={control.id} value={control.id}>
                     {control.id} - {control.title}
                   </option>

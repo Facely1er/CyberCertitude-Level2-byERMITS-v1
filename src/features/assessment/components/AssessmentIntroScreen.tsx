@@ -4,16 +4,19 @@ import { ChevronLeft, Play, Clock, Target, ChartBar as BarChart3, Shield, Circle
 import { Framework, OrganizationInfo } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+import LevelSelector from '../../../components/LevelSelector';
 
 interface AssessmentIntroScreenProps {
+  selectedLevel?: number;
   frameworks?: Framework[];
-  onStartAssessment?: (organizationInfo?: OrganizationInfo, selectedFramework?: string) => void;
+  onStartAssessment?: (organizationInfo?: OrganizationInfo, selectedFramework?: string, selectedLevel?: number) => void;
   onShowTemplates?: (frameworkId?: string) => void;
   onBack?: () => void;
 }
 
 const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Renamed to AssessmentIntroScreen
   frameworks,
+  selectedLevel = 2,
   onStartAssessment,
   onShowTemplates,
   onBack
@@ -110,7 +113,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
 
   const handleOrganizationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onStartAssessment(organizationInfo as OrganizationInfo, selectedFramework);
+    onStartAssessment(organizationInfo as OrganizationInfo, selectedFramework, selectedLevel);
   };
 
   const FrameworkIcon = getFrameworkIcon(currentFramework.id);
@@ -490,6 +493,17 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
             </div>
           </div>
 
+          {/* Level Selector */}
+          <div className="mb-8">
+            <LevelSelector
+              selectedLevel={selectedLevel}
+              onLevelChange={(level) => {
+                // This would need to be passed up to parent component
+                console.log('Level changed to:', level);
+              }}
+            />
+          </div>
+
           {/* Action Buttons */}
           <div className="space-y-3">
            <Link
@@ -505,7 +519,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
               className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
             >
               <Play className="w-5 h-5" />
-              <span>Start CMMC Assessment</span>
+              <span>Start CMMC Level {selectedLevel} Assessment</span>
             </button>
             
             <button
@@ -513,7 +527,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
               className="w-full border-2 border-blue-600 text-blue-600 dark:text-blue-400 py-3 px-6 rounded-xl font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex items-center justify-center space-x-2"
             >
               <ArrowRight className="w-4 h-4" />
-              <span>Quick CMMC Start</span>
+              <span>Quick CMMC Level {selectedLevel} Start</span>
             </button>
             
             {onShowTemplates && (

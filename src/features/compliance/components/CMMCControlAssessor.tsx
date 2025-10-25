@@ -43,7 +43,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Establish system access requirements',
         description: 'Establish system access requirements and implement controls to limit access to authorized users',
         domain: 'Access Control',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -58,7 +58,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Control information system access',
         description: 'Control information system access based on organizational policies and procedures',
         domain: 'Access Control',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -97,7 +97,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Conduct security awareness training',
         description: 'Conduct security awareness training for all personnel',
         domain: 'Awareness and Training',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -136,7 +136,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Create audit records',
         description: 'Create audit records for information system activities',
         domain: 'Audit and Accountability',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -175,7 +175,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Establish configuration baselines',
         description: 'Establish and maintain configuration baselines for information systems',
         domain: 'Configuration Management',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -214,7 +214,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Identify information system users',
         description: 'Identify information system users, processes acting on behalf of users, and devices',
         domain: 'Identification and Authentication',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -253,7 +253,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Establish incident response capability',
         description: 'Establish operational incident response capability for information systems',
         domain: 'Incident Response',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -292,7 +292,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Perform maintenance on information systems',
         description: 'Perform maintenance on information systems and system components',
         domain: 'Maintenance',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -316,7 +316,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Protect information system media',
         description: 'Protect information system media containing CUI',
         domain: 'Media Protection',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -340,7 +340,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Screen personnel',
         description: 'Screen personnel prior to authorizing access to information systems',
         domain: 'Personnel Security',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -364,7 +364,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Limit physical access',
         description: 'Limit physical access to information systems, equipment, and operating environments',
         domain: 'Physical Protection',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -388,7 +388,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Implement recovery procedures',
         description: 'Implement information system recovery procedures',
         domain: 'Recovery',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -412,7 +412,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Identify and assess risks',
         description: 'Identify and assess information system risks',
         domain: 'Risk Management',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -436,7 +436,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Develop security assessments',
         description: 'Develop, document, and periodically update security assessments',
         domain: 'Security Assessment',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -460,7 +460,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Control communications',
         description: 'Control communications at system boundaries',
         domain: 'System and Communications Protection',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -484,7 +484,7 @@ const CMMC_DOMAINS: CMMCDomain[] = [
         title: 'Identify and report flaws',
         description: 'Identify, report, and correct information system flaws',
         domain: 'System and Information Integrity',
-        level: 'Level 2',
+        level: 'Level 1',
         assessment: 'not-assessed',
         evidence: [],
         notes: '',
@@ -498,12 +498,14 @@ const CMMC_DOMAINS: CMMCDomain[] = [
 ];
 
 interface CMMCControlAssessorProps {
+  selectedLevel?: number;
   onSave?: (assessment: any) => void;
   onExport?: (assessment: any) => void;
   onNavigate?: (path: string) => void;
 }
 
 const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
+  selectedLevel = 2,
   onSave,
   onExport,
   onNavigate
@@ -519,12 +521,12 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
 
   // Calculate overall progress
   useEffect(() => {
-    const totalControls = domains.reduce((acc, domain) => acc + domain.controls.length, 0);
-    const completedControls = domains.reduce((acc, domain) => 
+    const totalControls = filteredDomains.reduce((acc, domain) => acc + domain.controls.length, 0);
+    const completedControls = filteredDomains.reduce((acc, domain) => 
       acc + domain.controls.filter(control => control.assessment === 'compliant').length, 0
     );
     setOverallProgress(Math.round((completedControls / totalControls) * 100));
-  }, [domains]);
+  }, [filteredDomains, selectedLevel]);
 
   const updateControlAssessment = (domainId: string, controlId: string, assessment: CMMCControl['assessment']) => {
     setDomains(prev => prev.map(domain => {
@@ -620,17 +622,23 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
   const filteredDomains = domains.map(domain => ({
     ...domain,
     controls: domain.controls.filter(control => {
+      // Level filtering
+      const controlLevel = parseInt(control.id.split('.')[1]);
+      const matchesLevel = controlLevel === selectedLevel;
+      
+      // Search filtering
       const matchesSearch = searchTerm === '' || 
         control.practice.toLowerCase().includes(searchTerm.toLowerCase()) ||
         control.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         control.description.toLowerCase().includes(searchTerm.toLowerCase());
       
+      // Assessment and priority filtering
       const matchesAssessment = filterAssessment === 'all' || control.assessment === filterAssessment;
       const matchesPriority = filterPriority === 'all' || control.priority === filterPriority;
       
-      return matchesSearch && matchesAssessment && matchesPriority;
+      return matchesLevel && matchesSearch && matchesAssessment && matchesPriority;
     })
-  }));
+  })).filter(domain => domain.controls.length > 0);
 
   const renderOverview = () => (
     <div className="space-y-6">
@@ -679,7 +687,7 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
             />
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-            {domains.reduce((acc, domain) => acc + domain.controls.filter(control => control.assessment === 'compliant').length, 0)} of {domains.reduce((acc, domain) => acc + domain.controls.length, 0)} controls compliant
+            {filteredDomains.reduce((acc, domain) => acc + domain.controls.filter(control => control.assessment === 'compliant').length, 0)} of {filteredDomains.reduce((acc, domain) => acc + domain.controls.length, 0)} controls compliant
           </p>
         </div>
 
@@ -777,7 +785,7 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
   );
 
   const renderDomainControls = () => {
-    const domain = domains.find(d => d.id === activeDomain);
+    const domain = filteredDomains.find(d => d.id === activeDomain);
     if (!domain) return null;
 
     return (
@@ -876,7 +884,7 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
   };
 
   const renderControlDetails = () => {
-    const domain = domains.find(d => d.id === activeDomain);
+    const domain = filteredDomains.find(d => d.id === activeDomain);
     const control = domain?.controls.find(c => c.id === activeControl);
     if (!domain || !control) return null;
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { CircleCheck as CheckCircle, Clock, TriangleAlert as AlertTriangle, Shield, FileText, Users, Database, Settings, Target, ChartBar as BarChart3, Play, ArrowRight, ArrowLeft, ExternalLink, Download, BookOpen, Calendar, SquareCheck as CheckSquare, Eye, CreditCard as Edit, Trash2, Plus, Save, RefreshCw } from 'lucide-react';
+import { CircleCheck as CheckCircle, Shield, FileText, Settings, Target, Play, ArrowRight, ArrowLeft, Download, BookOpen, SquareCheck as CheckSquare, Save } from 'lucide-react';
 import { Breadcrumbs } from '@/shared/components/layout';
+import LevelSelector from '@/components/LevelSelector';
 
 interface CMMCJourneyStep {
   id: string;
@@ -29,6 +30,7 @@ interface CMMCJourneyPhase {
 }
 
 interface CMMCJourneyWorkflowProps {
+  selectedLevel?: number;
   onNavigate?: (path: string) => void;
   onSave?: (workflow: any) => void;
   onExport?: (workflow: any) => void;
@@ -221,6 +223,7 @@ const CMMC_PHASES: CMMCJourneyPhase[] = [
 ];
 
 const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
+  selectedLevel = 2,
   onNavigate,
   onSave,
   onExport
@@ -239,6 +242,29 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
     );
     setWorkflowProgress(Math.round((completedSteps / totalSteps) * 100));
   }, [phases]);
+
+  // Update phases based on selected level
+  useEffect(() => {
+    const updatedPhases = CMMC_PHASES.map(phase => ({
+      ...phase,
+      steps: phase.steps.map(step => ({
+        ...step,
+        // Update step descriptions based on level
+        description: selectedLevel === 1 
+          ? step.description.replace('CMMC 2.0 Level 2', 'CMMC 2.0 Level 1')
+          : step.description,
+        tools: selectedLevel === 1 
+          ? step.tools.filter(tool => !tool.includes('C3PAO'))
+          : step.tools,
+        resources: selectedLevel === 1
+          ? step.resources.map(resource => 
+              resource.replace('Level 2', 'Level 1').replace('110 controls', '17 controls')
+            )
+          : step.resources
+      }))
+    }));
+    setPhases(updatedPhases);
+  }, [selectedLevel]);
 
   const updateStepStatus = (phaseId: string, stepId: string, status: CMMCJourneyStep['status']) => {
     setPhases(prev => prev.map(phase => {
@@ -282,10 +308,16 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
       if (phase.id === phaseId) {
         const updatedSteps = phase.steps.map(step => {
           if (step.id === stepId) {
+            const newProgress = Math.min(100, Math.max(0, progress));
+            const newStatus: CMMCJourneyStep['status'] = 
+              newProgress === 100 ? 'completed' : 
+              newProgress > 0 ? 'in-progress' : 
+              'not-started';
+            
             return {
               ...step,
-              progress: Math.min(100, Math.max(0, progress)),
-              status: progress === 100 ? 'completed' : progress > 0 ? 'in-progress' : 'not-started'
+              progress: newProgress,
+              status: newStatus
             };
           }
           return step;
@@ -335,10 +367,17 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
 
   const handleToolClick = (tool: string) => {
     const toolRoutes: { [key: string]: string } = {
+      'Project Charter': '/project-charter',
+      'CUI Scope Definition': '/cui-scope',
+      'Data Flow Diagram': '/data-flow',
+      'Team Roles Assignment': '/team-roles',
       'CMMC Assessment Tool': '/assessment-intro',
       'Risk Assessment Generator': '/risk-assessment',
       'Asset Management Dashboard': '/assets',
       'Gap Analysis Tool': '/gap-analysis',
+      'Implementation Workbook': '/implementation-workbook',
+      'Policy Templates': '/policy-templates',
+      'Document Repository': '/document-repository',
       'POA&M Manager': '/poam-manager',
       'Policy Generator': '/policy-generator',
       'Configuration Baseline Generator': '/config-baselines',
@@ -346,9 +385,15 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
       'Training Module Generator': '/training-modules',
       'Awareness Campaign Planner': '/awareness-campaigns',
       'Incident Response Planner': '/incident-response',
+      'Enhanced Incident Response Plan': '/incident-response-plan-generator',
+      'Security Assessment Report': '/reports/security-assessment',
       'Control Assessor': '/control-assessor',
       'Evidence Collection Dashboard': '/evidence-collector',
-      'Audit Tracker': '/audit-tracker'
+      'Audit Tracker': '/audit-tracker',
+      'Audit Readiness Package': '/audit-package',
+      'C3PAO Preparation': '/c3pao-prep',
+      'Metrics Dashboard': '/metrics-dashboard',
+      'Certification Tracking': '/certification-tracking'
     };
 
     const route = toolRoutes[tool];
@@ -359,14 +404,27 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
 
   const renderPhaseOverview = () => (
     <div className="space-y-6">
+      {/* Add Level Selector */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <LevelSelector
+          selectedLevel={selectedLevel}
+          onLevelChange={(level) => {
+            // This would need to be passed up to parent component
+            // For now, we'll just update local state
+            console.log('Level changed to:', level);
+          }}
+        />
+      </div>
+
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              CMMC 2.0 Level 2 Journey
+              CMMC 2.0 Level {selectedLevel} Journey
             </h2>
             <p className="text-gray-600 dark:text-gray-300 mt-1">
-              Complete workflow for CMMC 2.0 Level 2 compliance and C3PAO certification
+              Complete workflow for CMMC 2.0 Level {selectedLevel} compliance
+              {selectedLevel === 2 ? ' and C3PAO certification' : ' and self-assessment'}
             </p>
           </div>
           <div className="flex gap-2">

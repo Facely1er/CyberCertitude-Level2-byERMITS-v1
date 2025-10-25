@@ -1,712 +1,672 @@
-import React, { useState } from 'react';
-import { Shield, Download, Save, FileText, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, RefreshCw, ArrowLeft, Eye, Users, Calendar, TrendingUp, ChartBar as BarChart3, Target, Award } from 'lucide-react';
-import { AssessmentData } from '../../../shared/types';
-import { securityAssessmentReportService, SecurityAssessmentReport } from '../../../services/securityAssessmentReportService';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import React, { useState, useMemo } from 'react';
+import { 
+  FileText, 
+  Download, 
+  Eye, 
+  CheckCircle, 
+  AlertTriangle, 
+  XCircle, 
+  TrendingUp,
+  Shield,
+  Clock,
+  Users,
+  Target,
+  BarChart3,
+  FileCheck,
+  AlertCircle
+} from 'lucide-react';
 
-interface SecurityAssessmentReportGeneratorProps {
-  savedAssessments?: AssessmentData[];
-  onSave?: (report: SecurityAssessmentReport) => void;
-  onBack?: () => void;
-  addNotification?: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+interface SecurityAssessmentReportProps {
+  assessmentData?: any;
+  onExport?: (format: 'html' | 'pdf') => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const SecurityAssessmentReportGenerator: React.FC<SecurityAssessmentReportGeneratorProps> = ({
-  savedAssessments = [],
-  onSave,
-  onBack,
-  addNotification
+interface ControlFinding {
+  controlId: string;
+  title: string;
+  domain: string;
+  status: 'compliant' | 'partially-compliant' | 'non-compliant' | 'not-assessed';
+  score: number;
+  findings: string[];
+  recommendations: string[];
+  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  evidence: string[];
+  remediationTimeline: string;
+}
+
+interface DomainSummary {
+  domain: string;
+  totalControls: number;
+  compliantControls: number;
+  partiallyCompliantControls: number;
+  nonCompliantControls: number;
+  notAssessedControls: number;
+  complianceRate: number;
+  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  keyFindings: string[];
+  recommendations: string[];
+}
+
+export const SecurityAssessmentReportGenerator: React.FC<SecurityAssessmentReportProps> = ({
+  assessmentData,
+  onExport,
+  onNavigate
 }) => {
-  const [selectedAssessment, setSelectedAssessment] = useState<AssessmentData | null>(null);
-  const [assessorInfo, setAssessorInfo] = useState({
-    name: '',
-    organization: '',
-    credentials: '',
-    contactInfo: ''
-  });
-  const [scopeInfo, setScopeInfo] = useState({
-    assessmentType: 'Gap Analysis' as const,
-    assessmentScope: ['Information Systems', 'Network Infrastructure', 'CUI Processing'],
-    methodology: 'NIST SP 800-171 based assessment aligned with CMMC Level 2 requirements',
-    systemsAssessed: ['Primary Business Systems', 'CUI Storage Systems', 'Network Infrastructure'],
-    documentationReviewed: ['System Security Plan', 'Policies and Procedures', 'Configuration Documentation'],
-    interviewsConducted: ['IT Leadership', 'Security Team', 'System Administrators']
-  });
-  const [generatedReport, setGeneratedReport] = useState<SecurityAssessmentReport | null>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
+  const [activeTab, setActiveTab] = useState<'overview' | 'findings' | 'recommendations' | 'executive'>('overview');
+  const [selectedDomain, setSelectedDomain] = useState<string>('all');
+  const [reportTitle, setReportTitle] = useState('CMMC 2.0 Level 2 Security Assessment Report');
+  const [organizationName, setOrganizationName] = useState('Your Organization');
+  const [assessmentDate, setAssessmentDate] = useState(new Date().toISOString().split('T')[0]);
+  const [assessorName, setAssessorName] = useState('Security Assessor');
 
-  const handleGenerate = () => {
-    if (!selectedAssessment) {
-      addNotification?.('error', 'Please select an assessment');
-      return;
-    }
-
-    if (!assessorInfo.name || !assessorInfo.organization) {
-      addNotification?.('error', 'Please fill in assessor information');
-      return;
-    }
-
-    setIsGenerating(true);
-    try {
-      const report = securityAssessmentReportService.generateReport(
-        selectedAssessment,
+  // Generate mock assessment data if none provided
+  const mockAssessmentData = useMemo(() => {
+    if (assessmentData) return assessmentData;
+    
+    return {
+      organizationName: 'Sample Organization',
+      assessmentDate: new Date().toISOString(),
+      assessorName: 'John Doe, CISSP',
+      overallScore: 72,
+      totalControls: 110,
+      compliantControls: 68,
+      partiallyCompliantControls: 28,
+      nonCompliantControls: 14,
+      domains: [
+        { name: 'Access Control', compliance: 85, controls: 22 },
+        { name: 'Awareness and Training', compliance: 90, controls: 3 },
+        { name: 'Audit and Accountability', compliance: 75, controls: 9 },
+        { name: 'Configuration Management', compliance: 70, controls: 9 },
+        { name: 'Identification and Authentication', compliance: 80, controls: 11 },
+        { name: 'Incident Response', compliance: 65, controls: 3 },
+        { name: 'Maintenance', compliance: 60, controls: 6 },
+        { name: 'Media Protection', compliance: 55, controls: 9 },
+        { name: 'Personnel Security', compliance: 85, controls: 2 },
+        { name: 'Physical Protection', compliance: 70, controls: 6 },
+        { name: 'Risk Assessment', compliance: 60, controls: 3 },
+        { name: 'Security Assessment', compliance: 65, controls: 4 },
+        { name: 'System and Communications Protection', compliance: 50, controls: 16 },
+        { name: 'System and Information Integrity', compliance: 70, controls: 7 }
+      ],
+      findings: [
         {
-          name: assessorInfo.name,
-          organization: assessorInfo.organization,
-          credentials: assessorInfo.credentials.split(',').map(c => c.trim()),
-          contactInfo: assessorInfo.contactInfo
+          controlId: 'AC.3.1.1',
+          title: 'Limit system access to authorized users',
+          domain: 'Access Control',
+          status: 'compliant',
+          score: 3,
+          findings: ['Access control policies are documented and implemented'],
+          recommendations: ['Continue monitoring access control effectiveness'],
+          riskLevel: 'low',
+          evidence: ['Access Control Policy', 'User Access Review Logs'],
+          remediationTimeline: 'N/A - Compliant'
         },
-        scopeInfo
-      );
-      setGeneratedReport(report);
-      setShowPreview(true);
-      addNotification?.('success', 'Security Assessment Report generated successfully!');
-    } catch (error) {
-      addNotification?.('error', `Failed to generate report: ${(error as Error).message}`);
-    } finally {
-      setIsGenerating(false);
+        {
+          controlId: 'SC.3.13.1',
+          title: 'Protect information at rest',
+          domain: 'System and Communications Protection',
+          status: 'non-compliant',
+          score: 1,
+          findings: ['Encryption not implemented on all data storage systems', 'Key management procedures not documented'],
+          recommendations: ['Implement full disk encryption on all systems', 'Develop key management procedures', 'Conduct encryption training'],
+          riskLevel: 'critical',
+          evidence: ['System Inventory', 'Encryption Assessment Report'],
+          remediationTimeline: '90 days'
+        }
+      ]
+    };
+  }, [assessmentData]);
+
+  const domainSummaries: DomainSummary[] = useMemo(() => {
+    return mockAssessmentData.domains.map(domain => ({
+      domain: domain.name,
+      totalControls: domain.controls,
+      compliantControls: Math.floor(domain.controls * domain.compliance / 100),
+      partiallyCompliantControls: Math.floor(domain.controls * 0.2),
+      nonCompliantControls: Math.floor(domain.controls * 0.1),
+      notAssessedControls: domain.controls - Math.floor(domain.controls * domain.compliance / 100) - Math.floor(domain.controls * 0.2) - Math.floor(domain.controls * 0.1),
+      complianceRate: domain.compliance,
+      riskLevel: domain.compliance >= 80 ? 'low' : domain.compliance >= 60 ? 'medium' : domain.compliance >= 40 ? 'high' : 'critical',
+      keyFindings: [
+        `${domain.compliance}% compliance rate`,
+        `${Math.floor(domain.controls * 0.1)} controls need immediate attention`
+      ],
+      recommendations: [
+        'Implement missing controls',
+        'Enhance existing controls',
+        'Conduct regular assessments'
+      ]
+    }));
+  }, [mockAssessmentData]);
+
+  const criticalFindings = mockAssessmentData.findings.filter(f => f.riskLevel === 'critical');
+  const highRiskFindings = mockAssessmentData.findings.filter(f => f.riskLevel === 'high');
+  const mediumRiskFindings = mockAssessmentData.findings.filter(f => f.riskLevel === 'medium');
+
+  const generateHTMLReport = () => {
+    const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${reportTitle}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #2563eb; padding-bottom: 20px; }
+        .header h1 { color: #2563eb; margin: 0; font-size: 28px; }
+        .header p { color: #666; margin: 5px 0; }
+        .executive-summary { background: #f8fafc; padding: 20px; border-radius: 6px; margin-bottom: 30px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .metric-card { background: white; padding: 20px; border-radius: 6px; border-left: 4px solid #2563eb; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .metric-value { font-size: 24px; font-weight: bold; color: #2563eb; }
+        .metric-label { color: #666; font-size: 14px; margin-top: 5px; }
+        .domain-summary { margin-bottom: 30px; }
+        .domain-card { background: white; border: 1px solid #e5e7eb; border-radius: 6px; padding: 20px; margin-bottom: 15px; }
+        .domain-header { display: flex; justify-content: between; align-items: center; margin-bottom: 15px; }
+        .domain-name { font-size: 18px; font-weight: bold; color: #1f2937; }
+        .compliance-rate { font-size: 16px; font-weight: bold; }
+        .compliance-high { color: #059669; }
+        .compliance-medium { color: #d97706; }
+        .compliance-low { color: #dc2626; }
+        .findings-section { margin-bottom: 30px; }
+        .finding-card { background: white; border: 1px solid #e5e7eb; border-radius: 6px; padding: 20px; margin-bottom: 15px; }
+        .finding-header { display: flex; justify-content: between; align-items: center; margin-bottom: 15px; }
+        .finding-title { font-size: 16px; font-weight: bold; color: #1f2937; }
+        .risk-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .risk-critical { background: #fef2f2; color: #dc2626; }
+        .risk-high { background: #fff7ed; color: #ea580c; }
+        .risk-medium { background: #fffbeb; color: #d97706; }
+        .risk-low { background: #f0fdf4; color: #059669; }
+        .recommendations { background: #f8fafc; padding: 20px; border-radius: 6px; margin-bottom: 30px; }
+        .recommendation-item { margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .recommendation-item::before { content: "•"; position: absolute; left: 0; color: #2563eb; font-weight: bold; }
+        .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>${reportTitle}</h1>
+            <p><strong>Organization:</strong> ${organizationName}</p>
+            <p><strong>Assessment Date:</strong> ${assessmentDate}</p>
+            <p><strong>Assessor:</strong> ${assessorName}</p>
+        </div>
+
+        <div class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>This security assessment report provides a comprehensive evaluation of ${organizationName}'s compliance with CMMC 2.0 Level 2 requirements. The assessment covered all 110 required controls across 14 security domains.</p>
+            <p><strong>Overall Compliance Score:</strong> ${mockAssessmentData.overallScore}%</p>
+            <p><strong>Key Findings:</strong></p>
+            <ul>
+                <li>${mockAssessmentData.compliantControls} controls are fully compliant</li>
+                <li>${mockAssessmentData.partiallyCompliantControls} controls are partially compliant</li>
+                <li>${mockAssessmentData.nonCompliantControls} controls require immediate attention</li>
+                <li>${criticalFindings.length} critical findings identified</li>
+            </ul>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">${mockAssessmentData.overallScore}%</div>
+                <div class="metric-label">Overall Compliance</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">${mockAssessmentData.compliantControls}</div>
+                <div class="metric-label">Compliant Controls</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">${mockAssessmentData.nonCompliantControls}</div>
+                <div class="metric-label">Non-Compliant Controls</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">${criticalFindings.length}</div>
+                <div class="metric-label">Critical Findings</div>
+            </div>
+        </div>
+
+        <div class="domain-summary">
+            <h2>Domain Compliance Summary</h2>
+            ${domainSummaries.map(domain => `
+                <div class="domain-card">
+                    <div class="domain-header">
+                        <div class="domain-name">${domain.domain}</div>
+                        <div class="compliance-rate ${domain.complianceRate >= 80 ? 'compliance-high' : domain.complianceRate >= 60 ? 'compliance-medium' : 'compliance-low'}">
+                            ${domain.complianceRate}% Compliance
+                        </div>
+                    </div>
+                    <p><strong>Controls:</strong> ${domain.compliantControls}/${domain.totalControls} compliant</p>
+                    <p><strong>Risk Level:</strong> <span class="risk-badge risk-${domain.riskLevel}">${domain.riskLevel.toUpperCase()}</span></p>
+                </div>
+            `).join('')}
+        </div>
+
+        <div class="findings-section">
+            <h2>Critical Findings</h2>
+            ${criticalFindings.map(finding => `
+                <div class="finding-card">
+                    <div class="finding-header">
+                        <div class="finding-title">${finding.controlId}: ${finding.title}</div>
+                        <span class="risk-badge risk-critical">CRITICAL</span>
+                    </div>
+                    <p><strong>Domain:</strong> ${finding.domain}</p>
+                    <p><strong>Findings:</strong></p>
+                    <ul>
+                        ${finding.findings.map(f => `<li>${f}</li>`).join('')}
+                    </ul>
+                    <p><strong>Recommendations:</strong></p>
+                    <ul>
+                        ${finding.recommendations.map(r => `<li>${r}</li>`).join('')}
+                    </ul>
+                    <p><strong>Remediation Timeline:</strong> ${finding.remediationTimeline}</p>
+                </div>
+            `).join('')}
+        </div>
+
+        <div class="recommendations">
+            <h2>Priority Recommendations</h2>
+            <div class="recommendation-item">Address all critical findings within 90 days</div>
+            <div class="recommendation-item">Implement comprehensive encryption strategy</div>
+            <div class="recommendation-item">Enhance incident response procedures</div>
+            <div class="recommendation-item">Conduct regular security awareness training</div>
+            <div class="recommendation-item">Establish continuous monitoring program</div>
+        </div>
+
+        <div class="footer">
+            <p>Report generated on ${new Date().toLocaleDateString()} | CMMC 2.0 Level 2 Security Assessment</p>
+        </div>
+    </div>
+</body>
+</html>`;
+
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${organizationName.replace(/\s+/g, '_')}_Security_Assessment_Report_${assessmentDate}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const getRiskColor = (riskLevel: string) => {
+    switch (riskLevel) {
+      case 'critical': return 'text-red-600 bg-red-50';
+      case 'high': return 'text-orange-600 bg-orange-50';
+      case 'medium': return 'text-yellow-600 bg-yellow-50';
+      case 'low': return 'text-green-600 bg-green-50';
+      default: return 'text-gray-600 bg-gray-50';
     }
   };
 
-  const handleExport = () => {
-    if (!generatedReport) {
-      addNotification?.('error', 'No report to export');
-      return;
-    }
-
-    try {
-      const html = securityAssessmentReportService.generateHTML(generatedReport);
-      const blob = new Blob([html], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Security-Assessment-Report-${generatedReport.organization}-${new Date().toISOString().split('T')[0]}.html`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      addNotification?.('success', 'Security Assessment Report exported successfully!');
-    } catch (error) {
-      addNotification?.('error', `Failed to export report: ${(error as Error).message}`);
-    }
-  };
-
-  const handleSave = () => {
-    if (!generatedReport) {
-      addNotification?.('error', 'No report to save');
-      return;
-    }
-
-    onSave?.(generatedReport);
-    addNotification?.('success', 'Security Assessment Report saved successfully!');
-  };
-
-  const getSeverityColor = (severity: string) => {
-    switch (severity) {
-      case 'critical': return 'text-error-light dark:text-error-dark';
-      case 'high': return 'text-warning-light dark:text-warning-dark';
-      case 'medium': return 'text-info-light dark:text-info-dark';
-      case 'low': return 'text-success-light dark:text-success-dark';
-      default: return 'text-text-secondary-light dark:text-text-secondary-dark';
-    }
-  };
-
-  const getSeverityBg = (severity: string) => {
-    switch (severity) {
-      case 'critical': return 'bg-error-light/10 dark:bg-error-dark/10 border-error-light dark:border-error-dark';
-      case 'high': return 'bg-warning-light/10 dark:bg-warning-dark/10 border-warning-light dark:border-warning-dark';
-      case 'medium': return 'bg-info-light/10 dark:bg-info-dark/10 border-info-light dark:border-info-dark';
-      case 'low': return 'bg-success-light/10 dark:bg-success-dark/10 border-success-light dark:border-success-dark';
-      default: return 'bg-surface-light dark:bg-surface-dark border-support-light dark:border-support-dark';
-    }
-  };
-
-  const getReadinessColor = (readiness: string) => {
-    switch (readiness) {
-      case 'ready': return 'text-success-light dark:text-success-dark';
-      case 'near-ready': return 'text-info-light dark:text-info-dark';
-      case 'significant-work-needed': return 'text-warning-light dark:text-warning-dark';
-      case 'not-ready': return 'text-error-light dark:text-error-dark';
-      default: return 'text-text-secondary-light dark:text-text-secondary-dark';
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'compliant': return <CheckCircle className="w-5 h-5 text-green-600" />;
+      case 'partially-compliant': return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
+      case 'non-compliant': return <XCircle className="w-5 h-5 text-red-600" />;
+      default: return <AlertCircle className="w-5 h-5 text-gray-600" />;
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Breadcrumbs items={[
-        { label: 'Reports', path: '/reports' },
-        { label: 'Security Assessment Report', isActive: true }
-      ]} />
-
-      {/* Header */}
-      <div className="card-standard mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            {onBack && (
-              <button
-                onClick={onBack}
-                className="p-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </button>
-            )}
-            <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-              <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
-                Security Assessment Report Generator
-              </h1>
-              <p className="text-text-secondary-light dark:text-text-secondary-dark">
-                Generate comprehensive CMMC security assessment reports with findings and recommendations
-              </p>
-            </div>
+    <div className="max-w-7xl mx-auto p-6">
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+              <FileText className="w-8 h-8 text-blue-600" />
+              Security Assessment Report Generator
+            </h1>
+            <p className="text-gray-600 mt-2">
+              Generate comprehensive CMMC 2.0 Level 2 security assessment reports for C3PAO preparation
+            </p>
           </div>
-
-          {generatedReport && (
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => setShowPreview(!showPreview)}
-                className="btn-secondary flex items-center space-x-2"
-              >
-                <Eye className="w-4 h-4" />
-                <span>{showPreview ? 'Hide' : 'Preview'}</span>
-              </button>
-              <button
-                onClick={handleExport}
-                className="btn-secondary flex items-center space-x-2"
-              >
-                <Download className="w-4 h-4" />
-                <span>Export</span>
-              </button>
-              <button
-                onClick={handleSave}
-                className="btn-primary flex items-center space-x-2"
-              >
-                <Save className="w-4 h-4" />
-                <span>Save</span>
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Info Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="card-standard">
-          <div className="flex items-center space-x-3 mb-2">
-            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-              <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-            </div>
-            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
-              Comprehensive Analysis
-            </h3>
-          </div>
-          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-            Detailed findings, risk assessment, and domain-by-domain compliance analysis
-          </p>
-        </div>
-
-        <div className="card-standard">
-          <div className="flex items-center space-x-3 mb-2">
-            <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
-              <Award className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-            </div>
-            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
-              C3PAO Ready
-            </h3>
-          </div>
-          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-            Professional format suitable for C3PAO assessment preparation
-          </p>
-        </div>
-
-        <div className="card-standard">
-          <div className="flex items-center space-x-3 mb-2">
-            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-            </div>
-            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
-              Actionable Insights
-            </h3>
-          </div>
-          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-            Prioritized recommendations with cost estimates and timelines
-          </p>
-        </div>
-      </div>
-
-      {/* Configuration Form */}
-      {!generatedReport && (
-        <div className="space-y-6">
-          {/* Assessment Selection */}
-          <div className="card-standard">
-            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
-              Select Assessment
-            </h3>
-            <select
-              value={selectedAssessment?.id || ''}
-              onChange={e => {
-                const assessment = savedAssessments.find(a => a.id === e.target.value);
-                setSelectedAssessment(assessment || null);
-              }}
-              className="input-standard w-full"
-            >
-              <option value="">Choose an assessment...</option>
-              {savedAssessments.map(assessment => (
-                <option key={assessment.id} value={assessment.id}>
-                  {assessment.frameworkName} - {assessment.organizationInfo?.name || 'Unknown'} - {new Date(assessment.createdAt).toLocaleDateString()}
-                </option>
-              ))}
-            </select>
-            {selectedAssessment && (
-              <div className="mt-4 p-4 bg-surface-light dark:bg-surface-dark rounded-lg">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                  <div>
-                    <div className="text-text-secondary-light dark:text-text-secondary-dark">Framework</div>
-                    <div className="font-semibold text-text-primary-light dark:text-text-primary-dark">
-                      {selectedAssessment.frameworkName}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-text-secondary-light dark:text-text-secondary-dark">Created</div>
-                    <div className="font-semibold text-text-primary-light dark:text-text-primary-dark">
-                      {new Date(selectedAssessment.createdAt).toLocaleDateString()}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-text-secondary-light dark:text-text-secondary-dark">Last Modified</div>
-                    <div className="font-semibold text-text-primary-light dark:text-text-primary-dark">
-                      {new Date(selectedAssessment.lastModified).toLocaleDateString()}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-text-secondary-light dark:text-text-secondary-dark">Status</div>
-                    <div className="font-semibold text-text-primary-light dark:text-text-primary-dark">
-                      {selectedAssessment.isComplete ? 'Complete' : 'In Progress'}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Assessor Information */}
-          <div className="card-standard">
-            <div className="flex items-center space-x-2 mb-4">
-              <Users className="w-5 h-5 text-primary-500 dark:text-primary-400" />
-              <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
-                Assessor Information
-              </h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
-                  Assessor Name *
-                </label>
-                <input
-                  type="text"
-                  value={assessorInfo.name}
-                  onChange={e => setAssessorInfo({ ...assessorInfo, name: e.target.value })}
-                  placeholder="Full Name"
-                  className="input-standard w-full"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
-                  Organization *
-                </label>
-                <input
-                  type="text"
-                  value={assessorInfo.organization}
-                  onChange={e => setAssessorInfo({ ...assessorInfo, organization: e.target.value })}
-                  placeholder="Organization Name"
-                  className="input-standard w-full"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
-                  Credentials
-                </label>
-                <input
-                  type="text"
-                  value={assessorInfo.credentials}
-                  onChange={e => setAssessorInfo({ ...assessorInfo, credentials: e.target.value })}
-                  placeholder="CISSP, CISM, CCP (comma-separated)"
-                  className="input-standard w-full"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
-                  Contact Information
-                </label>
-                <input
-                  type="text"
-                  value={assessorInfo.contactInfo}
-                  onChange={e => setAssessorInfo({ ...assessorInfo, contactInfo: e.target.value })}
-                  placeholder="email@example.com, (555) 123-4567"
-                  className="input-standard w-full"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Scope and Methodology */}
-          <div className="card-standard">
-            <div className="flex items-center space-x-2 mb-4">
-              <Target className="w-5 h-5 text-primary-500 dark:text-primary-400" />
-              <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
-                Scope and Methodology
-              </h3>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
-                  Assessment Type
-                </label>
-                <select
-                  value={scopeInfo.assessmentType}
-                  onChange={e => setScopeInfo({ ...scopeInfo, assessmentType: e.target.value as any })}
-                  className="input-standard w-full"
-                >
-                  <option value="Self-Assessment">Self-Assessment</option>
-                  <option value="Gap Analysis">Gap Analysis</option>
-                  <option value="Pre-Assessment">Pre-Assessment</option>
-                  <option value="C3PAO Assessment">C3PAO Assessment</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
-                  Assessment Methodology
-                </label>
-                <textarea
-                  value={scopeInfo.methodology}
-                  onChange={e => setScopeInfo({ ...scopeInfo, methodology: e.target.value })}
-                  rows={3}
-                  className="input-standard w-full"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Generate Button */}
-          <div className="flex justify-end">
+          <div className="flex gap-3">
             <button
-              onClick={handleGenerate}
-              disabled={isGenerating}
-              className="btn-primary flex items-center space-x-2 px-8 py-3"
+              onClick={() => onNavigate?.('/reports')}
+              className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2"
             >
-              {isGenerating ? (
-                <>
-                  <RefreshCw className="w-5 h-5 animate-spin" />
-                  <span>Generating Report...</span>
-                </>
-              ) : (
-                <>
-                  <FileText className="w-5 h-5" />
-                  <span>Generate Security Assessment Report</span>
-                </>
-              )}
+              <Eye className="w-4 h-4" />
+              View Reports
+            </button>
+            <button
+              onClick={generateHTMLReport}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Export Report
             </button>
           </div>
         </div>
-      )}
 
-      {/* Preview */}
-      {generatedReport && showPreview && (
-        <div className="space-y-6">
-          {/* Executive Summary */}
-          <div className="card-standard">
-            <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
-              Executive Summary
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-              <div className="p-4 bg-primary-100 dark:bg-primary-900/30 rounded-lg text-center">
-                <div className="text-3xl font-bold text-primary-600 dark:text-primary-400">
-                  {generatedReport.executiveSummary.overallScore.toFixed(1)}%
-                </div>
-                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1">Overall Score</div>
-              </div>
-              <div className={`p-4 rounded-lg text-center border-2 ${getSeverityBg('critical')}`}>
-                <div className={`text-3xl font-bold ${getSeverityColor('critical')}`}>
-                  {generatedReport.executiveSummary.criticalFindings}
-                </div>
-                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1">Critical</div>
-              </div>
-              <div className={`p-4 rounded-lg text-center border-2 ${getSeverityBg('high')}`}>
-                <div className={`text-3xl font-bold ${getSeverityColor('high')}`}>
-                  {generatedReport.executiveSummary.highFindings}
-                </div>
-                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1">High</div>
-              </div>
-              <div className={`p-4 rounded-lg text-center border-2 ${getSeverityBg('medium')}`}>
-                <div className={`text-3xl font-bold ${getSeverityColor('medium')}`}>
-                  {generatedReport.executiveSummary.mediumFindings}
-                </div>
-                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1">Medium</div>
-              </div>
-              <div className={`p-4 rounded-lg text-center border-2 ${getSeverityBg('low')}`}>
-                <div className={`text-3xl font-bold ${getSeverityColor('low')}`}>
-                  {generatedReport.executiveSummary.lowFindings}
-                </div>
-                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1">Low</div>
-              </div>
+        {/* Report Configuration */}
+        <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Report Configuration</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Report Title</label>
+              <input
+                type="text"
+                value={reportTitle}
+                onChange={(e) => setReportTitle(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
             </div>
-
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">Readiness Assessment</h4>
-                <p className="text-text-secondary-light dark:text-text-secondary-dark">
-                  {generatedReport.executiveSummary.readinessAssessment}
-                </p>
-              </div>
-
-              {generatedReport.executiveSummary.keyStrengths.length > 0 && (
-                <div>
-                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center space-x-2">
-                    <CheckCircle className="w-5 h-5 text-success-light dark:text-success-dark" />
-                    <span>Key Strengths</span>
-                  </h4>
-                  <ul className="list-disc list-inside space-y-1 text-text-secondary-light dark:text-text-secondary-dark">
-                    {generatedReport.executiveSummary.keyStrengths.map((strength, idx) => (
-                      <li key={idx}>{strength}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {generatedReport.executiveSummary.keyWeaknesses.length > 0 && (
-                <div>
-                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center space-x-2">
-                    <AlertTriangle className="w-5 h-5 text-warning-light dark:text-warning-dark" />
-                    <span>Key Weaknesses</span>
-                  </h4>
-                  <ul className="list-disc list-inside space-y-1 text-text-secondary-light dark:text-text-secondary-dark">
-                    {generatedReport.executiveSummary.keyWeaknesses.map((weakness, idx) => (
-                      <li key={idx}>{weakness}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Organization Name</label>
+              <input
+                type="text"
+                value={organizationName}
+                onChange={(e) => setOrganizationName(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Assessment Date</label>
+              <input
+                type="date"
+                value={assessmentDate}
+                onChange={(e) => setAssessmentDate(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Assessor Name</label>
+              <input
+                type="text"
+                value={assessorName}
+                onChange={(e) => setAssessorName(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
             </div>
           </div>
+        </div>
 
-          {/* Critical Findings */}
-          {generatedReport.findings.filter(f => f.severity === 'critical').length > 0 && (
-            <div className="card-standard">
-              <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center space-x-2">
-                <AlertTriangle className="w-6 h-6 text-error-light dark:text-error-dark" />
-                <span>Critical Findings</span>
-              </h3>
+        {/* Navigation Tabs */}
+        <div className="border-b border-gray-200 mb-6">
+          <nav className="-mb-px flex space-x-8">
+            {[
+              { id: 'overview', label: 'Overview', icon: BarChart3 },
+              { id: 'findings', label: 'Findings', icon: AlertTriangle },
+              { id: 'recommendations', label: 'Recommendations', icon: Target },
+              { id: 'executive', label: 'Executive Summary', icon: FileCheck }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`flex items-center gap-2 py-2 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === tab.id
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <tab.icon className="w-4 h-4" />
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        {/* Tab Content */}
+        {activeTab === 'overview' && (
+          <div className="space-y-6">
+            {/* Overall Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Overall Compliance</p>
+                    <p className="text-3xl font-bold text-blue-600">{mockAssessmentData.overallScore}%</p>
+                  </div>
+                  <Shield className="w-8 h-8 text-blue-600" />
+                </div>
+              </div>
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Compliant Controls</p>
+                    <p className="text-3xl font-bold text-green-600">{mockAssessmentData.compliantControls}</p>
+                  </div>
+                  <CheckCircle className="w-8 h-8 text-green-600" />
+                </div>
+              </div>
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Non-Compliant</p>
+                    <p className="text-3xl font-bold text-red-600">{mockAssessmentData.nonCompliantControls}</p>
+                  </div>
+                  <XCircle className="w-8 h-8 text-red-600" />
+                </div>
+              </div>
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Critical Findings</p>
+                    <p className="text-3xl font-bold text-red-600">{criticalFindings.length}</p>
+                  </div>
+                  <AlertTriangle className="w-8 h-8 text-red-600" />
+                </div>
+              </div>
+            </div>
+
+            {/* Domain Compliance */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Domain Compliance Summary</h3>
               <div className="space-y-4">
-                {generatedReport.findings.filter(f => f.severity === 'critical').slice(0, 5).map(finding => (
-                  <div key={finding.id} className={`p-4 rounded-lg border-l-4 ${getSeverityBg(finding.severity)}`}>
-                    <div className="flex items-start justify-between mb-2">
-                      <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
-                        {finding.id}: {finding.controlTitle}
-                      </h4>
-                      <span className={`px-2 py-1 rounded text-xs font-semibold ${getSeverityColor(finding.severity)}`}>
-                        {finding.severity.toUpperCase()}
-                      </span>
-                    </div>
-                    <div className="text-sm space-y-1">
-                      <p className="text-text-secondary-light dark:text-text-secondary-dark">
-                        <strong>Domain:</strong> {finding.domain}
-                      </p>
-                      <p className="text-text-secondary-light dark:text-text-secondary-dark">
-                        <strong>Gap:</strong> {finding.gapDescription}
-                      </p>
-                      <p className="text-text-secondary-light dark:text-text-secondary-dark">
-                        <strong>Impact:</strong> {finding.impactAnalysis}
-                      </p>
-                      <div className="flex items-center justify-between mt-2 pt-2 border-t border-support-light dark:border-support-dark">
-                        <span className="text-text-muted-light dark:text-text-muted-dark">
-                          Effort: {finding.remediationEffort} | Cost: {finding.estimatedCost}
+                {domainSummaries.map((domain, index) => (
+                  <div key={index} className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-medium text-gray-900">{domain.domain}</h4>
+                      <div className="flex items-center gap-2">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskColor(domain.riskLevel)}`}>
+                          {domain.riskLevel.toUpperCase()}
                         </span>
-                        <span className="text-text-muted-light dark:text-text-muted-dark">
-                          Due: {finding.dueDate.toLocaleDateString()}
+                        <span className="text-sm font-medium text-gray-600">
+                          {domain.complianceRate}%
                         </span>
                       </div>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        className={`h-2 rounded-full ${
+                          domain.complianceRate >= 80 ? 'bg-green-500' :
+                          domain.complianceRate >= 60 ? 'bg-yellow-500' : 'bg-red-500'
+                        }`}
+                        style={{ width: `${domain.complianceRate}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-2">
+                      {domain.compliantControls}/{domain.totalControls} controls compliant
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'findings' && (
+          <div className="space-y-6">
+            {/* Critical Findings */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 text-red-600" />
+                Critical Findings ({criticalFindings.length})
+              </h3>
+              <div className="space-y-4">
+                {criticalFindings.map((finding, index) => (
+                  <div key={index} className="border border-red-200 rounded-lg p-4 bg-red-50">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h4 className="font-medium text-gray-900">{finding.controlId}: {finding.title}</h4>
+                        <p className="text-sm text-gray-600">{finding.domain}</p>
+                      </div>
+                      <span className="px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded-full">
+                        CRITICAL
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      <div>
+                        <p className="text-sm font-medium text-gray-700">Findings:</p>
+                        <ul className="text-sm text-gray-600 list-disc list-inside">
+                          {finding.findings.map((f, i) => (
+                            <li key={i}>{f}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-700">Recommendations:</p>
+                        <ul className="text-sm text-gray-600 list-disc list-inside">
+                          {finding.recommendations.map((r, i) => (
+                            <li key={i}>{r}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        <strong>Timeline:</strong> {finding.remediationTimeline}
+                      </p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-          )}
 
-          {/* Domain Analysis */}
-          <div className="card-standard">
-            <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center space-x-2">
-              <BarChart3 className="w-6 h-6 text-primary-500 dark:text-primary-400" />
-              <span>Domain Analysis</span>
-            </h3>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-support-light dark:border-support-dark">
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-text-primary-light dark:text-text-primary-dark">Domain</th>
-                    <th className="text-center py-3 px-4 text-sm font-semibold text-text-primary-light dark:text-text-primary-dark">Total</th>
-                    <th className="text-center py-3 px-4 text-sm font-semibold text-text-primary-light dark:text-text-primary-dark">Compliant</th>
-                    <th className="text-center py-3 px-4 text-sm font-semibold text-text-primary-light dark:text-text-primary-dark">Partial</th>
-                    <th className="text-center py-3 px-4 text-sm font-semibold text-text-primary-light dark:text-text-primary-dark">Non-Compliant</th>
-                    <th className="text-center py-3 px-4 text-sm font-semibold text-text-primary-light dark:text-text-primary-dark">Score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {generatedReport.domainAnalysis.map((domain, idx) => (
-                    <tr key={idx} className="border-b border-support-light dark:border-support-dark">
-                      <td className="py-3 px-4 text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
-                        {domain.domainCode} - {domain.domain}
-                      </td>
-                      <td className="text-center py-3 px-4 text-sm text-text-secondary-light dark:text-text-secondary-dark">
-                        {domain.totalControls}
-                      </td>
-                      <td className="text-center py-3 px-4 text-sm text-success-light dark:text-success-dark font-semibold">
-                        {domain.compliantControls}
-                      </td>
-                      <td className="text-center py-3 px-4 text-sm text-warning-light dark:text-warning-dark font-semibold">
-                        {domain.partiallyCompliantControls}
-                      </td>
-                      <td className="text-center py-3 px-4 text-sm text-error-light dark:text-error-dark font-semibold">
-                        {domain.nonCompliantControls}
-                      </td>
-                      <td className="text-center py-3 px-4">
-                        <div className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold ${
-                          domain.overallScore >= 90 ? 'bg-success-light/20 dark:bg-success-dark/20 text-success-light dark:text-success-dark' :
-                          domain.overallScore >= 70 ? 'bg-info-light/20 dark:bg-info-dark/20 text-info-light dark:text-info-dark' :
-                          domain.overallScore >= 50 ? 'bg-warning-light/20 dark:bg-warning-dark/20 text-warning-light dark:text-warning-dark' :
-                          'bg-error-light/20 dark:bg-error-dark/20 text-error-light dark:text-error-dark'
-                        }`}>
-                          {domain.overallScore.toFixed(0)}%
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Compliance Status */}
-          <div className="card-standard">
-            <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center space-x-2">
-              <Award className="w-6 h-6 text-primary-500 dark:text-primary-400" />
-              <span>Compliance Status</span>
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
+            {/* High Risk Findings */}
+            {highRiskFindings.length > 0 && (
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-orange-600" />
+                  High Risk Findings ({highRiskFindings.length})
+                </h3>
                 <div className="space-y-4">
-                  <div>
-                    <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-1">Current Readiness</div>
-                    <div className="text-3xl font-bold text-primary-500 dark:text-primary-400">
-                      {generatedReport.complianceStatus.currentReadiness.toFixed(1)}%
+                  {highRiskFindings.map((finding, index) => (
+                    <div key={index} className="border border-orange-200 rounded-lg p-4 bg-orange-50">
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <h4 className="font-medium text-gray-900">{finding.controlId}: {finding.title}</h4>
+                          <p className="text-sm text-gray-600">{finding.domain}</p>
+                        </div>
+                        <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs font-medium rounded-full">
+                          HIGH
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        <div>
+                          <p className="text-sm font-medium text-gray-700">Findings:</p>
+                          <ul className="text-sm text-gray-600 list-disc list-inside">
+                            {finding.findings.map((f, i) => (
+                              <li key={i}>{f}</li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-gray-700">Recommendations:</p>
+                          <ul className="text-sm text-gray-600 list-disc list-inside">
+                            {finding.recommendations.map((r, i) => (
+                              <li key={i}>{r}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-1">Certification Readiness</div>
-                    <div className={`text-xl font-semibold ${getReadinessColor(generatedReport.complianceStatus.certificationReadiness)}`}>
-                      {generatedReport.complianceStatus.certificationReadiness.split('-').map(word =>
-                        word.charAt(0).toUpperCase() + word.slice(1)
-                      ).join(' ')}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-1">Estimated Time to Readiness</div>
-                    <div className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
-                      {generatedReport.complianceStatus.estimatedTimeToReadiness}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-1">Required Investment</div>
-                    <div className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
-                      {generatedReport.complianceStatus.requiredInvestment}
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
-              <div>
-                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3">Gap Analysis</div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between p-3 bg-error-light/10 dark:bg-error-dark/10 rounded-lg">
-                    <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">Critical Gaps</span>
-                    <span className="text-lg font-bold text-error-light dark:text-error-dark">
-                      {generatedReport.complianceStatus.gapAnalysis.criticalGaps}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-warning-light/10 dark:bg-warning-dark/10 rounded-lg">
-                    <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">High Priority Gaps</span>
-                    <span className="text-lg font-bold text-warning-light dark:text-warning-dark">
-                      {generatedReport.complianceStatus.gapAnalysis.highPriorityGaps}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-info-light/10 dark:bg-info-dark/10 rounded-lg">
-                    <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">Medium Priority Gaps</span>
-                    <span className="text-lg font-bold text-info-light dark:text-info-dark">
-                      {generatedReport.complianceStatus.gapAnalysis.mediumPriorityGaps}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-success-light/10 dark:bg-success-dark/10 rounded-lg">
-                    <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">Low Priority Gaps</span>
-                    <span className="text-lg font-bold text-success-light dark:text-success-dark">
-                      {generatedReport.complianceStatus.gapAnalysis.lowPriorityGaps}
-                    </span>
-                  </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'recommendations' && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Target className="w-5 h-5 text-blue-600" />
+                Priority Recommendations
+              </h3>
+              <div className="space-y-4">
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-2">Immediate Actions (0-30 days)</h4>
+                  <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
+                    <li>Address all critical findings identified in the assessment</li>
+                    <li>Implement emergency security controls for high-risk vulnerabilities</li>
+                    <li>Conduct immediate security awareness training for all personnel</li>
+                    <li>Establish incident response team and procedures</li>
+                  </ul>
+                </div>
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-2">Short-term Actions (30-90 days)</h4>
+                  <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
+                    <li>Implement comprehensive encryption strategy for all CUI</li>
+                    <li>Enhance access control mechanisms and user provisioning</li>
+                    <li>Develop and implement security policies and procedures</li>
+                    <li>Conduct vulnerability assessments and penetration testing</li>
+                  </ul>
+                </div>
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-2">Long-term Actions (90+ days)</h4>
+                  <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
+                    <li>Establish continuous monitoring and security operations center</li>
+                    <li>Implement advanced threat detection and response capabilities</li>
+                    <li>Develop comprehensive security training and awareness program</li>
+                    <li>Conduct regular security assessments and compliance audits</li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
+        )}
 
-          {/* Top Recommendations */}
-          <div className="card-standard">
-            <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center space-x-2">
-              <Target className="w-6 h-6 text-primary-500 dark:text-primary-400" />
-              <span>Top Recommendations</span>
-            </h3>
-            <div className="space-y-4">
-              {generatedReport.recommendations.slice(0, 5).map((rec, idx) => (
-                <div key={rec.id} className="p-4 bg-surface-light dark:bg-surface-dark rounded-lg border border-support-light dark:border-support-dark">
-                  <div className="flex items-start justify-between mb-2">
-                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
-                      {idx + 1}. {rec.title}
-                    </h4>
-                    <span className={`px-2 py-1 rounded text-xs font-semibold ${
-                      rec.priority === 'immediate' ? 'bg-error-light/20 dark:bg-error-dark/20 text-error-light dark:text-error-dark' :
-                      rec.priority === 'short-term' ? 'bg-warning-light/20 dark:bg-warning-dark/20 text-warning-light dark:text-warning-dark' :
-                      'bg-info-light/20 dark:bg-info-dark/20 text-info-light dark:text-info-dark'
-                    }`}>
-                      {rec.priority.toUpperCase()}
-                    </span>
-                  </div>
-                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-2">
-                    {rec.description}
+        {activeTab === 'executive' && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <FileCheck className="w-5 h-5 text-blue-600" />
+                Executive Summary
+              </h3>
+              <div className="prose max-w-none">
+                <p className="text-gray-700 mb-4">
+                  This comprehensive security assessment of {organizationName} evaluated compliance with CMMC 2.0 Level 2 requirements, 
+                  covering all 110 required controls across 14 security domains. The assessment was conducted on {assessmentDate} 
+                  by {assessorName}.
+                </p>
+                
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                  <h4 className="font-semibold text-blue-900 mb-2">Key Results</h4>
+                  <ul className="text-blue-800 space-y-1">
+                    <li>• Overall compliance score: <strong>{mockAssessmentData.overallScore}%</strong></li>
+                    <li>• {mockAssessmentData.compliantControls} controls are fully compliant</li>
+                    <li>• {mockAssessmentData.partiallyCompliantControls} controls require enhancement</li>
+                    <li>• {mockAssessmentData.nonCompliantControls} controls need immediate attention</li>
+                    <li>• {criticalFindings.length} critical findings identified</li>
+                  </ul>
+                </div>
+
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                  <h4 className="font-semibold text-yellow-900 mb-2">Risk Assessment</h4>
+                  <p className="text-yellow-800">
+                    The assessment identified several areas requiring immediate attention to achieve full CMMC 2.0 Level 2 compliance. 
+                    Critical findings primarily relate to encryption implementation, access control mechanisms, and incident response procedures. 
+                    Addressing these findings is essential for maintaining eligibility for Department of Defense contracts.
                   </p>
-                  <div className="flex items-center justify-between text-xs text-text-muted-light dark:text-text-muted-dark">
-                    <span>Category: {rec.category}</span>
-                    <span>Effort: {rec.estimatedEffort}</span>
-                    <span>Cost: {rec.estimatedCost}</span>
-                  </div>
                 </div>
-              ))}
+
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-green-900 mb-2">Recommendations</h4>
+                  <p className="text-green-800">
+                    To achieve full CMMC 2.0 Level 2 compliance, the organization should prioritize addressing critical findings within 90 days, 
+                    implement comprehensive security controls, and establish ongoing monitoring and assessment processes. 
+                    Regular training and awareness programs should be implemented to maintain compliance posture.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* Reset Button */}
-          <div className="flex justify-end">
-            <button
-              onClick={() => {
-                setGeneratedReport(null);
-                setShowPreview(false);
-              }}
-              className="btn-secondary"
-            >
-              Generate New Report
-            </button>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
-
-export default SecurityAssessmentReportGenerator;

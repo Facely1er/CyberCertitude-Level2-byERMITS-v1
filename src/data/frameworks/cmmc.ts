@@ -27,6 +27,36 @@ export const cmmcFramework: Framework = {
           description: 'Control access to systems and information',
           weight: 100,
           questions: [
+            // Level 1 Questions
+            {
+              id: 'cmmc.ac.1.1',
+              text: 'Limit information system access to authorized users, processes acting on behalf of authorized users, and devices.',
+              guidance: 'Access control policies control access between active entities and passive entities in systems.',
+              priority: 'high',
+              references: ['AC.1.001'],
+              examples: ['User access controls', 'Authentication systems', 'Authorization mechanisms'],
+              options: [
+                { value: 0, label: 'Not implemented', description: 'No access controls in place' },
+                { value: 1, label: 'Partially implemented', description: 'Basic access controls for some systems' },
+                { value: 2, label: 'Largely implemented', description: 'Comprehensive access controls with some gaps' },
+                { value: 3, label: 'Fully implemented', description: 'Complete access control framework' }
+              ]
+            },
+            {
+              id: 'cmmc.ac.1.2',
+              text: 'Control information system access by establishing, documenting, and enforcing access control policies and procedures.',
+              guidance: 'Access control policies and procedures should define who can access what information systems and under what conditions.',
+              priority: 'high',
+              references: ['AC.1.002'],
+              examples: ['Access control policies', 'User provisioning procedures', 'Access review processes'],
+              options: [
+                { value: 0, label: 'Not implemented', description: 'No access control policies' },
+                { value: 1, label: 'Partially implemented', description: 'Basic policies for some systems' },
+                { value: 2, label: 'Largely implemented', description: 'Comprehensive policies with some gaps' },
+                { value: 3, label: 'Fully implemented', description: 'Complete access control policy framework' }
+              ]
+            },
+            // Level 2 Questions
             {
               id: 'cmmc.ac.3.1.1',
               text: 'Limit system access to authorized users, processes acting on behalf of authorized users, and devices (including other systems).',
@@ -697,6 +727,36 @@ export const cmmcFramework: Framework = {
           description: 'Identify and authenticate users',
           weight: 100,
           questions: [
+            // Level 1 Questions
+            {
+              id: 'cmmc.ia.1.1',
+              text: 'Identify information system users, processes acting on behalf of users, and devices.',
+              guidance: 'User identification is essential for access control and accountability.',
+              priority: 'high',
+              references: ['IA.1.001'],
+              examples: ['User identification', 'Device identification', 'Process identification'],
+              options: [
+                { value: 0, label: 'Not implemented', description: 'No user or device identification' },
+                { value: 1, label: 'Partially implemented', description: 'Basic identification for some users/devices' },
+                { value: 2, label: 'Largely implemented', description: 'Most users and devices properly identified' },
+                { value: 3, label: 'Fully implemented', description: 'Complete identification framework' }
+              ]
+            },
+            {
+              id: 'cmmc.ia.1.2',
+              text: 'Authenticate information system users, processes acting on behalf of users, and devices.',
+              guidance: 'Authentication verifies the identity of users, processes, and devices.',
+              priority: 'high',
+              references: ['IA.1.002'],
+              examples: ['Password authentication', 'Multi-factor authentication', 'Device certificates'],
+              options: [
+                { value: 0, label: 'Not implemented', description: 'No authentication mechanisms' },
+                { value: 1, label: 'Partially implemented', description: 'Basic authentication for some systems' },
+                { value: 2, label: 'Largely implemented', description: 'Most systems have authentication' },
+                { value: 3, label: 'Fully implemented', description: 'Complete authentication framework' }
+              ]
+            },
+            // Level 2 Questions
             {
               id: 'cmmc.ia.3.5.1',
               text: 'Identify system users, processes acting on behalf of users, and devices.',

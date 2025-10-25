@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Download, ChartBar as BarChart3, TrendingUp, Shield, Target, Award, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Settings, ChevronLeft } from 'lucide-react';
+import { FileText, Download, ChartBar as BarChart3, TrendingUp, Shield, Target, Award, CircleCheck as CheckCircle, Settings, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AssessmentData, UserProfile } from '../../../shared/types';
 import { cmmcFramework } from '../../../data/frameworks';
@@ -317,16 +317,25 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
           </h3>
           <div className="h-80">
             <PieChart
-              data={[
-                { name: 'Adaptive (80%+)', value: functionAnalysis.filter(f => f.score >= 80).length, color: '#10B981' },
-                { name: 'Repeatable (60-79%)', value: functionAnalysis.filter(f => f.score >= 60 && f.score < 80).length, color: '#F59E0B' },
-                { name: 'Risk Informed (40-59%)', value: functionAnalysis.filter(f => f.score >= 40 && f.score < 60).length, color: '#F97316' },
-                { name: 'Partial (<40%)', value: functionAnalysis.filter(f => f.score < 40).length, color: '#EF4444' }
+              labels={[
+                'Adaptive (80%+)',
+                'Repeatable (60-79%)',
+                'Risk Informed (40-59%)',
+                'Partial (<40%)'
               ]}
-              width={300}
-              height={300}
-              showLegend={true}
-              showLabels={true}
+              data={[
+                functionAnalysis.filter(f => f.score >= 80).length,
+                functionAnalysis.filter(f => f.score >= 60 && f.score < 80).length,
+                functionAnalysis.filter(f => f.score >= 40 && f.score < 60).length,
+                functionAnalysis.filter(f => f.score < 40).length
+              ]}
+              backgroundColor={[
+                '#10B981',
+                '#F59E0B',
+                '#F97316',
+                '#EF4444'
+              ]}
+              title="Compliance Distribution"
             />
           </div>
         </div>

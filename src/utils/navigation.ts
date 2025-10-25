@@ -17,7 +17,31 @@ export const navigation = {
     }
   },
 
-  // Basic navigation methods
+  // Phase 1: Initiation
+  goToOverview: () => navigation.navigate('/overview'),
+  goToProjectCharter: () => navigation.navigate('/project-charter'),
+  goToCUIScope: () => navigation.navigate('/cui-scope'),
+  goToDataFlow: () => navigation.navigate('/data-flow'),
+  goToTeamRoles: () => navigation.navigate('/team-roles'),
+
+  // Phase 3: Implementation
+  goToImplementationWorkbook: () => navigation.navigate('/implementation-workbook'),
+
+  // Phase 4: Policy Development
+  goToPolicyTemplates: () => navigation.navigate('/policy-templates'),
+  goToDocumentRepository: () => navigation.navigate('/document-repository'),
+
+  // Phase 5: Validation
+  goToControlValidation: () => navigation.navigate('/control-validation'),
+  goToComplianceTracking: () => navigation.navigate('/compliance-tracking'),
+
+  // Phase 7: Certification Support
+  goToAuditPackage: () => navigation.navigate('/audit-package'),
+  goToC3PAOPrep: () => navigation.navigate('/c3pao-prep'),
+  goToMetricsDashboard: () => navigation.navigate('/metrics-dashboard'),
+  goToCertificationTracking: () => navigation.navigate('/certification-tracking'),
+
+  // Existing navigation methods
   goHome: () => navigation.navigate('/'),
   goToDashboard: () => navigation.navigate('/dashboard'),
   goToAssessment: () => navigation.navigate('/assessment-intro'),
@@ -129,6 +153,8 @@ export const navigation = {
   goToSecurityControlMapper: () => navigation.navigate('/security-controls'),
   goToConfigurationBaselineGenerator: () => navigation.navigate('/config-baselines'),
   goToIncidentResponsePlanner: () => navigation.navigate('/incident-response'),
+  goToEnhancedIncidentResponsePlanGenerator: () => navigation.navigate('/incident-response-plan-generator'),
+  goToSecurityAssessmentReportGenerator: () => navigation.navigate('/reports/security-assessment'),
   goToC3PAOPreparationTool: () => navigation.navigate('/audit-tracker')
 };
 

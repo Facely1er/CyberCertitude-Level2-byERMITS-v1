@@ -129,8 +129,7 @@ const ReportView: React.FC<ReportViewProps> = ({
     try {
       reportService.exportReport(assessment, framework, {
         format,
-        sections: ['executive-summary', 'detailed-analysis', 'recommendations'],
-        includeCharts: true,
+        includeRecommendations: true,
         branding: {
           organizationName: assessment.organizationInfo?.name
         }
