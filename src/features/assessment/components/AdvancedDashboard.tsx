@@ -448,20 +448,20 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="container-responsive section-padding">
       {/* Breadcrumbs */}
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
       {/* Enhanced Welcome Section */}
-      <div className="mb-10">
+      <div className="mb-8 sm:mb-10">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+            <h1 className="text-responsive-xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
               {userProfile ? `Welcome back, ${userProfile.name}` : 'CMMC Cybersecurity Compliance'}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
+            <p className="text-responsive-md text-gray-600 dark:text-gray-300">
               {userProfile 
                 ? `Manage CMMC compliance for ${userProfile.organization}`
                 : 'Comprehensive CMMC certification readiness platform'

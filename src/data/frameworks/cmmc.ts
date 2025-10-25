@@ -3,7 +3,7 @@
 export const cmmcFramework: Framework = {
   id: 'cmmc',
   name: 'CMMC 2.0 (Cybersecurity Maturity Model Certification)',
-  description: 'Department of Military cybersecurity standard for contractors - CMMC 2.0 framework with 14 domains and 110 controls',
+  description: 'Department of Defense cybersecurity standard for contractors - CMMC 2.0 framework with 14 domains and 110 controls aligned with NIST SP 800-171',
   version: '2.0',
   complexity: 'advanced',
   estimatedTime: 240,

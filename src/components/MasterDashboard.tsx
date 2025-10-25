@@ -229,21 +229,21 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="container-responsive section-padding">
         {/* Compact Action Bar */}
-        <div className="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div className="card-responsive p-4 sm:p-6 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div className="flex items-center space-x-3">
             <img src="/cybercertitude.png" alt="CyberCertitude" className="w-8 h-8" />
             <div>
-              <h1 className="text-lg font-bold text-gray-800">Implementation Dashboard</h1>
-              <p className="text-sm text-gray-600">Track progress and manage compliance</p>
+              <h1 className="text-responsive-lg text-gray-800">Implementation Dashboard</h1>
+              <p className="text-sm sm:text-base text-gray-600">Track progress and manage compliance</p>
             </div>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             <button
               onClick={syncToGitHub}
               disabled={syncing}
-              className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition font-medium flex items-center text-sm disabled:opacity-50"
+              className="button-primary flex items-center text-sm disabled:opacity-50"
             >
               <Github className={`w-4 h-4 mr-2 ${syncing ? 'animate-spin' : ''}`} />
               {syncing ? 'Syncing...' : 'Sync to GitHub'}
@@ -252,7 +252,7 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
               <button
                 onClick={() => setShowFormatMenu(!showFormatMenu)}
                 disabled={downloadingAll}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium flex items-center text-sm disabled:opacity-50"
+                className="button-primary flex items-center text-sm disabled:opacity-50"
               >
                 <Package className={`w-4 h-4 mr-2 ${downloadingAll ? 'animate-bounce' : ''}`} />
                 {downloadingAll ? 'Preparing...' : 'Download All'}

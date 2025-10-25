@@ -99,6 +99,49 @@
   transition-duration: 200ms;
 }
 
+/* Enhanced responsive utilities */
+@layer utilities {
+  .container-responsive {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-8 sm:py-12 lg:py-16;
+  }
+  
+  .card-responsive {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700;
+  }
+  
+  .button-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1;
+  }
+  
+  .button-secondary {
+    @apply border-2 border-primary-500 text-primary-500 dark:text-primary-400 px-6 py-3 rounded-xl font-semibold hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200;
+  }
+  
+  .text-responsive-xl {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-bold;
+  }
+  
+  .text-responsive-lg {
+    @apply text-xl sm:text-2xl lg:text-3xl font-bold;
+  }
+  
+  .text-responsive-md {
+    @apply text-lg sm:text-xl font-medium;
+  }
+  
+  .grid-responsive {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6;
+  }
+  
+  .flex-responsive {
+    @apply flex flex-col sm:flex-row gap-4 sm:gap-6;
+  }
+}
+
 /* Enable smooth scrolling for the entire application */
 html {
   scroll-behavior: smooth;

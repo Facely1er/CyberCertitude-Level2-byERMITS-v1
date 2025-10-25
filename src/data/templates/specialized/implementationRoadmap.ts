@@ -78,7 +78,7 @@ export const implementationRoadmap: ImplementationRoadmapTemplate = {
 **Project Manager:** {{projectManager}}
 **CISO:** {{ciso}}
 **Start Date:** {{startDate}}
-**Estimated Budget:** ${{budget}}
+**Estimated Budget:** $50,000
 **Organization:** {{companyName}}
 **Organization Size:** {{companySize}}
 

@@ -40,7 +40,25 @@ vi.mock('./hooks/useScrollToTop', () => ({
 
 vi.mock('./services/dataService', () => ({
   dataService: {
-    getUserProfile: vi.fn(() => null)
+    getUserProfile: vi.fn(() => null),
+    getAssets: vi.fn(() => []),
+    saveAsset: vi.fn(),
+    deleteAsset: vi.fn(),
+    updateAsset: vi.fn(),
+    getAssetCategories: vi.fn(() => ['servers', 'workstations', 'network', 'software', 'data']),
+    saveAssessment: vi.fn(),
+    getAssessments: vi.fn(() => []),
+    removeAssessment: vi.fn(),
+    saveTask: vi.fn(),
+    getTasks: vi.fn(() => []),
+    updateTask: vi.fn(),
+    deleteTask: vi.fn(),
+    saveSettings: vi.fn(),
+    getSettings: vi.fn(() => ({})),
+    exportData: vi.fn(),
+    importData: vi.fn(),
+    backupData: vi.fn(),
+    restoreData: vi.fn()
   }
 }));
 
@@ -52,10 +70,25 @@ vi.mock('./services/reportService', () => ({
 }));
 
 vi.mock('./data/frameworks', () => ({
+  cmmcFramework: {
+    id: 'cmmc',
+    name: 'CMMC 2.0 Level 2',
+    description: 'CMMC 2.0 Level 2 Assessment Framework',
+    version: '2.0',
+    sections: [],
+    categories: [],
+    maturityLevels: [],
+    assessmentQuestions: []
+  },
   getFramework: vi.fn(() => ({
     id: 'cmmc',
     name: 'CMMC 2.0 Level 2',
-    sections: []
+    description: 'CMMC 2.0 Level 2 Assessment Framework',
+    version: '2.0',
+    sections: [],
+    categories: [],
+    maturityLevels: [],
+    assessmentQuestions: []
   }))
 }));
 
@@ -79,11 +112,9 @@ vi.mock('./components/UserOnboarding', () => ({
 
 const renderApp = () => {
   return render(
-    <BrowserRouter>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   );
 };
 

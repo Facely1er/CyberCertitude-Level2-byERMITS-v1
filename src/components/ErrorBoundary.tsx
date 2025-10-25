@@ -112,7 +112,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Oops! Something went wrong
+              Something went wrong
             </h1>
             
             {this.state.error && (

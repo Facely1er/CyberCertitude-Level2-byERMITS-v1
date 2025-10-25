@@ -57,7 +57,7 @@ export const navigationItems: NavigationItem[] = [
         label: 'Start Assessment',
         href: '/assessment-intro',
         icon: Play,
-        description: 'Begin CMMC 2.0 Level 2 assessment'
+        description: 'Begin CMMC 2.0 Level 2 self-assessment'
       },
       {
         label: 'Gap Analysis',

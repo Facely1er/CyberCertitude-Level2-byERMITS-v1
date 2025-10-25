@@ -12,7 +12,21 @@ vi.mock('@/services/dataService', () => ({
     getAssets: vi.fn(() => []),
     deleteAsset: vi.fn(),
     updateAsset: vi.fn(),
-    getAssetCategories: vi.fn(() => ['servers', 'workstations', 'network', 'software', 'data'])
+    getAssetCategories: vi.fn(() => ['servers', 'workstations', 'network', 'software', 'data']),
+    getUserProfile: vi.fn(() => null),
+    saveAssessment: vi.fn(),
+    getAssessments: vi.fn(() => []),
+    removeAssessment: vi.fn(),
+    saveTask: vi.fn(),
+    getTasks: vi.fn(() => []),
+    updateTask: vi.fn(),
+    deleteTask: vi.fn(),
+    saveSettings: vi.fn(),
+    getSettings: vi.fn(() => ({})),
+    exportData: vi.fn(),
+    importData: vi.fn(),
+    backupData: vi.fn(),
+    restoreData: vi.fn()
   }
 }));
 

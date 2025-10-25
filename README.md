@@ -1,10 +1,10 @@
 # CyberCertitude™ - CMMC 2.0 Compliance Portal
 
-A comprehensive platform for achieving CMMC 2.0 Level 2 certification readiness, from initial assessment through audit documentation with evidence collection and real-time implementation monitoring for Military contractors handling Controlled Unclassified Information (CUI).
+A comprehensive platform for achieving CMMC 2.0 Level 2 certification readiness, from initial assessment through audit documentation with evidence collection and real-time implementation monitoring for DoD contractors handling Controlled Unclassified Information (CUI).
 
 ## 🎯 Overview
 
-This platform provides Military contractors with a structured approach to achieve CMMC 2.0 Level 2 certification, focusing on:
+This platform provides DoD contractors with a structured approach to achieve CMMC 2.0 Level 2 certification, focusing on:
 
 - **📊 CMMC 2.0 Level 2 Assessment** - Complete evaluation across all 14 domains and 110 controls
 - **📋 Evidence Collection & Management** - Systematic collection and validation of compliance evidence
@@ -69,7 +69,7 @@ This platform provides Military contractors with a structured approach to achiev
 13. **System and Communications Protection (SC)** - System and network protection
 14. **System and Information Integrity (SI)** - Information and system integrity
 
-*Note: CMMC 2.0 consolidated the original 17 domains into 14 domains while maintaining all 110 controls. Asset Management, Recovery, and Supply Chain Risk Management controls are now distributed across the remaining domains.*
+*Note: CMMC 2.0 Level 2 includes 14 domains with 110 security controls aligned with NIST SP 800-171. The framework focuses on protecting Controlled Unclassified Information (CUI) in contractor environments.*
 
 ### **CMMC 2.0 Level 2 Requirements**
 - **110 Security Controls**: Complete assessment across all required CMMC 2.0 controls
