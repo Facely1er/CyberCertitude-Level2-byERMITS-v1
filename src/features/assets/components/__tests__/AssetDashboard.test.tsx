@@ -3,6 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import AssetDashboard from '../AssetDashboard';
 
+import { dataService } from '@/services/dataService';
+
 // Mock the data service
 vi.mock('@/services/dataService', () => ({
   dataService: {
@@ -196,7 +198,7 @@ describe('AssetDashboard Component', () => {
 
   it('displays asset list when available', () => {
     // Mock the data service to return assets
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -205,7 +207,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('shows asset details in list', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -217,7 +219,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('shows asset status indicators', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -227,7 +229,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('handles asset filtering by type', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -240,7 +242,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('handles asset filtering by category', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -253,7 +255,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('handles asset filtering by criticality', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -266,7 +268,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('handles asset search', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -279,7 +281,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('handles asset sorting', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -292,7 +294,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('handles asset deletion', async () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -313,7 +315,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('handles asset editing', async () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -338,7 +340,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('shows asset statistics', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -353,7 +355,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('shows asset criticality distribution', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -390,7 +392,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('shows asset owner information', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -399,7 +401,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('shows last updated information', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -408,7 +410,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('exports asset data', async () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -423,7 +425,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('shows asset risk assessment', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -437,7 +439,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('handles bulk asset operations', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -453,7 +455,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('shows asset compliance status', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     
@@ -477,7 +479,7 @@ describe('AssetDashboard Component', () => {
   });
 
   it('shows asset lifecycle management', () => {
-    vi.mocked(require('@/services/dataService').dataService.getAssets).mockReturnValue(mockAssets);
+    vi.mocked(dataService.getAssets).mockReturnValue(mockAssets);
     
     renderAssetDashboard();
     

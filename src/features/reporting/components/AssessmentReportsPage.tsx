@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   FileText, BarChart3, Download, Eye, Plus, 
-  CheckCircle, AlertTriangle,
+  CheckCircle,
   Target, Award, ChevronLeft,
   ArrowRight, Building, Shield, Users, Activity
 } from 'lucide-react';
@@ -324,7 +324,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
               {filteredAndSortedAssessments.map((assessment) => {
                 const framework = getFramework(assessment.frameworkId);
                 const score = calculateAssessmentScore(assessment);
-                const progress = Object.keys(assessment.responses).length;
+                const progress = assessment.responses ? Object.keys(assessment.responses).length : 0;
                 const totalQuestions = framework.sections.reduce((sum, section) => 
                   sum + section.categories.reduce((catSum, category) => 
                     catSum + category.questions.length, 0), 0);
@@ -535,7 +535,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
              title: 'Security Assessment Report',
              description: 'Generate comprehensive CMMC Level 2 security assessment reports',
              href: '/reports/security-assessment',
-             category: 'feature',
+             category: 'resource',
              priority: 'high'
            },
            {

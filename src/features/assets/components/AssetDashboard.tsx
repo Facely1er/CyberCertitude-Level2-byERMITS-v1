@@ -331,7 +331,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
       </div>
 
       {/* Show empty state if no assets */}
-      {assets.length === 0 ? (
+      {(!assets || assets.length === 0) ? (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 space-y-8">
           <EmptyState
             title="No Assets Found"
