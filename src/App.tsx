@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { AppLayout } from './components/layout/AppLayout';
 import { RouteRenderer } from './routes/RouteRenderer';
@@ -52,7 +52,7 @@ const EnhancedReportRoute: React.FC<{
   />
 );
 
-function AppContent() {
+function App() {
   const navigate = useNavigate();
   
   // Custom hooks for state management
@@ -164,14 +164,11 @@ function AppContent() {
   );
 }
 
-function App() {
-  return (
-    <ErrorBoundary>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </ErrorBoundary>
-  );
-}
+// Wrap with ErrorBoundary for production error handling
+const AppWithErrorBoundary = () => (
+  <ErrorBoundary>
+    <App />
+  </ErrorBoundary>
+);
 
-export default App;
+export default AppWithErrorBoundary;
