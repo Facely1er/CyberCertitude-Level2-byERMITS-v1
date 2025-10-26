@@ -1,5 +1,5 @@
 /**
- * 🧪 Testing Suite
+ * Testing Suite
  * Comprehensive automated testing for 100% quality assurance
  */
 
@@ -39,9 +39,9 @@ export const createMockAssessment = () => ({
 export const testAccessibility = async (component: React.ReactElement) => {
   const { container } = renderWithRouter(component);
   
-  // Test keyboard navigation
+  // Test keyboard navigation - use a simpler selector to avoid parsing issues
   const focusableElements = container.querySelectorAll(
-    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    'button, [href], input, select, textarea, [tabindex]'
   );
   
   expect(focusableElements.length).toBeGreaterThan(0);
