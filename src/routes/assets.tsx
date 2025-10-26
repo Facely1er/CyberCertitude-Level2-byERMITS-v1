@@ -115,6 +115,8 @@ export const assetRoutes = [
             { label: 'Asset Dependencies', isActive: true }
           ]} />
         </div>
+
+        {/* Header */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
           <div className="p-6">
             <div className="flex items-center justify-between">
@@ -129,22 +131,99 @@ export const assetRoutes = [
                   </p>
                 </div>
               </div>
-              <div className="text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg whitespace-nowrap">
-                Coming Soon
+              <div className="flex items-center space-x-3">
+                <button className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <GitBranchIcon className="w-4 h-4" />
+                  <span>Add Dependency</span>
+                </button>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Dependency Visualization */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {[
+            { type: 'Critical', count: 12, color: 'red', icon: GitBranchIcon },
+            { type: 'High', count: 8, color: 'orange', icon: GitBranchIcon },
+            { type: 'Medium', count: 15, color: 'yellow', icon: GitBranchIcon },
+            { type: 'Low', count: 5, color: 'green', icon: GitBranchIcon }
+          ].map((dep) => (
+            <div key={dep.type} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 bg-${dep.color}-100 dark:bg-${dep.color}-900/30 rounded-lg`}>
+                    <dep.icon className={`w-6 h-6 text-${dep.color}-600 dark:text-${dep.color}-400`} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{dep.type} Dependencies</h3>
+                </div>
+                <span className={`px-3 py-1 bg-${dep.color}-100 dark:bg-${dep.color}-900/30 text-${dep.color}-800 dark:text-${dep.color}-300 rounded-full text-sm font-medium`}>
+                  {dep.count}
+                </span>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600 dark:text-gray-300">Impact Level</span>
+                  <span className="font-medium text-gray-900 dark:text-white capitalize">{dep.type.toLowerCase()}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600 dark:text-gray-300">Affected Assets</span>
+                  <span className="font-medium text-gray-900 dark:text-white">{dep.count}</span>
+                </div>
+                <button className="w-full mt-3 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium text-sm text-left">
+                  View Details →
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Recent Dependencies */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Recent Dependencies</h2>
+          </div>
+          <div className="p-6">
+            <div className="space-y-4">
+              {[
+                { from: 'Database Server', to: 'Web Application', type: 'Provides', criticality: 'Critical' },
+                { from: 'Network Switch', to: 'Database Server', type: 'Connects', criticality: 'High' },
+                { from: 'Security Gateway', to: 'All Assets', type: 'Protects', criticality: 'Critical' }
+              ].map((dep, idx) => (
+                <div key={idx} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                  <div className="flex items-center space-x-4">
+                    <GitBranchIcon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                    <div>
+                      <p className="font-medium text-gray-900 dark:text-white">{dep.from}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{dep.type} → {dep.to}</p>
+                    </div>
+                  </div>
+                  <span className={`px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-full text-xs font-medium`}>
+                    {dep.criticality}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Info Card */}
         <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-xl border border-purple-200 dark:border-purple-800 p-6">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-start space-x-3">
             <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
               <BookOpen className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-purple-900 dark:text-purple-100">Coming Soon</h3>
-              <p className="text-purple-700 dark:text-purple-200">
-                Asset dependency mapping functionality will be implemented here.
+              <h3 className="text-lg font-semibold text-purple-900 dark:text-purple-100 mb-2">Asset Dependencies</h3>
+              <p className="text-purple-700 dark:text-purple-200 mb-3">
+                Understanding asset dependencies is crucial for CMMC compliance. Track relationships between assets to identify critical paths and security dependencies.
               </p>
+              <ul className="text-sm text-purple-700 dark:text-purple-200 space-y-1">
+                <li>• Map critical asset relationships</li>
+                <li>• Identify security dependencies</li>
+                <li>• Track impact of asset changes</li>
+                <li>• Support security incident response</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -164,6 +243,8 @@ export const assetRoutes = [
             { label: 'Asset Workflow', isActive: true }
           ]} />
         </div>
+
+        {/* Header */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
           <div className="p-6">
             <div className="flex items-center justify-between">
@@ -178,22 +259,122 @@ export const assetRoutes = [
                   </p>
                 </div>
               </div>
-              <div className="text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg whitespace-nowrap">
-                Coming Soon
+              <div className="flex items-center space-x-3">
+                <button className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <Activity className="w-4 h-4" />
+                  <span>New Workflow</span>
+                </button>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Lifecycle Stages */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Asset Lifecycle Stages</h2>
+          </div>
+          <div className="p-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { stage: 'Planning', count: 5, color: 'blue' },
+                { stage: 'Deployment', count: 8, color: 'green' },
+                { stage: 'Operations', count: 24, color: 'purple' },
+                { stage: 'Retirement', count: 3, color: 'orange' }
+              ].map((lifecycle) => (
+                <div key={lifecycle.stage} className="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                  <div className={`text-2xl font-bold text-${lifecycle.color}-600 dark:text-${lifecycle.color}-400 mb-2`}>
+                    {lifecycle.count}
+                  </div>
+                  <div className="text-sm font-medium text-gray-900 dark:text-white">{lifecycle.stage}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Active Workflows */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {[
+            { title: 'Security Review', status: 'In Progress', progress: 65, stage: 'Deployment', color: 'green', icon: Activity },
+            { title: 'Hardware Refresh', status: 'Pending', progress: 30, stage: 'Planning', color: 'blue', icon: Activity },
+            { title: 'Software Update', status: 'Active', progress: 85, stage: 'Operations', color: 'purple', icon: Activity },
+            { title: 'Decommission', status: 'Scheduled', progress: 10, stage: 'Retirement', color: 'orange', icon: Activity }
+          ].map((workflow, idx) => (
+            <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 bg-${workflow.color}-100 dark:bg-${workflow.color}-900/30 rounded-lg`}>
+                    <workflow.icon className={`w-6 h-6 text-${workflow.color}-600 dark:text-${workflow.color}-400`} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">{workflow.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{workflow.stage}</p>
+                  </div>
+                </div>
+                <span className={`px-3 py-1 bg-${workflow.color}-100 dark:bg-${workflow.color}-900/30 text-${workflow.color}-800 dark:text-${workflow.color}-300 rounded-full text-xs font-medium`}>
+                  {workflow.status}
+                </span>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600 dark:text-gray-300">Progress</span>
+                  <span className="font-medium text-gray-900 dark:text-white">{workflow.progress}%</span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  <div className={`bg-${workflow.color}-600 h-2 rounded-full`} style={{ width: `${workflow.progress}%` }}></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Workflow Timeline */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Recent Workflow Activities</h2>
+          </div>
+          <div className="p-6">
+            <div className="space-y-4">
+              {[
+                { action: 'Asset deployed', asset: 'Web Server 01', user: 'John Doe', time: '2 hours ago', type: 'deployment' },
+                { action: 'Security scan completed', asset: 'Database Server 02', user: 'Security Team', time: '5 hours ago', type: 'security' },
+                { action: 'Update approved', asset: 'Application Server 03', user: 'Jane Smith', time: '1 day ago', type: 'update' }
+              ].map((activity, idx) => (
+                <div key={idx} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                  <div className="flex items-center space-x-4">
+                    <Activity className="w-5 h-5 text-green-600 dark:text-green-400" />
+                    <div>
+                      <p className="font-medium text-gray-900 dark:text-white">{activity.action}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{activity.asset} • {activity.user} • {activity.time}</p>
+                    </div>
+                  </div>
+                  <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-xs font-medium capitalize">
+                    {activity.type}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Info Card */}
         <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border border-green-200 dark:border-green-800 p-6">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-start space-x-3">
             <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
               <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-green-900 dark:text-green-100">Coming Soon</h3>
-              <p className="text-green-700 dark:text-green-200">
-                Asset workflow management functionality will be implemented here.
+              <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-2">Asset Lifecycle Management</h3>
+              <p className="text-green-700 dark:text-green-200 mb-3">
+                Comprehensive workflow management ensures proper asset lifecycle tracking from planning through retirement, supporting CMMC compliance requirements.
               </p>
+              <ul className="text-sm text-green-700 dark:text-green-200 space-y-1">
+                <li>• Track assets through all lifecycle stages</li>
+                <li>• Monitor workflow progress and approvals</li>
+                <li>• Automate compliance checking at each stage</li>
+                <li>• Maintain audit trail for all asset activities</li>
+              </ul>
             </div>
           </div>
         </div>
