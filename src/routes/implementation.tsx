@@ -2,7 +2,6 @@ import React from 'react';
 import { 
   ProjectCharterPage,
   CUIScopePage,
-  DataFlowPage,
   TeamRolesPage,
   ImplementationWorkbookPage,
   PolicyTemplatesPage,
@@ -15,6 +14,8 @@ import {
   CertificationTrackingPage
 } from '../components/PlaceholderPages';
 import { SSPGenerator } from '../components/SSPGenerator';
+import { CuiDataFlowMapper } from '../components/CuiDataFlowMapper';
+import { POAMGenerator } from '../components/POAMGenerator';
 
 // Implementation Overview Page Component
 const ImplementationOverviewPage: React.FC = () => (
@@ -104,8 +105,8 @@ export const implementationRoutes = [
   },
   {
     path: "/data-flow",
-    element: DataFlowPage,
-    title: "Data Flow Mapping"
+    element: CuiDataFlowMapper,
+    title: "CUI Data Flow Mapping"
   },
   {
     path: "/team-roles",
@@ -164,7 +165,7 @@ export const implementationRoutes = [
   },
   {
     path: "/poam-manager",
-    element: POAMManagerPage,
+    element: POAMGenerator,
     title: "POAM Manager"
   },
   {

@@ -1,0 +1,388 @@
+import React, { useState } from 'react';
+import { 
+  Target, 
+  CheckCircle, 
+  Clock, 
+  AlertTriangle, 
+  Download, 
+  Calendar,
+  Users,
+  DollarSign,
+  Plus,
+  Edit,
+  Trash2,
+  FileText,
+  TrendingUp
+} from 'lucide-react';
+
+interface POAMItem {
+  id: string;
+  gapId: string;
+  title: string;
+  description: string;
+  status: 'open' | 'in_progress' | 'completed' | 'on_hold';
+  priority: 'critical' | 'high' | 'medium' | 'low';
+  owner: string;
+  dueDate: string;
+  milestones: Milestone[];
+  budget: number;
+  estimatedEffort: number;
+  actualEffort: number;
+  completionPercentage: number;
+  risks: string[];
+  dependencies: string[];
+}
+
+interface Milestone {
+  id: string;
+  title: string;
+  targetDate: string;
+  completedDate?: string;
+  status: 'not_started' | 'in_progress' | 'completed' | 'blocked';
+  deliverables: string[];
+}
+
+export const POAMGenerator: React.FC = () => {
+  const [poams, setPOAMs] = useState<POAMItem[]>([
+    {
+      id: 'poam-1',
+      gapId: 'gap-ac-3-1-1',
+      title: 'Implement Multi-Factor Authentication',
+      description: 'Deploy MFA across all systems handling CUI data',
+      status: 'in_progress',
+      priority: 'critical',
+      owner: 'IT Security Team',
+      dueDate: '2024-03-31',
+      milestones: [
+        {
+          id: 'm1',
+          title: 'Deploy MFA to endpoints',
+          targetDate: '2024-02-15',
+          status: 'completed',
+          deliverables: ['MFA agents deployed', 'User training complete']
+        },
+        {
+          id: 'm2',
+          title: 'Implement MFA for servers',
+          targetDate: '2024-03-15',
+          status: 'in_progress',
+          deliverables: ['Server MFA configured', 'Testing in progress']
+        }
+      ],
+      budget: 50000,
+      estimatedEffort: 240,
+      actualEffort: 180,
+      completionPercentage: 75,
+      risks: ['User adoption challenges', 'Integration complexity'],
+      dependencies: ['Identity provider setup', 'Training program']
+    }
+  ]);
+
+  const [selectedPOAM, setSelectedPOAM] = useState<string | null>(null);
+  const [showAddPOAM, setShowAddPOAM] = useState(false);
+
+  const statusColors = {
+    open: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
+    in_progress: 'bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-blue-200',
+    completed: 'bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-200',
+    on_hold: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-200'
+  };
+
+  const priorityColors = {
+    critical: 'text-red-600 dark:text-red-400',
+    high: 'text-orange-600 dark:text-orange-400',
+    medium: 'text-yellow-600 dark:text-yellow-400',
+    low: 'text-blue-600 dark:text-blue-400'
+  };
+
+  const getPriorityIcon = (priority: POAMItem['priority']) => {
+    switch (priority) {
+      case 'critical':
+        return <AlertTriangle className="h-4 w-4 text-red-600" />;
+      case 'high':
+        return <AlertTriangle className="h-4 w-4 text-orange-600" />;
+      case 'medium':
+        return <AlertTriangle className="h-4 w-4 text-yellow-600" />;
+      case 'low':
+        return <CheckCircle className="h-4 w-4 text-blue-600" />;
+    }
+  };
+
+  const exportPOAM = () => {
+    const reportContent = `PLAN OF ACTION AND MILESTONES (POA&M) REPORT
+${'='.repeat(80)}
+
+REPORT DATE: ${new Date().toISOString().split('T')[0]}
+
+TOTAL POA&M ITEMS: ${poams.length}
+CRITICAL: ${poams.filter(p => p.priority === 'critical').length}
+HIGH: ${poams.filter(p => p.priority === 'high').length}
+MEDIUM: ${poams.filter(p => p.priority === 'medium').length}
+LOW: ${poams.filter(p => p.priority === 'low').length}
+
+STATUS SUMMARY
+${'-'.repeat(80)}
+Open: ${poams.filter(p => p.status === 'open').length}
+In Progress: ${poams.filter(p => p.status === 'in_progress').length}
+Completed: ${poams.filter(p => p.status === 'completed').length}
+On Hold: ${poams.filter(p => p.status === 'on_hold').length}
+
+DETAILED POA&M ITEMS
+${'-'.repeat(80)}
+${poams.map((poam, idx) => `
+${idx + 1}. ${poam.title.toUpperCase()}
+   ID: ${poam.gapId}
+   Status: ${poam.status.toUpperCase()}
+   Priority: ${poam.priority.toUpperCase()}
+   Owner: ${poam.owner}
+   Due Date: ${poam.dueDate}
+   Budget: $${poam.budget.toLocaleString()}
+   Estimated Effort: ${poam.estimatedEffort} hours
+   Actual Effort: ${poam.actualEffort} hours
+   Completion: ${poam.completionPercentage}%
+   
+   Description: ${poam.description}
+   
+   Milestones:
+${poam.milestones.map((m, mIdx) => `   ${mIdx + 1}. ${m.title}
+      Status: ${m.status.toUpperCase()}
+      Target Date: ${m.targetDate}
+      ${m.completedDate ? `Completed: ${m.completedDate}` : ''}
+      Deliverables: ${m.deliverables.join(', ')}
+   `).join('\n')}
+   
+   Risks: ${poam.risks.join(', ')}
+   Dependencies: ${poam.dependencies.join(', ')}
+`).join('\n')}
+
+FINANCIAL SUMMARY
+${'-'.repeat(80)}
+Total Budget: $${poams.reduce((sum, p) => sum + p.budget, 0).toLocaleString()}
+Total Estimated Effort: ${poams.reduce((sum, p) => sum + p.estimatedEffort, 0)} hours
+Total Actual Effort: ${poams.reduce((sum, p) => sum + p.actualEffort, 0)} hours
+
+GENERATED BY: CyberCertitude POA&M Generator
+FRAMEWORK: NIST SP 800-171 / CMMC 2.0
+`;
+    
+    const blob = new Blob([reportContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `poam-report-${new Date().toISOString().split('T')[0]}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const toggleMilestone = (poamId: string, milestoneId: string) => {
+    setPOAMs(prev => prev.map(poam => {
+      if (poam.id !== poamId) return poam;
+      return {
+        ...poam,
+        milestones: poam.milestones.map(m => {
+          if (m.id !== milestoneId) return m;
+          if (m.status === 'completed') return { ...m, status: 'in_progress', completedDate: undefined };
+          return { ...m, status: 'completed', completedDate: new Date().toISOString().split('T')[0] };
+        })
+      };
+    }));
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">POA&M Generator</h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Manage Plans of Action and Milestones for compliance gap remediation
+            </p>
+          </div>
+          <button
+            onClick={exportPOAM}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Export POA&M Report
+          </button>
+        </div>
+      </div>
+
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Items</h3>
+            <Target className="h-5 w-5 text-blue-600" />
+          </div>
+          <div className="text-3xl font-bold text-gray-900 dark:text-white">{poams.length}</div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</h3>
+            <Clock className="h-5 w-5 text-orange-600" />
+          </div>
+          <div className="text-3xl font-bold text-orange-600">
+            {poams.filter(p => p.status === 'in_progress').length}
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</h3>
+            <CheckCircle className="h-5 w-5 text-green-600" />
+          </div>
+          <div className="text-3xl font-bold text-green-600">
+            {poams.filter(p => p.status === 'completed').length}
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Budget</h3>
+            <DollarSign className="h-5 w-5 text-purple-600" />
+          </div>
+          <div className="text-3xl font-bold text-purple-600">
+            ${poams.reduce((sum, p) => sum + p.budget, 0).toLocaleString()}
+          </div>
+        </div>
+      </div>
+
+      {/* POAM List */}
+      <div className="space-y-4">
+        {poams.map((poam) => (
+          <div
+            key={poam.id}
+            className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 cursor-pointer transition-all ${
+              selectedPOAM === poam.id ? 'ring-2 ring-blue-500' : ''
+            }`}
+            onClick={() => setSelectedPOAM(selectedPOAM === poam.id ? null : poam.id)}
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  {getPriorityIcon(poam.priority)}
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {poam.title}
+                  </h3>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[poam.status]}`}>
+                    {poam.status.replace('_', ' ').toUpperCase()}
+                  </span>
+                </div>
+                <p className="text-gray-600 dark:text-gray-400 mb-3">{poam.description}</p>
+                <div className="flex flex-wrap gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-4 w-4 text-gray-500" />
+                    <span>{poam.owner}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-gray-500" />
+                    <span>Due: {poam.dueDate}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <DollarSign className="h-4 w-4 text-gray-500" />
+                    <span>${poam.budget.toLocaleString()}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-gray-500" />
+                    <span>{poam.completionPercentage}% complete</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {selectedPOAM === poam.id && (
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 space-y-4">
+                {/* Progress Bar */}
+                <div>
+                  <div className="flex justify-between text-sm mb-2">
+                    <span className="text-gray-600 dark:text-gray-400">Progress</span>
+                    <span className="font-medium">{poam.completionPercentage}%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div
+                      className="bg-blue-600 h-2 rounded-full transition-all"
+                      style={{ width: `${poam.completionPercentage}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Milestones */}
+                <div>
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4" />
+                    Milestones ({poam.milestones.length})
+                  </h4>
+                  <div className="space-y-2">
+                    {poam.milestones.map((milestone) => (
+                      <div
+                        key={milestone.id}
+                        className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                      >
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleMilestone(poam.id, milestone.id);
+                              }}
+                            >
+                              {milestone.status === 'completed' ? (
+                                <CheckCircle className="h-5 w-5 text-green-600" />
+                              ) : (
+                                <div className="h-5 w-5 border-2 border-gray-400 rounded-full" />
+                              )}
+                            </button>
+                            <span className="font-medium">{milestone.title}</span>
+                            <span className={`px-2 py-1 rounded text-xs ${statusColors[milestone.status]}`}>
+                              {milestone.status.replace('_', ')}
+                            </span>
+                          </div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400 ml-7">
+                            Target: {milestone.targetDate}
+                            {milestone.completedDate && <span className="ml-4">Completed: {milestone.completedDate}</span>}
+                          </div>
+                          <div className="text-xs text-gray-500 dark:text-gray-500 ml-7 mt-1">
+                            Deliverables: {milestone.deliverables.join(', ')}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Risks and Dependencies */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-semibold mb-2 flex items-center gap-2">
+                      <AlertTriangle className="h-4 w-4 text-orange-600" />
+                      Risks
+                    </h4>
+                    <ul className="space-y-1">
+                      {poam.risks.map((risk, idx) => (
+                        <li key={idx} className="text-sm text-gray-600 dark:text-gray-400">• {risk}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-2 flex items-center gap-2">
+                      <Target className="h-4 w-4 text-blue-600" />
+                      Dependencies
+                    </h4>
+                    <ul className="space-y-1">
+                      {poam.dependencies.map((dep, idx) => (
+                        <li key={idx} className="text-sm text-gray-600 dark:text-gray-400">• {dep}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
