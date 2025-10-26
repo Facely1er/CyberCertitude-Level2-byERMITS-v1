@@ -12,7 +12,8 @@ import {
   TriangleAlert as AlertTriangle, 
   Wrench,
   Tag,
-  GitBranch
+  GitBranch,
+  Calendar
 } from 'lucide-react';
 
 export interface NavigationItem {
@@ -129,6 +130,24 @@ export const navigationItems: NavigationItem[] = [
         href: '/assets/dependencies',
         icon: GitBranch,
         description: 'Map asset relationships and dependencies'
+      },
+      {
+        label: 'Asset Workflow',
+        href: '/assets/workflow',
+        icon: Activity,
+        description: 'Manage asset lifecycle and workflow processes'
+      },
+      {
+        label: 'Asset Roadmap',
+        href: '/assets/roadmap',
+        icon: Calendar,
+        description: 'Plan and track asset implementation timeline'
+      },
+      {
+        label: 'Asset Action Plan',
+        href: '/assets/action-plan',
+        icon: CheckCircle,
+        description: 'Create and manage asset action plans'
       }
     ]
   },
