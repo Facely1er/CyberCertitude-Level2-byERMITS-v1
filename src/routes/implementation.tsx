@@ -1,8 +1,3 @@
-import { 
-  AuditPackagePage,
-  MetricsDashboardPage,
-  CertificationTrackingPage
-} from '../components/PlaceholderPages';
 import { SSPGenerator } from '../components/SSPGenerator';
 import { CuiDataFlowMapper } from '../components/CuiDataFlowMapper';
 import { POAMGenerator } from '../components/POAMGenerator';
@@ -18,7 +13,10 @@ import ImplementationWorkbook from '../features/implementation/components/Implem
 import DocumentRepository from '../features/implementation/components/DocumentRepository';
 import ControlValidation from '../features/implementation/components/ControlValidation';
 import ComplianceTracking from '../features/implementation/components/ComplianceTracking';
+import AuditPackage from '../features/implementation/components/AuditPackage';
 import C3PAOPrep from '../features/implementation/components/C3PAOPrep';
+import MetricsDashboard from '../features/implementation/components/MetricsDashboard';
+import CertificationTracking from '../features/implementation/components/CertificationTracking';
 import PoliciesPage from '../features/reporting/components/PoliciesPage';
 import AuditLogsPage from '../features/audit/components/AuditLogsPage';
 import ControlsManagement from '../features/compliance/components/ControlsManagement';
@@ -76,7 +74,7 @@ export const implementationRoutes = [
   },
   {
     path: "/audit-package",
-    element: AuditPackagePage,
+    element: AuditPackage,
     title: "Audit Package"
   },
   {
@@ -86,12 +84,12 @@ export const implementationRoutes = [
   },
   {
     path: "/metrics-dashboard",
-    element: MetricsDashboardPage,
+    element: MetricsDashboard,
     title: "Metrics Dashboard"
   },
   {
     path: "/certification-tracking",
-    element: CertificationTrackingPage,
+    element: CertificationTracking,
     title: "Certification Tracking"
   },
   {
