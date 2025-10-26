@@ -75,9 +75,9 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
   const IconComponent = getCategoryIcon(asset.category);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="container-responsive section-padding">
       {/* Breadcrumbs */}
-      <div className="mb-6">
+      <div className="mb-8">
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
@@ -85,16 +85,7 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={onBack}
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5" />
-                <span>Back to Inventory</span>
-              </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-              <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3">
                 <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
                   <IconComponent className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 </div>
@@ -112,7 +103,6 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   </div>
                 </div>
               </div>
-            </div>
             
             <div className="flex items-center space-x-3">
               {isEditing ? (

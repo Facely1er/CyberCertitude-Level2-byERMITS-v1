@@ -119,9 +119,9 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
   const FrameworkIcon = getFrameworkIcon(currentFramework.id);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="container-responsive section-padding">
       {/* Breadcrumbs */}
-      <div className="mb-6">
+      <div className="mb-8">
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
