@@ -295,18 +295,29 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-6">
+    <div className="container-responsive section-padding">
+      {/* Breadcrumbs */}
+      <div className="mb-8">
         <Breadcrumbs items={breadcrumbs} />
       </div>
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-          <FileText className="w-8 h-8 text-blue-600" />
-          Evidence Collector
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300 mt-2">
-          Collect and manage compliance evidence for CMMC assessments
-        </p>
+
+      {/* Header */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+        <div className="p-6">
+          <div className="flex items-center space-x-4">
+            <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
+              <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Evidence Collector
+              </h1>
+              <p className="text-gray-600 dark:text-gray-300">
+                Collect and manage compliance evidence for CMMC assessments
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Evidence Categories Overview */}
