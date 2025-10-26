@@ -118,7 +118,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
   // Calculate CMMC-specific metrics from latest assessment
   const cmmcMetrics = useMemo(() => {
-    if (savedAssessments.length === 0) {
+    if (!savedAssessments || savedAssessments.length === 0) {
       return {
         implementedControls: 0,
         totalControls: 110,
@@ -215,7 +215,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
   // Calculate function-level scores from latest assessment
   const functionAnalysis = useMemo(() => {
-    if (savedAssessments.length === 0) return [];
+    if (!savedAssessments || savedAssessments.length === 0) return [];
 
     // Get the most recent assessment
     const latestAssessment = savedAssessments.sort((a, b) => 
@@ -276,6 +276,19 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
   // Calculate comprehensive statistics
   const stats = useMemo(() => {
+    if (!savedAssessments) {
+      return {
+        total: 0,
+        completed: 0,
+        inProgress: 0,
+        avgScore: 0,
+        riskDistribution: {},
+        totalTimeSpent: 0,
+        recentAssessments: 0,
+        recentCompletions: 0
+      };
+    }
+    
     const total = savedAssessments.length;
     const completed = savedAssessments.filter(a => a.isComplete).length;
     const inProgress = total - completed;
@@ -328,6 +341,8 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
   // Filter and sort assessments
   const filteredAndSortedAssessments = useMemo(() => {
+    if (!savedAssessments) return [];
+    
     const filtered = savedAssessments.filter(assessment => {
       const matchesSearch = assessment.frameworkName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            (assessment.organizationInfo?.name || '').toLowerCase().includes(searchTerm.toLowerCase());
@@ -422,7 +437,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   };
 
   const handleBulkAction = (action: 'delete' | 'export') => {
-    if (selectedAssessments.length === 0) return;
+    if (selectedAssessments.length === 0 || !savedAssessments) return;
     
     if (action === 'delete') {
       if (window.confirm(`Delete ${selectedAssessments.length} selected assessments?`)) {
@@ -575,7 +590,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         </div>
 
         {/* CMMC Analytics Section */}
-        {savedAssessments.some(a => a.frameworkId === 'cmmc') && (
+        {savedAssessments && savedAssessments.some(a => a.frameworkId === 'cmmc') && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Domain Compliance Bar Chart */}
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
@@ -1001,15 +1016,15 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 <Shield className="w-16 h-16 text-gray-400 mx-auto relative z-10" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                {savedAssessments.length === 0 ? 'No Assessments Yet' : 'No Matching Assessments'}
+                {(!savedAssessments || savedAssessments.length === 0) ? 'No Assessments Yet' : 'No Matching Assessments'}
               </h3>
               <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md mx-auto">
-                {savedAssessments.length === 0 
+                {(!savedAssessments || savedAssessments.length === 0) 
                   ? 'Start your first cybersecurity assessment to begin compliance journey'
                   : 'Try adjusting your search or filter criteria'
                 } Follow structured implementation workflows for CMMC 2.0 Level 2, Privacy Framework, and NIST CSF v2.0 compliance
               </p>
-              {savedAssessments.length === 0 && (
+              {(!savedAssessments || savedAssessments.length === 0) && (
                <Link
                  to="/compliance-workflow"
                  className="p-6 border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 dark:hover:from-blue-900/20 dark:hover:to-indigo-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
@@ -1179,7 +1194,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         )}
 
         {/* Function Performance Analysis - Show only if assessments exist */}
-        {savedAssessments.length > 0 && functionAnalysis.length > 0 && (
+        {savedAssessments && savedAssessments.length > 0 && functionAnalysis.length > 0 && (
           <>
             {/* Radar Chart and Function Analysis */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">

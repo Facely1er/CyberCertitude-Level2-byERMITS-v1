@@ -31,20 +31,6 @@ const ImplementationOverviewPage: React.FC = () => (
   </div>
 );
 
-// POAM Manager Page Component
-const POAMManagerPage: React.FC = () => (
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div className="card-standard p-8">
-      <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
-        POAM Manager
-      </h1>
-      <p className="text-text-secondary-light dark:text-text-secondary-dark">
-        POAM (Plan of Action and Milestones) management functionality will be implemented here.
-      </p>
-    </div>
-  </div>
-);
-
 // Audit Tracker Page Component
 const AuditTrackerPage: React.FC = () => (
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

@@ -7,12 +7,7 @@ import {
   Download, 
   Calendar,
   Users,
-  DollarSign,
-  Plus,
-  Edit,
-  Trash2,
-  FileText,
-  TrendingUp
+  DollarSign
 } from 'lucide-react';
 
 interface POAMItem {
@@ -79,20 +74,14 @@ export const POAMGenerator: React.FC = () => {
   ]);
 
   const [selectedPOAM, setSelectedPOAM] = useState<string | null>(null);
-  const [showAddPOAM, setShowAddPOAM] = useState(false);
 
-  const statusColors = {
+  const statusColors: Record<string, string> = {
     open: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
     in_progress: 'bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-blue-200',
     completed: 'bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-200',
-    on_hold: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-200'
-  };
-
-  const priorityColors = {
-    critical: 'text-red-600 dark:text-red-400',
-    high: 'text-orange-600 dark:text-orange-400',
-    medium: 'text-yellow-600 dark:text-yellow-400',
-    low: 'text-blue-600 dark:text-blue-400'
+    on_hold: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-200',
+    not_started: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
+    blocked: 'bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-200'
   };
 
   const getPriorityIcon = (priority: POAMItem['priority']) => {
@@ -336,7 +325,7 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
                             </button>
                             <span className="font-medium">{milestone.title}</span>
                             <span className={`px-2 py-1 rounded text-xs ${statusColors[milestone.status]}`}>
-                              {milestone.status.replace('_', ')}
+                              {milestone.status.replace('_', ' ')}
                             </span>
                           </div>
                           <div className="text-sm text-gray-600 dark:text-gray-400 ml-7">
