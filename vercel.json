@@ -14,7 +14,11 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!api/).*)",
+      "source": "/(manifest.json|.*\\.(js|css|ico|png|jpg|jpeg|svg|woff|woff2|ttf|eot|webp|gif|json|xml|txt|pdf))",
+      "destination": "/$1"
+    },
+    {
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ],

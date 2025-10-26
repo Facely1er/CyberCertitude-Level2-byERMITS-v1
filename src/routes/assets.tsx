@@ -1,19 +1,57 @@
+import React from 'react';
 import { Target, GitBranch as GitBranchIcon, Activity, Calendar, CheckSquare, BookOpen } from 'lucide-react';
 import { Breadcrumbs } from '../shared/components/layout/Breadcrumbs';
 import { 
   AssetDashboard,
   AssetInventoryView
 } from '../components/LazyComponents';
+import { assetService } from '../services/assetService';
+
+// Wrapper components that provide necessary data
+const AssetDashboardWrapper = () => {
+  const [assets] = React.useState(() => assetService.getAllAssets());
+  
+  return (
+    <AssetDashboard
+      assets={assets || []}
+      onViewAsset={(asset) => console.log('View asset:', asset)}
+      onCreateAsset={() => console.log('Create asset')}
+      onViewInventory={() => window.location.href = '/assets/inventory'}
+      onViewCategories={() => window.location.href = '/assets/categories'}
+      onViewDependencies={() => window.location.href = '/assets/dependencies'}
+      onViewWorkflow={() => window.location.href = '/assets/workflow'}
+      onViewRoadmap={() => window.location.href = '/assets/roadmap'}
+      onViewActionPlan={() => window.location.href = '/assets/action-plan'}
+    />
+  );
+};
+
+const AssetInventoryWrapper = () => {
+  const [assets] = React.useState(() => assetService.getAllAssets());
+  
+  return (
+    <AssetInventoryView
+      assets={assets || []}
+      onViewAsset={(asset) => console.log('View asset:', asset)}
+      onEditAsset={(asset) => console.log('Edit asset:', asset)}
+      onDeleteAsset={(assetId) => console.log('Delete asset:', assetId)}
+      onCreateAsset={() => console.log('Create asset')}
+      onExportAssets={() => console.log('Export assets')}
+      onImportAssets={(file) => console.log('Import assets:', file)}
+      onBack={() => window.history.back()}
+    />
+  );
+};
 
 export const assetRoutes = [
   {
     path: "/assets",
-    element: AssetDashboard,
+    element: AssetDashboardWrapper,
     title: "Asset Dashboard"
   },
   {
     path: "/assets/inventory",
-    element: AssetInventoryView,
+    element: AssetInventoryWrapper,
     title: "Asset Inventory"
   },
   {
@@ -144,20 +182,20 @@ export const assetRoutes = [
         {/* Dependency Visualization */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {[
-            { type: 'Critical', count: 12, color: 'red', icon: GitBranchIcon },
-            { type: 'High', count: 8, color: 'orange', icon: GitBranchIcon },
-            { type: 'Medium', count: 15, color: 'yellow', icon: GitBranchIcon },
-            { type: 'Low', count: 5, color: 'green', icon: GitBranchIcon }
+            { type: 'Critical', count: 12, bgClass: 'bg-red-100 dark:bg-red-900/30', iconClass: 'text-red-600 dark:text-red-400', badgeClass: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300', icon: GitBranchIcon },
+            { type: 'High', count: 8, bgClass: 'bg-orange-100 dark:bg-orange-900/30', iconClass: 'text-orange-600 dark:text-orange-400', badgeClass: 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300', icon: GitBranchIcon },
+            { type: 'Medium', count: 15, bgClass: 'bg-yellow-100 dark:bg-yellow-900/30', iconClass: 'text-yellow-600 dark:text-yellow-400', badgeClass: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300', icon: GitBranchIcon },
+            { type: 'Low', count: 5, bgClass: 'bg-green-100 dark:bg-green-900/30', iconClass: 'text-green-600 dark:text-green-400', badgeClass: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300', icon: GitBranchIcon }
           ].map((dep) => (
             <div key={dep.type} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <div className={`p-2 bg-${dep.color}-100 dark:bg-${dep.color}-900/30 rounded-lg`}>
-                    <dep.icon className={`w-6 h-6 text-${dep.color}-600 dark:text-${dep.color}-400`} />
+                  <div className={`p-2 ${dep.bgClass} rounded-lg`}>
+                    <dep.icon className={`w-6 h-6 ${dep.iconClass}`} />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{dep.type} Dependencies</h3>
                 </div>
-                <span className={`px-3 py-1 bg-${dep.color}-100 dark:bg-${dep.color}-900/30 text-${dep.color}-800 dark:text-${dep.color}-300 rounded-full text-sm font-medium`}>
+                <span className={`px-3 py-1 ${dep.badgeClass} rounded-full text-sm font-medium`}>
                   {dep.count}
                 </span>
               </div>
@@ -277,13 +315,13 @@ export const assetRoutes = [
           <div className="p-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { stage: 'Planning', count: 5, color: 'blue' },
-                { stage: 'Deployment', count: 8, color: 'green' },
-                { stage: 'Operations', count: 24, color: 'purple' },
-                { stage: 'Retirement', count: 3, color: 'orange' }
+                { stage: 'Planning', count: 5, class: 'text-blue-600 dark:text-blue-400' },
+                { stage: 'Deployment', count: 8, class: 'text-green-600 dark:text-green-400' },
+                { stage: 'Operations', count: 24, class: 'text-purple-600 dark:text-purple-400' },
+                { stage: 'Retirement', count: 3, class: 'text-orange-600 dark:text-orange-400' }
               ].map((lifecycle) => (
                 <div key={lifecycle.stage} className="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                  <div className={`text-2xl font-bold text-${lifecycle.color}-600 dark:text-${lifecycle.color}-400 mb-2`}>
+                  <div className={`text-2xl font-bold ${lifecycle.class} mb-2`}>
                     {lifecycle.count}
                   </div>
                   <div className="text-sm font-medium text-gray-900 dark:text-white">{lifecycle.stage}</div>
@@ -296,23 +334,23 @@ export const assetRoutes = [
         {/* Active Workflows */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {[
-            { title: 'Security Review', status: 'In Progress', progress: 65, stage: 'Deployment', color: 'green', icon: Activity },
-            { title: 'Hardware Refresh', status: 'Pending', progress: 30, stage: 'Planning', color: 'blue', icon: Activity },
-            { title: 'Software Update', status: 'Active', progress: 85, stage: 'Operations', color: 'purple', icon: Activity },
-            { title: 'Decommission', status: 'Scheduled', progress: 10, stage: 'Retirement', color: 'orange', icon: Activity }
+            { title: 'Security Review', status: 'In Progress', progress: 65, stage: 'Deployment', bgClass: 'bg-green-100 dark:bg-green-900/30', iconClass: 'text-green-600 dark:text-green-400', badgeClass: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300', progressClass: 'bg-green-600', icon: Activity },
+            { title: 'Hardware Refresh', status: 'Pending', progress: 30, stage: 'Planning', bgClass: 'bg-blue-100 dark:bg-blue-900/30', iconClass: 'text-blue-600 dark:text-blue-400', badgeClass: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300', progressClass: 'bg-blue-600', icon: Activity },
+            { title: 'Software Update', status: 'Active', progress: 85, stage: 'Operations', bgClass: 'bg-purple-100 dark:bg-purple-900/30', iconClass: 'text-purple-600 dark:text-purple-400', badgeClass: 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300', progressClass: 'bg-purple-600', icon: Activity },
+            { title: 'Decommission', status: 'Scheduled', progress: 10, stage: 'Retirement', bgClass: 'bg-orange-100 dark:bg-orange-900/30', iconClass: 'text-orange-600 dark:text-orange-400', badgeClass: 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300', progressClass: 'bg-orange-600', icon: Activity }
           ].map((workflow, idx) => (
             <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <div className={`p-2 bg-${workflow.color}-100 dark:bg-${workflow.color}-900/30 rounded-lg`}>
-                    <workflow.icon className={`w-6 h-6 text-${workflow.color}-600 dark:text-${workflow.color}-400`} />
+                  <div className={`p-2 ${workflow.bgClass} rounded-lg`}>
+                    <workflow.icon className={`w-6 h-6 ${workflow.iconClass}`} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white">{workflow.title}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300">{workflow.stage}</p>
                   </div>
                 </div>
-                <span className={`px-3 py-1 bg-${workflow.color}-100 dark:bg-${workflow.color}-900/30 text-${workflow.color}-800 dark:text-${workflow.color}-300 rounded-full text-xs font-medium`}>
+                <span className={`px-3 py-1 ${workflow.badgeClass} rounded-full text-xs font-medium`}>
                   {workflow.status}
                 </span>
               </div>
@@ -322,7 +360,7 @@ export const assetRoutes = [
                   <span className="font-medium text-gray-900 dark:text-white">{workflow.progress}%</span>
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                  <div className={`bg-${workflow.color}-600 h-2 rounded-full`} style={{ width: `${workflow.progress}%` }}></div>
+                  <div className={`${workflow.progressClass} h-2 rounded-full`} style={{ width: `${workflow.progress}%` }}></div>
                 </div>
               </div>
             </div>
@@ -428,22 +466,22 @@ export const assetRoutes = [
           <div className="p-6">
             <div className="space-y-4">
               {[
-                { milestone: 'Security Hardening Complete', asset: 'Production Servers', date: 'Q1 2024', status: 'On Track', color: 'green' },
-                { milestone: 'Compliance Audit', asset: 'All Assets', date: 'Q2 2024', status: 'Planned', color: 'blue' },
-                { milestone: 'Hardware Refresh', asset: 'Workstations', date: 'Q3 2024', status: 'Planning', color: 'orange' },
-                { milestone: 'Security Gateway Deployment', asset: 'Network Infrastructure', date: 'Q1 2024', status: 'Delayed', color: 'red' }
+                { milestone: 'Security Hardening Complete', asset: 'Production Servers', date: 'Q1 2024', status: 'On Track', bgClass: 'bg-green-100 dark:bg-green-900/30', iconClass: 'text-green-600 dark:text-green-400', badgeClass: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' },
+                { milestone: 'Compliance Audit', asset: 'All Assets', date: 'Q2 2024', status: 'Planned', bgClass: 'bg-blue-100 dark:bg-blue-900/30', iconClass: 'text-blue-600 dark:text-blue-400', badgeClass: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300' },
+                { milestone: 'Hardware Refresh', asset: 'Workstations', date: 'Q3 2024', status: 'Planning', bgClass: 'bg-orange-100 dark:bg-orange-900/30', iconClass: 'text-orange-600 dark:text-orange-400', badgeClass: 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' },
+                { milestone: 'Security Gateway Deployment', asset: 'Network Infrastructure', date: 'Q1 2024', status: 'Delayed', bgClass: 'bg-red-100 dark:bg-red-900/30', iconClass: 'text-red-600 dark:text-red-400', badgeClass: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' }
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                   <div className="flex items-center space-x-4">
-                    <div className={`p-2 bg-${item.color}-100 dark:bg-${item.color}-900/30 rounded-lg`}>
-                      <Calendar className={`w-5 h-5 text-${item.color}-600 dark:text-${item.color}-400`} />
+                    <div className={`p-2 ${item.bgClass} rounded-lg`}>
+                      <Calendar className={`w-5 h-5 ${item.iconClass}`} />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900 dark:text-white">{item.milestone}</p>
                       <p className="text-sm text-gray-600 dark:text-gray-300">{item.asset} • Target: {item.date}</p>
                     </div>
                   </div>
-                  <span className={`px-3 py-1 bg-${item.color}-100 dark:bg-${item.color}-900/30 text-${item.color}-800 dark:text-${item.color}-300 rounded-full text-xs font-medium`}>
+                  <span className={`px-3 py-1 ${item.badgeClass} rounded-full text-xs font-medium`}>
                     {item.status}
                   </span>
                 </div>
@@ -455,16 +493,16 @@ export const assetRoutes = [
         {/* Timeline View */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {[
-            { quarter: 'Q1 2024', projects: 5, completed: 3, color: 'orange', icon: Calendar },
-            { quarter: 'Q2 2024', projects: 8, completed: 0, color: 'blue', icon: Calendar },
-            { quarter: 'Q3 2024', projects: 6, completed: 0, color: 'green', icon: Calendar },
-            { quarter: 'Q4 2024', projects: 4, completed: 0, color: 'purple', icon: Calendar }
+            { quarter: 'Q1 2024', projects: 5, completed: 3, bgClass: 'bg-orange-100 dark:bg-orange-900/30', iconClass: 'text-orange-600 dark:text-orange-400', progressClass: 'bg-orange-600', icon: Calendar },
+            { quarter: 'Q2 2024', projects: 8, completed: 0, bgClass: 'bg-blue-100 dark:bg-blue-900/30', iconClass: 'text-blue-600 dark:text-blue-400', progressClass: 'bg-blue-600', icon: Calendar },
+            { quarter: 'Q3 2024', projects: 6, completed: 0, bgClass: 'bg-green-100 dark:bg-green-900/30', iconClass: 'text-green-600 dark:text-green-400', progressClass: 'bg-green-600', icon: Calendar },
+            { quarter: 'Q4 2024', projects: 4, completed: 0, bgClass: 'bg-purple-100 dark:bg-purple-900/30', iconClass: 'text-purple-600 dark:text-purple-400', progressClass: 'bg-purple-600', icon: Calendar }
           ].map((quarter, idx) => (
             <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <div className={`p-2 bg-${quarter.color}-100 dark:bg-${quarter.color}-900/30 rounded-lg`}>
-                    <quarter.icon className={`w-6 h-6 text-${quarter.color}-600 dark:text-${quarter.color}-400`} />
+                  <div className={`p-2 ${quarter.bgClass} rounded-lg`}>
+                    <quarter.icon className={`w-6 h-6 ${quarter.iconClass}`} />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{quarter.quarter}</h3>
                 </div>
@@ -474,7 +512,7 @@ export const assetRoutes = [
                 </div>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-4">
-                <div className={`bg-${quarter.color}-600 h-2 rounded-full`} style={{ width: `${(quarter.completed / quarter.projects) * 100}%` }}></div>
+                <div className={`${quarter.progressClass} h-2 rounded-full`} style={{ width: `${(quarter.completed / quarter.projects) * 100}%` }}></div>
               </div>
               <button className="w-full text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-medium text-sm text-left">
                 View Timeline →
@@ -491,22 +529,22 @@ export const assetRoutes = [
           <div className="p-6">
             <div className="space-y-3">
               {[
-                { project: 'Security Enhancement Program', priority: 'Critical', progress: 75, color: 'red' },
-                { project: 'Infrastructure Modernization', priority: 'High', progress: 50, color: 'orange' },
-                { project: 'Compliance Documentation', priority: 'High', progress: 90, color: 'yellow' },
-                { project: 'Training Program', priority: 'Medium', progress: 30, color: 'blue' }
+                { project: 'Security Enhancement Program', priority: 'Critical', progress: 75, progressClass: 'bg-red-600', badgeClass: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' },
+                { project: 'Infrastructure Modernization', priority: 'High', progress: 50, progressClass: 'bg-orange-600', badgeClass: 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' },
+                { project: 'Compliance Documentation', priority: 'High', progress: 90, progressClass: 'bg-yellow-600', badgeClass: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' },
+                { project: 'Training Program', priority: 'Medium', progress: 30, progressClass: 'bg-blue-600', badgeClass: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300' }
               ].map((project, idx) => (
                 <div key={idx} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                   <div className="flex-1">
                     <p className="font-medium text-gray-900 dark:text-white">{project.project}</p>
                     <div className="flex items-center space-x-2 mt-2">
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                        <div className={`bg-${project.color}-600 h-2 rounded-full`} style={{ width: `${project.progress}%` }}></div>
+                        <div className={`${project.progressClass} h-2 rounded-full`} style={{ width: `${project.progress}%` }}></div>
                       </div>
                       <span className="text-sm text-gray-600 dark:text-gray-400">{project.progress}%</span>
                     </div>
                   </div>
-                  <span className={`ml-4 px-3 py-1 bg-${project.color}-100 dark:bg-${project.color}-900/30 text-${project.color}-800 dark:text-${project.color}-300 rounded-full text-xs font-medium`}>
+                  <span className={`ml-4 px-3 py-1 ${project.badgeClass} rounded-full text-xs font-medium`}>
                     {project.priority}
                   </span>
                 </div>
@@ -580,13 +618,13 @@ export const assetRoutes = [
         {/* Action Summary */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           {[
-            { label: 'Total Actions', value: 42, color: 'blue', icon: CheckSquare },
-            { label: 'Active', value: 28, color: 'green', icon: CheckSquare },
-            { label: 'Pending', value: 8, color: 'orange', icon: CheckSquare },
-            { label: 'Completed', value: 6, color: 'purple', icon: CheckSquare }
+            { label: 'Total Actions', value: 42, class: 'text-blue-600 dark:text-blue-400', icon: CheckSquare },
+            { label: 'Active', value: 28, class: 'text-green-600 dark:text-green-400', icon: CheckSquare },
+            { label: 'Pending', value: 8, class: 'text-orange-600 dark:text-orange-400', icon: CheckSquare },
+            { label: 'Completed', value: 6, class: 'text-purple-600 dark:text-purple-400', icon: CheckSquare }
           ].map((stat, idx) => (
             <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 text-center">
-              <div className={`text-3xl font-bold text-${stat.color}-600 dark:text-${stat.color}-400 mb-2`}>
+              <div className={`text-3xl font-bold ${stat.class} mb-2`}>
                 {stat.value}
               </div>
               <div className="text-sm font-medium text-gray-900 dark:text-white">{stat.label}</div>
@@ -602,15 +640,15 @@ export const assetRoutes = [
           <div className="p-6">
             <div className="space-y-4">
               {[
-                { action: 'Apply security patches', asset: 'Database Server 01', assignee: 'Admin Team', due: 'Jan 15, 2024', status: 'In Progress', priority: 'High', color: 'orange', icon: CheckSquare },
-                { action: 'Update access controls', asset: 'Web Application', assignee: 'Security Team', due: 'Jan 20, 2024', status: 'Assigned', priority: 'Critical', color: 'red', icon: CheckSquare },
-                { action: 'Perform security audit', asset: 'Network Infrastructure', assignee: 'Audit Team', due: 'Jan 18, 2024', status: 'In Progress', priority: 'High', color: 'orange', icon: CheckSquare },
-                { action: 'Review configuration', asset: 'All Servers', assignee: 'IT Team', due: 'Jan 25, 2024', status: 'Not Started', priority: 'Medium', color: 'blue', icon: CheckSquare }
+                { action: 'Apply security patches', asset: 'Database Server 01', assignee: 'Admin Team', due: 'Jan 15, 2024', status: 'In Progress', priority: 'High', bgClass: 'bg-orange-100 dark:bg-orange-900/30', iconClass: 'text-orange-600 dark:text-orange-400', badgeClass: 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300', icon: CheckSquare },
+                { action: 'Update access controls', asset: 'Web Application', assignee: 'Security Team', due: 'Jan 20, 2024', status: 'Assigned', priority: 'Critical', bgClass: 'bg-red-100 dark:bg-red-900/30', iconClass: 'text-red-600 dark:text-red-400', badgeClass: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300', icon: CheckSquare },
+                { action: 'Perform security audit', asset: 'Network Infrastructure', assignee: 'Audit Team', due: 'Jan 18, 2024', status: 'In Progress', priority: 'High', bgClass: 'bg-orange-100 dark:bg-orange-900/30', iconClass: 'text-orange-600 dark:text-orange-400', badgeClass: 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300', icon: CheckSquare },
+                { action: 'Review configuration', asset: 'All Servers', assignee: 'IT Team', due: 'Jan 25, 2024', status: 'Not Started', priority: 'Medium', bgClass: 'bg-blue-100 dark:bg-blue-900/30', iconClass: 'text-blue-600 dark:text-blue-400', badgeClass: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300', icon: CheckSquare }
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                   <div className="flex items-center space-x-4">
-                    <div className={`p-2 bg-${item.color}-100 dark:bg-${item.color}-900/30 rounded-lg`}>
-                      <item.icon className={`w-5 h-5 text-${item.color}-600 dark:text-${item.color}-400`} />
+                    <div className={`p-2 ${item.bgClass} rounded-lg`}>
+                      <item.icon className={`w-5 h-5 ${item.iconClass}`} />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900 dark:text-white">{item.action}</p>
@@ -618,7 +656,7 @@ export const assetRoutes = [
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <span className={`px-3 py-1 bg-${item.color}-100 dark:bg-${item.color}-900/30 text-${item.color}-800 dark:text-${item.color}-300 rounded-full text-xs font-medium`}>
+                    <span className={`px-3 py-1 ${item.badgeClass} rounded-full text-xs font-medium`}>
                       {item.priority}
                     </span>
                     <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-full text-xs font-medium">
@@ -634,16 +672,16 @@ export const assetRoutes = [
         {/* Action Plans by Priority */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {[
-            { priority: 'Critical', actions: 5, completed: 1, color: 'red', icon: CheckSquare },
-            { priority: 'High', actions: 15, completed: 8, color: 'orange', icon: CheckSquare },
-            { priority: 'Medium', actions: 18, completed: 12, color: 'yellow', icon: CheckSquare },
-            { priority: 'Low', actions: 4, completed: 3, color: 'green', icon: CheckSquare }
+            { priority: 'Critical', actions: 5, completed: 1, bgClass: 'bg-red-100 dark:bg-red-900/30', iconClass: 'text-red-600 dark:text-red-400', progressClass: 'bg-red-600', icon: CheckSquare },
+            { priority: 'High', actions: 15, completed: 8, bgClass: 'bg-orange-100 dark:bg-orange-900/30', iconClass: 'text-orange-600 dark:text-orange-400', progressClass: 'bg-orange-600', icon: CheckSquare },
+            { priority: 'Medium', actions: 18, completed: 12, bgClass: 'bg-yellow-100 dark:bg-yellow-900/30', iconClass: 'text-yellow-600 dark:text-yellow-400', progressClass: 'bg-yellow-600', icon: CheckSquare },
+            { priority: 'Low', actions: 4, completed: 3, bgClass: 'bg-green-100 dark:bg-green-900/30', iconClass: 'text-green-600 dark:text-green-400', progressClass: 'bg-green-600', icon: CheckSquare }
           ].map((plan, idx) => (
             <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <div className={`p-2 bg-${plan.color}-100 dark:bg-${plan.color}-900/30 rounded-lg`}>
-                    <plan.icon className={`w-6 h-6 text-${plan.color}-600 dark:text-${plan.color}-400`} />
+                  <div className={`p-2 ${plan.bgClass} rounded-lg`}>
+                    <plan.icon className={`w-6 h-6 ${plan.iconClass}`} />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{plan.priority} Priority</h3>
                 </div>
@@ -653,7 +691,7 @@ export const assetRoutes = [
                 </div>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div className={`bg-${plan.color}-600 h-2 rounded-full`} style={{ width: `${(plan.completed / plan.actions) * 100}%` }}></div>
+                <div className={`${plan.progressClass} h-2 rounded-full`} style={{ width: `${(plan.completed / plan.actions) * 100}%` }}></div>
               </div>
             </div>
           ))}

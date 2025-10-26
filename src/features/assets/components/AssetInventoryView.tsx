@@ -37,6 +37,9 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
 
   // Filter and sort assets
   const filteredAssets = React.useMemo(() => {
+    if (!assets || !Array.isArray(assets)) {
+      return [];
+    }
     const filtered = assets.filter(asset => {
       // Search filter
       const searchLower = searchTerm.toLowerCase();

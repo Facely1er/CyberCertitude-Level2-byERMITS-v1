@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   ProjectCharterPage,
   CUIScopePage,
@@ -14,99 +13,20 @@ import {
   CertificationTrackingPage,
   PoliciesPage,
   AuditLogsPage,
-  ControlsManagementPage,
-  PlaceholderPage
+  ControlsManagementPage
 } from '../components/PlaceholderPages';
 import { SSPGenerator } from '../components/SSPGenerator';
 import { CuiDataFlowMapper } from '../components/CuiDataFlowMapper';
 import { POAMGenerator } from '../components/POAMGenerator';
-import { Activity, AlertTriangle, FileText, GraduationCap } from 'lucide-react';
-
-// Reusable placeholder components using PlaceholderPage
-const ImplementationOverviewPage: React.FC = () => (
-  <PlaceholderPage
-    title="CMMC 2.0 Implementation Overview"
-    description="Comprehensive overview of CMMC 2.0 implementation progress and status"
-    icon={Activity}
-    features={[
-      'Implementation progress tracking',
-      'Milestone management and reporting',
-      'Team coordination and task assignment',
-      'Compliance status monitoring'
-    ]}
-    nextSteps={[
-      'Review current implementation status',
-      'Assign implementation tasks',
-      'Track progress and milestones',
-      'Generate compliance reports'
-    ]}
-  />
-);
-
-const AuditTrackerPage: React.FC = () => (
-  <PlaceholderPage
-    title="Audit Tracker"
-    description="Track and manage audit activities and findings"
-    icon={AlertTriangle}
-    features={[
-      'Audit scheduling and planning',
-      'Finding tracking and remediation',
-      'Evidence collection and management',
-      'Audit report generation'
-    ]}
-    nextSteps={[
-      'Schedule upcoming audits',
-      'Track open findings and remediation',
-      'Generate audit reports',
-      'Update compliance status'
-    ]}
-  />
-);
-
-const PolicyGeneratorPage: React.FC = () => (
-  <PlaceholderPage
-    title="Policy Generator"
-    description="Generate and manage compliance policies and procedures"
-    icon={FileText}
-    features={[
-      'Policy template library',
-      'Automated policy generation',
-      'Version control and tracking',
-      'Distribution and training'
-    ]}
-    nextSteps={[
-      'Select policy templates',
-      'Customize policy content',
-      'Review and approve policies',
-      'Distribute and train staff'
-    ]}
-  />
-);
-
-const TrainingTrackerPage: React.FC = () => (
-  <PlaceholderPage
-    title="Training Tracker"
-    description="Track training completion and certifications"
-    icon={GraduationCap}
-    features={[
-      'Training schedule management',
-      'Completion tracking and reporting',
-      'Certification management',
-      'Skills gap analysis'
-    ]}
-    nextSteps={[
-      'Schedule training sessions',
-      'Track staff completion',
-      'Generate training reports',
-      'Identify training gaps'
-    ]}
-  />
-);
+import ImplementationOverview from '../features/implementation/components/ImplementationOverview';
+import AuditTracker from '../features/audit/components/AuditTracker';
+import PolicyGenerator from '../features/policies/components/PolicyGenerator';
+import TrainingTracker from '../features/training/components/TrainingTracker';
 
 export const implementationRoutes = [
   {
     path: "/overview",
-    element: ImplementationOverviewPage,
+    element: ImplementationOverview,
     title: "Implementation Overview"
   },
   {
@@ -186,17 +106,17 @@ export const implementationRoutes = [
   },
   {
     path: "/audit-tracker",
-    element: AuditTrackerPage,
+    element: AuditTracker,
     title: "Audit Tracker"
   },
   {
     path: "/policy-generator",
-    element: PolicyGeneratorPage,
+    element: PolicyGenerator,
     title: "Policy Generator"
   },
   {
     path: "/training-tracker",
-    element: TrainingTrackerPage,
+    element: TrainingTracker,
     title: "Training Tracker"
   },
   {
