@@ -40,10 +40,11 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     const filtered = assets.filter(asset => {
       // Search filter
       const searchLower = searchTerm.toLowerCase();
+      const tags = asset.tags || [];
       const matchesSearch = asset.name.toLowerCase().includes(searchLower) ||
                            asset.description.toLowerCase().includes(searchLower) ||
                            asset.owner.toLowerCase().includes(searchLower) ||
-                           asset.tags.some(tag => tag.toLowerCase().includes(searchLower));
+                           tags.some(tag => tag.toLowerCase().includes(searchLower));
 
       if (searchTerm && !matchesSearch) return false;
 
@@ -625,7 +626,7 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                     </div>
                   </div>
                   
-                  {asset.tags.length > 0 && (
+                  {asset.tags && asset.tags.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex flex-wrap gap-2">
                         {asset.tags.slice(0, 3).map((tag, index) => (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, ChartBar as BarChart3, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Target, Server, Database, Users, Building, FileText, Cloud, TrendingUp, TrendingDown, Clock, RefreshCw, Plus, ListFilter as Filter, Search, Download, Upload, Eye, Settings, Calendar, SquareCheck as CheckSquare, ArrowRight, Map, ChevronLeft } from 'lucide-react';
+import { Shield, ChartBar as BarChart3, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Target, Server, Database, Users, Building, FileText, Cloud, TrendingUp, TrendingDown, Clock, RefreshCw, Plus, ListFilter as Filter, Search, Download, Upload, Eye, Settings, Calendar, SquareCheck as CheckSquare, ArrowRight, Map, ChevronLeft, Activity } from 'lucide-react';
 import { Asset, AssetMetrics } from '@/shared/types/assets';
 import { PieChart } from '@/shared/components/charts/PieChart';
 import { BarChart } from '@/shared/components/charts/BarChart';
@@ -67,25 +67,36 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
     }, {} as Record<string, number>);
 
     const riskDistribution = safeAssets.reduce((acc, asset) => {
-      acc[asset.riskAssessment.overallRisk] = (acc[asset.riskAssessment.overallRisk] || 0) + 1;
+      if (asset.riskAssessment && asset.riskAssessment.overallRisk) {
+        acc[asset.riskAssessment.overallRisk] = (acc[asset.riskAssessment.overallRisk] || 0) + 1;
+      }
       return acc;
     }, {} as Record<string, number>);
 
-    const implementedControls = safeAssets.reduce((sum, asset) => 
-      sum + asset.controls.filter(c => c.implementationStatus === 'implemented').length, 0);
-    const totalControls = safeAssets.reduce((sum, asset) => sum + asset.controls.length, 0);
+    const implementedControls = safeAssets.reduce((sum, asset) => {
+      const controls = asset.controls || [];
+      return sum + controls.filter(c => c.implementationStatus === 'implemented').length;
+    }, 0);
+    const totalControls = safeAssets.reduce((sum, asset) => sum + (asset.controls || []).length, 0);
     const controlCoverage = totalControls > 0 ? Math.round((implementedControls / totalControls) * 100) : 0;
 
-    const vulnerabilityCount = safeAssets.reduce((sum, asset) => 
-      sum + asset.vulnerabilities.filter(v => v.status === 'open').length, 0);
+    const vulnerabilityCount = safeAssets.reduce((sum, asset) => {
+      const vulnerabilities = asset.vulnerabilities || [];
+      return sum + vulnerabilities.filter(v => v.status === 'open').length;
+    }, 0);
 
-    const maintenanceOverdue = safeAssets.filter(asset => 
-      new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance) < new Date()
-    ).length;
+    const maintenanceOverdue = safeAssets.filter(asset => {
+      const lifecycle = asset.lifecycle || {};
+      const schedule = lifecycle.maintenanceSchedule;
+      if (!schedule || !schedule.nextMaintenance) return false;
+      return new Date(schedule.nextMaintenance) < new Date();
+    }).length;
 
     const now = new Date();
     const averageAge = safeAssets.length > 0 ? safeAssets.reduce((sum, asset) => {
-      const deploymentDate = asset.lifecycle.deploymentDate || asset.createdAt;
+      const lifecycle = asset.lifecycle || {};
+      const deploymentDate = lifecycle.deploymentDate || asset.createdAt;
+      if (!deploymentDate) return sum;
       const ageInDays = (now.getTime() - new Date(deploymentDate).getTime()) / (1000 * 60 * 60 * 24);
       return sum + ageInDays;
     }, 0) / safeAssets.length : 0;
