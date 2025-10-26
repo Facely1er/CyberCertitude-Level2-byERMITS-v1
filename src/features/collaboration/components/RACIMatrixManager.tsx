@@ -33,7 +33,7 @@ export const RACIMatrixManager: React.FC<RACIMatrixManagerProps> = ({
 }) => {
   const [roles, setRoles] = useState<Role[]>([
     { id: 'ciso', name: 'CISO', description: 'Chief Information Security Officer', department: 'Security', level: 'executive' },
-    { id: 'compliance', name: 'Compliance Officer', description: 'CMMC Compliance Lead', department: 'Compliance', level: 'management' },
+    { id: 'compliance', name: 'Compliance Officer', description: 'CMMC 2.0 Compliance Lead', department: 'Compliance', level: 'management' },
     { id: 'it-security', name: 'IT Security Team', description: 'Technical security implementation', department: 'IT Security', level: 'technical' },
     { id: 'it-ops', name: 'IT Operations', description: 'System administration and maintenance', department: 'IT Operations', level: 'operational' },
     { id: 'dev-team', name: 'Development Team', description: 'Application development and maintenance', department: 'Development', level: 'technical' }
@@ -214,10 +214,12 @@ export const RACIMatrixManager: React.FC<RACIMatrixManagerProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Breadcrumbs items={[
-        { label: 'Team Collaboration', path: '/team' },
-        { label: 'RACI Matrix Manager', isActive: true }
-      ]} />
+      <div className="mb-6">
+        <Breadcrumbs items={[
+          { label: 'Team Collaboration', path: '/team' },
+          { label: 'RACI Matrix Manager', isActive: true }
+        ]} />
+      </div>
 
       {/* Header */}
       <div className="card-standard mb-6">
@@ -239,7 +241,7 @@ export const RACIMatrixManager: React.FC<RACIMatrixManagerProps> = ({
                 RACI Matrix Manager
               </h1>
               <p className="text-text-secondary-light dark:text-text-secondary-dark">
-                Define roles and responsibilities for CMMC controls
+                Define roles and responsibilities for CMMC 2.0 controls
               </p>
             </div>
           </div>

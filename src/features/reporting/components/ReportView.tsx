@@ -152,17 +152,17 @@ const ReportView: React.FC<ReportViewProps> = ({
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <button
-                onClick={onBack}
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5" />
-                <span>Back to Dashboard</span>
-              </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Assessment Report
-              </h1>
+              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
+                <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Assessment Report
+                </h1>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Detailed compliance assessment analysis
+                </p>
+              </div>
             </div>
             
             <div className="flex items-center space-x-3">

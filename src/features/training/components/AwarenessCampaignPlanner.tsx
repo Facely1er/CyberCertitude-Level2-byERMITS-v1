@@ -577,9 +577,7 @@ const AwarenessCampaignPlanner: React.FC<AwarenessCampaignPlannerProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
-      </div>
       </div>
       
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
@@ -592,7 +590,7 @@ const AwarenessCampaignPlanner: React.FC<AwarenessCampaignPlannerProps> = ({
                 Awareness Campaign Planner
               </h1>
               <p className="text-gray-600 dark:text-gray-300 mt-1">
-                Plan and manage security awareness campaigns for CMMC compliance
+                Plan and manage security awareness campaigns for CMMC 2.0 compliance
               </p>
             </div>
             <div className="flex gap-2">

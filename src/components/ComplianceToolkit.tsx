@@ -3,6 +3,7 @@ import { Download, CheckCircle, ChevronDown, ChevronRight, FileText, FileSpreads
 import { downloadMarkdown, downloadWord, downloadPDF, downloadExcel, convertMarkdownToTemplateData, downloadWithFallback, DocumentFormat, DownloadResult, TemplateData } from '../utils/downloadUtils';
 import { getTemplateContent } from '../data/templateContent';
 import DocumentPreviewModal from './DocumentPreviewModal';
+import { Breadcrumbs } from '../shared/components/layout/Breadcrumbs';
 
 const ComplianceToolkit: React.FC = () => {
   const [expandedDomain, setExpandedDomain] = useState<string | null>(null);
@@ -348,6 +349,15 @@ const ComplianceToolkit: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        <div className="mb-6">
+          <Breadcrumbs items={[
+            { label: 'CMMC 2.0 Platform', path: '/dashboard' },
+            { label: 'Templates', path: '/templates/library' },
+            { label: 'Compliance Toolkit', isActive: true }
+          ]} />
+        </div>
+      </div>
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-8 sm:py-12 px-4 sm:px-6 shadow-xl">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 flex items-center">

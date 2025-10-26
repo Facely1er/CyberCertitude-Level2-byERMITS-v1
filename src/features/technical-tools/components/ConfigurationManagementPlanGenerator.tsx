@@ -117,10 +117,12 @@ export const ConfigurationManagementPlanGenerator: React.FC<ConfigurationManagem
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Breadcrumbs items={[
-        { label: 'Technical Tools', path: '/config-baselines' },
-        { label: 'Configuration Management Plan', isActive: true }
-      ]} />
+      <div className="mb-6">
+        <Breadcrumbs items={[
+          { label: 'Technical Tools', path: '/config-baselines' },
+          { label: 'Configuration Management Plan', isActive: true }
+        ]} />
+      </div>
 
       {/* Header */}
       <div className="card-standard mb-6">
@@ -142,7 +144,7 @@ export const ConfigurationManagementPlanGenerator: React.FC<ConfigurationManagem
                 Configuration Management Plan Generator
               </h1>
               <p className="text-text-secondary-light dark:text-text-secondary-dark">
-                Generate comprehensive configuration management documentation for CMMC compliance
+                Generate comprehensive configuration management documentation for CMMC 2.0 compliance
               </p>
             </div>
           </div>
@@ -183,7 +185,7 @@ export const ConfigurationManagementPlanGenerator: React.FC<ConfigurationManagem
               <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             </div>
             <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
-              CMMC Compliance
+              CMMC 2.0 Compliance
             </h3>
           </div>
           <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">

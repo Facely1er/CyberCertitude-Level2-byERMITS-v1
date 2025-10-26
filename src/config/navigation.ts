@@ -62,7 +62,7 @@ export const navigationItems: NavigationItem[] = [
         label: 'Compliance Wizard',
         href: '/assessment/wizard',
         icon: Target,
-        description: 'Interactive CMMC compliance assessment'
+        description: 'Interactive CMMC 2.0 compliance assessment'
       }
     ]
   },
@@ -71,7 +71,7 @@ export const navigationItems: NavigationItem[] = [
     icon: Wrench,
     children: [
       {
-        label: 'CMMC Journey',
+        label: 'CMMC 2.0 Journey',
         href: '/cmmc-journey',
         icon: Activity,
         description: 'Guided step-by-step implementation workflow'
@@ -140,7 +140,7 @@ export const navigationItems: NavigationItem[] = [
         label: 'Template Library',
         href: '/templates/library',
         icon: FileText,
-        description: 'Browse and customize CMMC compliance templates'
+        description: 'Browse and customize CMMC 2.0 compliance templates'
       },
       {
         label: 'Compliance Toolkit',

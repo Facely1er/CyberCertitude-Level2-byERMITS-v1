@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, FileText, Users, Target, Activity, Database, Settings, CheckSquare, Shield, AlertTriangle, BookOpen, Calendar, BarChart3 } from 'lucide-react';
+import { FileText, Users, Target, Activity, Database, CheckSquare, Shield, BookOpen, Calendar, BarChart3 } from 'lucide-react';
 import { Breadcrumbs } from '../shared/components/layout/Breadcrumbs';
 
 interface PlaceholderPageProps {
@@ -8,7 +8,6 @@ interface PlaceholderPageProps {
   icon: React.ComponentType<any>;
   features?: string[];
   nextSteps?: string[];
-  onBack?: () => void;
   className?: string;
 }
 
@@ -18,15 +17,16 @@ export const PlaceholderPage: React.FC<PlaceholderPageProps> = ({
   icon: Icon,
   features = [],
   nextSteps = [],
-  onBack,
   className = ''
 }) => {
   return (
     <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${className}`}>
-      <Breadcrumbs items={[
-        { label: 'CMMC Platform', path: '/dashboard' },
-        { label: title, isActive: true }
-      ]} />
+      <div className="mb-6">
+        <Breadcrumbs items={[
+          { label: 'CMMC Platform', path: '/dashboard' },
+          { label: title, isActive: true }
+        ]} />
+      </div>
 
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
@@ -42,15 +42,9 @@ export const PlaceholderPage: React.FC<PlaceholderPageProps> = ({
               </div>
             </div>
             
-            {onBack && (
-              <button
-                onClick={onBack}
-                className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back</span>
-              </button>
-            )}
+            <div className="text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg whitespace-nowrap">
+              Coming Soon
+            </div>
           </div>
         </div>
       </div>
@@ -130,10 +124,10 @@ export const PlaceholderPage: React.FC<PlaceholderPageProps> = ({
 };
 
 // Specific placeholder components for common pages
-export const ProjectCharterPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const ProjectCharterPage: React.FC = () => (
   <PlaceholderPage
     title="Project Charter"
-    description="Define scope, team, and objectives for CMMC implementation"
+    description="Define scope, team, and objectives for CMMC 2.0 implementation"
     icon={FileText}
     features={[
       'Project scope definition and boundaries',
@@ -149,11 +143,10 @@ export const ProjectCharterPage: React.FC<{ onBack?: () => void }> = ({ onBack }
       'Establish project governance structure',
       'Set up project tracking and reporting'
     ]}
-    onBack={onBack}
   />
 );
 
-export const CUIScopePage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const CUIScopePage: React.FC = () => (
   <PlaceholderPage
     title="CUI Scope Definition"
     description="Identify systems and assets under Controlled Unclassified Information scope"
@@ -172,11 +165,10 @@ export const CUIScopePage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
       'Classify systems based on CUI handling',
       'Document scope in official charter'
     ]}
-    onBack={onBack}
   />
 );
 
-export const DataFlowPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const DataFlowPage: React.FC = () => (
   <PlaceholderPage
     title="Data Flow Diagram"
     description="Map CUI data flows and system boundaries"
@@ -195,11 +187,10 @@ export const DataFlowPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
       'Map security control locations',
       'Validate with technical teams'
     ]}
-    onBack={onBack}
   />
 );
 
-export const TeamRolesPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const TeamRolesPage: React.FC = () => (
   <PlaceholderPage
     title="Team Roles Assignment"
     description="Designate compliance team roles and responsibilities"
@@ -218,11 +209,10 @@ export const TeamRolesPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => 
       'Assign team members to specific roles',
       'Set up access controls and permissions'
     ]}
-    onBack={onBack}
   />
 );
 
-export const ImplementationWorkbookPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const ImplementationWorkbookPage: React.FC = () => (
   <PlaceholderPage
     title="Implementation Workbook"
     description="Control-level tasks, owners, and evidence checklist"
@@ -241,11 +231,10 @@ export const ImplementationWorkbookPage: React.FC<{ onBack?: () => void }> = ({ 
       'Set up evidence collection workflows',
       'Begin implementation tracking'
     ]}
-    onBack={onBack}
   />
 );
 
-export const PolicyTemplatesPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const PolicyTemplatesPage: React.FC = () => (
   <PlaceholderPage
     title="Policy Templates"
     description="Pre-formatted policies aligned with NIST SP 800-171"
@@ -264,11 +253,10 @@ export const PolicyTemplatesPage: React.FC<{ onBack?: () => void }> = ({ onBack 
       'Set up approval workflows',
       'Begin policy implementation'
     ]}
-    onBack={onBack}
   />
 );
 
-export const DocumentRepositoryPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const DocumentRepositoryPage: React.FC = () => (
   <PlaceholderPage
     title="Document Repository"
     description="Centralized storage for all compliance documents"
@@ -287,11 +275,10 @@ export const DocumentRepositoryPage: React.FC<{ onBack?: () => void }> = ({ onBa
       'Configure access controls',
       'Begin document migration'
     ]}
-    onBack={onBack}
   />
 );
 
-export const ControlValidationPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const ControlValidationPage: React.FC = () => (
   <PlaceholderPage
     title="Control Validation"
     description="Verify implemented controls and test results"
@@ -310,11 +297,10 @@ export const ControlValidationPage: React.FC<{ onBack?: () => void }> = ({ onBac
       'Document test results',
       'Address any findings'
     ]}
-    onBack={onBack}
   />
 );
 
-export const ComplianceTrackingPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const ComplianceTrackingPage: React.FC = () => (
   <PlaceholderPage
     title="Compliance Tracking"
     description="Monitor progress and compliance status"
@@ -333,11 +319,10 @@ export const ComplianceTrackingPage: React.FC<{ onBack?: () => void }> = ({ onBa
       'Establish reporting cadence',
       'Begin progress monitoring'
     ]}
-    onBack={onBack}
   />
 );
 
-export const AuditPackagePage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const AuditPackagePage: React.FC = () => (
   <PlaceholderPage
     title="Audit Readiness Package"
     description="Final submission-ready package for C3PAO"
@@ -356,11 +341,10 @@ export const AuditPackagePage: React.FC<{ onBack?: () => void }> = ({ onBack }) 
       'Conduct quality assurance review',
       'Prepare for C3PAO submission'
     ]}
-    onBack={onBack}
   />
 );
 
-export const C3PAOPrepPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const C3PAOPrepPage: React.FC = () => (
   <PlaceholderPage
     title="C3PAO Preparation"
     description="Final review before C3PAO engagement"
@@ -379,11 +363,10 @@ export const C3PAOPrepPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => 
       'Prepare assessment team',
       'Execute assessment activities'
     ]}
-    onBack={onBack}
   />
 );
 
-export const MetricsDashboardPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const MetricsDashboardPage: React.FC = () => (
   <PlaceholderPage
     title="Metrics Dashboard"
     description="Executive summary of compliance posture"
@@ -402,11 +385,10 @@ export const MetricsDashboardPage: React.FC<{ onBack?: () => void }> = ({ onBack
       'Establish reporting cadence',
       'Begin executive reporting'
     ]}
-    onBack={onBack}
   />
 );
 
-export const CertificationTrackingPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const CertificationTrackingPage: React.FC = () => (
   <PlaceholderPage
     title="Certification Tracking"
     description="Track certification progress and milestones"
@@ -425,11 +407,10 @@ export const CertificationTrackingPage: React.FC<{ onBack?: () => void }> = ({ o
       'Monitor documentation status',
       'Plan for certification maintenance'
     ]}
-    onBack={onBack}
   />
 );
 
-export const PoliciesPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const PoliciesPage: React.FC = () => (
   <PlaceholderPage
     title="Policy Management"
     description="Manage organizational security policies and procedures"
@@ -448,11 +429,10 @@ export const PoliciesPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
       'Set up approval workflows',
       'Distribute and train staff'
     ]}
-    onBack={onBack}
   />
 );
 
-export const AuditLogsPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const AuditLogsPage: React.FC = () => (
   <PlaceholderPage
     title="Audit Logs"
     description="View and analyze system audit logs"
@@ -471,13 +451,12 @@ export const AuditLogsPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => 
       'Enable automated monitoring',
       'Review and analyze logs regularly'
     ]}
-    onBack={onBack}
   />
 );
 
-export const CMMCAssessmentPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const CMMCAssessmentPage: React.FC = () => (
   <PlaceholderPage
-    title="CMMC Assessment"
+    title="CMMC 2.0 Assessment"
     description="Conduct comprehensive CMMC 2.0 Level 2 assessments"
     icon={Shield}
     features={[
@@ -494,11 +473,10 @@ export const CMMCAssessmentPage: React.FC<{ onBack?: () => void }> = ({ onBack }
       'Address identified gaps',
       'Prepare for C3PAO assessment'
     ]}
-    onBack={onBack}
   />
 );
 
-export const PrivacyAssessmentPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const PrivacyAssessmentPage: React.FC = () => (
   <PlaceholderPage
     title="Privacy Assessment"
     description="Assess privacy controls and compliance"
@@ -517,11 +495,10 @@ export const PrivacyAssessmentPage: React.FC<{ onBack?: () => void }> = ({ onBac
       'Address privacy gaps',
       'Implement privacy safeguards'
     ]}
-    onBack={onBack}
   />
 );
 
-export const ControlsManagementPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+export const ControlsManagementPage: React.FC = () => (
   <PlaceholderPage
     title="Controls Management"
     description="Manage and track security controls"
@@ -540,6 +517,5 @@ export const ControlsManagementPage: React.FC<{ onBack?: () => void }> = ({ onBa
       'Identify control gaps',
       'Implement remediation plans'
     ]}
-    onBack={onBack}
   />
 );

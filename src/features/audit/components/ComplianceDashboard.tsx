@@ -144,24 +144,16 @@ const ComplianceDashboard: React.FC<ComplianceDashboardProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
-      </div>
       </div>
       
       <div className="mb-6">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors mb-4"
-        >
-          ← Back to Dashboard
-        </button>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
           <BarChart3 className="w-8 h-8 text-blue-600" />
           Compliance Dashboard
         </h1>
         <p className="text-gray-600 dark:text-gray-300 mt-2">
-          Monitor your CMMC compliance status and track progress over time
+          Monitor your CMMC 2.0 compliance status and track progress over time
         </p>
       </div>
 
@@ -212,7 +204,7 @@ const ComplianceDashboard: React.FC<ComplianceDashboardProps> = ({
                 </span>
               </div>
               <p className="text-gray-600 dark:text-gray-300 mb-4">
-                Your organization is making steady progress toward full CMMC compliance.
+                Your organization is making steady progress toward full CMMC 2.0 compliance.
               </p>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div

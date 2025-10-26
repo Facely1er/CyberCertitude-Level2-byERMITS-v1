@@ -25,8 +25,8 @@ import { Activity, AlertTriangle, FileText, GraduationCap } from 'lucide-react';
 // Reusable placeholder components using PlaceholderPage
 const ImplementationOverviewPage: React.FC = () => (
   <PlaceholderPage
-    title="CMMC Implementation Overview"
-    description="Comprehensive overview of CMMC implementation progress and status"
+    title="CMMC 2.0 Implementation Overview"
+    description="Comprehensive overview of CMMC 2.0 implementation progress and status"
     icon={Activity}
     features={[
       'Implementation progress tracking',

@@ -474,12 +474,12 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-responsive-xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
-              {userProfile ? `Welcome back, ${userProfile.name}` : 'CMMC Cybersecurity Compliance'}
+              {userProfile ? `Welcome back, ${userProfile.name}` : 'CMMC 2.0 Cybersecurity Compliance'}
             </h1>
             <p className="text-responsive-md text-gray-600 dark:text-gray-300">
               {userProfile 
-                ? `Manage CMMC compliance for ${userProfile.organization}`
-                : 'Comprehensive CMMC certification readiness platform'
+                ? `Manage CMMC 2.0 compliance for ${userProfile.organization}`
+                : 'Comprehensive CMMC 2.0 certification readiness platform'
               }
             </p>
             {userProfile && (
@@ -522,7 +522,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       </div>
 
       <div className="space-y-8">
-        {/* CMMC Overall Score Section */}
+        {/* CMMC 2.0 Overall Score Section */}
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-800 shadow-xl">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-6 mb-6">
@@ -579,7 +579,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   Level 2
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-300">
-                  CMMC Target Level
+                  CMMC 2.0 Target Level
                 </div>
                 <div className="text-xs text-blue-600 dark:text-blue-400 mt-2">
                   CUI Protection Required
@@ -589,7 +589,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           </div>
         </div>
 
-        {/* CMMC Analytics Section */}
+        {/* CMMC 2.0 Analytics Section */}
         {savedAssessments && savedAssessments.some(a => a.frameworkId === 'cmmc') && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Domain Compliance Bar Chart */}
@@ -597,7 +597,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               <div className="flex items-center space-x-3 mb-6">
                 <BarChart3 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  CMMC Domain Compliance
+                  CMMC 2.0 Domain Compliance
                 </h3>
               </div>
               <div className="h-80">
@@ -624,13 +624,13 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                       borderWidth: 2
                     }]
                   }}
-                  title="Compliance by CMMC Domain"
+                  title="Compliance by CMMC 2.0 Domain"
                   height={320}
                   showLegend={false}
                 />
               </div>
               <div className="mt-4 text-sm text-gray-600 dark:text-gray-300 text-center">
-                14 CMMC domains • Target: 75% for C3PAO readiness
+                14 CMMC 2.0 domains • Target: 75% for C3PAO readiness
               </div>
             </div>
 

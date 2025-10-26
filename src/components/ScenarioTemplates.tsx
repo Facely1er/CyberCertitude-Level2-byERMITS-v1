@@ -3,6 +3,7 @@ import { Download, AlertCircle, Lock, Server, HardDrive, Smartphone, Cloud, User
 import { downloadMarkdown, downloadWord, downloadPDF, downloadExcel, convertMarkdownToTemplateData, downloadWithFallback, DocumentFormat, DownloadResult, TemplateData } from '../utils/downloadUtils';
 import { getTemplateContent } from '../data/templateContent';
 import DocumentPreviewModal from './DocumentPreviewModal';
+import { Breadcrumbs } from '../shared/components/layout/Breadcrumbs';
 
 interface Scenario {
   id: string;
@@ -306,6 +307,15 @@ const ScenarioTemplates: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="mb-6">
+          <Breadcrumbs items={[
+            { label: 'CMMC 2.0 Platform', path: '/dashboard' },
+            { label: 'Templates', path: '/templates/library' },
+            { label: 'Scenario Templates', isActive: true }
+          ]} />
+        </div>
+      </div>
       <div className="bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 text-white py-8 sm:py-12 px-4 sm:px-6 shadow-2xl">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 flex items-center">

@@ -439,7 +439,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       {/* PWA Installation Prompt */}
       <PWAInstallPrompt 
         onInstall={() => {
-          addNotification('success', 'CMMC Platform installed successfully!');
+          addNotification('success', 'CMMC 2.0 Platform installed successfully!');
         }}
         onDismiss={() => {
           // Store dismissal preference

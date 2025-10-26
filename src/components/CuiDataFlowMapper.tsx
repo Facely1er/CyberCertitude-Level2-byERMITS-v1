@@ -25,6 +25,8 @@ import {
   X,
   ChevronRight
 } from 'lucide-react';
+import { Breadcrumbs } from '@/shared/components/layout';
+import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 
 interface DataElement {
   id: string;
@@ -67,6 +69,7 @@ interface CuiMapping {
 
 export const CuiDataFlowMapper: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
+  const { breadcrumbs } = useInternalLinking();
   const [mapping, setMapping] = useState<CuiMapping>({
     elements: [],
     flows: [],
@@ -165,7 +168,7 @@ export const CuiDataFlowMapper: React.FC = () => {
     a.href = url;
     a.download = `cui-mapping-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
-    URL.revokeURL(url);
+    URL.revokeObjectURL(url);
   };
 
   const generateReport = () => {
@@ -306,6 +309,9 @@ Document ID: CUI-MAP-${Date.now()}
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
       <div className="mb-6">
         <div className="flex justify-between items-center">
           <div>

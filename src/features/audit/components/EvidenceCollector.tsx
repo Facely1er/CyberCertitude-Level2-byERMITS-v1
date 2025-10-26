@@ -300,12 +300,6 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
         <Breadcrumbs items={breadcrumbs} />
       </div>
       <div className="mb-6">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors mb-4"
-        >
-          ← Back to Dashboard
-        </button>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
           <FileText className="w-8 h-8 text-blue-600" />
           Evidence Collector

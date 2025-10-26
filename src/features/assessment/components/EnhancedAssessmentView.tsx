@@ -37,7 +37,7 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
   framework,
   onSave,
   onComplete,
-  onBack,
+  onBack: _onBack,
   userProfile,
   addNotification,
   onGenerateReport
@@ -586,14 +586,8 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
           Question Not Found
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          Unable to load the current question. Please try refreshing or going back to the dashboard.
+          Unable to load the current question. Please try refreshing the page.
         </p>
-        <button
-          onClick={onBack}
-          className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          Back to Dashboard
-        </button>
       </div>
     );
   }

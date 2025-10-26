@@ -10,6 +10,12 @@ interface LinkSuggestion {
   anchorText: string[];
 }
 
+interface BreadcrumbItem {
+  label: string;
+  path: string | undefined;
+  isActive: boolean;
+}
+
 export const useInternalLinking = () => {
   const location = useLocation();
   
@@ -17,7 +23,7 @@ export const useInternalLinking = () => {
   const linkingMap: Record<string, LinkSuggestion[]> = {
     '/dashboard': [
       {
-        title: 'Start CMMC Assessment',
+        title: 'Start CMMC 2.0 Assessment',
         description: 'Begin comprehensive CMMC 2.0 Level 2 evaluation',
         href: '/assessment-intro',
         category: 'next-step',
@@ -25,7 +31,7 @@ export const useInternalLinking = () => {
         anchorText: ['start cmmc assessment', 'new evaluation', 'begin CMMC 2.0 Level 2 assessment']
       },
       {
-        title: 'CMMC Implementation Workflow',
+        title: 'CMMC 2.0 Implementation Workflow',
         description: 'Follow structured CMMC 2.0 Level 2 implementation roadmap',
         href: '/compliance-workflow',
         category: 'next-step',
@@ -33,8 +39,8 @@ export const useInternalLinking = () => {
         anchorText: ['cmmc workflow', 'implementation roadmap', 'cmmc implementation']
       },
       {
-        title: 'CMMC Compliance Status',
-        description: 'Check real-time CMMC control implementation progress',
+        title: 'CMMC 2.0 Compliance Status',
+        description: 'Check real-time CMMC 2.0 control implementation progress',
         href: '/compliance',
         category: 'related',
         priority: 'high',
@@ -51,16 +57,16 @@ export const useInternalLinking = () => {
     ],
     '/assessment-intro': [
       {
-        title: 'CMMC Dashboard',
-        description: 'Return to CMMC compliance dashboard',
+        title: 'CMMC 2.0 Dashboard',
+        description: 'Return to CMMC 2.0 compliance dashboard',
         href: '/dashboard',
         category: 'prerequisite',
         priority: 'medium',
         anchorText: ['cmmc dashboard', 'compliance overview', 'implementation dashboard']
       },
       {
-        title: 'CMMC Implementation Workflow',
-        description: 'Follow structured CMMC implementation process',
+        title: 'CMMC 2.0 Implementation Workflow',
+        description: 'Follow structured CMMC 2.0 implementation process',
         href: '/compliance-workflow',
         category: 'next-step',
         priority: 'high',
@@ -77,8 +83,8 @@ export const useInternalLinking = () => {
     ],
     '/compliance': [
       {
-        title: 'CMMC Evidence Collection',
-        description: 'Collect CMMC compliance documentation',
+        title: 'CMMC 2.0 Evidence Collection',
+        description: 'Collect CMMC 2.0 compliance documentation',
         href: '/evidence',
         category: 'next-step',
         priority: 'high',
@@ -93,16 +99,16 @@ export const useInternalLinking = () => {
         anchorText: ['cmmc workflow', 'implementation roadmap', 'control implementation']
       },
       {
-        title: 'CMMC Gap Analysis Report',
-        description: 'Generate detailed CMMC control gaps',
+        title: 'CMMC 2.0 Gap Analysis Report',
+        description: 'Generate detailed CMMC 2.0 control gaps',
         href: '/reports',
         category: 'next-step',
         priority: 'medium',
         anchorText: ['cmmc gaps', 'control analysis', 'implementation gaps']
       },
       {
-        title: 'CMMC Controls Management',
-        description: 'Implement missing CMMC controls',
+        title: 'CMMC 2.0 Controls Management',
+        description: 'Implement missing CMMC 2.0 controls',
         href: '/controls',
         category: 'related',
         priority: 'high',
@@ -241,26 +247,31 @@ export const useInternalLinking = () => {
     return linkingMap[currentPath] || [];
   };
 
-  const getBreadcrumbsForPath = (pathname: string) => {
+  const getBreadcrumbsForPath = (pathname: string): BreadcrumbItem[] => {
     const pathSegments = pathname.split('/').filter(Boolean);
-    const breadcrumbs = [];
+    const breadcrumbs: BreadcrumbItem[] = [];
 
-    // Define path to label mapping
+    // Define path to label mapping (must match navigation.ts labels)
     const pathLabels: Record<string, string> = {
       dashboard: 'Dashboard',
-      'assessment-intro': 'Assessment Setup',
+      'assessment-intro': 'Start Assessment',
       assessment: 'Assessment',
-      'assessment/:id': 'Assessment',
+      'assessment/wizard': 'Compliance Wizard',
+      'gap-analysis': 'Gap Analysis',
+      'risk-assessment': 'Risk Assessment',
+      'control-assessor': 'Control Assessor',
       compliance: 'Compliance Status',
       'compliance-workflow': 'Implementation Plan',
+      'cmmc-journey': 'CMMC 2.0 Journey',
+      'project-charter': 'Project Setup',
+      'cui-scope': 'CUI Scope',
+      'data-flow': 'Data Flow Mapping',
+      'team-roles': 'Team Roles',
       evidence: 'Evidence Collection',
-      assets: 'Asset Management',
+      assets: 'Assets',
       'assets/inventory': 'Asset Inventory',
       'assets/categories': 'Asset Categories',
       'assets/dependencies': 'Asset Dependencies',
-      'assets/workflow': 'Asset Workflow',
-      'assets/roadmap': 'Asset Roadmap', 
-      'assets/action-plan': 'Asset Action Plan',
       team: 'Team Collaboration',
       tasks: 'Task Management',
       calendar: 'Calendar',
@@ -293,6 +304,13 @@ export const useInternalLinking = () => {
       currentPath += `/${segment}`;
       const isLast = index === pathSegments.length - 1;
       
+      // Try to find label in order: full path > segment
+      const fullPath = pathSegments.slice(0, index + 1).join('/');
+      const label = pathLabels[fullPath] || 
+                    pathLabels[currentPath.substring(1)] || 
+                    pathLabels[segment] || 
+                    segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
+      
       // Special handling for assessment routes
       if (segment === 'assessment' && !isLast) {
         // For /assessment/:id routes, link "Assessment" to dashboard instead of non-existent /assessment
@@ -305,9 +323,7 @@ export const useInternalLinking = () => {
       }
       
       breadcrumbs.push({
-        label: pathLabels[pathSegments.slice(0, index + 1).join('/')] || 
-               pathLabels[segment] || 
-               segment.charAt(0).toUpperCase() + segment.slice(1),
+        label,
         path: isLast ? undefined : currentPath,
         isActive: isLast
       });

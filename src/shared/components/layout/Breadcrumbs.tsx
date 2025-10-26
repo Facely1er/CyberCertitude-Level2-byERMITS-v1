@@ -19,14 +19,14 @@ interface BreadcrumbsProps {
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ 
   items, 
-  className = '',
+  className = '', 
   showHome = true,
   homeLabel = 'Dashboard',
   separator = <ChevronRight className="w-4 h-4 text-text-muted-light dark:text-text-muted-dark" />
 }) => {
   return (
     <nav 
-      className={`flex items-center space-x-2 text-sm mb-4 ${className}`} 
+      className={`flex items-center space-x-2 text-sm ${className}`} 
       aria-label="Breadcrumb navigation"
       role="navigation"
     >

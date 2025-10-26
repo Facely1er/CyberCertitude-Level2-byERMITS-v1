@@ -63,7 +63,7 @@ const SecurityAssessmentReportGenerator: React.FC<SecurityAssessmentReportGenera
   const [scopeInfo, setScopeInfo] = useState({
     assessmentType: 'Gap Analysis' as const,
     assessmentScope: ['Information Systems', 'Network Infrastructure', 'CUI Processing'],
-    methodology: 'NIST SP 800-171 based assessment aligned with CMMC Level 2 requirements',
+    methodology: 'NIST SP 800-171 based assessment aligned with CMMC 2.0 Level 2 requirements',
     systemsAssessed: ['Primary Business Systems', 'CUI Storage Systems', 'Network Infrastructure'],
     documentationReviewed: ['System Security Plan', 'Policies and Procedures', 'Configuration Documentation'],
     interviewsConducted: ['IT Leadership', 'Security Team', 'System Administrators']
@@ -126,11 +126,13 @@ const SecurityAssessmentReportGenerator: React.FC<SecurityAssessmentReportGenera
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Breadcrumbs items={[
-        { label: 'CMMC Platform', path: '/dashboard' },
-        { label: 'Reporting', path: '/reports' },
-        { label: 'Security Assessment Report', isActive: true }
-      ]} />
+      <div className="mb-6">
+        <Breadcrumbs items={[
+          { label: 'CMMC 2.0 Platform', path: '/dashboard' },
+          { label: 'Reporting', path: '/reports' },
+          { label: 'Security Assessment Report', isActive: true }
+        ]} />
+      </div>
 
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
@@ -142,7 +144,7 @@ const SecurityAssessmentReportGenerator: React.FC<SecurityAssessmentReportGenera
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Security Assessment Report Generator</h1>
-                <p className="text-gray-600 dark:text-gray-300">Generate comprehensive CMMC Level 2 security assessment reports</p>
+                <p className="text-gray-600 dark:text-gray-300">Generate comprehensive CMMC 2.0 Level 2 security assessment reports</p>
               </div>
             </div>
             

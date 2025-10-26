@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, ChartBar as BarChart3, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Target, Server, Database, Users, Building, FileText, Cloud, TrendingUp, TrendingDown, Clock, RefreshCw, Plus, ListFilter as Filter, Search, Download, Upload, Eye, Settings, Calendar, SquareCheck as CheckSquare, ArrowRight, Map, ChevronLeft, Activity } from 'lucide-react';
+import { Shield, ChartBar as BarChart3, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Target, Server, Database, Users, Building, FileText, Cloud, TrendingUp, TrendingDown, Clock, RefreshCw, Plus, ListFilter as Filter, Search, Download, Upload, Eye, Settings, Calendar, SquareCheck as CheckSquare, ArrowRight, Map, Activity } from 'lucide-react';
 import { Asset, AssetMetrics } from '@/shared/types/assets';
 import { PieChart } from '@/shared/components/charts/PieChart';
 import { BarChart } from '@/shared/components/charts/BarChart';
@@ -281,26 +281,16 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link
-                to="/dashboard"
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5" />
-                <span>Back to Dashboard</span>
-              </Link>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-              <div className="flex items-center space-x-3">
-                <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                  <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    Asset Management
-                  </h1>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Comprehensive view of your organization's asset inventory and security posture
-                  </p>
-                </div>
+              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
+                <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Asset Management
+                </h1>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Comprehensive view of your organization's asset inventory and security posture
+                </p>
               </div>
             </div>
             

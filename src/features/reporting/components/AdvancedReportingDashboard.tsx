@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Download, ChartBar as BarChart3, TrendingUp, Shield, Target, Award, CircleCheck as CheckCircle, Settings, ChevronLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { FileText, Download, ChartBar as BarChart3, TrendingUp, Shield, Target, Award, CircleCheck as CheckCircle, Settings } from 'lucide-react';
 import { AssessmentData, UserProfile } from '../../../shared/types';
 import { cmmcFramework } from '../../../data/frameworks';
 import { PieChart } from '../../../shared/components/charts/PieChart';
@@ -132,28 +131,20 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
       
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link
-              to="/dashboard"
-              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5" />
-              <span>Back to Dashboard</span>
-            </Link>
-            <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-            <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl">
-              <BarChart3 className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl">
+                <BarChart3 className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Advanced Analytics
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Comprehensive reporting and trend analysis for implementation tracking
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Advanced Analytics
-              </h2>
-              <p className="text-gray-600 dark:text-gray-300">
-                Comprehensive reporting and trend analysis for implementation tracking
-              </p>
-            </div>
-          </div>
           
           <div className="flex items-center space-x-3">
             <select
