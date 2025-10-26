@@ -428,3 +428,118 @@ export const CertificationTrackingPage: React.FC<{ onBack?: () => void }> = ({ o
     onBack={onBack}
   />
 );
+
+export const PoliciesPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+  <PlaceholderPage
+    title="Policy Management"
+    description="Manage organizational security policies and procedures"
+    icon={FileText}
+    features={[
+      'Policy creation and editing',
+      'Version control and change tracking',
+      'Approval workflows',
+      'Policy distribution and training',
+      'Compliance mapping',
+      'Review and renewal tracking'
+    ]}
+    nextSteps={[
+      'Review existing policies',
+      'Create new policies as needed',
+      'Set up approval workflows',
+      'Distribute and train staff'
+    ]}
+    onBack={onBack}
+  />
+);
+
+export const AuditLogsPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+  <PlaceholderPage
+    title="Audit Logs"
+    description="View and analyze system audit logs"
+    icon={BarChart3}
+    features={[
+      'System activity logging',
+      'User action tracking',
+      'Security event monitoring',
+      'Compliance reporting',
+      'Log analysis and forensics',
+      'Automated alerting'
+    ]}
+    nextSteps={[
+      'Configure audit logging policies',
+      'Set up log retention policies',
+      'Enable automated monitoring',
+      'Review and analyze logs regularly'
+    ]}
+    onBack={onBack}
+  />
+);
+
+export const CMMCAssessmentPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+  <PlaceholderPage
+    title="CMMC Assessment"
+    description="Conduct comprehensive CMMC 2.0 Level 2 assessments"
+    icon={Shield}
+    features={[
+      'CMMC 2.0 Level 2 control assessment',
+      'Gap analysis and compliance scoring',
+      'Evidence collection and validation',
+      'Assessment reporting',
+      'Remediation planning',
+      'C3PAO preparation'
+    ]}
+    nextSteps={[
+      'Complete control assessments',
+      'Review assessment results',
+      'Address identified gaps',
+      'Prepare for C3PAO assessment'
+    ]}
+    onBack={onBack}
+  />
+);
+
+export const PrivacyAssessmentPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+  <PlaceholderPage
+    title="Privacy Assessment"
+    description="Assess privacy controls and compliance"
+    icon={Shield}
+    features={[
+      'Privacy impact assessments',
+      'Data protection analysis',
+      'Privacy policy compliance',
+      'GDPR/CCPA readiness',
+      'Privacy risk assessment',
+      'Incident response planning'
+    ]}
+    nextSteps={[
+      'Complete privacy impact assessment',
+      'Review privacy controls',
+      'Address privacy gaps',
+      'Implement privacy safeguards'
+    ]}
+    onBack={onBack}
+  />
+);
+
+export const ControlsManagementPage: React.FC<{ onBack?: () => void }> = ({ onBack }) => (
+  <PlaceholderPage
+    title="Controls Management"
+    description="Manage and track security controls"
+    icon={Shield}
+    features={[
+      'Control inventory management',
+      'Control mapping and assessment',
+      'Compliance validation',
+      'Remediation tracking',
+      'Control effectiveness monitoring',
+      'Audit preparation'
+    ]}
+    nextSteps={[
+      'Review control inventory',
+      'Assess control effectiveness',
+      'Identify control gaps',
+      'Implement remediation plans'
+    ]}
+    onBack={onBack}
+  />
+);

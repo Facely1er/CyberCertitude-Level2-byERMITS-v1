@@ -12,6 +12,9 @@ import {
   C3PAOPrepPage,
   MetricsDashboardPage,
   CertificationTrackingPage,
+  PoliciesPage,
+  AuditLogsPage,
+  ControlsManagementPage,
   PlaceholderPage
 } from '../components/PlaceholderPages';
 import { SSPGenerator } from '../components/SSPGenerator';
@@ -195,5 +198,20 @@ export const implementationRoutes = [
     path: "/training-tracker",
     element: TrainingTrackerPage,
     title: "Training Tracker"
+  },
+  {
+    path: "/policies",
+    element: PoliciesPage,
+    title: "Policy Management"
+  },
+  {
+    path: "/audit-logs",
+    element: AuditLogsPage,
+    title: "Audit Logs"
+  },
+  {
+    path: "/controls",
+    element: ControlsManagementPage,
+    title: "Controls Management"
   }
 ];
