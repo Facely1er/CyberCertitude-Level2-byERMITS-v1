@@ -80,12 +80,6 @@
     Cache-Control = "no-cache, no-store, must-revalidate"
     X-Content-Type-Options = "nosniff"
 
-# Health check endpoint
-[[redirects]]
-  from = "/health"
-  to = "/.netlify/functions/health"
-  status = 200
-
 # Security redirects
 [[redirects]]
   from = "/.env"
@@ -116,20 +110,6 @@
 
 [build.processing.html]
   pretty_urls = true
-
-# Functions for health monitoring and security
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
-
-# Edge functions for security headers
-[[edge_functions]]
-  function = "security-headers"
-  path = "/*"
-
-# Build plugins for optimization
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"
 
 # Environment-specific settings
 [context.production]
