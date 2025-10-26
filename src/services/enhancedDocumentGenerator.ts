@@ -264,19 +264,24 @@ export class EnhancedDocumentGenerator {
         <h1>${metadata.title}</h1>
         <div class="metadata-grid">
             <div class="metadata-item">
-                <strong>Author:</strong> ${metadata.author}
+                <strong>Author</strong>
+                <span>${metadata.author}</span>
             </div>
             <div class="metadata-item">
-                <strong>Organization:</strong> ${metadata.organization}
+                <strong>Organization</strong>
+                <span>${metadata.organization}</span>
             </div>
             <div class="metadata-item">
-                <strong>Version:</strong> ${metadata.version}
+                <strong>Version</strong>
+                <span>${metadata.version}</span>
             </div>
             <div class="metadata-item">
-                <strong>Generated:</strong> ${metadata.generatedDate.toLocaleDateString()}
+                <strong>Generated</strong>
+                <span>${metadata.generatedDate.toLocaleDateString()}</span>
             </div>
             <div class="metadata-item">
-                <strong>Template:</strong> ${metadata.templateUsed}
+                <strong>Template</strong>
+                <span>${metadata.templateUsed}</span>
             </div>
         </div>
     </div>
@@ -285,94 +290,251 @@ export class EnhancedDocumentGenerator {
 
   private getHTMLStyles(options: DocumentGenerationOptions): string {
     return `
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #1a202c;
+            max-width: 960px;
             margin: 0 auto;
-            padding: 20px;
-            background: white;
+            padding: 40px 24px;
+            background: #ffffff;
         }
         
         .document-metadata {
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .document-metadata h1 {
+            margin: 0 0 16px 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: white;
         }
         
         .metadata-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .metadata-item {
-            padding: 8px;
-            background: #f9fafb;
-            border-radius: 4px;
-        }
-        
-        .table-of-contents {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .content {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
             margin-top: 20px;
         }
         
-        h1, h2, h3, h4, h5, h6 {
-            color: #1f2937;
-            margin-top: 30px;
-            margin-bottom: 15px;
+        .metadata-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px 16px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
         }
         
-        h1 { font-size: 2rem; }
-        h2 { font-size: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px; }
-        h3 { font-size: 1.25rem; }
+        .metadata-item strong {
+            display: block;
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .metadata-item span {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .table-of-contents {
+            background: linear-gradient(to right, #f8fafc, #e0e7ff);
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 32px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .table-of-contents h2 {
+            margin-top: 0;
+            color: #1e293b;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        .table-of-contents ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .table-of-contents li {
+            padding: 6px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .table-of-contents li:last-child {
+            border-bottom: none;
+        }
+        
+        .content {
+            margin-top: 24px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            color: #0f172a;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        h1 { 
+            font-size: 2.25rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h2 { 
+            font-size: 1.75rem;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 8px;
+        }
+        
+        h3 { 
+            font-size: 1.375rem;
+            color: #334155;
+        }
+        
+        h4 {
+            font-size: 1.125rem;
+            color: #475569;
+        }
         
         p {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+            color: #334155;
+        }
+        
+        strong {
+            color: #0f172a;
+            font-weight: 600;
+        }
+        
+        em {
+            color: #475569;
+        }
+        
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #dc2626;
+        }
+        
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
         }
         
         ul, ol {
-            margin-bottom: 15px;
-            padding-left: 25px;
+            margin-bottom: 18px;
+            padding-left: 32px;
         }
         
         li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        ul li {
+            list-style-type: disc;
+        }
+        
+        ol li {
+            list-style-type: decimal;
+        }
+        
+        blockquote {
+            border-left: 4px solid #667eea;
+            padding: 16px 20px;
+            margin: 24px 0;
+            background: #f8fafc;
+            border-radius: 0 8px 8px 0;
+            color: #475569;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin: 24px 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
         
         th, td {
-            border: 1px solid #d1d5db;
-            padding: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 14px 16px;
             text-align: left;
         }
         
         th {
-            background: #f3f4f6;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            color: white;
             font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        tr:hover {
+            background: #f1f5f9;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #e5e7eb;
+            margin: 32px 0;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        a:hover {
+            border-bottom-color: #667eea;
         }
         
         .watermark {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            opacity: 0.3;
-            font-size: 12px;
+            opacity: 0.15;
+            font-size: 11px;
             color: #6b7280;
+            font-weight: 500;
         }
         
         .page-numbers {
@@ -380,14 +542,60 @@ export class EnhancedDocumentGenerator {
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 12px;
+            font-size: 11px;
             color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid #f59e0b;
+            padding: 16px 20px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-left: 4px solid #3b82f6;
+            padding: 16px 20px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-left: 4px solid #ef4444;
+            padding: 16px 20px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border-left: 4px solid #22c55e;
+            padding: 16px 20px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
         }
         
         @media print {
             body {
                 margin: 0;
                 padding: 15mm;
+                max-width: 100%;
+            }
+            
+            .document-metadata {
+                page-break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            
+            table {
+                page-break-inside: avoid;
             }
             
             .watermark, .page-numbers {
@@ -398,26 +606,74 @@ export class EnhancedDocumentGenerator {
   }
 
   private markdownToHTML(markdown: string): string {
-    // Basic markdown to HTML conversion
-    let html = markdown
-      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-      .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-      .replace(/\*(.*)\*/gim, '<em>$1</em>')
-      .replace(/^\* (.*$)/gim, '<li>$1</li>')
-      .replace(/^\d+\. (.*$)/gim, '<li>$1</li>')
-      .replace(/\n\n/gim, '</p><p>')
-      .replace(/\n/gim, '<br>');
-
-    // Wrap list items
-    html = html.replace(/(<li>.*<\/li>)/gims, '<ul>$1</ul>');
-    html = html.replace(/<\/ul><ul>/gim, '');
-
-    // Wrap paragraphs
-    html = '<p>' + html + '</p>';
-    html = html.replace(/<p><\/p>/gim, '');
-
+    // Enhanced markdown to HTML conversion with better formatting
+    let html = markdown;
+    
+    // Handle code blocks (must be before other replacements)
+    html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+    
+    // Handle inline code
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+    
+    // Handle headers
+    html = html.replace(/^###### (.*$)/gim, '<h6>$1</h6>');
+    html = html.replace(/^##### (.*$)/gim, '<h5>$1</h5>');
+    html = html.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
+    html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+    
+    // Handle bold and italic
+    html = html.replace(/\*\*\*(.*?)\*\*\*/gim, '<strong><em>$1</em></strong>');
+    html = html.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+    html = html.replace(/\*(.*?)\*/gim, '<em>$1</em>');
+    
+    // Handle horizontal rules
+    html = html.replace(/^---$/gim, '<hr>');
+    html = html.replace(/^\*\*\*$/gim, '<hr>');
+    
+    // Handle blockquotes
+    html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
+    
+    // Handle lists
+    html = html.replace(/^\* (.*$)/gim, '<li>$1</li>');
+    html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
+    html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
+    
+    // Wrap consecutive list items in ul/ol
+    html = html.replace(/(<li>.*<\/li>)/gims, (match) => {
+      // Check if it's an ordered list (number pattern)
+      if (/^<li>.*<\/li>$/.test(match)) {
+        return '<ul>' + match + '</ul>';
+      }
+      return match;
+    });
+    
+    // Handle tables (basic)
+    html = html.replace(/^\|(.+)\|$/gim, '<tr>' + 
+      '<td>' + '$1'.split('|').slice(1, -1).join('</td><td>') + '</td>' + 
+    '</tr>');
+    
+    // Handle emphasis
+    html = html.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+    html = html.replace(/_([^_]+)_/g, '<em>$1</em>');
+    
+    // Handle links
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+    
+    // Convert line breaks
+    html = html.replace(/\n\n\n/g, '</p><p>');
+    html = html.replace(/\n\n/g, '</p><p>');
+    
+    // Wrap remaining content in paragraphs (but not already wrapped content)
+    if (!html.includes('</p>') && !html.includes('</h')) {
+      html = '<p>' + html + '</p>';
+    }
+    
+    // Clean up empty paragraphs and extra breaks
+    html = html.replace(/<p><\/p>/g, '');
+    html = html.replace(/(<\/p>)\n*(<p>)/g, '$1$2');
+    
     return html;
   }
 }
