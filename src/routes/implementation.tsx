@@ -1,19 +1,7 @@
 import { 
-  ProjectCharterPage,
-  CUIScopePage,
-  TeamRolesPage,
-  ImplementationWorkbookPage,
-  PolicyTemplatesPage,
-  DocumentRepositoryPage,
-  ControlValidationPage,
-  ComplianceTrackingPage,
   AuditPackagePage,
-  C3PAOPrepPage,
   MetricsDashboardPage,
-  CertificationTrackingPage,
-  PoliciesPage,
-  AuditLogsPage,
-  ControlsManagementPage
+  CertificationTrackingPage
 } from '../components/PlaceholderPages';
 import { SSPGenerator } from '../components/SSPGenerator';
 import { CuiDataFlowMapper } from '../components/CuiDataFlowMapper';
@@ -23,6 +11,17 @@ import AuditTracker from '../features/audit/components/AuditTracker';
 import PolicyGenerator from '../features/policies/components/PolicyGenerator';
 import TrainingTracker from '../features/training/components/TrainingTracker';
 import PolicyTemplates from '../features/policies/components/PolicyTemplates';
+import ProjectCharter from '../features/implementation/components/ProjectCharter';
+import CUIScope from '../features/implementation/components/CUIScope';
+import TeamRoles from '../features/implementation/components/TeamRoles';
+import ImplementationWorkbook from '../features/implementation/components/ImplementationWorkbook';
+import DocumentRepository from '../features/implementation/components/DocumentRepository';
+import ControlValidation from '../features/implementation/components/ControlValidation';
+import ComplianceTracking from '../features/implementation/components/ComplianceTracking';
+import C3PAOPrep from '../features/implementation/components/C3PAOPrep';
+import PoliciesPage from '../features/reporting/components/PoliciesPage';
+import AuditLogsPage from '../features/audit/components/AuditLogsPage';
+import ControlsManagement from '../features/compliance/components/ControlsManagement';
 
 export const implementationRoutes = [
   {
@@ -32,12 +31,12 @@ export const implementationRoutes = [
   },
   {
     path: "/project-charter",
-    element: ProjectCharterPage,
+    element: ProjectCharter,
     title: "Project Charter"
   },
   {
     path: "/cui-scope",
-    element: CUIScopePage,
+    element: CUIScope,
     title: "CUI Scope"
   },
   {
@@ -47,12 +46,12 @@ export const implementationRoutes = [
   },
   {
     path: "/team-roles",
-    element: TeamRolesPage,
+    element: TeamRoles,
     title: "Team Roles"
   },
   {
     path: "/implementation-workbook",
-    element: ImplementationWorkbookPage,
+    element: ImplementationWorkbook,
     title: "Implementation Workbook"
   },
   {
@@ -62,17 +61,17 @@ export const implementationRoutes = [
   },
   {
     path: "/document-repository",
-    element: DocumentRepositoryPage,
+    element: DocumentRepository,
     title: "Document Repository"
   },
   {
     path: "/control-validation",
-    element: ControlValidationPage,
+    element: ControlValidation,
     title: "Control Validation"
   },
   {
     path: "/compliance-tracking",
-    element: ComplianceTrackingPage,
+    element: ComplianceTracking,
     title: "Compliance Tracking"
   },
   {
@@ -82,7 +81,7 @@ export const implementationRoutes = [
   },
   {
     path: "/c3pao-prep",
-    element: C3PAOPrepPage,
+    element: C3PAOPrep,
     title: "C3PAO Preparation"
   },
   {
@@ -132,7 +131,7 @@ export const implementationRoutes = [
   },
   {
     path: "/controls",
-    element: ControlsManagementPage,
+    element: ControlsManagement,
     title: "Controls Management"
   }
 ];
