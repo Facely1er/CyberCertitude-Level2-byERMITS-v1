@@ -481,11 +481,12 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
               {/* Brand Section */}
               <div className="lg:col-span-1">
-                <div className="flex items-center space-x-3 mb-4">
-                  <img src="/cybercertitude.png" alt="CyberCertitude" className="w-10 h-10" />
-                  <div>
+                <div className="flex items-start space-x-3 mb-4">
+                  <img src="/cybercertitude.png" alt="CyberCertitude" className="w-10 h-10 flex-shrink-0 mt-1" />
+                  <div className="flex flex-col">
                     <h3 className="text-xl font-bold">CyberCertitude™</h3>
-                    <p className="text-sm text-blue-100">CMMC 2.0 Toolkit by ERMITS</p>
+                    <p className="text-base font-medium text-blue-100 tracking-wider">CMMC 2.0 Compliance</p>
+                    <p className="text-sm text-blue-200/80">by ERMITS</p>
                   </div>
                 </div>
                 <p className="text-sm text-blue-200 mb-4">

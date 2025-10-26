@@ -88,8 +88,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                   <h1 className="text-base font-bold text-text-primary-light dark:text-text-primary-dark leading-tight tracking-tight">
                     CyberCertitude™
                   </h1>
-                  <span className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark leading-tight hidden sm:block">
+                  <span className="text-[0.70rem] font-medium text-text-secondary-light dark:text-text-secondary-dark leading-tight tracking-wider hidden sm:block">
                     CMMC 2.0 Compliance
+                  </span>
+                  <span className="text-[0.65rem] text-text-muted-light dark:text-text-muted-dark leading-tight tracking-wide hidden sm:block">
+                    by ERMITS
                   </span>
                 </div>
               </Link>
@@ -147,11 +150,19 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Company Info */}
             <div className="md:col-span-1">
-              <div className="flex items-center space-x-2 mb-4">
-                <img src="/cybercertitude.png" alt="CyberCertitude" className="w-8 h-8" />
-                <span className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">
-                  CyberCertitude™
-                </span>
+              <div className="flex items-start space-x-2 mb-4">
+                <img src="/cybercertitude.png" alt="CyberCertitude" className="w-8 h-8 flex-shrink-0 mt-1" />
+                <div className="flex flex-col">
+                  <span className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">
+                    CyberCertitude™
+                  </span>
+                  <span className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark tracking-wider">
+                    CMMC 2.0 Compliance
+                  </span>
+                  <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
+                    by ERMITS
+                  </span>
+                </div>
               </div>
               <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-4">
                 Comprehensive CMMC 2.0 Level 2 compliance platform designed to streamline your cybersecurity certification journey.
