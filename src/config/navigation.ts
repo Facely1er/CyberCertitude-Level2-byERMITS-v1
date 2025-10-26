@@ -3,23 +3,16 @@ import {
   ChartBar as BarChart3, 
   CircleCheck as CheckCircle, 
   FileText, 
-  SquareCheck as CheckSquare, 
   Target, 
   Activity, 
   Database, 
   Users, 
-  Settings, 
-  Circle as HelpCircle, 
   Play, 
   BookOpen, 
   TriangleAlert as AlertTriangle, 
-  FileBarChart,
   Wrench,
   Tag,
-  GitBranch,
-  Workflow,
-  Calendar,
-  ArrowRight
+  GitBranch
 } from 'lucide-react';
 
 export interface NavigationItem {
@@ -36,18 +29,6 @@ export const navigationItems: NavigationItem[] = [
     href: '/dashboard',
     icon: BarChart3,
     description: 'Overview and quick access to key features'
-  },
-  {
-    label: 'Master Dashboard',
-    href: '/dashboard/master',
-    icon: BarChart3,
-    description: 'Complete implementation tracking and toolkit management'
-  },
-  {
-    label: 'Enhanced Dashboard',
-    href: '/dashboard/enhanced',
-    icon: BarChart3,
-    description: 'Advanced progress tracking with smart recommendations'
   },
   {
     label: 'Assessment',
@@ -90,6 +71,12 @@ export const navigationItems: NavigationItem[] = [
     icon: Wrench,
     children: [
       {
+        label: 'CMMC Journey',
+        href: '/cmmc-journey',
+        icon: Activity,
+        description: 'Guided step-by-step implementation workflow'
+      },
+      {
         label: 'Project Setup',
         href: '/project-charter',
         icon: FileText,
@@ -112,72 +99,6 @@ export const navigationItems: NavigationItem[] = [
         href: '/team-roles',
         icon: Users,
         description: 'Designate compliance team roles'
-      },
-      {
-        label: 'Implementation Workbook',
-        href: '/implementation-workbook',
-        icon: BookOpen,
-        description: 'Control-level tasks and evidence checklist'
-      },
-      {
-        label: 'CMMC Journey',
-        href: '/cmmc-journey',
-        icon: Activity,
-        description: 'Guided step-by-step implementation workflow'
-      },
-      {
-        label: 'Template Library',
-        href: '/templates/library',
-        icon: FileText,
-        description: 'Browse and customize CMMC compliance templates'
-      },
-      {
-        label: 'Compliance Toolkit',
-        href: '/templates/compliance-toolkit',
-        icon: Shield,
-        description: 'Complete CMMC 2.0 toolkit with all templates'
-      },
-      {
-        label: 'Scenario Templates',
-        href: '/templates/scenarios',
-        icon: BookOpen,
-        description: 'Enterprise-grade comprehensive documents'
-      }
-    ]
-  },
-  {
-    label: 'Compliance',
-    icon: Shield,
-    children: [
-      {
-        label: 'Compliance Dashboard',
-        href: '/compliance',
-        icon: BarChart3,
-        description: 'Real-time compliance status and monitoring'
-      },
-      {
-        label: 'CMMC Compliance',
-        href: '/compliance/cmmc',
-        icon: Shield,
-        description: 'CMMC 2.0 Level 2 compliance tracking'
-      },
-      {
-        label: 'Compliance Workflow',
-        href: '/compliance-workflow',
-        icon: Workflow,
-        description: 'Guided compliance implementation workflow'
-      },
-      {
-        label: 'Evidence Collection',
-        href: '/evidence',
-        icon: Database,
-        description: 'Collect and manage compliance evidence'
-      },
-      {
-        label: 'Audit Preparation',
-        href: '/audit-package',
-        icon: CheckSquare,
-        description: 'Prepare for C3PAO assessment'
       }
     ]
   },
@@ -208,168 +129,30 @@ export const navigationItems: NavigationItem[] = [
         href: '/assets/dependencies',
         icon: GitBranch,
         description: 'Map asset relationships and dependencies'
-      },
-      {
-        label: 'Asset Workflow',
-        href: '/assets/workflow',
-        icon: Workflow,
-        description: 'Asset management workflow and processes'
-      },
-      {
-        label: 'Asset Roadmap',
-        href: '/assets/roadmap',
-        icon: ArrowRight,
-        description: 'Asset development and improvement roadmap'
-      },
-      {
-        label: 'Action Plan',
-        href: '/assets/action-plan',
-        icon: CheckSquare,
-        description: 'Asset-specific action plans and tasks'
       }
     ]
   },
   {
-    label: 'Team & Collaboration',
-    icon: Users,
+    label: 'Templates',
+    icon: FileText,
     children: [
       {
-        label: 'Team Dashboard',
-        href: '/team',
-        icon: Users,
-        description: 'Team collaboration and role management'
+        label: 'Template Library',
+        href: '/templates/library',
+        icon: FileText,
+        description: 'Browse and customize CMMC compliance templates'
       },
       {
-        label: 'Task Management',
-        href: '/tasks',
-        icon: CheckSquare,
-        description: 'Track compliance tasks and assignments'
-      },
-      {
-        label: 'Calendar',
-        href: '/calendar',
-        icon: Calendar,
-        description: 'Compliance calendar and milestone tracking'
-      }
-    ]
-  },
-  {
-    label: 'Reporting',
-    icon: FileBarChart,
-    children: [
-      {
-        label: 'Reports Dashboard',
-        href: '/reports',
-        icon: BarChart3,
-        description: 'Access all compliance reports'
-      },
-      {
-        label: 'Advanced Reports',
-        href: '/reports/advanced',
-        icon: FileBarChart,
-        description: 'Advanced reporting and analytics'
-      },
-      {
-        label: 'Team Reports',
-        href: '/reports/team',
-        icon: Users,
-        description: 'Team performance and progress reports'
-      },
-      {
-        label: 'Compliance Reports',
-        href: '/reports/compliance',
+        label: 'Compliance Toolkit',
+        href: '/templates/compliance-toolkit',
         icon: Shield,
-        description: 'Compliance status and gap reports'
+        description: 'Complete CMMC 2.0 toolkit with all templates'
       },
       {
-        label: 'Security Assessment',
-        href: '/reports/security-assessment',
-        icon: Shield,
-        description: 'Security assessment reports'
-      }
-    ]
-  },
-  {
-    label: 'Tools',
-    icon: Wrench,
-    children: [
-      {
-        label: 'Risk Assessment',
-        href: '/risk-assessment',
-        icon: Shield,
-        description: 'Risk assessment and analysis tools'
-      },
-      {
-        label: 'Threat Modeling',
-        href: '/threat-modeling',
-        icon: Target,
-        description: 'Threat modeling and analysis'
-      },
-      {
-        label: 'Vulnerability Scanner',
-        href: '/vulnerability-scanner',
-        icon: AlertTriangle,
-        description: 'Vulnerability scanning and assessment'
-      },
-      {
-        label: 'Training Modules',
-        href: '/training-modules',
+        label: 'Scenario Templates',
+        href: '/templates/scenarios',
         icon: BookOpen,
-        description: 'Security awareness training modules'
-      },
-      {
-        label: 'Awareness Campaigns',
-        href: '/awareness-campaigns',
-        icon: Users,
-        description: 'Security awareness campaign planning'
-      },
-      {
-        label: 'Audit Checklists',
-        href: '/audit-checklists',
-        icon: CheckSquare,
-        description: 'Audit checklist generation'
-      },
-      {
-        label: 'Security Controls',
-        href: '/security-controls',
-        icon: Shield,
-        description: 'Security control mapping and management'
-      },
-      {
-        label: 'Config Baselines',
-        href: '/config-baselines',
-        icon: Settings,
-        description: 'Configuration baseline management'
-      },
-      {
-        label: 'Incident Response',
-        href: '/incident-response',
-        icon: AlertTriangle,
-        description: 'Incident response planning and management'
-      }
-    ]
-  },
-  {
-    label: 'Account',
-    icon: Settings,
-    children: [
-      {
-        label: 'Profile',
-        href: '/profile',
-        icon: Users,
-        description: 'User profile and preferences'
-      },
-      {
-        label: 'Settings',
-        href: '/settings',
-        icon: Settings,
-        description: 'Application settings and configuration'
-      },
-      {
-        label: 'Help',
-        href: '/help',
-        icon: HelpCircle,
-        description: 'Help documentation and support'
+        description: 'Enterprise-grade comprehensive documents'
       }
     ]
   }

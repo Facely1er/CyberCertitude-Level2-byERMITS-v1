@@ -77,40 +77,49 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   return (
     <div className="sticky-footer-container bg-background-light dark:bg-background-dark">
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-support-light dark:border-support-dark z-40">
+      <header className="fixed top-0 left-0 right-0 bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-md border-b border-support-light dark:border-support-dark z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Left Section - Branding */}
-            <Link to="/" className="flex items-center space-x-2 flex-shrink-0 min-w-0 hover:opacity-80 transition-opacity duration-200">
-              <img src="/cybercertitude.png" alt="CyberCertitude" className="w-12 h-12" />
-              <div className="flex flex-col min-w-0">
-                <h1 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark leading-tight">
-                  CyberCertitude™
-                </h1>
-                <span className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark leading-tight hidden sm:block">
-                  CMMC 2.0 Compliance 
-                </span>
-                <span className="text-xs text-text-muted-light dark:text-text-muted-dark leading-tight hidden md:block">
-                  by ERMITS
-                </span>
-              </div>
-            </Link>
-            
-            {/* Center Section - Navigation Menu */}
-            <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
-              <AccessibleNavigation items={navItems} />
+            <div className="flex items-center flex-shrink-0">
+              <Link to="/" className="flex items-center space-x-3 min-w-0 hover:opacity-80 transition-opacity duration-200">
+                <img src="/cybercertitude.png" alt="CyberCertitude" className="w-10 h-10 flex-shrink-0" />
+                <div className="flex flex-col min-w-0">
+                  <h1 className="text-base font-bold text-text-primary-light dark:text-text-primary-dark leading-tight tracking-tight">
+                    CyberCertitude™
+                  </h1>
+                  <span className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark leading-tight hidden sm:block">
+                    CMMC 2.0 Compliance
+                  </span>
+                </div>
+              </Link>
             </div>
             
+            {/* Center Section - Navigation Menu */}
+            <nav className="hidden lg:flex items-center justify-center flex-1 mx-8">
+              <AccessibleNavigation items={navItems} />
+            </nav>
+            
             {/* Right Section - User Controls */}
-            <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+            <div className="flex items-center gap-3 flex-shrink-0">
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setShowMobileMenu(true)}
-                className="md:hidden p-1.5 sm:p-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 hover:bg-primary-500/10 dark:hover:bg-primary-400/20 rounded-lg transition-colors"
+                className="lg:hidden p-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 aria-label="Open navigation menu"
               >
                 <Menu className="w-5 h-5" />
               </button>
+              
+              {/* Desktop Menu Toggle for smaller screens */}
+              <button
+                onClick={() => setShowMobileMenu(true)}
+                className="md:hidden lg:flex xl:hidden p-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                aria-label="Open navigation menu"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
+              
               <ThemeToggle />
               
               {/* User Authentication Section */}
