@@ -321,7 +321,7 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
       </div>
 
       {/* Evidence Categories Overview */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8">
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             Evidence Categories
@@ -429,7 +429,7 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
       </div>
 
       {/* Filters and Search */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">

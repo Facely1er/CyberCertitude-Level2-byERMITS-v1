@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, Play, Clock, Target, ChartBar as BarChart3, Shield, CircleCheck as CheckCircle, CircleAlert as AlertCircle, Info, BookOpen, Users, Building, Globe, Zap, Award, Star, ArrowRight, Activity, FileText, Lightbulb, TrendingUp, Lock, Eye } from 'lucide-react';
+import { Play, Clock, Target, ChartBar as BarChart3, Shield, CircleCheck as CheckCircle, CircleAlert as AlertCircle, Info, BookOpen, Users, Building, Globe, Zap, Award, Star, ArrowRight, Activity, FileText, Lightbulb, TrendingUp, Lock, Eye } from 'lucide-react';
 import { Framework, OrganizationInfo } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -19,7 +19,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
   selectedLevel = 2,
   onStartAssessment,
   onShowTemplates,
-  onBack
+  onBack: _onBack
 }) => {
   const { breadcrumbs } = useInternalLinking();
   const [showOrganizationForm, setShowOrganizationForm] = useState(false);
@@ -130,26 +130,16 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <button
-                onClick={onBack || (() => {})}
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5" />
-                <span>Back</span>
-              </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-              <div className="flex items-center space-x-3">
-                <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                  <FrameworkIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    Cybersecurity Framework Assessment
-                  </h1>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Choose Your Framework & Begin Assessment
-                  </p>
-                </div>
+              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
+                <FrameworkIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Cybersecurity Framework Assessment
+                </h1>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Choose Your Framework & Begin Assessment
+                </p>
               </div>
             </div>
           </div>
