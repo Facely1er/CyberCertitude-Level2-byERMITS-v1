@@ -18,8 +18,22 @@ const AuthGuard: React.FC<AuthGuardProps> = ({
   children, 
   fallback 
 }) => {
-  const { user, isLoading, isAuthenticated } = useAuth();
+  const authState = useAuth();
   const [showSetupWarning, setShowSetupWarning] = useState(false);
+  
+  // Safety check for auth state
+  if (!authState) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Initializing authentication...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  const { user, isLoading, isAuthenticated } = authState;
 
   useEffect(() => {
     // In production, require proper authentication

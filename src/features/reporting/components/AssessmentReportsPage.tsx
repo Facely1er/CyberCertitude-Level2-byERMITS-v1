@@ -465,7 +465,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
               Complete CMMC 2.0 Level 2 assessment with 110 controls for Controlled Unclassified Information (CUI) protection.
             </p>
             <Link
-              to="/cmmc-assessment"
+              to="/assessment-intro"
               className="inline-flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
             >
               <Plus className="w-4 h-4" />
@@ -473,24 +473,20 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             </Link>
           </div>
           
-          <div className="border border-purple-200 dark:border-purple-800 rounded-xl p-6 bg-purple-50 dark:bg-purple-900/20 hover:shadow-lg transition-shadow">
+          <div className="border border-blue-200 dark:border-blue-800 rounded-xl p-6 bg-gray-50 dark:bg-gray-900/20 hover:shadow-lg transition-shadow opacity-50">
             <div className="flex items-center space-x-3 mb-4">
-              <Users className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+              <Users className="w-8 h-8 text-gray-400" />
               <div>
-                <h4 className="font-bold text-purple-900 dark:text-purple-100">Privacy Framework</h4>
-                <p className="text-sm text-purple-700 dark:text-purple-300">GDPR, CCPA & Global Privacy</p>
+                <h4 className="font-bold text-gray-500">Additional Frameworks</h4>
+                <p className="text-sm text-gray-400">Coming in Future Releases</p>
               </div>
             </div>
-            <p className="text-purple-800 dark:text-purple-200 text-sm mb-4">
-              Comprehensive privacy assessment covering 73 questions for global privacy regulation compliance.
+            <p className="text-gray-500 text-sm mb-4">
+              Additional assessment frameworks will be available in future platform updates.
             </p>
-            <Link
-              to="/privacy-assessment"
-              className="inline-flex items-center space-x-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Start Privacy Assessment</span>
-            </Link>
+            <div className="text-xs text-gray-400 italic">
+              Currently focused on CMMC 2.0 Level 2 compliance
+            </div>
           </div>
           
           <div className="border border-blue-200 dark:border-blue-800 rounded-xl p-6 bg-blue-50 dark:bg-blue-900/20 hover:shadow-lg transition-shadow">

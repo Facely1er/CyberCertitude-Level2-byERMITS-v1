@@ -65,8 +65,8 @@ export const navigation = {
   // Compliance and CMMC navigation
   goToComplianceWorkflow: () => navigation.navigate('/compliance-workflow'),
   goToCMMCJourney: () => navigation.navigate('/cmmc-journey'),
-  goToCMMCAssessment: () => navigation.navigate('/cmmc-assessment'),
-  goToPrivacyAssessment: () => navigation.navigate('/privacy-assessment'),
+  goToCMMCAssessment: () => navigation.navigate('/assessment-intro'),
+  goToPrivacyAssessment: () => navigation.navigate('/assessment-intro'), // Redirects to CMMC assessment intro
 
   // Risk management navigation
   goToRiskAssessment: () => navigation.navigate('/risk-assessment'),

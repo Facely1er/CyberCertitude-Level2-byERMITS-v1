@@ -3,7 +3,6 @@ import { AssessmentIntroScreen, CMMCControlAssessor, ComplianceGapAnalyzer } fro
 import { AssessmentRoute } from './AssessmentRoute';
 import { useNavigate } from 'react-router-dom';
 import { logger } from '../utils/logger';
-import { CMMCAssessmentPage, PrivacyAssessmentPage } from '../components/PlaceholderPages';
 
 // Gap Analysis Component
 const GapAnalysisPage: React.FC = () => {
@@ -43,15 +42,5 @@ export const assessmentRoutes = [
     path: "/gap-analysis",
     element: GapAnalysisPage,
     title: "Gap Analysis"
-  },
-  {
-    path: "/cmmc-assessment",
-    element: CMMCAssessmentPage,
-    title: "CMMC Assessment"
-  },
-  {
-    path: "/privacy-assessment",
-    element: PrivacyAssessmentPage,
-    title: "Privacy Assessment"
   }
 ];
