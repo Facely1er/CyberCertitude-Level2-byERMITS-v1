@@ -691,20 +691,34 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
                 Table of Contents
               </h2>
               <nav className="space-y-2">
-                {sections.map((section) => (
-                  <button
-                    key={section.id}
-                    onClick={() => setActiveSection(section.id)}
-                    className={`w-full text-left p-3 rounded-lg transition-colors flex items-center space-x-3 ${
-                      activeSection === section.id
-                        ? `bg-${section.color}-100 dark:bg-${section.color}-900/30 text-${section.color}-700 dark:text-${section.color}-300`
-                        : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
-                    }`}
-                  >
-                    <section.icon className="w-5 h-5" />
-                    <span className="font-medium">{section.title}</span>
-                  </button>
-                ))}
+                {sections.map((section) => {
+                  // Define proper color classes based on section.color
+                  const getActiveColors = (color: string) => {
+                    switch(color) {
+                      case 'blue': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
+                      case 'green': return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300';
+                      case 'indigo': return 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300';
+                      case 'orange': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
+                      case 'purple': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300';
+                      default: return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
+                    }
+                  };
+
+                  return (
+                    <button
+                      key={section.id}
+                      onClick={() => setActiveSection(section.id)}
+                      className={`w-full text-left p-3 rounded-lg transition-colors flex items-center space-x-3 ${
+                        activeSection === section.id
+                          ? getActiveColors(section.color)
+                          : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      }`}
+                    >
+                      <section.icon className="w-5 h-5" />
+                      <span className="font-medium">{section.title}</span>
+                    </button>
+                  );
+                })}
               </nav>
             </div>
           </div>
@@ -716,7 +730,20 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
           {currentSection && (
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
               <div className="flex items-center space-x-3 mb-6">
-                <currentSection.icon className={`w-8 h-8 text-${currentSection.color}-600 dark:text-${currentSection.color}-400`} />
+                {(() => {
+                  const getIconColor = (color: string) => {
+                    switch(color) {
+                      case 'blue': return 'text-blue-600 dark:text-blue-400';
+                      case 'green': return 'text-green-600 dark:text-green-400';
+                      case 'indigo': return 'text-indigo-600 dark:text-indigo-400';
+                      case 'orange': return 'text-orange-600 dark:text-orange-400';
+                      case 'purple': return 'text-purple-600 dark:text-purple-400';
+                      default: return 'text-blue-600 dark:text-blue-400';
+                    }
+                  };
+                  const Icon = currentSection.icon;
+                  return <Icon className={`w-8 h-8 ${getIconColor(currentSection.color)}`} />;
+                })()}
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                   {currentSection.title}
                 </h2>
