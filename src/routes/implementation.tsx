@@ -22,6 +22,7 @@ import ImplementationOverview from '../features/implementation/components/Implem
 import AuditTracker from '../features/audit/components/AuditTracker';
 import PolicyGenerator from '../features/policies/components/PolicyGenerator';
 import TrainingTracker from '../features/training/components/TrainingTracker';
+import PolicyTemplates from '../features/policies/components/PolicyTemplates';
 
 export const implementationRoutes = [
   {
@@ -56,7 +57,7 @@ export const implementationRoutes = [
   },
   {
     path: "/policy-templates",
-    element: PolicyTemplatesPage,
+    element: PolicyTemplates,
     title: "Policy Templates"
   },
   {

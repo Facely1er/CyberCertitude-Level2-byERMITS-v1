@@ -17,49 +17,6 @@ export const renderWithRouter = (component: React.ReactElement) => {
 };
 
 export const createMockUser = () => ({
-  id: "test-user-id",
-  email: "test@example.com",
-  name: "Test User",
-  role: "admin",
-  permissions: ["read", "write", "admin"]
-});
-
-export const createMockAssessment = () => ({
-  id: "test-assessment-id",
-  frameworkId: "cmmc",
-  frameworkName: "CMMC 2.0",
-  responses: {},
-  createdAt: new Date(),
-  lastModified: new Date(),
-  isComplete: false,
-  version: "1.0.0"
-});
-
-// Accessibility testing utilities
-export const testAccessibility = async (component: React.ReactElement) => {
-  const { container } = renderWithRouter(component);
-  
-  // Test keyboard navigation
-  const focusableElements = container.querySelectorAll(
-    "button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])"
-  );
-  
-  expect(focusableElements.length).toBeGreaterThan(0);
-  
-  // Test ARIA attributes
-  const elementsWithAria = container.querySelectorAll("[aria-label], [aria-labelledby], [aria-describedby]");
-  expect(elementsWithAria.length).toBeGreaterThan(0);
-  
-  // Test color contrast (simplified)
-  const textElements = container.querySelectorAll("p, span, div, a, button");
-  textElements.forEach(element => {
-    const styles = window.getComputedStyle(element);
-    expect(styles.color).toBeDefined();
-    expect(styles.backgroundColor).toBeDefined();
-  });
-};
-
-export const createMockUser = () => ({
   id: 'test-user-id',
   email: 'test@example.com',
   name: 'Test User',
