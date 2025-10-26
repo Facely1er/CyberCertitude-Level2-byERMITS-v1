@@ -44,24 +44,58 @@ export const assetRoutes = [
                   </p>
                 </div>
               </div>
-              <div className="text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg whitespace-nowrap">
-                Coming Soon
+              <div className="flex items-center space-x-3">
+                <button className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <Target className="w-4 h-4" />
+                  <span>Manage Categories</span>
+                </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Coming Soon Notice */}
+        {/* Asset Categories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {['Hardware', 'Software', 'Data', 'Personnel', 'Facilities', 'Services'].map((category) => (
+            <div key={category} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                  <Target className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{category}</h3>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                Manage {category.toLowerCase()} assets and their classifications
+              </p>
+              <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                <span className="text-sm text-gray-500 dark:text-gray-400">0 assets</span>
+                <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm">
+                  Manage →
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Info Card */}
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800 p-6">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-start space-x-3">
             <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
               <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">Coming Soon</h3>
-              <p className="text-blue-700 dark:text-blue-200">
-                Asset categorization functionality will be implemented here.
+              <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">Asset Categorization</h3>
+              <p className="text-blue-700 dark:text-blue-200 mb-3">
+                Organize your assets by category to improve compliance tracking and management.
               </p>
+              <ul className="text-sm text-blue-700 dark:text-blue-200 space-y-1">
+                <li>• Hardware: Physical devices and equipment</li>
+                <li>• Software: Applications and systems</li>
+                <li>• Data: Information assets and databases</li>
+                <li>• Personnel: Staff and contractors</li>
+                <li>• Facilities: Buildings and locations</li>
+                <li>• Services: Cloud and outsourced functions</li>
+              </ul>
             </div>
           </div>
         </div>
