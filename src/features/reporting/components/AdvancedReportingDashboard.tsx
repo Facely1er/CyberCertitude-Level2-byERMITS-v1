@@ -66,13 +66,15 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
     )[0];
 
+    if (!latestAssessment || !latestAssessment.responses) return [];
+
     return cmmcFramework.sections.map(section => {
       const sectionQuestions = section.categories.reduce((questions, category) => {
         return [...questions, ...category.questions];
       }, [] as any[]);
       
       const sectionResponses = sectionQuestions
-        .map(q => latestAssessment.responses[q.id])
+        .map(q => latestAssessment.responses?.[q.id])
         .filter(r => r !== undefined);
       
       const score = sectionResponses.length > 0

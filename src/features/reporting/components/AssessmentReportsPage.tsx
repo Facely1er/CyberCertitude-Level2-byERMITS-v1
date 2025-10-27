@@ -315,9 +315,9 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                 const framework = getFramework(assessment.frameworkId);
                 const score = calculateAssessmentScore(assessment);
                 const progress = assessment.responses ? Object.keys(assessment.responses).length : 0;
-                const totalQuestions = framework.sections.reduce((sum, section) => 
+                const totalQuestions = framework?.sections?.reduce((sum, section) => 
                   sum + section.categories.reduce((catSum, category) => 
-                    catSum + category.questions.length, 0), 0);
+                    catSum + (category.questions?.length || 0), 0), 0) || 0;
                 const FrameworkIcon = getFrameworkIcon(assessment.frameworkId);
                 
                 return (

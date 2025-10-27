@@ -66,13 +66,13 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
     }
   };
 
-  const totalQuestions = currentFramework.sections.reduce((sum, section) => 
+  const totalQuestions = currentFramework?.sections?.reduce((sum, section) => 
     sum + section.categories.reduce((catSum, category) => 
-      catSum + category.questions.length, 0), 0);
+      catSum + (category.questions?.length || 0), 0), 0) || 0;
 
-  const highPriorityQuestions = currentFramework.sections.reduce((sum, section) => 
+  const highPriorityQuestions = currentFramework?.sections?.reduce((sum, section) => 
     sum + section.categories.reduce((catSum, category) => 
-      catSum + category.questions.filter(q => q.priority === 'high').length, 0), 0);
+      catSum + (category.questions?.filter(q => q.priority === 'high')?.length || 0), 0), 0) || 0;
 
   const getFrameworkBenefits = (frameworkId: string) => {
     // CMMC-only benefits

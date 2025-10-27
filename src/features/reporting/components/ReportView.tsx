@@ -28,10 +28,11 @@ const ReportView: React.FC<ReportViewProps> = ({
 
   // Calculate comprehensive metrics
   const metrics = useMemo(() => {
+    if (!assessment?.responses) return { sectionAnalysis: [], overallScore: 0, totalQuestions: 0 };
     const responses = Object.entries(assessment.responses);
-    const totalQuestions = framework.sections.reduce((sum, section) => 
+    const totalQuestions = framework?.sections?.reduce((sum, section) => 
       sum + section.categories.reduce((catSum, category) => 
-        catSum + category.questions.length, 0), 0);
+        catSum + (category.questions?.length || 0), 0), 0) || 0;
 
     // Overall score calculation
     const overallScore = responses.length > 0 
@@ -39,13 +40,13 @@ const ReportView: React.FC<ReportViewProps> = ({
       : 0;
 
     // Section analysis
-    const sectionAnalysis = framework.sections.map(section => {
+    const sectionAnalysis = framework?.sections?.map(section => {
       const sectionQuestions = section.categories.reduce((questions, category) => {
-        return [...questions, ...category.questions];
+        return [...questions, ...(category.questions || [])];
       }, [] as any[]);
       
       const sectionResponses = sectionQuestions
-        .map(q => assessment.responses[q.id])
+        .map(q => assessment.responses?.[q.id])
         .filter(r => r !== undefined);
       
       const sectionScore = sectionResponses.length > 0
@@ -62,10 +63,10 @@ const ReportView: React.FC<ReportViewProps> = ({
     });
 
     // Category performance
-    const categoryPerformance = framework.sections.flatMap(section =>
+    const categoryPerformance = framework?.sections?.flatMap(section =>
       section.categories.map(category => {
         const categoryResponses = category.questions
-          .map(q => assessment.responses[q.id])
+          .map(q => assessment.responses?.[q.id])
           .filter(r => r !== undefined);
         
         const categoryScore = categoryResponses.length > 0
@@ -236,7 +237,7 @@ const ReportView: React.FC<ReportViewProps> = ({
             
             <div className="text-center p-6 bg-green-50 dark:bg-green-900/20 rounded-xl">
               <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
-                {framework.sections.length}
+                {framework?.sections?.length || 0}
               </div>
               <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Sections Assessed

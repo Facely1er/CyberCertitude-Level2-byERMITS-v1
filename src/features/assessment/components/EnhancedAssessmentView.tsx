@@ -51,9 +51,9 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  const currentSection = framework.sections[currentSectionIndex];
-  const currentCategory = currentSection?.categories[currentCategoryIndex];
-  const currentQuestion = currentCategory?.questions[currentQuestionIndex];
+  const currentSection = framework?.sections?.[currentSectionIndex];
+  const currentCategory = currentSection?.categories?.[currentCategoryIndex];
+  const currentQuestion = currentCategory?.questions?.[currentQuestionIndex];
 
   // Auto-save functionality
   useEffect(() => {
@@ -112,9 +112,9 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
   }, []);
 
   const navigateToQuestion = (direction: 'next' | 'prev') => {
-    const totalQuestions = currentCategory?.questions.length || 0;
-    const totalCategories = currentSection?.categories.length || 0;
-    const totalSections = framework.sections.length || 0;
+    const totalQuestions = currentCategory?.questions?.length || 0;
+    const totalCategories = currentSection?.categories?.length || 0;
+    const totalSections = framework?.sections?.length || 0;
 
     if (direction === 'next') {
       if (currentQuestionIndex < totalQuestions - 1) {
@@ -132,30 +132,37 @@ const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
         setCurrentQuestionIndex(prev => prev - 1);
       } else if (currentCategoryIndex > 0) {
         setCurrentCategoryIndex(prev => prev - 1);
-        const prevCategory = currentSection.categories[currentCategoryIndex - 1];
-        setCurrentQuestionIndex(prevCategory.questions.length - 1);
+        const prevCategory = currentSection?.categories?.[currentCategoryIndex - 1];
+        setCurrentQuestionIndex((prevCategory?.questions?.length || 1) - 1);
       } else if (currentSectionIndex > 0) {
         setCurrentSectionIndex(prev => prev - 1);
-        const prevSection = framework.sections[currentSectionIndex - 1];
-        setCurrentCategoryIndex(prevSection.categories.length - 1);
-        const prevCategory = prevSection.categories[prevSection.categories.length - 1];
-        setCurrentQuestionIndex(prevCategory.questions.length - 1);
+        const prevSection = framework?.sections?.[currentSectionIndex - 1];
+        if (prevSection) {
+          setCurrentCategoryIndex((prevSection.categories?.length || 1) - 1);
+          const prevCategory = prevSection.categories?.[(prevSection.categories?.length || 1) - 1];
+          setCurrentQuestionIndex((prevCategory?.questions?.length || 1) - 1);
+        }
       }
     }
   };
 
   const getProgress = () => {
-    const totalQuestions = framework.sections.reduce((sum, section) => 
+    const totalQuestions = framework?.sections?.reduce((sum, section) => 
       sum + section.categories.reduce((catSum, category) => 
-        catSum + category.questions.length, 0), 0);
+        catSum + (category.questions?.length || 0), 0), 0) || 0;
     const answeredQuestions = Object.keys(localAssessment.responses).length;
     return Math.round((answeredQuestions / totalQuestions) * 100);
   };
 
   const isFirstQuestion = currentSectionIndex === 0 && currentCategoryIndex === 0 && currentQuestionIndex === 0;
-  const isLastQuestion = currentSectionIndex === framework.sections.length - 1 && 
-                        currentCategoryIndex === (framework.sections[framework.sections.length - 1]?.categories.length || 1) - 1 && 
-                        currentQuestionIndex === (framework.sections[framework.sections.length - 1]?.categories[framework.sections[framework.sections.length - 1]?.categories.length - 1]?.questions.length || 1) - 1;
+  
+  // Calculate if this is the last question
+  const lastSection = framework?.sections?.[(framework?.sections?.length || 1) - 1];
+  const lastCategory = lastSection?.categories?.[(lastSection?.categories?.length || 1) - 1];
+  const lastQuestionIndex = lastCategory?.questions?.length || 0;
+  const isLastQuestion = currentSectionIndex === (framework?.sections?.length || 1) - 1 && 
+                        currentCategoryIndex === (lastSection?.categories?.length || 1) - 1 && 
+                        currentQuestionIndex === lastQuestionIndex - 1;
 
   const renderQuestion = (question: Question) => {
     const currentResponse = localAssessment.responses[question.id];
