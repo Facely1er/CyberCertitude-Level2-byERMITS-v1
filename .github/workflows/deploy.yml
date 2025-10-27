@@ -1,4 +1,4 @@
-name: Deploy to Netlify
+name: Deploy to Vercel (with Netlify fallback)
 
 on:
   push:
@@ -26,15 +26,15 @@ jobs:
       run: |
         echo "Checking Supabase configuration..."
         # Use default values if secrets are not set
-        SUPABASE_URL="${{ secrets.VITE_SUPABASE_URL || 'https://savggaohetwcowrprxwp.supabase.co' }}"
-        SUPABASE_KEY="${{ secrets.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhdmdnYW9oZXR3Y293cnByeHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczOTc2NjQsImV4cCI6MjA3Mjk3MzY2NH0.hAYPHmonytmwRm1Gj53JndMrjUH9GVURiHKtVzYN2-s' }}"
+        SUPABASE_URL="${{ secrets.VITE_SUPABASE_URL || 'https://rjyyicattwrqtjiqwwvv.supabase.co' }}"
+        SUPABASE_KEY="${{ secrets.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqeXlpY2F0dHdycXRqaXF3d3Z2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE1NDA2NjMsImV4cCI6MjA3NzExNjY2M30.GMVCQ3Gx9roGV652YvAn6aYJ-q_ET-CDrsvAypBrk_Y' }}"
         echo "Using Supabase URL: ${SUPABASE_URL}"
         echo "Using Supabase Key: ${SUPABASE_KEY:0:20}..."
         
     - name: Build application
       run: |
-        export VITE_SUPABASE_URL="${{ secrets.VITE_SUPABASE_URL || 'https://savggaohetwcowrprxwp.supabase.co' }}"
-        export VITE_SUPABASE_ANON_KEY="${{ secrets.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhdmdnYW9oZXR3Y293cnByeHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczOTc2NjQsImV4cCI6MjA3Mjk3MzY2NH0.hAYPHmonytmwRm1Gj53JndMrjUH9GVURiHKtVzYN2-s' }}"
+        export VITE_SUPABASE_URL="${{ secrets.VITE_SUPABASE_URL || 'https://rjyyicattwrqtjiqwwvv.supabase.co' }}"
+        export VITE_SUPABASE_ANON_KEY="${{ secrets.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqeXlpY2F0dHdycXRqaXF3d3Z2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE1NDA2NjMsImV4cCI6MjA3NzExNjY2M30.GMVCQ3Gx9roGV652YvAn6aYJ-q_ET-CDrsvAypBrk_Y' }}"
         npm run build
         
     - name: Verify build output
@@ -43,16 +43,28 @@ jobs:
         ls -la dist/
         echo "Build verification complete"
         
-    - name: Deploy to Netlify
+    - name: Deploy to Vercel
+      id: vercel
+      uses: amondnet/vercel-action@v25
+      continue-on-error: true
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'
+        
+    - name: Fallback Deploy to Netlify
+      if: steps.vercel.outcome == 'failure' || steps.vercel.outcome == 'skipped'
       uses: nwtgck/actions-netlify@v3.0
       with:
         publish-dir: './dist'
         production-branch: main
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        deploy-message: "Deploy from GitHub Actions - Layout and Content Quality Improvements"
+        deploy-message: "Fallback deployment from GitHub Actions"
         enable-pull-request-comment: false
         enable-commit-comment: true
         overwrites-pull-request-comment: true
-        netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       timeout-minutes: 5

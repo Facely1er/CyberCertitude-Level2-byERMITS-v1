@@ -27,8 +27,8 @@ jobs:
       
     - name: Build application
       run: |
-        export VITE_SUPABASE_URL="https://savggaohetwcowrprxwp.supabase.co"
-        export VITE_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhdmdnYW9oZXR3Y293cnByeHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczOTc2NjQsImV4cCI6MjA3Mjk3MzY2NH0.hAYPHmonytmwRm1Gj53JndMrjUH9GVURiHKtVzYN2-s"
+        export VITE_SUPABASE_URL="https://rjyyicattwrqtjiqwwvv.supabase.co"
+        export VITE_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqeXlpY2F0dHdycXRqaXF3d3Z2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE1NDA2NjMsImV4cCI6MjA3NzExNjY2M30.GMVCQ3Gx9roGV652YvAn6aYJ-q_ET-CDrsvAypBrk_Y"
         npm run build
         
     - name: Verify build output
