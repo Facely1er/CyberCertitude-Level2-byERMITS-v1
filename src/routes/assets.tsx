@@ -59,7 +59,7 @@ export const assetRoutes = [
     element: () => (
       <div className="container-responsive section-padding">
         {/* Breadcrumbs */}
-        <div className="mb-8">
+        <div className="mb-6">
           <Breadcrumbs items={[
             { label: 'CMMC 2.0 Platform', path: '/dashboard' },
             { label: 'Assets', path: '/assets' },
@@ -146,7 +146,7 @@ export const assetRoutes = [
     element: () => (
       <div className="container-responsive section-padding">
         {/* Breadcrumbs */}
-        <div className="mb-8">
+        <div className="mb-6">
           <Breadcrumbs items={[
             { label: 'CMMC 2.0 Platform', path: '/dashboard' },
             { label: 'Assets', path: '/assets' },
@@ -274,7 +274,7 @@ export const assetRoutes = [
     element: () => (
       <div className="container-responsive section-padding">
         {/* Breadcrumbs */}
-        <div className="mb-8">
+        <div className="mb-6">
           <Breadcrumbs items={[
             { label: 'CMMC 2.0 Platform', path: '/dashboard' },
             { label: 'Assets', path: '/assets' },
@@ -425,7 +425,7 @@ export const assetRoutes = [
     element: () => (
       <div className="container-responsive section-padding">
         {/* Breadcrumbs */}
-        <div className="mb-8">
+        <div className="mb-6">
           <Breadcrumbs items={[
             { label: 'CMMC 2.0 Platform', path: '/dashboard' },
             { label: 'Assets', path: '/assets' },
@@ -582,7 +582,7 @@ export const assetRoutes = [
     element: () => (
       <div className="container-responsive section-padding">
         {/* Breadcrumbs */}
-        <div className="mb-8">
+        <div className="mb-6">
           <Breadcrumbs items={[
             { label: 'CMMC 2.0 Platform', path: '/dashboard' },
             { label: 'Assets', path: '/assets' },

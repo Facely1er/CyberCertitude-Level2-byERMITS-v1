@@ -77,7 +77,7 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
   return (
     <div className="container-responsive section-padding">
       {/* Breadcrumbs */}
-      <div className="mb-8">
+      <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
@@ -450,28 +450,28 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                       <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                        {asset.controls.length}
+                        {asset.controls?.length || 0}
                       </div>
                       <div className="text-sm text-blue-800 dark:text-blue-300">Security Controls</div>
                     </div>
                     
                     <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
                       <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                        {asset.dependencies.length}
+                        {asset.dependencies?.length || 0}
                       </div>
                       <div className="text-sm text-green-800 dark:text-green-300">Dependencies</div>
                     </div>
                     
                     <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
                       <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                        {asset.vulnerabilities.filter(v => v.status === 'open').length}
+                        {asset.vulnerabilities?.filter(v => v.status === 'open').length || 0}
                       </div>
                       <div className="text-sm text-orange-800 dark:text-orange-300">Open Vulnerabilities</div>
                     </div>
                     
                     <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
                       <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 capitalize">
-                        {asset.riskAssessment.overallRisk.replace('-', ' ')}
+                        {asset.riskAssessment?.overallRisk?.replace('-', ' ') || 'Unassigned'}
                       </div>
                       <div className="text-sm text-purple-800 dark:text-purple-300">Risk Level</div>
                     </div>
@@ -485,7 +485,7 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Security Controls ({asset.controls.length})
+                  Security Controls ({asset.controls?.length || 0})
                 </h3>
                 <button className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   <Plus className="w-4 h-4" />
@@ -494,7 +494,7 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               </div>
               
               <div className="space-y-4">
-                {asset.controls.map((control, index) => (
+                {asset.controls?.map((control, index) => (
                   <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>
@@ -533,9 +533,9 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       </div>
                     </div>
                   </div>
-                ))}
+                )) || []}
                 
-                {asset.controls.length === 0 && (
+                {(!asset.controls || asset.controls.length === 0) && (
                   <div className="text-center py-8">
                     <CheckCircle className="w-12 h-12 text-gray-400 mx-auto mb-3" />
                     <p className="text-gray-600 dark:text-gray-300">No security controls defined</p>
@@ -549,7 +549,7 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Asset Dependencies ({asset.dependencies.length})
+                  Asset Dependencies ({asset.dependencies?.length || 0})
                 </h3>
                 <button className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   <Plus className="w-4 h-4" />
@@ -558,7 +558,7 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               </div>
               
               <div className="space-y-4">
-                {asset.dependencies.map((dependency, index) => {
+                {asset.dependencies?.map((dependency, index) => {
                   const dependentAsset = allAssets.find(a => a.id === dependency.dependentAssetId);
                   return (
                     <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
@@ -583,9 +583,9 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       </p>
                     </div>
                   );
-                })}
+                }) || []}
                 
-                {asset.dependencies.length === 0 && (
+                {(!asset.dependencies || asset.dependencies.length === 0) && (
                   <div className="text-center py-8">
                     <Link2 className="w-12 h-12 text-gray-400 mx-auto mb-3" />
                     <p className="text-gray-600 dark:text-gray-300">No dependencies defined</p>
@@ -599,7 +599,7 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Vulnerabilities ({asset.vulnerabilities.length})
+                  Vulnerabilities ({asset.vulnerabilities?.length || 0})
                 </h3>
                 <button className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   <Plus className="w-4 h-4" />
@@ -608,7 +608,7 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               </div>
               
               <div className="space-y-4">
-                {asset.vulnerabilities.map((vulnerability, index) => (
+                {asset.vulnerabilities?.map((vulnerability, index) => (
                   <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>
@@ -665,9 +665,9 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       </div>
                     </div>
                   </div>
-                ))}
+                )) || []}
                 
-                {asset.vulnerabilities.length === 0 && (
+                {(!asset.vulnerabilities || asset.vulnerabilities.length === 0) && (
                   <div className="text-center py-8">
                     <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-3" />
                     <p className="text-gray-600 dark:text-gray-300">No vulnerabilities identified</p>

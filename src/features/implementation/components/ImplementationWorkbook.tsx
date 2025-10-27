@@ -17,7 +17,7 @@ const ImplementationWorkbook: React.FC = () => {
 
   return (
     <div className="container-responsive section-padding">
-      <div className="mb-8">
+      <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
       </div>
 

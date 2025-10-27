@@ -297,7 +297,7 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
   return (
     <div className="container-responsive section-padding">
       {/* Breadcrumbs */}
-      <div className="mb-8">
+      <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
       </div>
 

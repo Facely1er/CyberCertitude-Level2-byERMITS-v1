@@ -106,7 +106,7 @@
   }
   
   .section-padding {
-    @apply py-8 sm:py-12 lg:py-16;
+    @apply pb-8 sm:pb-12 lg:pb-16;
   }
   
   .card-responsive {

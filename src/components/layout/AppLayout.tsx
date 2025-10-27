@@ -139,7 +139,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
       {/* Main Content */}
       <main className="pt-16 min-h-screen sticky-footer-content">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
           {children}
         </div>
       </main>
@@ -152,14 +152,14 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             <div className="md:col-span-1">
               <div className="flex items-start space-x-2 mb-4">
                 <img src="/cybercertitude.png" alt="CyberCertitude" className="w-8 h-8 flex-shrink-0 mt-1" />
-                <div className="flex flex-col">
-                  <span className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">
+                <div className="flex flex-col leading-tight">
+                  <span className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark leading-tight">
                     CyberCertitude™
                   </span>
-                  <span className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark tracking-wider">
+                  <span className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark tracking-wider leading-tight">
                     CMMC 2.0 Compliance
                   </span>
-                  <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
+                  <span className="text-xs text-text-muted-light dark:text-text-muted-dark leading-tight">
                     by ERMITS
                   </span>
                 </div>
@@ -188,7 +188,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               <h3 className="text-sm font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
                 Quick Links
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1">
                 <li>
                   <button
                     onClick={() => navigate('/assessment-intro')}
@@ -233,7 +233,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               <h3 className="text-sm font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
                 Resources
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1">
                 <li>
                   <button
                     onClick={() => navigate('/assets')}
@@ -278,7 +278,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               <h3 className="text-sm font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
                 Support
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1">
                 <li>
                   <button
                     onClick={() => navigate('/team')}
