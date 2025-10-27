@@ -8,6 +8,20 @@ import { cmmcRiskRegister } from './specialized/riskRegister';
 import { cmmcAwarenessTrainingDeck } from './specialized/trainingDeck';
 import { implementationRoadmap } from './specialized/implementationRoadmap';
 import { accessControlPolicy } from './policies/accessControl';
+import { auditAndAccountabilityPolicy } from './policies/auditAndAccountability';
+import { awarenessAndTrainingPolicy } from './policies/awarenessAndTraining';
+import { configurationManagementPolicy } from './policies/configurationManagement';
+import { identificationAndAuthenticationPolicy } from './policies/identificationAndAuthentication';
+import { incidentResponsePolicy } from './policies/incidentResponse';
+import { riskAssessmentPolicy } from './policies/riskAssessment';
+import { systemAndCommunicationsProtectionPolicy } from './policies/systemAndCommunicationsProtection';
+import { systemAndInformationIntegrityPolicy } from './policies/systemAndInformationIntegrity';
+import { systemSecurityPlan } from './policies/systemSecurityPlan';
+import { maintenancePolicy } from './policies/maintenance';
+import { mediaProtectionPolicy } from './policies/mediaProtection';
+import { personnelSecurityPolicy } from './policies/personnelSecurity';
+import { physicalProtectionPolicy } from './policies/physicalProtection';
+import { securityAssessmentPolicy } from './policies/securityAssessment';
 
 export interface FieldDefinition {
   id: string;
@@ -133,6 +147,230 @@ export const templateRegistry: TemplateContent[] = [
     metadata: {
       ...accessControlPolicy.metadata,
       tags: ['policy', 'access-control', 'authentication', 'authorization', 'security'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: auditAndAccountabilityPolicy.id,
+    name: auditAndAccountabilityPolicy.name,
+    category: auditAndAccountabilityPolicy.category as 'policy',
+    type: auditAndAccountabilityPolicy.type,
+    description: 'Comprehensive audit and accountability policy covering AU domain requirements',
+    content: auditAndAccountabilityPolicy.content,
+    controls: auditAndAccountabilityPolicy.controls,
+    interactiveFields: auditAndAccountabilityPolicy.interactiveFields,
+    metadata: {
+      ...auditAndAccountabilityPolicy.metadata,
+      tags: ['policy', 'audit', 'accountability', 'logging', 'monitoring'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: awarenessAndTrainingPolicy.id,
+    name: awarenessAndTrainingPolicy.name,
+    category: awarenessAndTrainingPolicy.category as 'policy',
+    type: awarenessAndTrainingPolicy.type,
+    description: 'Comprehensive awareness and training policy covering AT domain requirements',
+    content: awarenessAndTrainingPolicy.content,
+    controls: awarenessAndTrainingPolicy.controls,
+    interactiveFields: awarenessAndTrainingPolicy.interactiveFields,
+    metadata: {
+      ...awarenessAndTrainingPolicy.metadata,
+      tags: ['policy', 'training', 'awareness', 'education', 'personnel'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: configurationManagementPolicy.id,
+    name: configurationManagementPolicy.name,
+    category: configurationManagementPolicy.category as 'policy',
+    type: configurationManagementPolicy.type,
+    description: 'Comprehensive configuration management policy covering CM domain requirements',
+    content: configurationManagementPolicy.content,
+    controls: configurationManagementPolicy.controls,
+    interactiveFields: configurationManagementPolicy.interactiveFields,
+    metadata: {
+      ...configurationManagementPolicy.metadata,
+      tags: ['policy', 'configuration', 'management', 'baselines', 'change-control'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: identificationAndAuthenticationPolicy.id,
+    name: identificationAndAuthenticationPolicy.name,
+    category: identificationAndAuthenticationPolicy.category as 'policy',
+    type: identificationAndAuthenticationPolicy.type,
+    description: 'Comprehensive identification and authentication policy covering IA domain requirements',
+    content: identificationAndAuthenticationPolicy.content,
+    controls: identificationAndAuthenticationPolicy.controls,
+    interactiveFields: identificationAndAuthenticationPolicy.interactiveFields,
+    metadata: {
+      ...identificationAndAuthenticationPolicy.metadata,
+      tags: ['policy', 'authentication', 'identification', 'MFA', 'passwords'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: incidentResponsePolicy.id,
+    name: incidentResponsePolicy.name,
+    category: incidentResponsePolicy.category as 'policy',
+    type: incidentResponsePolicy.type,
+    description: 'Comprehensive incident response policy covering IR domain requirements',
+    content: incidentResponsePolicy.content,
+    controls: incidentResponsePolicy.controls,
+    interactiveFields: incidentResponsePolicy.interactiveFields,
+    metadata: {
+      ...incidentResponsePolicy.metadata,
+      tags: ['policy', 'incident', 'response', 'cybersecurity', 'emergency'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: riskAssessmentPolicy.id,
+    name: riskAssessmentPolicy.name,
+    category: riskAssessmentPolicy.category as 'policy',
+    type: riskAssessmentPolicy.type,
+    description: 'Comprehensive risk assessment policy covering RA domain requirements',
+    content: riskAssessmentPolicy.content,
+    controls: riskAssessmentPolicy.controls,
+    interactiveFields: riskAssessmentPolicy.interactiveFields,
+    metadata: {
+      ...riskAssessmentPolicy.metadata,
+      tags: ['policy', 'risk', 'assessment', 'management', 'evaluation'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: systemAndCommunicationsProtectionPolicy.id,
+    name: systemAndCommunicationsProtectionPolicy.name,
+    category: systemAndCommunicationsProtectionPolicy.category as 'policy',
+    type: systemAndCommunicationsProtectionPolicy.type,
+    description: 'Comprehensive system and communications protection policy covering SC domain requirements',
+    content: systemAndCommunicationsProtectionPolicy.content,
+    controls: systemAndCommunicationsProtectionPolicy.controls,
+    interactiveFields: systemAndCommunicationsProtectionPolicy.interactiveFields,
+    metadata: {
+      ...systemAndCommunicationsProtectionPolicy.metadata,
+      tags: ['policy', 'system-protection', 'communications', 'network', 'encryption'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: systemAndInformationIntegrityPolicy.id,
+    name: systemAndInformationIntegrityPolicy.name,
+    category: systemAndInformationIntegrityPolicy.category as 'policy',
+    type: systemAndInformationIntegrityPolicy.type,
+    description: 'Comprehensive system and information integrity policy covering SI domain requirements',
+    content: systemAndInformationIntegrityPolicy.content,
+    controls: systemAndInformationIntegrityPolicy.controls,
+    interactiveFields: systemAndInformationIntegrityPolicy.interactiveFields,
+    metadata: {
+      ...systemAndInformationIntegrityPolicy.metadata,
+      tags: ['policy', 'system-integrity', 'information-integrity', 'monitoring', 'malware'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: systemSecurityPlan.id,
+    name: systemSecurityPlan.name,
+    category: systemSecurityPlan.category as 'policy',
+    type: systemSecurityPlan.type,
+    description: 'Comprehensive System Security Plan covering all 110 CMMC 2.0 Level 2 controls',
+    content: systemSecurityPlan.content,
+    controls: systemSecurityPlan.controls,
+    interactiveFields: systemSecurityPlan.interactiveFields,
+    metadata: {
+      ...systemSecurityPlan.metadata,
+      tags: ['policy', 'SSP', 'comprehensive', 'system-security-plan', 'all-controls'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: maintenancePolicy.id,
+    name: maintenancePolicy.name,
+    category: 'policy',
+    type: maintenancePolicy.type,
+    description: 'Maintenance policy covering MA domain requirements',
+    content: maintenancePolicy.content,
+    controls: maintenancePolicy.controls,
+    interactiveFields: maintenancePolicy.interactiveFields,
+    metadata: {
+      ...maintenancePolicy.metadata,
+      tags: ['policy', 'maintenance', 'system', 'hardware'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: mediaProtectionPolicy.id,
+    name: mediaProtectionPolicy.name,
+    category: 'policy',
+    type: mediaProtectionPolicy.type,
+    description: 'Media protection policy covering MP domain requirements',
+    content: mediaProtectionPolicy.content,
+    controls: mediaProtectionPolicy.controls,
+    interactiveFields: mediaProtectionPolicy.interactiveFields,
+    metadata: {
+      ...mediaProtectionPolicy.metadata,
+      tags: ['policy', 'media', 'protection', 'sanitization'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: personnelSecurityPolicy.id,
+    name: personnelSecurityPolicy.name,
+    category: 'policy',
+    type: personnelSecurityPolicy.type,
+    description: 'Personnel security policy covering PS domain requirements',
+    content: personnelSecurityPolicy.content,
+    controls: personnelSecurityPolicy.controls,
+    interactiveFields: personnelSecurityPolicy.interactiveFields,
+    metadata: {
+      ...personnelSecurityPolicy.metadata,
+      tags: ['policy', 'personnel', 'security', 'background'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: physicalProtectionPolicy.id,
+    name: physicalProtectionPolicy.name,
+    category: 'policy',
+    type: physicalProtectionPolicy.type,
+    description: 'Physical protection policy covering PE domain requirements',
+    content: physicalProtectionPolicy.content,
+    controls: physicalProtectionPolicy.controls,
+    interactiveFields: physicalProtectionPolicy.interactiveFields,
+    metadata: {
+      ...physicalProtectionPolicy.metadata,
+      tags: ['policy', 'physical', 'security', 'access-control'],
+      framework: 'CMMC 2.0',
+      complianceLevel: 'Level 2'
+    }
+  },
+  {
+    id: securityAssessmentPolicy.id,
+    name: securityAssessmentPolicy.name,
+    category: 'policy',
+    type: securityAssessmentPolicy.type,
+    description: 'Security assessment policy covering CA domain requirements',
+    content: securityAssessmentPolicy.content,
+    controls: securityAssessmentPolicy.controls,
+    interactiveFields: securityAssessmentPolicy.interactiveFields,
+    metadata: {
+      ...securityAssessmentPolicy.metadata,
+      tags: ['policy', 'assessment', 'security', 'testing'],
       framework: 'CMMC 2.0',
       complianceLevel: 'Level 2'
     }
@@ -274,5 +512,19 @@ export {
   cmmcRiskRegister,
   cmmcAwarenessTrainingDeck,
   implementationRoadmap,
-  accessControlPolicy
+  accessControlPolicy,
+  auditAndAccountabilityPolicy,
+  awarenessAndTrainingPolicy,
+  configurationManagementPolicy,
+  identificationAndAuthenticationPolicy,
+  incidentResponsePolicy,
+  riskAssessmentPolicy,
+  systemAndCommunicationsProtectionPolicy,
+  systemAndInformationIntegrityPolicy,
+  systemSecurityPlan,
+  maintenancePolicy,
+  mediaProtectionPolicy,
+  personnelSecurityPolicy,
+  physicalProtectionPolicy,
+  securityAssessmentPolicy
 };
