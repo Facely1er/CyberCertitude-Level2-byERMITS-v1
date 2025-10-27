@@ -16,13 +16,25 @@ class ErrorMonitoring {
   }
 
   private async initializeSentry() {
-    if (ENV.SENTRY_DSN && typeof window !== "undefined") {
+    const sentryDsn = ENV.SENTRY_DSN || 'https://722dc05ba75fe578e5ea83522b4314b2@o4510171368259585.ingest.us.sentry.io/4510260330627072';
+    
+    if (typeof window !== "undefined") {
       try {
         const Sentry = await import("@sentry/react");
         
         Sentry.init({
-          dsn: ENV.SENTRY_DSN,
+          dsn: sentryDsn,
           environment: ENV.NODE_ENV,
+          integrations: [
+            new Sentry.BrowserTracing({
+              // Set sampling rate for performance monitoring
+              tracesSampleRate: ENV.NODE_ENV === 'production' ? 0.1 : 1.0,
+            }),
+            new Sentry.Replay({
+              maskAllText: true,
+              blockAllMedia: true,
+            }),
+          ],
           beforeSend(event, hint) {
             // Filter out noisy errors
             if (event.exception) {
@@ -34,11 +46,16 @@ class ErrorMonitoring {
             }
             return event;
           },
+          // Capture 100% of the transactions for performance monitoring
           tracesSampleRate: ENV.NODE_ENV === 'production' ? 0.1 : 1.0,
+          // Session Replay sampling
+          replaysSessionSampleRate: ENV.NODE_ENV === 'production' ? 0.1 : 1.0,
+          replaysOnErrorSampleRate: 1.0, // Capture 100% of sessions with an error
         });
 
         this.sentryInstance = Sentry;
         this.isInitialized = true;
+        console.log('Sentry initialized successfully');
       } catch (error) {
         logger.warn('Failed to initialize Sentry:', { error });
       }

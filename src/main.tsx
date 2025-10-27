@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import App from './App.tsx'; // Import the new App component
 import { ThemeProvider } from './shared/contexts/ThemeContext';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -8,6 +10,7 @@ import { initializeEnvironmentValidation } from './services/environmentValidatio
 import { preloadCriticalComponents } from './components/LazyComponents';
 import { securityMiddleware } from './services/securityMiddleware';
 import { performanceMonitoring } from './services/performanceMonitoring';
+import { errorMonitoring } from './lib/errorMonitoring';
 import './index.css';
 
 // Initialize environment validation and security checks
@@ -60,5 +63,7 @@ createRoot(document.getElementById('root')!).render(
         <App /> {/* Render the new App component */}
       </ThemeProvider>
     </BrowserRouter>
+    <Analytics />
+    <SpeedInsights />
   </StrictMode>
 );

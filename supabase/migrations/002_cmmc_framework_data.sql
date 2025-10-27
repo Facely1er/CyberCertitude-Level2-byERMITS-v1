@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS cmmc_controls (
     assessment_objective TEXT,
     discussion TEXT,
     related_controls TEXT[],
-    references TEXT[],
+    "references" TEXT[],
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS cmmc_practices (
     level INTEGER NOT NULL DEFAULT 2,
     assessment_objective TEXT,
     discussion TEXT,
-    references TEXT[],
+    "references" TEXT[],
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

@@ -41,34 +41,43 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
       return [];
     }
     const filtered = assets.filter(asset => {
+      // Defensive checks for asset properties
+      if (!asset || typeof asset !== 'object') {
+        return false;
+      }
+      
       // Search filter
       const searchLower = searchTerm.toLowerCase();
-      const tags = asset.tags || [];
-      const matchesSearch = asset.name.toLowerCase().includes(searchLower) ||
-                           asset.description.toLowerCase().includes(searchLower) ||
-                           asset.owner.toLowerCase().includes(searchLower) ||
-                           tags.some(tag => tag.toLowerCase().includes(searchLower));
+      const tags = Array.isArray(asset.tags) ? asset.tags : [];
+      const assetName = asset.name || '';
+      const assetDescription = asset.description || '';
+      const assetOwner = asset.owner || '';
+      
+      const matchesSearch = assetName.toLowerCase().includes(searchLower) ||
+                           assetDescription.toLowerCase().includes(searchLower) ||
+                           assetOwner.toLowerCase().includes(searchLower) ||
+                           tags.some(tag => tag && tag.toLowerCase().includes(searchLower));
 
       if (searchTerm && !matchesSearch) return false;
 
       // Category filter
-      if (filters.categories && filters.categories.length > 0) {
-        if (!filters.categories.includes(asset.category)) return false;
+      if (filters.categories && Array.isArray(filters.categories) && filters.categories.length > 0) {
+        if (!asset.category || !filters.categories.includes(asset.category)) return false;
       }
 
       // Criticality filter
-      if (filters.criticality && filters.criticality.length > 0) {
-        if (!filters.criticality.includes(asset.criticality)) return false;
+      if (filters.criticality && Array.isArray(filters.criticality) && filters.criticality.length > 0) {
+        if (!asset.criticality || !filters.criticality.includes(asset.criticality)) return false;
       }
 
       // Status filter
-      if (filters.status && filters.status.length > 0) {
-        if (!filters.status.includes(asset.status)) return false;
+      if (filters.status && Array.isArray(filters.status) && filters.status.length > 0) {
+        if (!asset.status || !filters.status.includes(asset.status)) return false;
       }
 
       // Classification filter
-      if (filters.classification && filters.classification.length > 0) {
-        if (!filters.classification.includes(asset.informationClassification)) return false;
+      if (filters.classification && Array.isArray(filters.classification) && filters.classification.length > 0) {
+        if (!asset.informationClassification || !filters.classification.includes(asset.informationClassification)) return false;
       }
 
       return true;
@@ -80,20 +89,24 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
       
       switch (sortBy) {
         case 'name':
-          comparison = a.name.localeCompare(b.name);
+          comparison = (a.name || '').localeCompare(b.name || '');
           break;
         case 'category':
-          comparison = a.category.localeCompare(b.category);
+          comparison = (a.category || '').localeCompare(b.category || '');
           break;
         case 'criticality':
-          const criticalityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
-          comparison = criticalityOrder[b.criticality] - criticalityOrder[a.criticality];
+          const criticalityOrder: Record<string, number> = { critical: 4, high: 3, medium: 2, low: 1 };
+          const aOrder = criticalityOrder[a.criticality || 'low'] || 0;
+          const bOrder = criticalityOrder[b.criticality || 'low'] || 0;
+          comparison = bOrder - aOrder;
           break;
         case 'status':
-          comparison = a.status.localeCompare(b.status);
+          comparison = (a.status || '').localeCompare(b.status || '');
           break;
         case 'lastReviewed':
-          comparison = new Date(b.lastReviewed).getTime() - new Date(a.lastReviewed).getTime();
+          const aTime = a.lastReviewed ? new Date(a.lastReviewed).getTime() : 0;
+          const bTime = b.lastReviewed ? new Date(b.lastReviewed).getTime() : 0;
+          comparison = bTime - aTime;
           break;
       }
       

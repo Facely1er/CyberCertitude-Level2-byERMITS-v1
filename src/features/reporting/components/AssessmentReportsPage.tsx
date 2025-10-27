@@ -43,7 +43,14 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
   };
 
   const filteredAndSortedAssessments = useMemo(() => {
+    if (!savedAssessments || !Array.isArray(savedAssessments)) return [];
+    
     const filtered = savedAssessments.filter(assessment => {
+      // Defensive checks
+      if (!assessment || typeof assessment !== 'object') {
+        return false;
+      }
+      
       const matchesSearch = (assessment.frameworkName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
                            (assessment.organizationInfo?.name || '').toLowerCase().includes(searchTerm.toLowerCase());
       const matchesFramework = filterFramework === 'all' || assessment.frameworkId === filterFramework;
@@ -60,7 +67,9 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       
       switch (sortBy) {
         case 'date':
-          comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
+          const aTime = a.lastModified ? new Date(a.lastModified).getTime() : 0;
+          const bTime = b.lastModified ? new Date(b.lastModified).getTime() : 0;
+          comparison = bTime - aTime;
           break;
         case 'score':
           comparison = calculateAssessmentScore(b) - calculateAssessmentScore(a);

@@ -496,6 +496,11 @@ CREATE INDEX IF NOT EXISTS idx_template_members_user_id ON project_template_memb
 ALTER TABLE project_templates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE project_template_members ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies if they exist before recreating
+DROP POLICY IF EXISTS "Authenticated users can read public templates" ON project_templates;
+DROP POLICY IF EXISTS "Template owners can manage their templates" ON project_templates;
+DROP POLICY IF EXISTS "Template members can view their templates" ON project_templates;
+
 -- Public templates are readable by all authenticated users
 CREATE POLICY "Authenticated users can read public templates" ON project_templates
     FOR SELECT USING (is_public = TRUE AND auth.role() = 'authenticated');
@@ -509,8 +514,11 @@ CREATE POLICY "Template members can view their templates" ON project_templates
         id IN (
             SELECT template_id FROM project_template_members 
             WHERE user_id = auth.uid()
-        )
-    );
+    )
+);
+
+-- Drop and recreate template membership policy
+DROP POLICY IF EXISTS "Users can view template membership" ON project_template_members;
 
 -- Template members can view membership
 CREATE POLICY "Users can view template membership" ON project_template_members
@@ -532,7 +540,9 @@ CREATE OR REPLACE FUNCTION create_project_from_template(
     project_slug VARCHAR(100),
     organization_name VARCHAR(255)
 )
-RETURNS UUID AS $$
+RETURNS UUID 
+SET search_path = public, pg_temp
+AS $$
 DECLARE
     new_project_id UUID;
     template_data RECORD;

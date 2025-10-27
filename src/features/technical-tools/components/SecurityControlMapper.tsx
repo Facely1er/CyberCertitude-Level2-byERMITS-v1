@@ -113,13 +113,21 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
 
   // Move all hooks to the top before any conditional returns
   const filteredMappings = React.useMemo(() => {
+    if (!mappings || !Array.isArray(mappings)) {
+      return [];
+    }
     return mappings.filter(mapping => {
+      // Defensive checks for mapping properties
+      if (!mapping || typeof mapping !== 'object') {
+        return false;
+      }
+      
       const matchesSource = filterSource === 'all' || mapping.sourceFramework === filterSource;
       const matchesTarget = filterTarget === 'all' || mapping.targetFramework === filterTarget;
       const matchesSearch = searchTerm === '' || 
-        mapping.sourceControl.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        mapping.targetControl.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        mapping.description.toLowerCase().includes(searchTerm.toLowerCase());
+        (mapping.sourceControl || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (mapping.targetControl || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (mapping.description || '').toLowerCase().includes(searchTerm.toLowerCase());
       
       return matchesSource && matchesTarget && matchesSearch;
     });

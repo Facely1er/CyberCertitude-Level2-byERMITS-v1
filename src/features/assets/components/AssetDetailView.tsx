@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Save, CreditCard as Edit3, X, Shield, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Clock, Users, MapPin, Settings, FileText, Server, Database, Building, Cloud, Tag, Calendar, Eye, Download, Plus, Trash2, Link2, Target } from 'lucide-react';
-import { Asset, SecurityControl, AssetDependency, Vulnerability } from '../../../shared/types/assets';
+import { Save, CreditCard as Edit3, X, Shield, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Users, MapPin, FileText, Server, Database, Building, Cloud, Plus, Trash2, Link2, Target } from 'lucide-react';
+import { Asset, AssetLocation } from '../../../shared/types/assets';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
@@ -74,6 +74,16 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
 
   const IconComponent = getCategoryIcon(asset.category);
 
+  // Helper function to normalize location (can be string or AssetLocation object)
+  const getLocationObject = (location: string | AssetLocation): AssetLocation => {
+    if (typeof location === 'string') {
+      return { address: location };
+    }
+    return location;
+  };
+
+  const location = getLocationObject(asset.location);
+
   return (
     <div className="container-responsive section-padding">
       {/* Breadcrumbs */}
@@ -98,13 +108,20 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       {asset.criticality} criticality
                     </span>
                     <span className="text-gray-600 dark:text-gray-300">
-                      {asset.category} • {asset.type}
+                      {asset.category} {asset.type && `• ${asset.type}`}
                     </span>
                   </div>
                 </div>
               </div>
             
             <div className="flex items-center space-x-3">
+              <button
+                onClick={onBack}
+                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              >
+                <X className="w-4 h-4" />
+                <span>Back</span>
+              </button>
               {isEditing ? (
                 <>
                   <button
@@ -319,12 +336,12 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         {isEditing ? (
                           <input
                             type="text"
-                            value={editedAsset.custodian}
+                            value={editedAsset.custodian || ''}
                             onChange={(e) => setEditedAsset(prev => ({ ...prev, custodian: e.target.value }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                         ) : (
-                          <p className="text-gray-900 dark:text-white">{asset.custodian}</p>
+                          <p className="text-gray-900 dark:text-white">{asset.custodian || 'Not specified'}</p>
                         )}
                       </div>
                     </div>
@@ -349,9 +366,9 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                           <div className="mb-3">
                             <div className="text-sm text-orange-700 dark:text-orange-300 mb-2">CUI Categories:</div>
                             <div className="flex flex-wrap gap-2">
-                              {asset.cuiCategory.map((category, index) => (
-                                <span key={index} className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 text-sm rounded-full font-medium">
-                                  {category.category.toUpperCase()}
+                              {asset.cuiCategory.filter(cat => cat && cat.category).map((cat: { category: string; description?: string }, idx: number) => (
+                                <span key={idx} className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 text-sm rounded-full font-medium">
+                                  {(cat.category || '').toUpperCase()}
                                 </span>
                               ))}
                             </div>
@@ -377,8 +394,8 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                           <div className="mt-3">
                             <div className="text-sm text-orange-700 dark:text-orange-300 mb-2">CUI Data Types:</div>
                             <div className="flex flex-wrap gap-1">
-                              {asset.cuiScope.dataTypes.map((dataType, index) => (
-                                <span key={index} className="px-2 py-1 bg-white dark:bg-gray-800 text-orange-800 dark:text-orange-200 text-xs rounded border border-orange-300 dark:border-orange-600">
+                              {asset.cuiScope.dataTypes.filter(dt => dt && typeof dt === 'string').map((dataType: string, idx: number) => (
+                                <span key={idx} className="px-2 py-1 bg-white dark:bg-gray-800 text-orange-800 dark:text-orange-200 text-xs rounded border border-orange-300 dark:border-orange-600">
                                   {dataType}
                                 </span>
                               ))}
@@ -428,13 +445,13 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         <div className="flex items-center space-x-2">
                           <MapPin className="w-4 h-4 text-gray-500" />
                           <span className="text-sm text-gray-900 dark:text-white">
-                            {asset.location.building ? `${asset.location.building}` : 'No building specified'}
-                            {asset.location.room && ` - Room ${asset.location.room}`}
+                            {location.building ? `${location.building}` : 'No building specified'}
+                            {location.room && ` - Room ${location.room}`}
                           </span>
                         </div>
-                        {asset.location.address && (
+                        {location.address && (
                           <div className="text-sm text-gray-600 dark:text-gray-300 ml-6">
-                            {asset.location.address}
+                            {location.address}
                           </div>
                         )}
                       </div>
@@ -511,14 +528,18 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                     </div>
                     
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                      <div>
-                        <span className="text-gray-600 dark:text-gray-300">Framework:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{control.framework}</div>
-                      </div>
-                      <div>
-                        <span className="text-gray-600 dark:text-gray-300">Family:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{control.controlFamily}</div>
-                      </div>
+                      {control.framework && (
+                        <div>
+                          <span className="text-gray-600 dark:text-gray-300">Framework:</span>
+                          <div className="font-medium text-gray-900 dark:text-white">{control.framework}</div>
+                        </div>
+                      )}
+                      {control.controlFamily && (
+                        <div>
+                          <span className="text-gray-600 dark:text-gray-300">Family:</span>
+                          <div className="font-medium text-gray-900 dark:text-white">{control.controlFamily}</div>
+                        </div>
+                      )}
                       <div>
                         <span className="text-gray-600 dark:text-gray-300">Last Tested:</span>
                         <div className="font-medium text-gray-900 dark:text-white">
@@ -559,7 +580,8 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               
               <div className="space-y-4">
                 {asset.dependencies?.map((dependency, index) => {
-                  const dependentAsset = allAssets.find(a => a.id === dependency.dependentAssetId);
+                  const dependentAsset = allAssets.find(a => a.id === (dependency.dependentAssetId || dependency.assetId));
+                  const impactLevel = dependency.criticalityImpact || dependency.criticality;
                   return (
                     <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                       <div className="flex items-center justify-between mb-2">
@@ -567,15 +589,15 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                           <Link2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                           <div>
                             <h4 className="font-medium text-gray-900 dark:text-white">
-                              {dependentAsset?.name || 'Unknown Asset'}
+                              {dependentAsset?.name || dependency.assetName || 'Unknown Asset'}
                             </h4>
                             <p className="text-sm text-gray-600 dark:text-gray-300">
                               {dependency.dependencyType.replace('-', ' ')} dependency
                             </p>
                           </div>
                         </div>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCriticalityColor(dependency.criticalityImpact)}`}>
-                          {dependency.criticalityImpact} impact
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCriticalityColor(impactLevel)}`}>
+                          {impactLevel} impact
                         </span>
                       </div>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -614,7 +636,7 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       <div>
                         <div className="flex items-center space-x-2 mb-2">
                           <h4 className="font-medium text-gray-900 dark:text-white">
-                            {vulnerability.title}
+                            {vulnerability.title || vulnerability.name}
                           </h4>
                           {vulnerability.cveId && (
                             <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
@@ -648,21 +670,25 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       <div>
                         <span className="text-gray-600 dark:text-gray-300">Discovered:</span>
                         <div className="font-medium text-gray-900 dark:text-white">
-                          {vulnerability.discoveredDate.toLocaleDateString()}
+                          {(vulnerability.discoveredDate || vulnerability.discovered).toLocaleDateString()}
                         </div>
                       </div>
-                      <div>
-                        <span className="text-gray-600 dark:text-gray-300">Priority:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">
-                          {vulnerability.remediation.priority}
+                      {typeof vulnerability.remediation === 'object' && vulnerability.remediation?.priority && (
+                        <div>
+                          <span className="text-gray-600 dark:text-gray-300">Priority:</span>
+                          <div className="font-medium text-gray-900 dark:text-white">
+                            {vulnerability.remediation.priority}
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <span className="text-gray-600 dark:text-gray-300">Target Date:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">
-                          {vulnerability.remediation.targetDate.toLocaleDateString()}
+                      )}
+                      {typeof vulnerability.remediation === 'object' && vulnerability.remediation?.targetDate && (
+                        <div>
+                          <span className="text-gray-600 dark:text-gray-300">Target Date:</span>
+                          <div className="font-medium text-gray-900 dark:text-white">
+                            {vulnerability.remediation.targetDate.toLocaleDateString()}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 )) || []}
@@ -700,19 +726,21 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       <div className="flex items-center justify-between">
                         <span className="text-gray-600 dark:text-gray-300">Last Assessment</span>
                         <span className="font-medium text-gray-900 dark:text-white">
-                          {asset.riskAssessment.lastAssessment.toLocaleDateString()}
+                          {(asset.riskAssessment.lastAssessment || asset.riskAssessment.lastAssessed).toLocaleDateString()}
                         </span>
                       </div>
                     </div>
                     
-                    <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <div className="flex items-center justify-between">
-                        <span className="text-gray-600 dark:text-gray-300">Next Assessment</span>
-                        <span className="font-medium text-gray-900 dark:text-white">
-                          {asset.riskAssessment.nextAssessment.toLocaleDateString()}
-                        </span>
+                    {asset.riskAssessment.nextAssessment && (
+                      <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div className="flex items-center justify-between">
+                          <span className="text-gray-600 dark:text-gray-300">Next Assessment</span>
+                          <span className="font-medium text-gray-900 dark:text-white">
+                            {asset.riskAssessment.nextAssessment.toLocaleDateString()}
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     
                     <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                       <div className="flex items-center justify-between">
@@ -727,38 +755,58 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
 
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white mb-4">Impact Assessment</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <span className="text-gray-600 dark:text-gray-300">Confidentiality</span>
-                      <span className={`px-2 py-1 rounded text-xs font-medium ${getCriticalityColor(asset.riskAssessment.impact.confidentiality)}`}>
-                        {asset.riskAssessment.impact.confidentiality}
+                  {typeof asset.riskAssessment.impact === 'object' && 'confidentiality' in asset.riskAssessment.impact ? (
+                    <>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                          <span className="text-gray-600 dark:text-gray-300">Confidentiality</span>
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${getCriticalityColor(asset.riskAssessment.impact.confidentiality)}`}>
+                            {asset.riskAssessment.impact.confidentiality}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                          <span className="text-gray-600 dark:text-gray-300">Integrity</span>
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${getCriticalityColor(asset.riskAssessment.impact.integrity)}`}>
+                            {asset.riskAssessment.impact.integrity}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                          <span className="text-gray-600 dark:text-gray-300">Availability</span>
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${getCriticalityColor(asset.riskAssessment.impact.availability)}`}>
+                            {asset.riskAssessment.impact.availability}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {(asset.riskAssessment.impact.financialImpact || asset.riskAssessment.impact.operationalImpact) && (
+                        <>
+                          <h4 className="font-medium text-gray-900 dark:text-white mb-4 mt-6">Business Impact</h4>
+                          <div className="space-y-3 text-sm">
+                            {asset.riskAssessment.impact.financialImpact && (
+                              <div>
+                                <span className="text-gray-600 dark:text-gray-300">Financial Impact:</span>
+                                <p className="text-gray-900 dark:text-white mt-1">{asset.riskAssessment.impact.financialImpact}</p>
+                              </div>
+                            )}
+                            {asset.riskAssessment.impact.operationalImpact && (
+                              <div>
+                                <span className="text-gray-600 dark:text-gray-300">Operational Impact:</span>
+                                <p className="text-gray-900 dark:text-white mt-1">{asset.riskAssessment.impact.operationalImpact}</p>
+                              </div>
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <span className="text-gray-600 dark:text-gray-300">
+                        Impact Level: <span className={`px-2 py-1 rounded text-xs font-medium ml-2 ${getCriticalityColor(asset.riskAssessment.impact as string)}`}>
+                          {asset.riskAssessment.impact}
+                        </span>
                       </span>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <span className="text-gray-600 dark:text-gray-300">Integrity</span>
-                      <span className={`px-2 py-1 rounded text-xs font-medium ${getCriticalityColor(asset.riskAssessment.impact.integrity)}`}>
-                        {asset.riskAssessment.impact.integrity}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <span className="text-gray-600 dark:text-gray-300">Availability</span>
-                      <span className={`px-2 py-1 rounded text-xs font-medium ${getCriticalityColor(asset.riskAssessment.impact.availability)}`}>
-                        {asset.riskAssessment.impact.availability}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-4 mt-6">Business Impact</h4>
-                  <div className="space-y-3 text-sm">
-                    <div>
-                      <span className="text-gray-600 dark:text-gray-300">Financial Impact:</span>
-                      <p className="text-gray-900 dark:text-white mt-1">{asset.riskAssessment.impact.financialImpact}</p>
-                    </div>
-                    <div>
-                      <span className="text-gray-600 dark:text-gray-300">Operational Impact:</span>
-                      <p className="text-gray-900 dark:text-white mt-1">{asset.riskAssessment.impact.operationalImpact}</p>
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

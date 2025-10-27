@@ -341,11 +341,19 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
   // Filter and sort assessments
   const filteredAndSortedAssessments = useMemo(() => {
-    if (!savedAssessments) return [];
+    if (!savedAssessments || !Array.isArray(savedAssessments)) return [];
     
     const filtered = savedAssessments.filter(assessment => {
-      const matchesSearch = assessment.frameworkName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           (assessment.organizationInfo?.name || '').toLowerCase().includes(searchTerm.toLowerCase());
+      // Defensive checks
+      if (!assessment || typeof assessment !== 'object') {
+        return false;
+      }
+      
+      const frameworkName = assessment.frameworkName || '';
+      const orgName = assessment.organizationInfo?.name || '';
+      
+      const matchesSearch = frameworkName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           orgName.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = filterStatus === 'all' || 
                            (filterStatus === 'completed' && assessment.isComplete) ||
                            (filterStatus === 'inProgress' && !assessment.isComplete);
@@ -363,17 +371,19 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       
       switch (sortBy) {
         case 'date':
-          comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
+          const aTime = a.lastModified ? new Date(a.lastModified).getTime() : 0;
+          const bTime = b.lastModified ? new Date(b.lastModified).getTime() : 0;
+          comparison = bTime - aTime;
           break;
         case 'score':
           comparison = calculateAssessmentScore(b) - calculateAssessmentScore(a);
           break;
         case 'name':
-          comparison = a.frameworkName.localeCompare(b.frameworkName);
+          comparison = (a.frameworkName || '').localeCompare(b.frameworkName || '');
           break;
         case 'progress':
-          const progressA = Object.keys(a.responses).length;
-          const progressB = Object.keys(b.responses).length;
+          const progressA = a.responses ? Object.keys(a.responses).length : 0;
+          const progressB = b.responses ? Object.keys(b.responses).length : 0;
           comparison = progressB - progressA;
           break;
       }

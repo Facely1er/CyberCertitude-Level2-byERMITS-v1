@@ -130,9 +130,19 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
   };
 
   const filteredTasks = useMemo(() => {
+    if (!tasks || !Array.isArray(tasks)) {
+      return [];
+    }
     return tasks.filter(task => {
-      const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           task.description.toLowerCase().includes(searchTerm.toLowerCase());
+      // Defensive checks for task properties
+      if (!task || typeof task !== 'object') {
+        return false;
+      }
+      
+      const taskTitle = task.title || '';
+      const taskDescription = task.description || '';
+      const matchesSearch = taskTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           taskDescription.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesFunction = !filters.nistFunction?.length || filters.nistFunction.includes(task.nistFunction);
       const matchesType = !filters.type?.length || filters.type.includes(task.type);

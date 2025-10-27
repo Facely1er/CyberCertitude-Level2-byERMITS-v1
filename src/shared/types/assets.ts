@@ -3,19 +3,22 @@ export interface Asset {
   name: string;
   description: string;
   category: 'hardware' | 'software' | 'data' | 'personnel' | 'facilities' | 'services';
+  subcategory?: string;
+  type: string;
   criticality: 'low' | 'medium' | 'high' | 'critical';
-  status: 'active' | 'inactive' | 'maintenance' | 'quarantined' | 'disposed';
+  status: 'active' | 'inactive' | 'maintenance' | 'quarantined' | 'disposed' | 'decommissioned';
   informationClassification: 'public' | 'internal' | 'confidential' | 'restricted' | 'top-secret';
   owner: string;
+  custodian?: string;
   department: string;
-  location: string;
+  location: AssetLocation | string;
   businessValue: 'low' | 'medium' | 'high' | 'critical';
   riskAssessment: RiskAssessment;
-  controls: AssetControl[];
-  vulnerabilities: AssetVulnerability[];
+  controls?: AssetControl[];
+  vulnerabilities?: AssetVulnerability[];
   lifecycle: AssetLifecycle;
   compliance: ComplianceInfo;
-  dependencies: AssetDependency[];
+  dependencies?: AssetDependency[];
   tags: string[];
   createdAt: Date;
   updatedAt: Date;
@@ -26,17 +29,63 @@ export interface Asset {
   attachments?: AssetAttachment[];
   customFields?: Record<string, any>;
   metadata?: AssetMetadata;
+  handlesCUI?: boolean;
+  cuiCategory?: CUICategory[];
+  cmmcApplicability?: CMMCApplicability;
+  cuiScope?: CUIScope;
+}
+
+export interface AssetLocation {
+  type?: 'physical' | 'cloud' | 'hybrid';
+  building?: string;
+  floor?: string;
+  room?: string;
+  address?: string;
+  rack?: string;
+  slot?: string;
+}
+
+export interface CUICategory {
+  category: string;
+  description?: string;
+}
+
+export interface CMMCApplicability {
+  level: number;
+  domains?: string[];
+  controls?: string[];
+  maturityProcesses?: string[];
+  assessmentScope: 'full' | 'partial' | 'not-applicable';
+}
+
+export interface CUIScope {
+  inScope: boolean;
+  scopeJustification?: string;
+  boundaryDefinition?: string;
+  dataTypes?: string[];
+  systems?: string[];
+  networks?: string[];
 }
 
 interface RiskAssessment {
   overallRisk: 'low' | 'medium' | 'high' | 'critical';
   riskFactors: RiskFactor[];
-  impact: 'low' | 'medium' | 'high' | 'critical';
+  impact: RiskImpactAssessment | 'low' | 'medium' | 'high' | 'critical';
   likelihood: 'low' | 'medium' | 'high' | 'critical';
   lastAssessed: Date;
+  lastAssessment?: Date;
+  nextAssessment?: Date;
   assessedBy: string;
   mitigationStrategies: string[];
   residualRisk: 'low' | 'medium' | 'high' | 'critical';
+}
+
+interface RiskImpactAssessment {
+  confidentiality: 'low' | 'medium' | 'high' | 'critical';
+  integrity: 'low' | 'medium' | 'high' | 'critical';
+  availability: 'low' | 'medium' | 'high' | 'critical';
+  financialImpact?: string;
+  operationalImpact?: string;
 }
 
 interface RiskFactor {
@@ -55,31 +104,41 @@ interface AssetControl {
   name: string;
   description: string;
   type: 'preventive' | 'detective' | 'corrective' | 'compensating';
-  implementationStatus: 'not-implemented' | 'planned' | 'in-progress' | 'implemented' | 'tested';
+  implementationStatus: 'not-implemented' | 'planned' | 'in-progress' | 'implemented' | 'tested' | 'partially-implemented' | 'not-applicable';
   effectiveness: 'low' | 'medium' | 'high';
   lastTested: Date;
   nextTest: Date;
-  responsible: string;
+  responsible?: string;
   complianceMapping: string[];
   evidence: string[];
   notes?: string;
+  framework?: string;
+  controlFamily?: string;
 }
 
 interface AssetVulnerability {
   id: string;
   name: string;
+  title?: string;
   description: string;
   severity: 'low' | 'medium' | 'high' | 'critical';
   status: 'open' | 'in-progress' | 'resolved' | 'accepted';
   discovered: Date;
+  discoveredDate?: Date;
   lastUpdated: Date;
   assignedTo: string;
-  remediation: string;
+  remediation: string | VulnerabilityRemediation;
   dueDate?: Date;
   cveId?: string;
   cvssScore?: number;
   affectedSystems: string[];
   evidence: string[];
+}
+
+interface VulnerabilityRemediation {
+  priority: string;
+  targetDate: Date;
+  description?: string;
 }
 
 interface AssetLifecycle {
@@ -197,10 +256,12 @@ interface ComplianceRecommendation {
 export interface AssetDependency {
   id: string;
   assetId: string;
+  dependentAssetId?: string;
   assetName: string;
   dependencyType: 'prerequisite' | 'dependent' | 'related' | 'conflicting';
   description: string;
   criticality: 'low' | 'medium' | 'high' | 'critical';
+  criticalityImpact?: 'low' | 'medium' | 'high' | 'critical';
   status: 'active' | 'inactive' | 'deprecated';
   lastUpdated: Date;
 }
@@ -258,6 +319,15 @@ interface AssetFilter {
   };
 }
 
+export interface AssetInventoryFilter {
+  categories?: string[];
+  criticality?: string[];
+  status?: string[];
+  classification?: string[];
+  owner?: string[];
+  department?: string[];
+}
+
 interface AssetSearchResult {
   assets: Asset[];
   totalCount: number;
@@ -294,3 +364,9 @@ interface AssetExportOptions {
   };
   filters?: AssetFilter;
 }
+
+// Type aliases for common Asset types
+export type AssetCategory = 'hardware' | 'software' | 'data' | 'personnel' | 'facilities' | 'services';
+export type CriticalityLevel = 'low' | 'medium' | 'high' | 'critical';
+export type AssetStatus = 'active' | 'inactive' | 'maintenance' | 'quarantined' | 'disposed' | 'decommissioned';
+export type InformationClassification = 'public' | 'internal' | 'confidential' | 'restricted' | 'top-secret';
