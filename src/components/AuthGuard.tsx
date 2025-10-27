@@ -20,6 +20,13 @@ const AuthGuard: React.FC<AuthGuardProps> = ({
 }) => {
   const authState = useAuth();
   const [showSetupWarning, setShowSetupWarning] = useState(false);
+
+  useEffect(() => {
+    // In production, require proper authentication
+    if (import.meta.env.PROD && !isSupabaseReady) {
+      setShowSetupWarning(true);
+    }
+  }, []);
   
   // Safety check for auth state
   if (!authState) {
@@ -34,13 +41,6 @@ const AuthGuard: React.FC<AuthGuardProps> = ({
   }
   
   const { user, isLoading, isAuthenticated } = authState;
-
-  useEffect(() => {
-    // In production, require proper authentication
-    if (import.meta.env.PROD && !isSupabaseReady) {
-      setShowSetupWarning(true);
-    }
-  }, []);
 
   // Show loading state
   if (isLoading) {
