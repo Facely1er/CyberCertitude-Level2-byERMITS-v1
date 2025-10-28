@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Target, GitBranch as GitBranchIcon, Activity, Calendar, CheckSquare, BookOpen } from 'lucide-react';
 import { Breadcrumbs } from '../shared/components/layout/Breadcrumbs';
 import { 
@@ -9,6 +10,7 @@ import { assetService } from '../services/assetService';
 
 // Wrapper components that provide necessary data
 const AssetDashboardWrapper = () => {
+  const navigate = useNavigate();
   const [assets] = React.useState(() => assetService.getAllAssets());
   
   return (
@@ -16,12 +18,12 @@ const AssetDashboardWrapper = () => {
       assets={assets || []}
       onViewAsset={(asset) => console.log('View asset:', asset)}
       onCreateAsset={() => console.log('Create asset')}
-      onViewInventory={() => window.location.href = '/assets/inventory'}
-      onViewCategories={() => window.location.href = '/assets/categories'}
-      onViewDependencies={() => window.location.href = '/assets/dependencies'}
-      onViewWorkflow={() => window.location.href = '/assets/workflow'}
-      onViewRoadmap={() => window.location.href = '/assets/roadmap'}
-      onViewActionPlan={() => window.location.href = '/assets/action-plan'}
+      onViewInventory={() => navigate('/assets/inventory')}
+      onViewCategories={() => navigate('/assets/categories')}
+      onViewDependencies={() => navigate('/assets/dependencies')}
+      onViewWorkflow={() => navigate('/assets/workflow')}
+      onViewRoadmap={() => navigate('/assets/roadmap')}
+      onViewActionPlan={() => navigate('/assets/action-plan')}
     />
   );
 };

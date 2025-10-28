@@ -17,9 +17,8 @@ import AuditPackage from '../features/implementation/components/AuditPackage';
 import C3PAOPrep from '../features/implementation/components/C3PAOPrep';
 import MetricsDashboard from '../features/implementation/components/MetricsDashboard';
 import CertificationTracking from '../features/implementation/components/CertificationTracking';
-import PoliciesPage from '../features/reporting/components/PoliciesPage';
 import AuditLogsPage from '../features/audit/components/AuditLogsPage';
-import ControlsManagement from '../features/compliance/components/ControlsManagement';
+import { PolicyManagementView, ControlsManagementView } from '../components/LazyComponents';
 
 export const implementationRoutes = [
   {
@@ -119,7 +118,7 @@ export const implementationRoutes = [
   },
   {
     path: "/policies",
-    element: PoliciesPage,
+    element: PolicyManagementView,
     title: "Policy Management"
   },
   {
@@ -129,7 +128,7 @@ export const implementationRoutes = [
   },
   {
     path: "/controls",
-    element: ControlsManagement,
+    element: ControlsManagementView,
     title: "Controls Management"
   }
 ];

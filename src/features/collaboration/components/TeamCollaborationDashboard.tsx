@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Users, UserPlus, Calendar, SquareCheck as CheckSquare, MessageSquare, Bell, Settings, Search, ListFilter as Filter, RefreshCw, Plus, Target, Clock, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Activity } from 'lucide-react';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 import { teamService, TeamMember, TeamTask, TeamMeeting, TeamFilters } from '@/services/teamService';
 import { logger } from '@/utils/logger';

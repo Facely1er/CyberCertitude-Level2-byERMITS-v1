@@ -5,7 +5,7 @@ import { Asset, AssetMetrics } from '@/shared/types/assets';
 import { PieChart } from '@/shared/components/charts/PieChart';
 import { BarChart } from '@/shared/components/charts/BarChart';
 import { RelatedLinks, EmptyState } from '@/shared/components/ui';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 import { logger } from '@/utils/logger';
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FileText, Upload, Download, Eye, CreditCard as Edit, Trash2, Plus, Save, Search, ListFilter as Filter, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Clock, Shield, Database, Users, Settings, BookOpen, ExternalLink, RefreshCw, Calendar, Tag, Archive, Share2, ArrowLeft, Award, Target } from 'lucide-react';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 
 interface EvidenceItem {
   id: string;

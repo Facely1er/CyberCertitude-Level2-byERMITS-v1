@@ -25,7 +25,7 @@ import {
   X,
   ChevronRight
 } from 'lucide-react';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 
 interface DataElement {

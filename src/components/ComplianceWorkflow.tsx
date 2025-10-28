@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, CheckCircle, Clock, Target, Award, Play, ArrowRight, Shield, FileText, Users, Calendar, Settings, BarChart3, Activity, Zap, Building, Eye, Download, Plus, UserCheck, Briefcase, PenTool as Tool, Database, Search, AlertTriangle } from 'lucide-react';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 
 interface WorkflowPhase {

@@ -3,7 +3,7 @@ import {
   Shield, CheckCircle, AlertTriangle, Clock, Target, 
   Plus, Search, Eye, Edit3, RefreshCw, Download, Filter
 } from 'lucide-react';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 import { controlsService, Control, ControlFilters } from '@/services/controlsService';
 import { logger } from '@/utils/logger';

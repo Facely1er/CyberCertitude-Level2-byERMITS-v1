@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CircleCheck as CheckCircle, Circle as XCircle, TriangleAlert as AlertTriangle, Clock, Shield, ChartBar as BarChart3, TrendingUp, TrendingDown, RefreshCw, Download, Eye, Settings, Users, FileText, Database, Target, Calendar, ExternalLink, Play, Pause, Store as Stop } from 'lucide-react';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 
 interface ComplianceMetric {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CircleCheck as CheckCircle, Circle as XCircle, TriangleAlert as AlertTriangle, Shield, FileText, Eye, CreditCard as Edit, Save, Download, Search, ListFilter as Filter, ChartBar as BarChart3, Target, Clock, Users, Database, Settings, BookOpen, ExternalLink, RefreshCw, Plus, Trash2, ArrowLeft } from 'lucide-react';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 
 interface CMMCControl {
   id: string;
@@ -519,6 +519,28 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
   const [showControlDetails, setShowControlDetails] = useState(false);
   const [overallProgress, setOverallProgress] = useState(0);
 
+  // Filter domains based on search, assessment, priority, and level
+  const filteredDomains = domains.map(domain => ({
+    ...domain,
+    controls: domain.controls.filter(control => {
+      // Level filtering
+      const controlLevel = parseInt(control.id.split('.')[1]);
+      const matchesLevel = controlLevel === selectedLevel;
+      
+      // Search filtering
+      const matchesSearch = searchTerm === '' || 
+        control.practice.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        control.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        control.description.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      // Assessment and priority filtering
+      const matchesAssessment = filterAssessment === 'all' || control.assessment === filterAssessment;
+      const matchesPriority = filterPriority === 'all' || control.priority === filterPriority;
+      
+      return matchesLevel && matchesSearch && matchesAssessment && matchesPriority;
+    })
+  })).filter(domain => domain.controls.length > 0);
+
   // Calculate overall progress
   useEffect(() => {
     const totalControls = filteredDomains.reduce((acc, domain) => acc + domain.controls.length, 0);
@@ -618,27 +640,6 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
       default: return <Shield className="w-5 h-5" />;
     }
   };
-
-  const filteredDomains = domains.map(domain => ({
-    ...domain,
-    controls: domain.controls.filter(control => {
-      // Level filtering
-      const controlLevel = parseInt(control.id.split('.')[1]);
-      const matchesLevel = controlLevel === selectedLevel;
-      
-      // Search filtering
-      const matchesSearch = searchTerm === '' || 
-        control.practice.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        control.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        control.description.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      // Assessment and priority filtering
-      const matchesAssessment = filterAssessment === 'all' || control.assessment === filterAssessment;
-      const matchesPriority = filterPriority === 'all' || control.priority === filterPriority;
-      
-      return matchesLevel && matchesSearch && matchesAssessment && matchesPriority;
-    })
-  })).filter(domain => domain.controls.length > 0);
 
   const renderOverview = () => (
     <div className="space-y-6">

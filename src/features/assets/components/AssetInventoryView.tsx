@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Search, ListFilter as Filter, Plus, Download, Upload, Eye, CreditCard as Edit3, Trash2, Shield, Server, Database, Users, Building, FileText, Cloud, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Clock, Target, Settings, ChevronDown, ChevronRight, ChartBar as BarChart3, Tag, MapPin } from 'lucide-react';
 import { Asset, AssetInventoryFilter, AssetCategory, CriticalityLevel, AssetStatus, InformationClassification } from '@/shared/types/assets';
 import { SearchAndFilter, EmptyState, LoadingTable } from '@/shared/components/ui';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 
 interface AssetInventoryViewProps {

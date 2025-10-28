@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CircleCheck as CheckCircle, Shield, FileText, Settings, Target, Play, ArrowRight, ArrowLeft, Download, BookOpen, SquareCheck as CheckSquare, Save } from 'lucide-react';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import LevelSelector from '@/components/LevelSelector';
 
 interface CMMCJourneyStep {

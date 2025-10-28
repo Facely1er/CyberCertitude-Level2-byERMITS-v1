@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, ChartBar as BarChart3, TrendingUp, TrendingDown, TriangleAlert as AlertTriangle, Target, RefreshCw, Activity, Zap, Calendar, FileText } from 'lucide-react';
 import { logger } from '@/utils/logger';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { 
   RealTimeComplianceData

@@ -6,7 +6,7 @@ import {
   Target, Award,
   ArrowRight, Building, Shield, Users, Activity
 } from 'lucide-react';
-import { Breadcrumbs } from '@/shared/components/layout';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { QuickNavigationPanel, RelatedLinks, EmptyState, SearchAndFilter } from '@/shared/components/ui';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 import { AssessmentData, UserProfile } from '@/shared/types';
