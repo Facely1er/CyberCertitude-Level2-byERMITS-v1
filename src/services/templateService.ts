@@ -95,7 +95,7 @@ class TemplateService {
         id: 'cmmc-military-contractor',
 
         name: 'CMMC 2.0 Level 2 - Military Contractor Template',
-        description: 'Comprehensive CMMC 2.0 Level 2 assessment template specifically designed for Military contractors handling CUI.',
+        description: 'Comprehensive CMMC 2.0 Level 2 assessment template specifically designed for Government contractors handling CUI.',
         frameworkId: 'cmmc',
         industry: 'military',
         prefilledResponses: {

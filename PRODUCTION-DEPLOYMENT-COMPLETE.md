@@ -184,7 +184,7 @@ The CMMC 2.0 Level 2 Compliance Platform is now **100% ready** for production de
 
 ---
 
-**The platform is ready to support Military contractors in achieving CMMC 2.0 Level 2 certification with enterprise-grade security and performance.**
+**The platform is ready to support Government contractors in achieving CMMC 2.0 Level 2 certification with enterprise-grade security and performance.**
 
 ---
 

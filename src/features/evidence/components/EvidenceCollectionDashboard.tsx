@@ -591,7 +591,7 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
                 <div>
 
                   <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-green-700 dark:group-hover:text-green-300">CMMC 2.0 Level 2</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Military Contractors</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Government Contractors</p>
                 </div>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-300">

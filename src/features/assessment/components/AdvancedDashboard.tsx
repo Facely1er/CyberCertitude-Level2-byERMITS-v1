@@ -856,7 +856,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
 
-                Complete CMMC 2.0 Level 2 assessment with all 110 controls for Military contractors handling Controlled Unclassified Information (CUI).
+                Complete CMMC 2.0 Level 2 assessment with all 110 controls for Government contractors handling Controlled Unclassified Information (CUI).
               </p>
             </button>
             

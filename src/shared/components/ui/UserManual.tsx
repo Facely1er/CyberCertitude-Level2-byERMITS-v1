@@ -27,7 +27,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack, onNavigate, onSh
         {
 
           title: 'Welcome to the CMMC 2.0 Level 2 Compliance Platform',
-          content: `This comprehensive platform helps Military contractors achieve CMMC 2.0 Level 2 certification by identifying gaps, implementing required controls, and preparing for C3PAO assessment. Whether you're a CISO, compliance officer, or implementation team member, this tool provides everything needed for CMMC compliance.`
+          content: `This comprehensive platform helps Government contractors achieve CMMC 2.0 Level 2 certification by identifying gaps, implementing required controls, and preparing for C3PAO assessment. Whether you're a CISO, compliance officer, or implementation team member, this tool provides everything needed for CMMC compliance.`
         },
         {
           title: 'System Requirements',
@@ -60,7 +60,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack, onNavigate, onSh
           content: `
             **Overview**: Military cybersecurity standard for contractors handling Controlled Unclassified Information (CUI).
             
-            **Best For**: Military contractors and suppliers in the military supply chain
+            **Best For**: Government contractors and suppliers in the government supply chain
             **Estimated Time**: 240 minutes
             **Domains**: 14 security domains with 110 controls
             

@@ -32,7 +32,7 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
         {
           title: 'Welcome to CyberCertitude™ CMMC Platform',
 
-          content: `This comprehensive platform helps Military contractors achieve CMMC 2.0 Level 2 certification by identifying gaps, implementing required controls, and preparing for C3PAO assessment. Whether you're a CISO, compliance officer, or implementation team member, this tool provides everything needed for CMMC compliance.`,
+          content: `This comprehensive platform helps Government contractors achieve CMMC 2.0 Level 2 certification by identifying gaps, implementing required controls, and preparing for C3PAO assessment. Whether you're a CISO, compliance officer, or implementation team member, this tool provides everything needed for CMMC compliance.`,
           features: [
             'Complete CMMC 2.0 Level 2 assessment (110 controls)',
             'Automated SSP and POAM generation',

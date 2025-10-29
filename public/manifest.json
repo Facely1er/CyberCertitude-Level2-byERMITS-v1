@@ -1,7 +1,7 @@
 {
   "name": "CyberCertitude™ - CMMC 2.0 Compliance Portal",
   "short_name": "CMMC Platform",
-  "description": "CMMC 2.0 Level 2 compliance platform for Military contractors with assessment, SSP generation, and C3PAO preparation",
+  "description": "CMMC 2.0 Level 2 compliance platform for Government contractors with assessment, SSP generation, and C3PAO preparation",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1a1a1a",
@@ -89,7 +89,7 @@
       ]
     }
   ],
-  "categories": ["business", "productivity", "security", "compliance", "military"],
+  "categories": ["business", "productivity", "security", "compliance", "government"],
   "lang": "en-US",
   "dir": "ltr",
   "prefer_related_applications": false,

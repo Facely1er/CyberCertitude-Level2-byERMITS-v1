@@ -2,7 +2,7 @@
 
 ## Overview
 
-The CMMC 2.0 Level 2 Compliance Platform includes comprehensive user documentation and interactive onboarding to help Military contractors achieve CMMC certification efficiently.
+The CMMC 2.0 Level 2 Compliance Platform includes comprehensive user documentation and interactive onboarding to help Government contractors achieve CMMC certification efficiently.
 
 ## 🚀 Enhanced Onboarding System
 
@@ -218,4 +218,4 @@ The platform provides customized onboarding based on user roles:
 
 ---
 
-**The CMMC 2.0 Level 2 Compliance Platform provides comprehensive user support through interactive onboarding and detailed documentation, ensuring successful CMMC certification for Military contractors.**
+**The CMMC 2.0 Level 2 Compliance Platform provides comprehensive user support through interactive onboarding and detailed documentation, ensuring successful CMMC certification for Government contractors.**

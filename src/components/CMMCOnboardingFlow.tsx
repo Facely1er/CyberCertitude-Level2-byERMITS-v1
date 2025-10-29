@@ -77,7 +77,7 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
             </h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
 
-              Your comprehensive CMMC 2.0 Level 2 compliance platform designed specifically for Military contractors
+              Your comprehensive CMMC 2.0 Level 2 compliance platform designed specifically for Government contractors
             </p>
           </div>
 
@@ -124,7 +124,7 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
                 <h4 className="font-medium text-yellow-900 dark:text-yellow-100">Important Note</h4>
                 <p className="text-sm text-yellow-800 dark:text-yellow-200 mt-1">
 
-                  CMMC 2.0 Level 2 compliance is mandatory for Military contractors handling Controlled Unclassified Information (CUI). 
+                  CMMC 2.0 Level 2 compliance is mandatory for Government contractors handling Controlled Unclassified Information (CUI). 
                   This platform will guide you through the entire process.
                 </p>
               </div>

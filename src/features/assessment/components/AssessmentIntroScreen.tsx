@@ -77,7 +77,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
   const getFrameworkBenefits = (frameworkId: string) => {
     // CMMC-only benefits
     return [
-      'Required for Military contractors and suppliers',
+      'Required for Government contractors and suppliers',
       'Protects Controlled Unclassified Information (CUI)',
       'Ensures military supply chain cybersecurity',
       'Maintains eligibility for military contracts',

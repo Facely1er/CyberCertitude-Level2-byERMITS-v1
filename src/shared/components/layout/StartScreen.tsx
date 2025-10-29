@@ -183,7 +183,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
             </div>
             
             <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-              The complete solution for military contractors to achieve and maintain CMMC 2.0 Level 2 certification 
+              The complete solution for government contractors to achieve and maintain CMMC 2.0 Level 2 certification 
               with integrated NIST CSF alignment and comprehensive compliance management.
             </p>
           </div>
@@ -271,7 +271,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
               CMMC 2.0 Level 2 Solution
             </h2>
             <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
-              Comprehensive platform designed specifically for Military contractors seeking CMMC certification
+              Comprehensive platform designed specifically for Government contractors seeking CMMC certification
             </p>
           </div>
           

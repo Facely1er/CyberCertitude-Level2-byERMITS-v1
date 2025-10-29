@@ -6,12 +6,12 @@
   "engines": {
     "node": ">=20.19.0"
   },
-  "description": "CMMC 2.0 Level 2 compliance platform for Military contractors with assessment, evidence collection, SSP generation, and C3PAO preparation",
+  "description": "CMMC 2.0 Level 2 compliance platform for Government contractors with assessment, evidence collection, SSP generation, and C3PAO preparation",
   "keywords": [
     "cmmc",
     "cmmc 2.0 level 2",
-    "military",
-    "military contractors",
+    "government",
+    "government contractors",
     "certification",
     "compliance",
     "assessment",

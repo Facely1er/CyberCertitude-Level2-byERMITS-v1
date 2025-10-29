@@ -151,7 +151,7 @@ This platform provides DoD contractors with a structured approach to achieve CMM
 
 ## 👥 Target Users
 
-### Military Contractors
+### Government Contractors
 - **Prime Contractors**: Organizations with direct Military contracts requiring CMMC certification
 - **Subcontractors**: Suppliers and partners in the Military supply chain
 - **System Integrators**: Organizations providing technology solutions to Military entities
@@ -274,6 +274,6 @@ This platform provides DoD contractors with a structured approach to achieve CMM
 
 ---
 
-**CyberCertitude™ CMMC 2.0 Compliance Portal** - Streamline your CMMC certification journey with comprehensive assessment, evidence collection, and implementation monitoring specifically designed for Military contractors.
+**CyberCertitude™ CMMC 2.0 Compliance Portal** - Streamline your CMMC certification journey with comprehensive assessment, evidence collection, and implementation monitoring specifically designed for Government contractors.
 
 For technical support and implementation guidance, contact your CMMC consultant or C3PAO assessor.

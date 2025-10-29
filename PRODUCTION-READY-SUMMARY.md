@@ -192,7 +192,7 @@ VITE_ENABLE_MFA=true
 
 ## 🎯 **Key Benefits Achieved**
 
-### **For Military Contractors**
+### **For Government Contractors**
 - **Complete CMMC 2.0 Level 2 compliance** platform
 - **Enterprise-grade security** with MFA
 - **Real-time compliance monitoring** and analytics
@@ -251,7 +251,7 @@ The CMMC 2.0 Level 2 Compliance Platform is now **100% production-ready** with:
 - ✅ **Production validation** - All checks passing
 - ✅ **Comprehensive documentation** - Ready for deployment
 
-**The platform is ready for immediate production deployment and can effectively support Military contractors in achieving CMMC 2.0 Level 2 certification.**
+**The platform is ready for immediate production deployment and can effectively support Government contractors in achieving CMMC 2.0 Level 2 certification.**
 
 ---
 

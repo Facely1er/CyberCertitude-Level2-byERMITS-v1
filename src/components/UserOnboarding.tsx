@@ -33,7 +33,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
       id: 'welcome',
       title: 'Welcome to CyberCertitude™ CMMC',
 
-      description: 'Your comprehensive CMMC 2.0 Level 2 compliance platform for Military contractors protecting Controlled Unclassified Information.',
+      description: 'Your comprehensive CMMC 2.0 Level 2 compliance platform for Government contractors protecting Controlled Unclassified Information.',
       icon: Shield
     },
     {
