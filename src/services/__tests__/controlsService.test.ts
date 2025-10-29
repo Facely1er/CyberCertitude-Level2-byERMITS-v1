@@ -2,10 +2,14 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { controlsService } from '../controlsService';
 import { dataService } from '../dataService';
 
+// Extend the mock to include methods used by controlsService
+const mockDataService = {
+  getData: vi.fn(() => ({ controls: [] })),
+  saveData: vi.fn().mockResolvedValue(undefined)
+};
+
 vi.mock('../dataService', () => ({
-  dataService: {
-    getData: vi.fn()
-  }
+  dataService: mockDataService
 }));
 
 vi.mock('../../utils/logger', () => ({
@@ -18,83 +22,83 @@ vi.mock('../../utils/logger', () => ({
 describe('ControlsService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(dataService.getData).mockReturnValue({ controls: [] });
+    (dataService as any).getData = vi.fn(() => ({ controls: [] }));
   });
 
   describe('Control retrieval', () => {
-    it('should get all controls', () => {
+    it('should get all controls', async () => {
       const mockControls = [
         { id: 'AC.1.001', name: 'Control 1' },
         { id: 'AC.1.002', name: 'Control 2' }
       ];
-      vi.mocked(dataService.getData).mockReturnValue({ controls: mockControls });
+      (dataService as any).getData = vi.fn(() => ({ controls: mockControls }));
 
-      const controls = controlsService.getAllControls();
+      const controls = await controlsService.getControls();
       expect(controls).toEqual(mockControls);
     });
 
-    it('should get control by ID', () => {
+    it('should get control by ID', async () => {
       const mockControls = [{ id: 'AC.1.001', name: 'Control 1' }];
-      vi.mocked(dataService.getData).mockReturnValue({ controls: mockControls });
+      (dataService as any).getData = vi.fn(() => ({ controls: mockControls }));
 
-      const control = controlsService.getControlById('AC.1.001');
+      const control = await controlsService.getControl('AC.1.001');
       expect(control).toBeDefined();
       expect(control?.name).toBe('Control 1');
     });
 
-    it('should return null for non-existent control', () => {
-      vi.mocked(dataService.getData).mockReturnValue({ controls: [] });
-      const control = controlsService.getControlById('non-existent');
+    it('should return null for non-existent control', async () => {
+      (dataService as any).getData = vi.fn(() => ({ controls: [] }));
+      const control = await controlsService.getControl('non-existent');
       expect(control).toBeNull();
     });
   });
 
   describe('Control filtering', () => {
-    it('should filter controls by status', () => {
+    it('should filter controls by status', async () => {
       const mockControls = [
-        { id: 'AC.1.001', status: 'implemented' },
-        { id: 'AC.1.002', status: 'in-progress' }
+        { id: 'AC.1.001', status: 'implemented', name: 'Control 1' as any, nistFunction: 'AC' as any },
+        { id: 'AC.1.002', status: 'in-progress', name: 'Control 2' as any, nistFunction: 'AC' as any }
       ];
-      vi.mocked(dataService.getData).mockReturnValue({ controls: mockControls });
+      (dataService as any).getData = vi.fn(() => ({ controls: mockControls }));
 
-      const filtered = controlsService.getControlsByFilter({ status: 'implemented' });
+      const filtered = await controlsService.searchControls({ status: 'implemented' });
       expect(filtered.length).toBe(1);
       expect(filtered[0].status).toBe('implemented');
     });
 
-    it('should filter controls by function', () => {
+    it('should filter controls by function', async () => {
       const mockControls = [
-        { id: 'AC.1.001', nistFunction: 'AC' },
-        { id: 'AT.2.001', nistFunction: 'AT' }
+        { id: 'AC.1.001', nistFunction: 'AC', name: 'Control 1' as any, status: 'implemented' as any },
+        { id: 'AT.2.001', nistFunction: 'AT', name: 'Control 2' as any, status: 'implemented' as any }
       ];
-      vi.mocked(dataService.getData).mockReturnValue({ controls: mockControls });
+      (dataService as any).getData = vi.fn(() => ({ controls: mockControls }));
 
-      const filtered = controlsService.getControlsByFilter({ function: 'AC' });
+      const filtered = await controlsService.searchControls({ function: 'AC' });
       expect(filtered.length).toBe(1);
       expect(filtered[0].nistFunction).toBe('AC');
     });
   });
 
   describe('Control statistics', () => {
-    it('should calculate control statistics', () => {
+    it('should calculate control statistics', async () => {
       const mockControls = [
-        { id: 'AC.1.001', status: 'implemented', framework: 'CMMC' },
-        { id: 'AC.1.002', status: 'in-progress', framework: 'CMMC' }
+        { id: 'AC.1.001', status: 'implemented' as any, priority: 'high' as any, owner: 'owner1', nistFunction: 'AC', effectiveness: 'fully-effective' as any, complianceStatus: 'compliant' as any },
+        { id: 'AC.1.002', status: 'in-progress' as any, priority: 'medium' as any, owner: 'owner2', nistFunction: 'AT', effectiveness: 'partially-effective' as any, complianceStatus: 'partially-compliant' as any }
       ];
-      vi.mocked(dataService.getData).mockReturnValue({ controls: mockControls });
+      (dataService as any).getData = vi.fn(() => ({ controls: mockControls }));
 
-      const stats = controlsService.getControlStatistics();
-      expect(stats.totalControls).toBe(2);
+      const stats = await controlsService.getControlStatistics();
+      expect(stats.total).toBe(2);
     });
   });
 
   describe('Error handling', () => {
-    it('should handle errors gracefully', () => {
-      vi.mocked(dataService.getData).mockImplementation(() => {
+    it('should handle errors gracefully', async () => {
+      (dataService as any).getData = vi.fn(() => {
         throw new Error('Database error');
       });
 
-      const controls = controlsService.getAllControls();
+      const controls = await controlsService.getControls();
       expect(controls).toEqual([]);
     });
   });
