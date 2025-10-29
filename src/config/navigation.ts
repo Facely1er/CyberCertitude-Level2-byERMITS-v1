@@ -13,7 +13,8 @@ import {
   Wrench,
   Tag,
   GitBranch,
-  Calendar
+  Calendar,
+  Info
 } from 'lucide-react';
 
 export interface NavigationItem {
@@ -174,5 +175,11 @@ export const navigationItems: NavigationItem[] = [
         description: 'Enterprise-grade comprehensive documents'
       }
     ]
+  },
+  {
+    label: 'How It Works',
+    href: '/how-it-works',
+    icon: Info,
+    description: 'Complete guide to using the CyberCertitude platform'
   }
 ];

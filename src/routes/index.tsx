@@ -5,6 +5,7 @@ import { WorkflowGuidance } from '../components/WorkflowGuidance';
 import MasterDashboard from '../components/MasterDashboard';
 import EnhancedDashboard from '../components/EnhancedDashboard';
 import ComplianceAssessmentWizard from '../components/ComplianceAssessmentWizard';
+import HowItWorks from '../components/HowItWorks';
 import { authRoutes } from './auth';
 import { assessmentRoutes } from './assessment';
 import { complianceRoutes } from './compliance';
@@ -72,6 +73,11 @@ export const mainRoutes = [
     path: "/workflow-guidance",
     element: WorkflowGuidance,
     title: "Workflow Guidance"
+  },
+  {
+    path: "/how-it-works",
+    element: HowItWorks,
+    title: "How It Works"
   }
 ];
 
