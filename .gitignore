@@ -34,3 +34,9 @@ dist-ssr
 !.env.example
 !.env.*.example
 .vercel
+
+# Test coverage reports (generated files, not tracked)
+coverage/
+*.lcov
+.nyc_output/
+coverage-*.json

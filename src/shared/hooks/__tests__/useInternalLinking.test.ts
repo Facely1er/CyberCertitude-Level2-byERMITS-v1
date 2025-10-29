@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { renderHook } from '@testing-library/react';
+import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { useInternalLinking } from '../useInternalLinking';
 
@@ -8,9 +9,9 @@ const createWrapper = (initialEntries = ['/']) => {
     initialEntries
   });
 
-  return ({ children }: { children: React.ReactNode }) => (
-    <RouterProvider router={router}>{children}</RouterProvider>
-  );
+  return function Wrapper({ children }: { children: React.ReactNode }) {
+    return React.createElement(RouterProvider, { router }, children);
+  };
 };
 
 describe('useInternalLinking', () => {

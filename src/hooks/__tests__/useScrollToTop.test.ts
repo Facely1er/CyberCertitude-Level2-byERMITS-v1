@@ -46,12 +46,9 @@ describe('useScrollToTop', () => {
     const mockScrollToTop = vi.fn();
     vi.mocked(require('../../utils/scrollUtils').scrollToTop).mockImplementation(mockScrollToTop);
     
-    const { rerender } = renderHook(() => useScrollToTop(), {
-      wrapper: ({ children }) => {
-        const location = useLocation();
-        return location ? children : null;
-      }
-    });
+    vi.mocked(useLocation).mockReturnValue({ pathname: '/initial-path' } as any);
+    
+    const { rerender } = renderHook(() => useScrollToTop());
     
     vi.mocked(useLocation).mockReturnValue({ pathname: '/new-path' } as any);
     rerender();
