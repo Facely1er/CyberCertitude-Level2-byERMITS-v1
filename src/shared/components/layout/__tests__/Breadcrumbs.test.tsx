@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Breadcrumbs } from '../Breadcrumbs';
 
@@ -17,9 +17,12 @@ describe('Breadcrumbs', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByText('Dashboard')).toBeInTheDocument();
-    expect(screen.getByText('Assets')).toBeInTheDocument();
-    expect(screen.getByText('Current Page')).toBeInTheDocument();
+    const nav = screen.getByRole('navigation', { name: /breadcrumb/i });
+    // There can be multiple Dashboard strings (sr-only + link); assert links and current item
+    const dashboardLinks = within(nav).getAllByRole('link', { name: /dashboard/i });
+    expect(dashboardLinks.length).toBeGreaterThanOrEqual(1);
+    expect(within(nav).getByRole('link', { name: /assets/i })).toBeInTheDocument();
+    expect(within(nav).getByText('Current Page')).toBeInTheDocument();
   });
 
   it('should show active item', () => {
@@ -29,7 +32,8 @@ describe('Breadcrumbs', () => {
       </BrowserRouter>
     );
 
-    const activeItem = screen.getByText('Current Page');
+    const nav = screen.getByRole('navigation', { name: /breadcrumb/i });
+    const activeItem = within(nav).getByText('Current Page');
     expect(activeItem).toBeInTheDocument();
   });
 
@@ -87,8 +91,9 @@ describe('Breadcrumbs', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByText('Clickable')).toBeInTheDocument();
-    expect(screen.getByText('Current')).toBeInTheDocument();
+    const nav = screen.getByRole('navigation', { name: /breadcrumb/i });
+    expect(within(nav).getByText('Clickable')).toBeInTheDocument();
+    expect(within(nav).getByText('Current')).toBeInTheDocument();
   });
 });
 

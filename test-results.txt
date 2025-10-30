@@ -1,30 +1,62 @@
+Test Run Summary (Vitest)
 
-> cmmc-level2-compliance-platform@2.0.0 test:run
-> vitest run
+- Date: 2025-10-30
+- Command: npm run test:run
+- Status: FAIL
 
+Overview
+- Failed Suites: 8
+- Tests: See suite details below (multiple failures in one component test file)
+- Environment: jsdom
+- Setup File: src/test/setup.ts
 
- RUN  v3.2.4 /workspace
+Key Failing Suites
+1) src/features/assessment/components/__tests__/AssessmentIntroScreen.test.tsx
+   - Multiple assertions failing due to missing labels/texts:
+     - getByLabelText(/Organization Name/i) not found
+     - getByRole('button', { name: /Back/i }) not found
+     - getByText(/Assessment Benefits/i) not found
+     - getByText(/30-45 minutes/i) not found
+   - Likely causes:
+     - Label text/content changes in component not reflected in tests
+     - Accessibility roles/names differ from test expectations
 
+2) src/shared/components/layout/__tests__/Breadcrumbs.test.tsx
+   - getByText('Dashboard') finds multiple matches
+   - Likely cause:
+     - Multiple Dashboard elements are intentionally present (breadcrumb + nav link). Tests should use getAllByText or a more specific query within a container
 
-⎯⎯⎯⎯⎯⎯ Failed Suites 8 ⎯⎯⎯⎯⎯⎯⎯
+3) Other suites listed in earlier run logs
+   - Several suites previously failed due to setup file resolution. Current config references ./src/test/setup.ts, which exists. Current failures are assertion-related rather than setup loading errors.
 
- FAIL  src/App.test.tsx [ src/App.test.tsx ]
- FAIL  src/services/__tests__/mfaService.test.ts [ src/services/__tests__/mfaService.test.ts ]
- FAIL  src/services/__tests__/securityMiddleware.test.ts [ src/services/__tests__/securityMiddleware.test.ts ]
- FAIL  src/features/assessment/components/__tests__/AssessmentIntroScreen.test.tsx [ src/features/assessment/components/__tests__/AssessmentIntroScreen.test.tsx ]
- FAIL  src/features/assets/components/__tests__/AssetDashboard.test.tsx [ src/features/assets/components/__tests__/AssetDashboard.test.tsx ]
- FAIL  src/features/auth/components/__tests__/MFASetup.test.tsx [ src/features/auth/components/__tests__/MFASetup.test.tsx ]
- FAIL  src/features/evidence/components/__tests__/EvidenceCollectionDashboard.test.tsx [ src/features/evidence/components/__tests__/EvidenceCollectionDashboard.test.tsx ]
- FAIL  src/features/reporting/components/__tests__/AssessmentReportsPage.test.tsx [ src/features/reporting/components/__tests__/AssessmentReportsPage.test.tsx ]
-Error: Cannot find module '/workspace/src/test/setup.ts'
-Caused by: Error: Failed to load url /workspace/src/test/setup.ts (resolved id: /workspace/src/test/setup.ts). Does the file exist?
- ❯ loadAndTransform node_modules/vite/dist/node/chunks/dep-CuuNgwUk.js:26143:33
+Immediate Recommendations
+- AssessmentIntroScreen tests:
+  - Prefer role-based queries tied to accessible names matching the rendered UI
+  - For labels, ensure the input is associated via <label for> or aria-labelledby
+  - If UI text changed, update regex/text in tests to match new copy
+  - Where text may be split across elements, use a function matcher or within() scoping
+- Breadcrumbs tests:
+  - Use getAllByText('Dashboard') and assert count or select the specific node
+  - Alternatively, scope queries with within(breadcrumbContainer)
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+Suggested Fix Examples (tests)
+- Replace screen.getByText('Dashboard') with:
+  const nav = screen.getByRole('navigation', { name: /breadcrumb/i });
+  expect(within(nav).getByText('Dashboard')).toBeInTheDocument();
 
+- Replace screen.getByLabelText(/Organization Name/i) with a role + name query if label is a placeholder or visually hidden:
+  const orgInput = screen.getByRole('textbox', { name: /organization name/i });
 
- Test Files  8 failed (8)
-      Tests  no tests
-   Start at  12:30:50
-   Duration  3.13s (transform 25ms, setup 0ms, collect 0ms, tests 0ms, environment 5.08s, prepare 1.37s)
+Coverage
+- Coverage thresholds configured at 70% (v8). Current run aborted with failures; generate coverage after fixes:
+  npm run test:coverage
+
+Next Steps Checklist
+- [ ] Update AssessmentIntroScreen tests to match current UI labels/roles
+- [ ] Update Breadcrumbs test to avoid ambiguous getByText on "Dashboard"
+- [ ] Re-run: npm run test:run
+- [ ] If green, run: npm run test:coverage and attach coverage summary
+
+Notes
+- If failures persist due to copy changes, consider centralizing strings for shared usage between UI and tests to reduce drift.
 

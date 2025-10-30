@@ -5,6 +5,13 @@ import { POAMGenerator } from '../POAMGenerator';
 describe('POAMGenerator', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Mock URL.createObjectURL for jsdom
+    global.URL.createObjectURL = vi.fn(() => 'blob:mock-url');
+    global.URL.revokeObjectURL = vi.fn();
+    if (window.URL) {
+      window.URL.createObjectURL = vi.fn(() => 'blob:mock-url');
+      window.URL.revokeObjectURL = vi.fn();
+    }
   });
 
   it('should render POAM generator', () => {

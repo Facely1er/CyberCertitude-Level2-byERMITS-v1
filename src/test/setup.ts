@@ -96,6 +96,25 @@ if (!global.fetch) {
   global.fetch = vi.fn();
 }
 
+// Mock URL.createObjectURL (jsdom doesn't support this)
+if (typeof window !== 'undefined' && (!window.URL || !window.URL.createObjectURL)) {
+  const originalURL = global.URL || window.URL || {};
+  global.URL = {
+    ...originalURL,
+    createObjectURL: vi.fn(() => 'blob:mock-url'),
+    revokeObjectURL: vi.fn(),
+  } as any;
+  
+  if (window.URL) {
+    Object.assign(window.URL, {
+      createObjectURL: vi.fn(() => 'blob:mock-url'),
+      revokeObjectURL: vi.fn(),
+    });
+  } else {
+    (window as any).URL = global.URL;
+  }
+}
+
 // Suppress console errors in tests (optional, comment out if you want to see them)
 const originalError = console.error;
 beforeAll(() => {

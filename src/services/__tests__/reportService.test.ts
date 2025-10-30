@@ -24,6 +24,13 @@ describe('ReportService', () => {
       showSaveFilePicker: undefined,
       print: vi.fn()
     } as any;
+    // Mock URL.createObjectURL for jsdom
+    global.URL.createObjectURL = vi.fn(() => 'blob:mock-url');
+    global.URL.revokeObjectURL = vi.fn();
+    if (window.URL) {
+      window.URL.createObjectURL = vi.fn(() => 'blob:mock-url');
+      window.URL.revokeObjectURL = vi.fn();
+    }
   });
 
   describe('Singleton pattern', () => {

@@ -29,7 +29,13 @@ vi.mock('../config/environment', () => ({
 
 vi.mock('@/utils/logger', () => ({
   logger: {
-    error: vi.fn()
+    log: vi.fn(),
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+    debug: vi.fn(),
+    time: vi.fn(),
+    timeEnd: vi.fn(),
   }
 }));
 
