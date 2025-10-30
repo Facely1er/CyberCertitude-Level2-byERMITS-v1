@@ -8,6 +8,8 @@ describe('AccessibilityService', () => {
     // Clear DOM
     document.body.innerHTML = '';
     vi.clearAllMocks();
+    // Re-initialize accessibility helpers after clearing DOM
+    (accessibilityService as any).initializeAccessibility?.();
   });
 
   afterEach(() => {

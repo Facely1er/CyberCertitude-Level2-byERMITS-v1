@@ -294,6 +294,7 @@ export class AuditService {
       };
 
       // Create a simple text report for now
+      const scheduled = audit.scheduledDate instanceof Date ? audit.scheduledDate : new Date(audit.scheduledDate);
       const reportText = `
 AUDIT REPORT
 ${'='.repeat(50)}
@@ -301,7 +302,7 @@ ${'='.repeat(50)}
 Audit: ${audit.name}
 Type: ${audit.type}
 Status: ${audit.status}
-Scheduled: ${audit.scheduledDate.toLocaleDateString()}
+Scheduled: ${scheduled.toLocaleDateString()}
 
 SUMMARY
 ${'='.repeat(50)}

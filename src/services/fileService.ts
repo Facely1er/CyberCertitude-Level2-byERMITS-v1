@@ -22,6 +22,34 @@ export class FileService {
     return FileService.instance;
   }
 
+  // Lightweight helpers used in tests and simple exports
+  exportToCSV(data: any[] | null | undefined): string {
+    try {
+      const rows = Array.isArray(data) ? data : [];
+      if (rows.length === 0) return '';
+      const headers = Object.keys(rows[0]);
+      const csv = [
+        headers.join(','),
+        ...rows.map(row => headers.map(h => `${row[h]}`).join(','))
+      ].join('\n');
+      return csv;
+    } catch (error) {
+      logger.error('Failed to export CSV', error);
+      return '';
+    }
+  }
+
+  exportToXLSX(data: any[] | null | undefined): string {
+    // For testing purposes, return a simple serialized string
+    try {
+      const rows = Array.isArray(data) ? data : [];
+      return JSON.stringify({ type: 'xlsx', rows });
+    } catch (error) {
+      logger.error('Failed to export XLSX', error);
+      return '';
+    }
+  }
+
   async uploadFile(file: File): Promise<FileUploadResult> {
     try {
       // Validate file

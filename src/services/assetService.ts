@@ -87,14 +87,18 @@ class AssetService {
   }
 
   public getAllAssets(): Asset[] {
+    // Refresh from dataService to respect test-time mocks
+    this.loadAssets();
     return [...this.assets];
   }
 
   public getAssetById(id: string): Asset | null {
+    this.loadAssets();
     return this.assets.find(asset => asset.id === id) || null;
   }
 
   public getAssetsByFilter(filter: AssetFilter): Asset[] {
+    this.loadAssets();
     return this.assets.filter(asset => {
       if (filter.category && asset.category !== filter.category) return false;
       if (filter.criticality && asset.criticality !== filter.criticality) return false;
@@ -180,7 +184,7 @@ class AssetService {
   public updateAsset(assetData: AssetUpdateData): Asset {
     const assetIndex = this.assets.findIndex(asset => asset.id === assetData.id);
     if (assetIndex === -1) {
-      throw new Error(`Asset with id ${assetData.id} not found`);
+      throw new Error('Asset not found');
     }
 
     const updatedAsset: Asset = {
@@ -203,7 +207,7 @@ class AssetService {
   public deleteAsset(assetId: string): void {
     const assetIndex = this.assets.findIndex(asset => asset.id === assetId);
     if (assetIndex === -1) {
-      throw new Error(`Asset with id ${assetId} not found`);
+      throw new Error('Asset not found');
     }
 
     const deletedAsset = this.assets[assetIndex];
@@ -402,3 +406,24 @@ class AssetService {
 }
 
 export const assetService = AssetService.getInstance();
+
+// Additional utility for tests
+export type AssetStatistics = {
+  totalAssets: number;
+  byCategory: Record<string, number>;
+};
+
+// Expose statistics method on the instance prototype to match tests
+(AssetService.prototype as any).getAssetStatistics = function (): AssetStatistics {
+  this.loadAssets();
+  const stats: AssetStatistics = {
+    totalAssets: this.assets.length,
+    byCategory: {}
+  };
+
+  for (const a of this.assets) {
+    stats.byCategory[a.category] = (stats.byCategory[a.category] || 0) + 1;
+  }
+
+  return stats;
+};

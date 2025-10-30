@@ -20,7 +20,7 @@ vi.mock('../lib/errorMonitoring', () => ({
   }
 }));
 
-vi.mock('../utils/logger', () => ({
+vi.mock('@/utils/logger', () => ({
   logger: {
     info: vi.fn(),
     error: vi.fn(),
@@ -56,9 +56,9 @@ const mockWindow = {
   }
 };
 
-global.window = mockWindow as any;
-global.location = mockWindow.location as any;
-global.document = mockWindow.document as any;
+(global as any).window = mockWindow as any;
+(global as any).location = mockWindow.location as any;
+(global as any).document = mockWindow.document as any;
 
 describe('EnvironmentValidationService', () => {
   beforeEach(() => {

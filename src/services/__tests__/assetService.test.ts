@@ -20,7 +20,9 @@ vi.mock('../fileService', () => ({
 vi.mock('../../utils/logger', () => ({
   logger: {
     debug: vi.fn(),
-    error: vi.fn()
+    error: vi.fn(),
+    info: vi.fn(),
+    warn: vi.fn()
   }
 }));
 

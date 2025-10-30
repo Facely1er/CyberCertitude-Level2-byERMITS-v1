@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { RouteRenderer } from '../RouteRenderer';
 import type { RouteConfig } from '../RouteRenderer';
 
@@ -37,9 +37,9 @@ describe('RouteRenderer', () => {
     ];
 
     render(
-      <BrowserRouter>
+      <MemoryRouter initialEntries={["/dashboard"]}>
         <RouteRenderer routes={routes} />
-      </BrowserRouter>
+      </MemoryRouter>
     );
 
     expect(screen.getByTestId('dashboard')).toBeInTheDocument();
@@ -54,9 +54,9 @@ describe('RouteRenderer', () => {
     ];
 
     const { getByText } = render(
-      <BrowserRouter>
+      <MemoryRouter initialEntries={["/"]}>
         <RouteRenderer routes={routes} />
-      </BrowserRouter>
+      </MemoryRouter>
     );
 
     expect(getByText('Start Assessment')).toBeInTheDocument();
@@ -78,9 +78,9 @@ describe('RouteRenderer', () => {
     ];
 
     const { getByText } = render(
-      <BrowserRouter>
+      <MemoryRouter initialEntries={["/custom"]}>
         <RouteRenderer routes={routes} />
-      </BrowserRouter>
+      </MemoryRouter>
     );
 
     expect(getByText('test value')).toBeInTheDocument();
@@ -99,9 +99,9 @@ describe('RouteRenderer', () => {
     ];
 
     render(
-      <BrowserRouter initialEntries={['/page1']}>
+      <MemoryRouter initialEntries={["/page1"]}>
         <RouteRenderer routes={routes} />
-      </BrowserRouter>
+      </MemoryRouter>
     );
 
     expect(screen.getByTestId('page1')).toBeInTheDocument();

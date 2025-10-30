@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { assetRoutes } from '../assets';
 import { assetService } from '../../services/assetService';
 
@@ -35,18 +35,19 @@ describe('Asset Routes', () => {
 
   it('should render asset dashboard route', () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <BrowserRouter>{children}</BrowserRouter>
+      <MemoryRouter initialEntries={["/assets"]}>{children}</MemoryRouter>
     );
 
     const RouteComponent = assetRoutes[0].element as React.ComponentType;
-    const { getByTestId } = render(<RouteComponent />, { wrapper });
+    const { getByTestId, getByText } = render(<RouteComponent />, { wrapper });
 
     expect(getByTestId('asset-dashboard')).toBeInTheDocument();
+    expect(getByText(/Assets: 1/)).toBeInTheDocument();
   });
 
   it('should render asset inventory route', () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <BrowserRouter>{children}</BrowserRouter>
+      <MemoryRouter initialEntries={["/assets/inventory"]}>{children}</MemoryRouter>
     );
 
     const RouteComponent = assetRoutes[1].element as React.ComponentType;
@@ -66,34 +67,6 @@ describe('Asset Routes', () => {
     // Check second route
     expect(assetRoutes[1].path).toBe('/assets/inventory');
     expect(assetRoutes[1].title).toBe('Asset Inventory');
-  });
-
-  it('should handle asset data correctly', () => {
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <BrowserRouter>{children}</BrowserRouter>
-    );
-
-    const RouteComponent = assetRoutes[0].element as React.ComponentType;
-    const { getByText } = render(<RouteComponent />, { wrapper });
-
-    // Should show asset count
-    expect(getByText(/Assets: 1/)).toBeInTheDocument();
-  });
-
-  it('should call navigate on inventory button click', () => {
-    const mockNavigate = vi.fn();
-    
-    vi.mock('react-router-dom', async () => {
-      const actual = await import('react-router-dom');
-      return {
-        ...actual,
-        useNavigate: () => mockNavigate
-      };
-    });
-
-    // Note: This test would need to be restructured to properly test navigation
-    // For now, we'll just verify the component renders
-    expect(true).toBe(true);
   });
 });
 

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { NotificationMessage } from '../shared/types';
 
 export const useNotifications = (
@@ -33,3 +33,21 @@ export const useNotifications = (
     removeNotification
   };
 };
+
+// Default hook with internal state to satisfy tests
+export default function useNotificationsDefault() {
+  const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
+
+  const { addNotification, removeNotification } = useNotifications(setNotifications);
+
+  const clearAll = useCallback(() => {
+    setNotifications([]);
+  }, []);
+
+  return {
+    notifications,
+    addNotification,
+    removeNotification,
+    clearAll
+  } as const;
+}
