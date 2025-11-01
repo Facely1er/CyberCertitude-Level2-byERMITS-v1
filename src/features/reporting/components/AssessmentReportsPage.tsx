@@ -86,10 +86,10 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
   }, [savedAssessments, searchTerm, filterFramework, filterStatus, sortBy, sortOrder]);
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 dark:text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
-    if (score >= 40) return 'text-orange-600 dark:text-orange-400';
-    return 'text-red-600 dark:text-red-400';
+    if (score >= 80) return 'text-success-600 dark:text-success-400';
+    if (score >= 60) return 'text-warning-600 dark:text-warning-400';
+    if (score >= 40) return 'text-warning-600 dark:text-warning-400';
+    return 'text-error-600 dark:text-error-400';
   };
 
   const getFrameworkIcon = (frameworkId: string) => {
@@ -144,18 +144,18 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="card-standard mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <div className="p-3 bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 rounded-xl">
+                <FileText className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   Assessment Reports
                 </h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Generate and export compliance assessment reports
                 </p>
               </div>
@@ -164,7 +164,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             <div className="flex items-center space-x-3">
               <Link
                 to="/reports/advanced"
-                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark px-4 py-2 rounded-xl hover:bg-background-light dark:hover:bg-background-dark transition-colors"
               >
                 <BarChart3 className="w-4 h-4" />
                 <span>Advanced Analytics</span>
@@ -172,7 +172,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
               
               <button
                 onClick={onStartAssessment}
-                className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="btn-primary px-4 py-2 rounded-xl transition flex items-center space-x-2"
               >
                 <Plus className="w-4 h-4" />
                 <span>New Assessment</span>
@@ -184,43 +184,43 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
 
       {/* Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="card-standard p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Assessments</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stats.total}</p>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Total Assessments</p>
+              <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{stats.total}</p>
             </div>
-            <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+            <FileText className="w-8 h-8 text-primary-600 dark:text-primary-400" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="card-standard p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{stats.completed}</p>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Completed</p>
+              <p className="text-3xl font-bold text-success-600 dark:text-success-400">{stats.completed}</p>
             </div>
-            <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+            <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="card-standard p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Average Score</p>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Average Score</p>
               <p className={`text-3xl font-bold ${getScoreColor(stats.avgScore)}`}>{stats.avgScore}%</p>
             </div>
-            <Target className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+            <Target className="w-8 h-8 text-secondary-600 dark:text-secondary-400" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="card-standard p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Recent Reports</p>
-              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{stats.recentReports}</p>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Recent Reports</p>
+              <p className="text-3xl font-bold text-warning-600 dark:text-warning-400">{stats.recentReports}</p>
             </div>
-            <Activity className="w-8 h-8 text-orange-600 dark:text-orange-400" />
+            <Activity className="w-8 h-8 text-warning-600 dark:text-warning-400" />
           </div>
         </div>
       </div>
@@ -269,13 +269,13 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       />
 
       {/* Sort Controls */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
+      <div className="card-standard p-6 mb-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-standard"
             >
               <option value="date">Sort by Date</option>
               <option value="score">Sort by Score</option>
@@ -284,22 +284,22 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             
             <button
               onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+              className="px-4 py-2 border border-support-light dark:border-support-dark rounded-xl bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
             >
               {sortOrder === 'asc' ? '↑' : '↓'} {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
             </button>
           </div>
           
-          <div className="text-sm text-gray-600 dark:text-gray-300">
+          <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
             {filteredAndSortedAssessments.length} of {savedAssessments.length} assessments
           </div>
         </div>
       </div>
 
       {/* Assessments List */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <div className="card-standard">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">
             Available Assessment Reports
           </h2>
         </div>
@@ -330,64 +330,64 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                 const FrameworkIcon = getFrameworkIcon(assessment.frameworkId);
                 
                 return (
-                  <div key={assessment.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
+                  <div key={assessment.id} className="border border-support-light dark:border-support-dark rounded-xl p-6 bg-background-light dark:bg-background-dark hover:shadow-lg transition-all duration-300 group">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start space-x-4 flex-1">
-                        <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
-                          <FrameworkIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                        <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-xl group-hover:bg-primary-200 dark:group-hover:bg-primary-900/50 transition-colors">
+                          <FrameworkIcon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                         </div>
                         
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-2">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                               {assessment.frameworkName}
                             </h3>
                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                               assessment.isComplete
-                                ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                                : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'
+                                ? 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300'
+                                : 'bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-300'
                             }`}>
                               {assessment.isComplete ? 'Complete' : 'In Progress'}
                             </span>
                           </div>
                           
                           {assessment.organizationInfo?.name && (
-                            <p className="text-gray-600 dark:text-gray-300 mb-3">
+                            <p className="text-text-secondary-light dark:text-text-secondary-dark mb-3">
                               Organization: {assessment.organizationInfo.name}
                             </p>
                           )}
                           
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                             <div>
-                              <span className="text-sm text-gray-500 dark:text-gray-400">Overall Score:</span>
+                              <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Overall Score:</span>
                               <div className={`font-bold text-lg ${getScoreColor(score)}`}>
                                 {score}%
                               </div>
                             </div>
                             <div>
-                              <span className="text-sm text-gray-500 dark:text-gray-400">Progress:</span>
-                              <div className="font-medium text-gray-900 dark:text-white">
+                              <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Progress:</span>
+                              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                                 {progress}/{totalQuestions}
                               </div>
                             </div>
                             <div>
-                              <span className="text-sm text-gray-500 dark:text-gray-400">Last Modified:</span>
-                              <div className="font-medium text-gray-900 dark:text-white">
+                              <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Last Modified:</span>
+                              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                                 {new Date(assessment.lastModified).toLocaleDateString()}
                               </div>
                             </div>
                             <div>
-                              <span className="text-sm text-gray-500 dark:text-gray-400">Framework:</span>
-                              <div className="font-medium text-gray-900 dark:text-white">
+                              <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Framework:</span>
+                              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                                 v{framework.version}
                               </div>
                             </div>
                           </div>
                           
                           {/* Progress Bar */}
-                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-4">
+                          <div className="w-full bg-support-light dark:bg-support-dark rounded-full h-2 mb-4">
                             <div
-                              className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full transition-all duration-500"
+                              className="bg-gradient-to-r from-primary-500 to-secondary-400 h-2 rounded-full transition-all duration-500"
                               style={{ width: `${(progress / totalQuestions) * 100}%` }}
                             />
                           </div>
@@ -398,7 +398,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                         <div className={`text-3xl font-bold ${getScoreColor(score)} mb-1`}>
                           {score}%
                         </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-300">Maturity Score</div>
+                        <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Maturity Score</div>
                       </div>
                     </div>
                     
@@ -406,7 +406,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                     <div className="flex flex-wrap gap-3">
                       <button
                         onClick={() => onGenerateReport(assessment)}
-                        className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                        className="btn-primary px-4 py-2 rounded-xl transition font-medium flex items-center space-x-2"
                       >
                         <Eye className="w-4 h-4" />
                         <span>View Report</span>
@@ -414,7 +414,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       <button
                         onClick={() => handleExportReport(assessment, 'pdf')}
-                        className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-medium"
+                        className="px-4 py-2 bg-error-500 text-white rounded-xl hover:bg-error-600 dark:hover:bg-error-400 transition-colors font-medium flex items-center space-x-2"
                       >
                         <Download className="w-4 h-4" />
                         <span>Export PDF</span>
@@ -422,7 +422,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       <button
                         onClick={() => handleExportReport(assessment, 'json')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                        className="px-4 py-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark rounded-xl hover:bg-background-light dark:hover:bg-background-dark transition-colors font-medium flex items-center space-x-2"
                       >
                         <Download className="w-4 h-4" />
                         <span>Export JSON</span>
@@ -430,7 +430,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       <button
                         onClick={() => handleExportReport(assessment, 'csv')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                        className="px-4 py-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark rounded-xl hover:bg-background-light dark:hover:bg-background-dark transition-colors font-medium flex items-center space-x-2"
                       >
                         <Download className="w-4 h-4" />
                         <span>Export CSV</span>
@@ -439,7 +439,7 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       {!assessment.isComplete && (
                         <Link
                           to={`/assessment/${assessment.id}`}
-                          className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium"
+                          className="px-4 py-2 bg-success-500 text-white rounded-xl hover:bg-success-600 dark:hover:bg-success-400 transition-colors font-medium flex items-center space-x-2"
                         >
                           <ArrowRight className="w-4 h-4" />
                           <span>Continue Assessment</span>
@@ -455,63 +455,62 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       </div>
 
       {/* Framework Overview */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+      <div className="card-standard p-6 mb-8">
+        <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
           Available Assessment Frameworks
         </h3>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="border border-red-200 dark:border-red-800 rounded-xl p-6 bg-red-50 dark:bg-red-900/20 hover:shadow-lg transition-shadow">
+          <div className="border border-error-200 dark:border-error-800 rounded-xl p-6 bg-error-50 dark:bg-error-900/20 hover:shadow-lg transition-shadow">
             <div className="flex items-center space-x-3 mb-4">
-              <Building className="w-8 h-8 text-red-600 dark:text-red-400" />
+              <Building className="w-8 h-8 text-error-600 dark:text-error-400" />
               <div>
-
-                <h4 className="font-bold text-red-900 dark:text-red-100">CMMC 2.0 Level 2</h4>
-                <p className="text-sm text-red-700 dark:text-red-300">Military Contractor Compliance</p>
+                <h4 className="font-bold text-error-900 dark:text-error-100">CMMC 2.0 Level 2</h4>
+                <p className="text-sm text-error-700 dark:text-error-300">Military Contractor Compliance</p>
               </div>
             </div>
-            <p className="text-red-800 dark:text-red-200 text-sm mb-4">
+            <p className="text-error-800 dark:text-error-200 text-sm mb-4">
               Complete CMMC 2.0 Level 2 assessment with 110 controls for Controlled Unclassified Information (CUI) protection.
             </p>
             <Link
               to="/assessment-intro"
-              className="inline-flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+              className="inline-flex items-center space-x-2 bg-error-500 text-white px-4 py-2 rounded-xl hover:bg-error-600 dark:hover:bg-error-400 transition-colors text-sm font-medium"
             >
               <Plus className="w-4 h-4" />
               <span>Start CMMC Assessment</span>
             </Link>
           </div>
           
-          <div className="border border-blue-200 dark:border-blue-800 rounded-xl p-6 bg-gray-50 dark:bg-gray-900/20 hover:shadow-lg transition-shadow opacity-50">
+          <div className="border border-support-light dark:border-support-dark rounded-xl p-6 bg-background-light dark:bg-background-dark hover:shadow-lg transition-shadow opacity-50">
             <div className="flex items-center space-x-3 mb-4">
-              <Users className="w-8 h-8 text-gray-400" />
+              <Users className="w-8 h-8 text-text-muted-light dark:text-text-muted-dark" />
               <div>
-                <h4 className="font-bold text-gray-500">Additional Frameworks</h4>
-                <p className="text-sm text-gray-400">Coming in Future Releases</p>
+                <h4 className="font-bold text-text-muted-light dark:text-text-muted-dark">Additional Frameworks</h4>
+                <p className="text-sm text-text-muted-light dark:text-text-muted-dark">Coming in Future Releases</p>
               </div>
             </div>
-            <p className="text-gray-500 text-sm mb-4">
+            <p className="text-text-muted-light dark:text-text-muted-dark text-sm mb-4">
               Additional assessment frameworks will be available in future platform updates.
             </p>
-            <div className="text-xs text-gray-400 italic">
+            <div className="text-xs text-text-muted-light dark:text-text-muted-dark italic">
               Currently focused on CMMC 2.0 Level 2 compliance
             </div>
           </div>
           
-          <div className="border border-blue-200 dark:border-blue-800 rounded-xl p-6 bg-blue-50 dark:bg-blue-900/20 hover:shadow-lg transition-shadow">
+          <div className="border border-primary-200 dark:border-primary-800 rounded-xl p-6 bg-primary-50 dark:bg-primary-900/20 hover:shadow-lg transition-shadow">
             <div className="flex items-center space-x-3 mb-4">
-              <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Shield className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               <div>
-                <h4 className="font-bold text-blue-900 dark:text-blue-100">NIST CSF v2.0</h4>
-                <p className="text-sm text-blue-700 dark:text-blue-300">Cybersecurity Framework</p>
+                <h4 className="font-bold text-primary-900 dark:text-primary-100">NIST CSF v2.0</h4>
+                <p className="text-sm text-primary-700 dark:text-primary-300">Cybersecurity Framework</p>
               </div>
             </div>
-            <p className="text-blue-800 dark:text-blue-200 text-sm mb-4">
+            <p className="text-primary-800 dark:text-primary-200 text-sm mb-4">
               Quick 10-question assessment or comprehensive 106-subcategory evaluation for NIST CSF v2.0 implementation.
             </p>
             <Link
               to="/assessment-intro"
-              className="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+              className="inline-flex items-center space-x-2 bg-primary-500 text-white px-4 py-2 rounded-xl hover:bg-primary-600 dark:hover:bg-primary-400 transition-colors text-sm font-medium"
             >
               <Plus className="w-4 h-4" />
               <span>Start NIST Assessment</span>

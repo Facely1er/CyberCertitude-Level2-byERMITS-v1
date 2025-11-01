@@ -220,35 +220,35 @@ export const WorkflowGuidance: React.FC<WorkflowGuidanceProps> = ({
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'beginner': return 'text-green-600 bg-green-100';
-      case 'intermediate': return 'text-yellow-600 bg-yellow-100';
-      case 'advanced': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'beginner': return 'text-success-600 dark:text-success-400 bg-success-100 dark:bg-success-900/30';
+      case 'intermediate': return 'text-warning-600 dark:text-warning-400 bg-warning-100 dark:bg-warning-900/30';
+      case 'advanced': return 'text-error-600 dark:text-error-400 bg-error-100 dark:bg-error-900/30';
+      default: return 'text-text-secondary-light dark:text-text-secondary-dark bg-background-light dark:bg-background-dark border border-support-light dark:border-support-dark';
     }
   };
 
   const getColorClasses = (color: string) => {
     switch (color) {
-      case 'blue': return 'bg-blue-50 border-blue-200 text-blue-900';
-      case 'green': return 'bg-green-50 border-green-200 text-green-900';
-      case 'purple': return 'bg-purple-50 border-purple-200 text-purple-900';
-      case 'orange': return 'bg-orange-50 border-orange-200 text-orange-900';
-      default: return 'bg-gray-50 border-gray-200 text-gray-900';
+      case 'blue': return 'bg-primary-50 dark:bg-primary-900/30 border-primary-200 dark:border-primary-800 text-primary-900 dark:text-primary-100';
+      case 'green': return 'bg-success-50 dark:bg-success-900/30 border-success-200 dark:border-success-800 text-success-900 dark:text-success-100';
+      case 'purple': return 'bg-secondary-50 dark:bg-secondary-900/30 border-secondary-200 dark:border-secondary-800 text-secondary-900 dark:text-secondary-100';
+      case 'orange': return 'bg-warning-50 dark:bg-warning-900/30 border-warning-200 dark:border-warning-800 text-warning-900 dark:text-warning-100';
+      default: return 'bg-background-light dark:bg-background-dark border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark';
     }
   };
 
   const visibleSteps = showAllSteps ? workflowSteps : workflowSteps.slice(0, 4);
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 ${className}`}>
+    <div className={`card-standard ${className}`}>
       {/* Header */}
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-        <div className="mb-4 p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800">
-          <p className="text-sm text-gray-700 dark:text-gray-300">
+      <div className="p-6 border-b border-support-light dark:border-support-dark">
+        <div className="mb-4 p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
+          <p className="text-sm text-text-primary-light dark:text-text-primary-dark">
             💡 Need an overview? See our{' '}
             <button
               onClick={() => onNavigate ? onNavigate('/how-it-works') : window.location.href = '/how-it-works'}
-              className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
+              className="text-primary-600 dark:text-primary-400 font-semibold hover:underline"
             >
               How It Works
             </button>{' '}
@@ -257,21 +257,21 @@ export const WorkflowGuidance: React.FC<WorkflowGuidanceProps> = ({
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-              <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+              <BookOpen className="w-6 h-6 text-primary-600 dark:text-primary-400" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 CMMC Implementation Workflow
               </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                 Step-by-step guidance for {userRole.replace('-', ' ')} role
               </p>
             </div>
           </div>
           <button
             onClick={() => setShowAllSteps(!showAllSteps)}
-            className="flex items-center space-x-2 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+            className="flex items-center space-x-2 text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
           >
             <span>{showAllSteps ? 'Show Less' : 'Show All Steps'}</span>
             {showAllSteps ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
@@ -280,16 +280,16 @@ export const WorkflowGuidance: React.FC<WorkflowGuidanceProps> = ({
       </div>
 
       {/* Role-based Recommendations */}
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+      <div className="p-6 border-b border-support-light dark:border-support-dark">
         <div className="flex items-center space-x-2 mb-3">
-          <Lightbulb className="w-5 h-5 text-yellow-500" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">Role-Based Recommendations</h3>
+          <Lightbulb className="w-5 h-5 text-warning-500" />
+          <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">Role-Based Recommendations</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {roleBasedRecommendations[userRole]?.map((recommendation, index) => (
             <div key={index} className="flex items-start space-x-2 text-sm">
-              <Zap className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-              <span className="text-gray-700 dark:text-gray-300">{recommendation}</span>
+              <Zap className="w-4 h-4 text-primary-500 mt-0.5 flex-shrink-0" />
+              <span className="text-text-primary-light dark:text-text-primary-dark">{recommendation}</span>
             </div>
           ))}
         </div>
@@ -301,15 +301,15 @@ export const WorkflowGuidance: React.FC<WorkflowGuidanceProps> = ({
           {visibleSteps.map((step, index) => (
             <div
               key={step.id}
-              className={`border rounded-lg transition-all duration-200 ${
+              className={`border rounded-xl transition-all duration-200 ${
                 expandedStep === step.id 
-                  ? 'border-blue-300 shadow-md' 
-                  : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                  ? 'border-primary-300 dark:border-primary-700 shadow-md' 
+                  : 'border-support-light dark:border-support-dark hover:border-primary-300 dark:hover:border-primary-700'
               }`}
             >
               <button
                 onClick={() => setExpandedStep(expandedStep === step.id ? null : step.id)}
-                className="w-full p-4 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg"
+                className="w-full p-4 text-left flex items-center justify-between hover:bg-background-light dark:hover:bg-background-dark rounded-xl"
               >
                 <div className="flex items-center space-x-4">
                   <div className={`p-2 rounded-lg ${getColorClasses(step.color)}`}>
@@ -317,44 +317,44 @@ export const WorkflowGuidance: React.FC<WorkflowGuidanceProps> = ({
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center space-x-3">
-                      <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                      <span className="text-sm font-medium text-text-muted-light dark:text-text-muted-dark">
                         Step {index + 1}
                       </span>
                       <span className={`px-2 py-1 text-xs font-medium rounded-full ${getDifficultyColor(step.difficulty)}`}>
                         {step.difficulty}
                       </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                      <span className="text-sm text-text-muted-light dark:text-text-muted-dark">
                         {step.estimatedTime}
                       </span>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mt-1">
+                    <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mt-1">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                    <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1">
                       {step.description}
                     </p>
                   </div>
                 </div>
                 {expandedStep === step.id ? (
-                  <ChevronDown className="w-5 h-5 text-gray-400" />
+                  <ChevronDown className="w-5 h-5 text-text-muted-light dark:text-text-muted-dark" />
                 ) : (
-                  <ChevronRight className="w-5 h-5 text-gray-400" />
+                  <ChevronRight className="w-5 h-5 text-text-muted-light dark:text-text-muted-dark" />
                 )}
               </button>
 
               {expandedStep === step.id && (
-                <div className="px-4 pb-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="px-4 pb-4 border-t border-support-light dark:border-support-dark">
                   <div className="pt-4 space-y-4">
                     {/* Prerequisites */}
                     <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center space-x-2">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
+                      <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center space-x-2">
+                        <CheckCircle className="w-4 h-4 text-success-500" />
                         <span>Prerequisites</span>
                       </h4>
                       <ul className="space-y-1">
                         {step.prerequisites.map((prereq, idx) => (
-                          <li key={idx} className="text-sm text-gray-600 dark:text-gray-300 flex items-center space-x-2">
-                            <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+                          <li key={idx} className="text-sm text-text-secondary-light dark:text-text-secondary-dark flex items-center space-x-2">
+                            <div className="w-1.5 h-1.5 bg-text-muted-light dark:bg-text-muted-dark rounded-full"></div>
                             <span>{prereq}</span>
                           </li>
                         ))}
@@ -363,14 +363,14 @@ export const WorkflowGuidance: React.FC<WorkflowGuidanceProps> = ({
 
                     {/* Deliverables */}
                     <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center space-x-2">
-                        <FileText className="w-4 h-4 text-blue-500" />
+                      <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center space-x-2">
+                        <FileText className="w-4 h-4 text-primary-500" />
                         <span>Deliverables</span>
                       </h4>
                       <ul className="space-y-1">
                         {step.deliverables.map((deliverable, idx) => (
-                          <li key={idx} className="text-sm text-gray-600 dark:text-gray-300 flex items-center space-x-2">
-                            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
+                          <li key={idx} className="text-sm text-text-secondary-light dark:text-text-secondary-dark flex items-center space-x-2">
+                            <div className="w-1.5 h-1.5 bg-primary-400 rounded-full"></div>
                             <span>{deliverable}</span>
                           </li>
                         ))}
@@ -379,14 +379,14 @@ export const WorkflowGuidance: React.FC<WorkflowGuidanceProps> = ({
 
                     {/* Tips */}
                     <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center space-x-2">
-                        <Lightbulb className="w-4 h-4 text-yellow-500" />
+                      <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center space-x-2">
+                        <Lightbulb className="w-4 h-4 text-warning-500" />
                         <span>Pro Tips</span>
                       </h4>
                       <ul className="space-y-1">
                         {step.tips.map((tip, idx) => (
-                          <li key={idx} className="text-sm text-gray-600 dark:text-gray-300 flex items-center space-x-2">
-                            <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
+                          <li key={idx} className="text-sm text-text-secondary-light dark:text-text-secondary-dark flex items-center space-x-2">
+                            <div className="w-1.5 h-1.5 bg-warning-400 rounded-full"></div>
                             <span>{tip}</span>
                           </li>
                         ))}
@@ -414,7 +414,7 @@ export const WorkflowGuidance: React.FC<WorkflowGuidanceProps> = ({
                               onNavigate(route);
                             }
                           }}
-                          className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium"
+                          className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-sm font-medium"
                         >
                           <span>Start this step</span>
                           <ArrowRight className="w-4 h-4" />
@@ -430,23 +430,23 @@ export const WorkflowGuidance: React.FC<WorkflowGuidanceProps> = ({
       </div>
 
       {/* Quick Actions */}
-      <div className="p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50">
+      <div className="p-6 border-t border-support-light dark:border-support-dark bg-background-light dark:bg-background-dark">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <HelpCircle className="w-5 h-5 text-gray-500" />
-            <span className="text-sm text-gray-600 dark:text-gray-300">Need help?</span>
+            <HelpCircle className="w-5 h-5 text-text-muted-light dark:text-text-muted-dark" />
+            <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Need help?</span>
           </div>
           <div className="flex space-x-2">
             <button
               onClick={() => onNavigate?.('/help')}
-              className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
             >
               View Help Center
             </button>
-            <span className="text-gray-300 dark:text-gray-600">|</span>
+            <span className="text-text-muted-light dark:text-text-muted-dark">|</span>
             <button
               onClick={() => onNavigate?.('/user-manual')}
-              className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
             >
               User Manual
             </button>

@@ -55,7 +55,12 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   });
 }
 
-createRoot(document.getElementById('root')!).render(
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error('Root element not found. Ensure the HTML contains an element with id="root"');
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
       <ScrollToTop />

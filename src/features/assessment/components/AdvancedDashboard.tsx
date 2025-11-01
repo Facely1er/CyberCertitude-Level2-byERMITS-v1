@@ -77,6 +77,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const navigate = useNavigate();
 
   const calculateAssessmentScore = (assessment: AssessmentData) => {
+    if (!assessment.responses) return 0;
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
     return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
@@ -128,7 +129,15 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     // Get the latest CMMC assessment
     const latestAssessment = savedAssessments
       .filter(a => a.frameworkId === 'cmmc')
-      .sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())[0];
+      .sort((a, b) => {
+        const aTime = a.lastModified ? new Date(a.lastModified).getTime() : 0;
+        const bTime = b.lastModified ? new Date(b.lastModified).getTime() : 0;
+        // Handle invalid dates
+        if (isNaN(aTime) || isNaN(bTime)) {
+          return isNaN(aTime) && isNaN(bTime) ? 0 : (isNaN(aTime) ? 1 : -1);
+        }
+        return bTime - aTime;
+      })[0];
 
     if (!latestAssessment) {
       return {
@@ -146,7 +155,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       };
     }
 
-    const responses = latestAssessment.responses;
+    const responses = latestAssessment.responses || {};
     
     // Count implemented controls (score of 3) and calculate gaps
     const implementedControls = Object.values(responses).filter(score => score === 3).length;
@@ -209,9 +218,14 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     if (!savedAssessments || savedAssessments.length === 0) return [];
 
     // Get the most recent assessment
-    const latestAssessment = savedAssessments.sort((a, b) => 
-      new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
-    )[0];
+    const latestAssessment = savedAssessments.sort((a, b) => {
+      const aTime = a.lastModified ? new Date(a.lastModified).getTime() : 0;
+      const bTime = b.lastModified ? new Date(b.lastModified).getTime() : 0;
+      if (isNaN(aTime) || isNaN(bTime)) {
+        return isNaN(aTime) && isNaN(bTime) ? 0 : (isNaN(aTime) ? 1 : -1);
+      }
+      return bTime - aTime;
+    })[0];
 
     if (!latestAssessment) return [];
 
@@ -285,7 +299,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     const inProgress = total - completed;
     const avgScore = savedAssessments.length > 0 
       ? Math.round(savedAssessments.reduce((sum, assessment) => {
-          const responses = Object.values(assessment.responses);
+          const responses = Object.values(assessment.responses || {});
           const score = responses.length > 0 
             ? (responses.reduce((a, b) => a + b, 0) / responses.length) * 25
             : 0;
@@ -307,16 +321,22 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     // Recent activity
     const recentAssessments = savedAssessments
       .filter(a => {
-        const daysSinceModified = (new Date().getTime() - new Date(a.lastModified).getTime()) / (1000 * 60 * 60 * 24);
-        return daysSinceModified <= 7;
+        if (!a.lastModified) return false;
+        const lastModified = new Date(a.lastModified).getTime();
+        if (isNaN(lastModified)) return false;
+        const daysSinceModified = (new Date().getTime() - lastModified) / (1000 * 60 * 60 * 24);
+        return daysSinceModified <= 7 && daysSinceModified >= 0;
       }).length;
 
     // Completion trend (last 30 days)
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    const recentCompletions = savedAssessments.filter(a => 
-      a.isComplete && new Date(a.lastModified) >= thirtyDaysAgo
-    ).length;
+    const recentCompletions = savedAssessments.filter(a => {
+      if (!a.isComplete || !a.lastModified) return false;
+      const lastModified = new Date(a.lastModified);
+      if (isNaN(lastModified.getTime())) return false;
+      return lastModified >= thirtyDaysAgo;
+    }).length;
 
     return { 
       total, 
@@ -750,8 +770,8 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </h3>
             <div className="h-64">
               <PieChart
-                labels={Object.keys(stats.riskDistribution).map(risk => `${risk.charAt(0).toUpperCase() + risk.slice(1)} Risk`)}
-                data={Object.values(stats.riskDistribution)}
+                labels={stats.riskDistribution ? Object.keys(stats.riskDistribution).map(risk => `${risk.charAt(0).toUpperCase() + risk.slice(1)} Risk`) : []}
+                data={stats.riskDistribution ? Object.values(stats.riskDistribution) : []}
                 backgroundColor={[
                   'rgba(239, 68, 68, 0.8)',   // Critical - Red
                   'rgba(249, 115, 22, 0.8)',  // High - Orange
@@ -770,7 +790,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
           {/* Risk Distribution Cards */}
           <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-            {Object.entries(stats.riskDistribution).map(([risk, count]) => (
+            {stats.riskDistribution ? Object.entries(stats.riskDistribution).map(([risk, count]) => (
               <div key={risk} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
                 <div className="flex items-center justify-between">
                   <div>
@@ -782,7 +802,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     </p>
                     <div className="mt-2">
                       <span className="text-xs text-gray-500 dark:text-gray-400">
-                        {stats.total > 0 ? Math.round((count / stats.total) * 100) : 0}% of total
+                        {stats.total > 0 ? Math.round(((count as number) / stats.total) * 100) : 0}% of total
                       </span>
                     </div>
                   </div>
@@ -802,13 +822,15 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
                       risk === 'critical' ? 'bg-red-500' :
+                      risk === 'high' ? 'bg-orange-500' :
+                      risk === 'medium' ? 'bg-yellow-500' :
                       'bg-green-500'
                     }`}
-                    style={{ width: `${stats.total > 0 ? (count / stats.total) * 100 : 0}%` }}
+                    style={{ width: `${stats.total > 0 ? ((count as number) / stats.total) * 100 : 0}%` }}
                   />
                 </div>
               </div>
-            ))}
+            )) : null}
           </div>
         </div>
 

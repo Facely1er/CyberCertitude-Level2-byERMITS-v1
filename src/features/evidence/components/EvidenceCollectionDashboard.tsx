@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
   FileText, Upload, CheckCircle, Clock, AlertTriangle, 
-  Download, Eye, Search, Calendar, Users, RefreshCw,
-  Target, Shield, Activity, Plus, Filter, Trash2, Award, Settings
+  Download, Eye, Search, Users, RefreshCw,
+  Target, Shield, Activity, Plus, Trash2, Award, Settings
 } from 'lucide-react';
 import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
@@ -27,7 +27,6 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [evidenceItems, setEvidenceItems] = useState<EvidenceItem[]>([]);
   const [filteredEvidenceItems, setFilteredEvidenceItems] = useState<EvidenceItem[]>([]);
-  const [collections, setCollections] = useState<EvidenceCollection[]>([]);
   const [loading, setLoading] = useState(true);
   const [statistics, setStatistics] = useState<any>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -55,14 +54,13 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
   const loadData = async () => {
     try {
       setLoading(true);
-      const [evidenceData, collectionsData, stats] = await Promise.all([
+      const [evidenceData, , stats] = await Promise.all([
         evidenceService.getEvidenceItems(),
-        evidenceService.getEvidenceCollections(),
+        evidenceService.getEvidenceCollections(), // Collections data fetched but not currently used in UI
         evidenceService.getEvidenceStatistics()
       ]);
       
       setEvidenceItems(evidenceData);
-      setCollections(collectionsData);
       setStatistics(stats);
     } catch (error) {
       addNotification('error', 'Failed to load evidence data');
@@ -116,7 +114,7 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
     try {
       const tags = uploadFormData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
       
-      const evidenceItem = await evidenceService.uploadFile(selectedFile, {
+      await evidenceService.uploadFile(selectedFile, {
         name: uploadFormData.name,
         description: uploadFormData.description,
         type: uploadFormData.type,
@@ -217,8 +215,8 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-center h-64">
-          <RefreshCw className="w-8 h-8 animate-spin text-blue-600" />
-          <span className="ml-2 text-gray-600 dark:text-gray-300">Loading evidence data...</span>
+          <RefreshCw className="w-8 h-8 animate-spin text-primary-600 dark:text-primary-400" />
+          <span className="ml-2 text-text-secondary-light dark:text-text-secondary-dark">Loading evidence data...</span>
         </div>
       </div>
     );
@@ -226,49 +224,49 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'approved': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'pending-review': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'draft': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
-      case 'rejected': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-      case 'archived': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
-      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      case 'approved': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'pending-review': return 'bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-300';
+      case 'draft': return 'bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark border border-support-light dark:border-support-dark';
+      case 'rejected': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      case 'archived': return 'bg-secondary-100 dark:bg-secondary-900/30 text-secondary-800 dark:text-secondary-300';
+      default: return 'bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark border border-support-light dark:border-support-dark';
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'document': return 'text-blue-600 dark:text-blue-400';
-      case 'screenshot': return 'text-green-600 dark:text-green-400';
-      case 'configuration': return 'text-purple-600 dark:text-purple-400';
-      case 'log': return 'text-orange-600 dark:text-orange-400';
-      case 'test-result': return 'text-red-600 dark:text-red-400';
-      case 'certificate': return 'text-indigo-600 dark:text-indigo-400';
-      case 'policy': return 'text-pink-600 dark:text-pink-400';
-      case 'procedure': return 'text-yellow-600 dark:text-yellow-400';
-      case 'training-record': return 'text-teal-600 dark:text-teal-400';
-      case 'audit-report': return 'text-cyan-600 dark:text-cyan-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'document': return 'text-primary-600 dark:text-primary-400';
+      case 'screenshot': return 'text-success-600 dark:text-success-400';
+      case 'configuration': return 'text-secondary-600 dark:text-secondary-400';
+      case 'log': return 'text-warning-600 dark:text-warning-400';
+      case 'test-result': return 'text-error-600 dark:text-error-400';
+      case 'certificate': return 'text-primary-600 dark:text-primary-400';
+      case 'policy': return 'text-accent-600 dark:text-accent-400';
+      case 'procedure': return 'text-warning-600 dark:text-warning-400';
+      case 'training-record': return 'text-success-600 dark:text-success-400';
+      case 'audit-report': return 'text-primary-600 dark:text-primary-400';
+      default: return 'text-text-secondary-light dark:text-text-secondary-dark';
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'technical': return 'text-blue-600 dark:text-blue-400';
-      case 'administrative': return 'text-green-600 dark:text-green-400';
-      case 'physical': return 'text-purple-600 dark:text-purple-400';
-      case 'compliance': return 'text-orange-600 dark:text-orange-400';
-      case 'operational': return 'text-red-600 dark:text-red-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'technical': return 'text-primary-600 dark:text-primary-400';
+      case 'administrative': return 'text-success-600 dark:text-success-400';
+      case 'physical': return 'text-secondary-600 dark:text-secondary-400';
+      case 'compliance': return 'text-warning-600 dark:text-warning-400';
+      case 'operational': return 'text-error-600 dark:text-error-400';
+      default: return 'text-text-secondary-light dark:text-text-secondary-dark';
     }
   };
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case 'critical': return 'text-red-600 dark:text-red-400';
-      case 'high': return 'text-orange-600 dark:text-orange-400';
-      case 'medium': return 'text-yellow-600 dark:text-yellow-400';
-      case 'low': return 'text-green-600 dark:text-green-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'critical': return 'text-error-600 dark:text-error-400';
+      case 'high': return 'text-warning-600 dark:text-warning-400';
+      case 'medium': return 'text-warning-600 dark:text-warning-400';
+      case 'low': return 'text-success-600 dark:text-success-400';
+      default: return 'text-text-secondary-light dark:text-text-secondary-dark';
     }
   };
 
@@ -287,18 +285,18 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="card-standard mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <div className="p-3 bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 rounded-xl">
+                <FileText className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   Evidence Collection
                 </h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Manage and organize compliance evidence
                 </p>
               </div>
@@ -307,14 +305,14 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
             <div className="flex space-x-3">
               <button
                 onClick={handleGenerateEvidence}
-                className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                className="btn-secondary px-4 py-2 rounded-xl transition flex items-center space-x-2"
               >
                 <Plus className="w-4 h-4" />
                 <span>Generate from Assessment</span>
               </button>
               <button
                 onClick={() => setShowUploadModal(true)}
-                className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="btn-primary px-4 py-2 rounded-xl transition flex items-center space-x-2"
               >
                 <Upload className="w-4 h-4" />
                 <span>Upload Evidence</span>
@@ -325,12 +323,12 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
       </div>
 
       {/* Evidence Categories */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+      <div className="card-standard mb-8">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
             Evidence Categories
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">
             Organized by compliance framework domains and evidence types
           </p>
         </div>
@@ -338,163 +336,163 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Access Control */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800">
+            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-lg p-6 border border-primary-200 dark:border-primary-800">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                  <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                  <Shield className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">Access Control</h3>
-                  <p className="text-sm text-blue-700 dark:text-blue-300">Identity & Access Management</p>
+                  <h3 className="text-lg font-semibold text-primary-900 dark:text-primary-100">Access Control</h3>
+                  <p className="text-sm text-primary-700 dark:text-primary-300">Identity & Access Management</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-blue-700 dark:text-blue-300">Collections:</span>
-                  <span className="font-medium text-blue-900 dark:text-blue-100">2</span>
+                  <span className="text-primary-700 dark:text-primary-300">Collections:</span>
+                  <span className="font-medium text-primary-900 dark:text-primary-100">2</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-blue-700 dark:text-blue-300">Evidence Types:</span>
-                  <span className="font-medium text-blue-900 dark:text-blue-100">Policy, Procedure, Screenshot</span>
+                  <span className="text-primary-700 dark:text-primary-300">Evidence Types:</span>
+                  <span className="font-medium text-primary-900 dark:text-primary-100">Policy, Procedure, Screenshot</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-blue-700 dark:text-blue-300">Progress:</span>
-                  <span className="font-medium text-blue-900 dark:text-blue-100">65%</span>
+                  <span className="text-primary-700 dark:text-primary-300">Progress:</span>
+                  <span className="font-medium text-primary-900 dark:text-primary-100">65%</span>
                 </div>
               </div>
             </div>
 
             {/* Incident Response */}
-            <div className="bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-lg p-6 border border-red-200 dark:border-red-800">
+            <div className="bg-gradient-to-br from-error-50 to-error-50 dark:from-error-900/20 dark:to-error-900/20 rounded-lg p-6 border border-error-200 dark:border-error-800">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                  <AlertTriangle className="w-6 h-6 text-red-600 dark:text-red-400" />
+                <div className="p-3 bg-error-100 dark:bg-error-900/30 rounded-lg">
+                  <AlertTriangle className="w-6 h-6 text-error-600 dark:text-error-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-red-900 dark:text-red-100">Incident Response</h3>
-                  <p className="text-sm text-red-700 dark:text-red-300">Security Incident Management</p>
+                  <h3 className="text-lg font-semibold text-error-900 dark:text-error-100">Incident Response</h3>
+                  <p className="text-sm text-error-700 dark:text-error-300">Security Incident Management</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-red-700 dark:text-red-300">Collections:</span>
-                  <span className="font-medium text-red-900 dark:text-red-100">1</span>
+                  <span className="text-error-700 dark:text-error-300">Collections:</span>
+                  <span className="font-medium text-error-900 dark:text-error-100">1</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-red-700 dark:text-red-300">Evidence Types:</span>
-                  <span className="font-medium text-red-900 dark:text-red-100">Procedure, Audit Report</span>
+                  <span className="text-error-700 dark:text-error-300">Evidence Types:</span>
+                  <span className="font-medium text-error-900 dark:text-error-100">Procedure, Audit Report</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-red-700 dark:text-red-300">Progress:</span>
-                  <span className="font-medium text-red-900 dark:text-red-100">100%</span>
+                  <span className="text-error-700 dark:text-error-300">Progress:</span>
+                  <span className="font-medium text-error-900 dark:text-error-100">100%</span>
                 </div>
               </div>
             </div>
 
             {/* Risk Management */}
-            <div className="bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 rounded-lg p-6 border border-orange-200 dark:border-orange-800">
+            <div className="bg-gradient-to-br from-warning-50 to-warning-50 dark:from-warning-900/20 dark:to-warning-900/20 rounded-lg p-6 border border-warning-200 dark:border-warning-800">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-                  <Target className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                <div className="p-3 bg-warning-100 dark:bg-warning-900/30 rounded-lg">
+                  <Target className="w-6 h-6 text-warning-600 dark:text-warning-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-orange-900 dark:text-orange-100">Risk Management</h3>
-                  <p className="text-sm text-orange-700 dark:text-orange-300">Risk Assessment & Mitigation</p>
+                  <h3 className="text-lg font-semibold text-warning-900 dark:text-warning-100">Risk Management</h3>
+                  <p className="text-sm text-warning-700 dark:text-warning-300">Risk Assessment & Mitigation</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-orange-700 dark:text-orange-300">Collections:</span>
-                  <span className="font-medium text-orange-900 dark:text-orange-100">1</span>
+                  <span className="text-warning-700 dark:text-warning-300">Collections:</span>
+                  <span className="font-medium text-warning-900 dark:text-warning-100">1</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-orange-700 dark:text-orange-300">Evidence Types:</span>
-                  <span className="font-medium text-orange-900 dark:text-orange-100">Assessment Report, Policy</span>
+                  <span className="text-warning-700 dark:text-warning-300">Evidence Types:</span>
+                  <span className="font-medium text-warning-900 dark:text-warning-100">Assessment Report, Policy</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-orange-700 dark:text-orange-300">Progress:</span>
-                  <span className="font-medium text-orange-900 dark:text-orange-100">0%</span>
+                  <span className="text-warning-700 dark:text-warning-300">Progress:</span>
+                  <span className="font-medium text-warning-900 dark:text-warning-100">0%</span>
                 </div>
               </div>
             </div>
 
             {/* Training & Awareness */}
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-6 border border-green-200 dark:border-green-800">
+            <div className="bg-gradient-to-br from-success-50 to-success-50 dark:from-success-900/20 dark:to-success-900/20 rounded-lg p-6 border border-success-200 dark:border-success-800">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                  <Users className="w-6 h-6 text-green-600 dark:text-green-400" />
+                <div className="p-3 bg-success-100 dark:bg-success-900/30 rounded-lg">
+                  <Users className="w-6 h-6 text-success-600 dark:text-success-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-green-900 dark:text-green-100">Training & Awareness</h3>
-                  <p className="text-sm text-green-700 dark:text-green-300">Security Education & Training</p>
+                  <h3 className="text-lg font-semibold text-success-900 dark:text-success-100">Training & Awareness</h3>
+                  <p className="text-sm text-success-700 dark:text-success-300">Security Education & Training</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-green-700 dark:text-green-300">Collections:</span>
-                  <span className="font-medium text-green-900 dark:text-green-100">1</span>
+                  <span className="text-success-700 dark:text-success-300">Collections:</span>
+                  <span className="font-medium text-success-900 dark:text-success-100">1</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-green-700 dark:text-green-300">Evidence Types:</span>
-                  <span className="font-medium text-green-900 dark:text-green-100">Training Record, Certificate</span>
+                  <span className="text-success-700 dark:text-success-300">Evidence Types:</span>
+                  <span className="font-medium text-success-900 dark:text-success-100">Training Record, Certificate</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-green-700 dark:text-green-300">Progress:</span>
-                  <span className="font-medium text-green-900 dark:text-green-100">40%</span>
+                  <span className="text-success-700 dark:text-success-300">Progress:</span>
+                  <span className="font-medium text-success-900 dark:text-success-100">40%</span>
                 </div>
               </div>
             </div>
 
             {/* Configuration Management */}
-            <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-lg p-6 border border-purple-200 dark:border-purple-800">
+            <div className="bg-gradient-to-br from-secondary-50 to-secondary-50 dark:from-secondary-900/20 dark:to-secondary-900/20 rounded-lg p-6 border border-secondary-200 dark:border-secondary-800">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                  <Settings className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <div className="p-3 bg-secondary-100 dark:bg-secondary-900/30 rounded-lg">
+                  <Settings className="w-6 h-6 text-secondary-600 dark:text-secondary-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-purple-900 dark:text-purple-100">Configuration Management</h3>
-                  <p className="text-sm text-purple-700 dark:text-purple-300">System Configuration & Change Control</p>
+                  <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100">Configuration Management</h3>
+                  <p className="text-sm text-secondary-700 dark:text-secondary-300">System Configuration & Change Control</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-purple-700 dark:text-purple-300">Collections:</span>
-                  <span className="font-medium text-purple-900 dark:text-purple-100">1</span>
+                  <span className="text-secondary-700 dark:text-secondary-300">Collections:</span>
+                  <span className="font-medium text-secondary-900 dark:text-secondary-100">1</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-purple-700 dark:text-purple-300">Evidence Types:</span>
-                  <span className="font-medium text-purple-900 dark:text-purple-100">Configuration, Procedure</span>
+                  <span className="text-secondary-700 dark:text-secondary-300">Evidence Types:</span>
+                  <span className="font-medium text-secondary-900 dark:text-secondary-100">Configuration, Procedure</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-purple-700 dark:text-purple-300">Progress:</span>
-                  <span className="font-medium text-purple-900 dark:text-purple-100">25%</span>
+                  <span className="text-secondary-700 dark:text-secondary-300">Progress:</span>
+                  <span className="font-medium text-secondary-900 dark:text-secondary-100">25%</span>
                 </div>
               </div>
             </div>
 
             {/* Audit & Monitoring */}
-            <div className="bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-900/20 dark:to-slate-900/20 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-gradient-to-br from-background-light to-background-dark dark:from-background-dark dark:to-background-dark rounded-lg p-6 border border-support-light dark:border-support-dark">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                  <Activity className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+                <div className="p-3 bg-background-light dark:bg-background-dark rounded-lg border border-support-light dark:border-support-dark">
+                  <Activity className="w-6 h-6 text-text-secondary-light dark:text-text-secondary-dark" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Audit & Monitoring</h3>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">Continuous Monitoring & Auditing</p>
+                  <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Audit & Monitoring</h3>
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Continuous Monitoring & Auditing</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-700 dark:text-gray-300">Collections:</span>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">0</span>
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">Collections:</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">0</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-700 dark:text-gray-300">Evidence Types:</span>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">Log File, Audit Report</span>
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">Evidence Types:</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">Log File, Audit Report</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-700 dark:text-gray-300">Progress:</span>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">0%</span>
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">Progress:</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">0%</span>
                 </div>
               </div>
             </div>
@@ -505,55 +503,55 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
       {/* Statistics */}
       {statistics && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="card-standard p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Evidence</p>
-                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{statistics.totalItems}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Total Evidence</p>
+                <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{statistics.totalItems}</p>
               </div>
-              <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <FileText className="w-8 h-8 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="card-standard p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Approved</p>
-                <p className="text-3xl font-bold text-green-600 dark:text-green-400">{statistics.byStatus.approved || 0}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Approved</p>
+                <p className="text-3xl font-bold text-success-600 dark:text-success-400">{statistics.byStatus.approved || 0}</p>
               </div>
-              <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+              <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="card-standard p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Pending Review</p>
-                <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{statistics.byStatus['pending-review'] || 0}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Pending Review</p>
+                <p className="text-3xl font-bold text-warning-600 dark:text-warning-400">{statistics.byStatus['pending-review'] || 0}</p>
               </div>
-              <Clock className="w-8 h-8 text-yellow-600 dark:text-yellow-400" />
+              <Clock className="w-8 h-8 text-warning-600 dark:text-warning-400" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="card-standard p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Size</p>
-                <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{formatFileSize(statistics.totalSize)}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Total Size</p>
+                <p className="text-3xl font-bold text-secondary-600 dark:text-secondary-400">{formatFileSize(statistics.totalSize)}</p>
               </div>
-              <Activity className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+              <Activity className="w-8 h-8 text-secondary-600 dark:text-secondary-400" />
             </div>
           </div>
         </div>
       )}
 
       {/* Quick Actions & Templates */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+      <div className="card-standard mb-8">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
             Quick Actions & Templates
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">
             Get started quickly with pre-built evidence collection templates
           </p>
         </div>
@@ -563,18 +561,18 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
             {/* NIST CSF Template */}
             <button
               onClick={() => addNotification('info', 'NIST CSF v2.0 template would be applied')}
-              className="p-4 border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-lg hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 text-left group"
+              className="p-4 border-2 border-dashed border-primary-300 dark:border-primary-600 rounded-xl hover:border-primary-500 dark:hover:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 text-left group"
             >
               <div className="flex items-center space-x-3 mb-3">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg group-hover:bg-blue-200 dark:group-hover:bg-blue-800/30 transition-colors">
-                  <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-900/50 transition-colors">
+                  <Shield className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300">NIST CSF v2.0</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Complete Framework</p>
+                  <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark group-hover:text-primary-700 dark:group-hover:text-primary-300">NIST CSF v2.0</h3>
+                  <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">Complete Framework</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                 Comprehensive evidence collection for all NIST CSF v2.0 functions and categories
               </p>
             </button>
@@ -582,19 +580,18 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
             {/* CMMC 2.0 Level 2 Template */}
             <button
               onClick={() => addNotification('info', 'CMMC 2.0 Level 2 template would be applied')}
-              className="p-4 border-2 border-dashed border-green-300 dark:border-green-600 rounded-lg hover:border-green-500 dark:hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-200 text-left group"
+              className="p-4 border-2 border-dashed border-success-300 dark:border-success-600 rounded-xl hover:border-success-500 dark:hover:border-success-400 hover:bg-success-50 dark:hover:bg-success-900/20 transition-all duration-200 text-left group"
             >
               <div className="flex items-center space-x-3 mb-3">
-                <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800/30 transition-colors">
-                  <Award className="w-5 h-5 text-green-600 dark:text-green-400" />
+                <div className="p-2 bg-success-100 dark:bg-success-900/30 rounded-lg group-hover:bg-success-200 dark:group-hover:bg-success-900/50 transition-colors">
+                  <Award className="w-5 h-5 text-success-600 dark:text-success-400" />
                 </div>
                 <div>
-
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-green-700 dark:group-hover:text-green-300">CMMC 2.0 Level 2</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Government Contractors</p>
+                  <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark group-hover:text-success-700 dark:group-hover:text-success-300">CMMC 2.0 Level 2</h3>
+                  <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">Government Contractors</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                 Evidence collection template for CMMC 2.0 Level 2 compliance requirements
               </p>
             </button>
@@ -602,18 +599,18 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
             {/* ISO 27001 Template */}
             <button
               onClick={() => addNotification('info', 'ISO 27001 template would be applied')}
-              className="p-4 border-2 border-dashed border-purple-300 dark:border-purple-600 rounded-lg hover:border-purple-500 dark:hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all duration-200 text-left group"
+              className="p-4 border-2 border-dashed border-secondary-300 dark:border-secondary-600 rounded-xl hover:border-secondary-500 dark:hover:border-secondary-400 hover:bg-secondary-50 dark:hover:bg-secondary-900/20 transition-all duration-200 text-left group"
             >
               <div className="flex items-center space-x-3 mb-3">
-                <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:bg-purple-200 dark:group-hover:bg-purple-800/30 transition-colors">
-                  <FileText className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <div className="p-2 bg-secondary-100 dark:bg-secondary-900/30 rounded-lg group-hover:bg-secondary-200 dark:group-hover:bg-secondary-900/50 transition-colors">
+                  <FileText className="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-700 dark:group-hover:text-purple-300">ISO 27001</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">International Standard</p>
+                  <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark group-hover:text-secondary-700 dark:group-hover:text-secondary-300">ISO 27001</h3>
+                  <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">International Standard</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                 Information security management system evidence collection template
               </p>
             </button>
@@ -621,18 +618,18 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
             {/* Custom Template */}
             <button
               onClick={() => setShowUploadModal(true)}
-              className="p-4 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg hover:border-gray-500 dark:hover:border-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/20 transition-all duration-200 text-left group"
+              className="p-4 border-2 border-dashed border-support-light dark:border-support-dark rounded-xl hover:border-primary-300 dark:hover:border-primary-700 hover:bg-background-light dark:hover:bg-background-dark transition-all duration-200 text-left group"
             >
               <div className="flex items-center space-x-3 mb-3">
-                <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors">
-                  <Plus className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                <div className="p-2 bg-background-light dark:bg-background-dark rounded-lg border border-support-light dark:border-support-dark group-hover:bg-surface-light dark:group-hover:bg-surface-dark transition-colors">
+                  <Plus className="w-5 h-5 text-text-secondary-light dark:text-text-secondary-dark" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-300">Custom Template</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Create New</p>
+                  <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400">Custom Template</h3>
+                  <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">Create New</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                 Create a custom evidence collection template for your specific needs
               </p>
             </button>
@@ -641,17 +638,17 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8 p-6">
+      <div className="card-standard mb-8 p-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
           <div className="flex-1 max-w-lg">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search evidence..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input-standard w-full pl-10 pr-4 py-3"
               />
             </div>
           </div>
@@ -660,7 +657,7 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-standard"
             >
               <option value="all">All Types</option>
               <option value="document">Document</option>
@@ -678,7 +675,7 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-standard"
             >
               <option value="all">All Categories</option>
               <option value="technical">Technical</option>
@@ -691,7 +688,7 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-standard"
             >
               <option value="all">All Status</option>
               <option value="draft">Draft</option>
@@ -704,17 +701,17 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
             <select
               value={filterControl}
               onChange={(e) => setFilterControl(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-standard"
             >
               <option value="all">All Controls</option>
-              {statistics && Object.keys(statistics.byControl).map(controlId => (
+              {statistics && statistics.byControl && Object.keys(statistics.byControl).map(controlId => (
                 <option key={controlId} value={controlId}>{controlId}</option>
               ))}
             </select>
 
             <button
               onClick={handleExportEvidence}
-              className="flex items-center space-x-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="btn-secondary px-4 py-3 rounded-xl transition flex items-center space-x-2"
             >
               <Download className="w-4 h-4" />
               <span>Export</span>
@@ -724,9 +721,9 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
       </div>
 
       {/* Evidence Items List */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <div className="card-standard">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">
             Evidence Items ({filteredEvidenceItems.length})
           </h2>
         </div>
@@ -734,11 +731,11 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
         <div className="p-6">
           <div className="space-y-6">
             {filteredEvidenceItems.map((item) => (
-              <div key={item.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div key={item.id} className="border border-support-light dark:border-support-dark rounded-xl p-6 bg-background-light dark:bg-background-dark hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                         {item.name}
                       </h3>
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(item.status)}`}>
@@ -752,49 +749,49 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
                       </span>
                     </div>
                     
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">
                       {item.description}
                     </p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Control ID:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{item.controlId}</div>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Control ID:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{item.controlId}</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Framework:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{item.framework}</div>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Framework:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{item.framework}</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Uploaded By:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{item.uploadedBy}</div>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Uploaded By:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{item.uploadedBy}</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">File Size:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{formatFileSize(item.fileSize)}</div>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">File Size:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{formatFileSize(item.fileSize)}</div>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Compliance:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Compliance:</span>
                         <div className={`font-medium ${getRiskColor(item.complianceStatus)}`}>
                           {item.complianceStatus.replace('-', ' ')}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Risk Level:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Risk Level:</span>
                         <div className={`font-medium ${getRiskColor(item.riskLevel)}`}>
                           {item.riskLevel}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Access Level:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{item.accessLevel}</div>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Access Level:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{item.accessLevel}</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Upload Date:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Upload Date:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {item.uploadDate.toLocaleDateString()}
                         </div>
                       </div>
@@ -802,10 +799,10 @@ const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardProps> = 
 
                     {item.tags && item.tags.length > 0 && (
                       <div className="mb-4">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Tags:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Tags:</span>
                         <div className="mt-1 flex flex-wrap gap-2">
                           {item.tags.map((tag, index) => (
-                            <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full">
+                            <span key={index} className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 text-xs rounded-full">
                               {tag}
                             </span>
                           ))}
@@ -839,7 +836,7 @@ Version: ${item.version}`;
                       
                       addNotification('info', itemDetails);
                     }}
-                    className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="btn-primary px-4 py-2 rounded-xl transition flex items-center space-x-2"
                   >
                     <Eye className="w-4 h-4" />
                     <span>View Details</span>
@@ -848,7 +845,7 @@ Version: ${item.version}`;
                   <select
                     value={item.status}
                     onChange={(e) => handleStatusChange(item.id, e.target.value as EvidenceItem['status'])}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="input-standard"
                   >
                     <option value="draft">Draft</option>
                     <option value="pending-review">Pending Review</option>
@@ -859,7 +856,7 @@ Version: ${item.version}`;
                   
                   <button
                     onClick={() => addNotification('info', 'Evidence editing is available through the evidence editor')}
-                    className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                    className="btn-secondary px-4 py-2 rounded-xl transition flex items-center space-x-2"
                   >
                     <Eye className="w-4 h-4" />
                     <span>Edit</span>
@@ -867,7 +864,7 @@ Version: ${item.version}`;
                   
                   <button
                     onClick={() => handleDeleteItem(item.id)}
-                    className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                    className="px-4 py-2 bg-error-500 text-white rounded-xl hover:bg-error-600 dark:hover:bg-error-400 transition-colors flex items-center space-x-2"
                   >
                     <Trash2 className="w-4 h-4" />
                     <span>Delete</span>
@@ -879,11 +876,11 @@ Version: ${item.version}`;
           
           {filteredEvidenceItems.length === 0 && (
             <div className="text-center py-12">
-              <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+              <FileText className="w-16 h-16 text-text-muted-light dark:text-text-muted-dark mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                 No Evidence Found
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
                 {searchTerm || filterStatus !== 'all' || filterType !== 'all' || filterCategory !== 'all' || filterControl !== 'all'
                   ? 'No evidence items match your current search and filter criteria. Try adjusting your filters.'
                   : 'No evidence items have been uploaded yet. Upload evidence or generate from assessment.'}
@@ -892,13 +889,13 @@ Version: ${item.version}`;
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button
                     onClick={handleGenerateEvidence}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="btn-primary px-6 py-3 rounded-xl transition"
                   >
                     Generate from Assessment
                   </button>
                   <button
                     onClick={() => setShowUploadModal(true)}
-                    className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="btn-secondary px-6 py-3 rounded-xl transition"
                   >
                     Upload Evidence
                   </button>
@@ -912,42 +909,42 @@ Version: ${item.version}`;
       {/* Upload Modal */}
       {showUploadModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-2xl mx-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Upload Evidence</h3>
+          <div className="card-standard p-6 w-full max-w-2xl mx-4">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Upload Evidence</h3>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   File
                 </label>
                 <input
                   type="file"
                   onChange={handleFileUpload}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-3 py-2"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Name *
                 </label>
                 <input
                   type="text"
                   value={uploadFormData.name}
                   onChange={(e) => setUploadFormData(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-3 py-2"
                   placeholder="Evidence item name"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Description
                 </label>
                 <textarea
                   value={uploadFormData.description}
                   onChange={(e) => setUploadFormData(prev => ({ ...prev, description: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-3 py-2"
                   rows={3}
                   placeholder="Evidence description"
                 />
@@ -955,13 +952,13 @@ Version: ${item.version}`;
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Type
                   </label>
                   <select
                     value={uploadFormData.type}
                     onChange={(e) => setUploadFormData(prev => ({ ...prev, type: e.target.value as EvidenceItem['type'] }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="input-standard w-full px-3 py-2"
                   >
                     <option value="document">Document</option>
                     <option value="screenshot">Screenshot</option>
@@ -977,13 +974,13 @@ Version: ${item.version}`;
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Category
                   </label>
                   <select
                     value={uploadFormData.category}
                     onChange={(e) => setUploadFormData(prev => ({ ...prev, category: e.target.value as EvidenceItem['category'] }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="input-standard w-full px-3 py-2"
                   >
                     <option value="technical">Technical</option>
                     <option value="administrative">Administrative</option>
@@ -995,40 +992,40 @@ Version: ${item.version}`;
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Control ID *
                 </label>
                 <input
                   type="text"
                   value={uploadFormData.controlId}
                   onChange={(e) => setUploadFormData(prev => ({ ...prev, controlId: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-3 py-2"
                   placeholder="e.g., AC.1.001"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Control Name
                 </label>
                 <input
                   type="text"
                   value={uploadFormData.controlName}
                   onChange={(e) => setUploadFormData(prev => ({ ...prev, controlName: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-3 py-2"
                   placeholder="Control name"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Tags (comma-separated)
                 </label>
                 <input
                   type="text"
                   value={uploadFormData.tags}
                   onChange={(e) => setUploadFormData(prev => ({ ...prev, tags: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-3 py-2"
                   placeholder="e.g., access-control, configuration, security"
                 />
               </div>
@@ -1041,17 +1038,17 @@ Version: ${item.version}`;
                     onChange={(e) => setUploadFormData(prev => ({ ...prev, isConfidential: e.target.checked }))}
                     className="mr-2"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">Confidential</span>
+                  <span className="text-sm text-text-primary-light dark:text-text-primary-dark">Confidential</span>
                 </label>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Access Level
                   </label>
                   <select
                     value={uploadFormData.accessLevel}
                     onChange={(e) => setUploadFormData(prev => ({ ...prev, accessLevel: e.target.value as EvidenceItem['accessLevel'] }))}
-                    className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="input-standard px-3 py-2"
                   >
                     <option value="public">Public</option>
                     <option value="internal">Internal</option>
@@ -1065,13 +1062,13 @@ Version: ${item.version}`;
             <div className="flex justify-end space-x-3 mt-6">
               <button
                 onClick={() => setShowUploadModal(false)}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="btn-secondary px-4 py-2 rounded-xl transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleUpload}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="btn-primary px-4 py-2 rounded-xl transition"
               >
                 Upload
               </button>

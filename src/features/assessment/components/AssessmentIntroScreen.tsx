@@ -126,18 +126,18 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="card-standard mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                <FrameworkIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <div className="p-3 bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 rounded-xl">
+                <FrameworkIcon className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   Cybersecurity Framework Assessment
                 </h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Choose Your Framework & Begin Assessment
                 </p>
               </div>
@@ -150,10 +150,10 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-8">
           {/* Framework Selection */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+          <div className="card-standard p-8">
             <div className="flex items-center space-x-3 mb-6">
-              <Target className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <Target className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+              <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 Assessment Setup
               </h2>
             </div>
@@ -161,48 +161,48 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
             {/* Single Framework Display */}
             <div className="mb-8">
               <div className={`p-6 border-2 rounded-xl shadow-lg ${
-                'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
               }`}>
                 <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                    <Building className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                  <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-xl">
+                    <Building className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                   </div>
                   
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
-                      <h3 className="text-xl font-bold text-blue-900 dark:text-blue-100">
+                      <h3 className="text-xl font-bold text-primary-900 dark:text-primary-100">
                         {currentFramework.name}
                       </h3>
-                      <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 text-xs font-medium rounded-full">
+                      <span className="px-3 py-1 bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300 text-xs font-medium rounded-full">
                         Military Required
                       </span>
-                      <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 text-xs font-medium rounded-full">
+                      <span className="px-3 py-1 bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-300 text-xs font-medium rounded-full">
                         Level 2 - CUI Protection
                       </span>
                     </div>
                     
-                    <p className="text-sm mb-4 text-blue-700 dark:text-blue-300">
+                    <p className="text-sm mb-4 text-primary-700 dark:text-primary-300">
                       {currentFramework.description}
                     </p>
                     
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div className="text-center">
-                        <div className="font-bold text-blue-600 dark:text-blue-400">
+                        <div className="font-bold text-primary-600 dark:text-primary-400">
                           240min
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">Duration</div>
+                        <div className="text-xs text-text-muted-light dark:text-text-muted-dark">Duration</div>
                       </div>
                       <div className="text-center">
-                        <div className="font-bold text-blue-600 dark:text-blue-400">
+                        <div className="font-bold text-primary-600 dark:text-primary-400">
                           110
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">Controls</div>
+                        <div className="text-xs text-text-muted-light dark:text-text-muted-dark">Controls</div>
                       </div>
                       <div className="text-center">
-                        <div className="font-bold text-blue-600 dark:text-blue-400">
+                        <div className="font-bold text-primary-600 dark:text-primary-400">
                           Level 2
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">CMMC</div>
+                        <div className="text-xs text-text-muted-light dark:text-text-muted-dark">CMMC</div>
                       </div>
                     </div>
                   </div>
@@ -216,52 +216,52 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
           </div>
 
           {/* CMMC Framework Overview */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+          <div className="card-standard p-8">
             <div className="flex items-center space-x-3 mb-6">
-              <FrameworkIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <FrameworkIcon className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+              <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 CMMC 2.0 Level 2 Overview
               </h2>
             </div>
             
-            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark text-lg leading-relaxed mb-8">
               {currentFramework.description}
             </p>
 
             {/* Key Metrics */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-              <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+              <div className="text-center p-4 bg-primary-50 dark:bg-primary-900/20 rounded-xl border border-primary-200 dark:border-primary-800">
+                <div className="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-2">
                   240
                 </div>
-                <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                   Minutes
                 </div>
               </div>
               
-              <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
-                <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-2">
+              <div className="text-center p-4 bg-success-50 dark:bg-success-900/20 rounded-xl border border-success-200 dark:border-success-800">
+                <div className="text-2xl font-bold text-success-600 dark:text-success-400 mb-2">
                   110
                 </div>
-                <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                   Controls
                 </div>
               </div>
               
-              <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
-                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2">
+              <div className="text-center p-4 bg-secondary-50 dark:bg-secondary-900/20 rounded-xl border border-secondary-200 dark:border-secondary-800">
+                <div className="text-2xl font-bold text-secondary-600 dark:text-secondary-400 mb-2">
                   14
                 </div>
-                <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                   Domains
                 </div>
               </div>
               
-              <div className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
-                <div className="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-2">
+              <div className="text-center p-4 bg-warning-50 dark:bg-warning-900/20 rounded-xl border border-warning-200 dark:border-warning-800">
+                <div className="text-2xl font-bold text-warning-600 dark:text-warning-400 mb-2">
                   Level 2
                 </div>
-                <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <div className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                   CMMC Level
                 </div>
               </div>
@@ -276,15 +276,15 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
 
             {/* Framework Benefits */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Star className="w-6 h-6 mr-3 text-yellow-500" />
+              <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
+                <Star className="w-6 h-6 mr-3 text-warning-500" />
                 CMMC 2.0 Level 2 Benefits
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
                 {getFrameworkBenefits('cmmc').map((benefit, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">{benefit}</span>
+                  <div key={index} className="flex items-start space-x-3 p-4 bg-background-light dark:bg-background-dark rounded-lg border border-support-light dark:border-support-dark">
+                    <CheckCircle className="w-5 h-5 text-success-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-text-primary-light dark:text-text-primary-dark">{benefit}</span>
                   </div>
                 ))}
               </div>
@@ -292,15 +292,15 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
 
             {/* Industry Applicability */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Building className="w-6 h-6 mr-3 text-blue-500" />
+              <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
+                <Building className="w-6 h-6 mr-3 text-primary-500" />
                 Applicable Organizations
               </h3>
               <div className="flex flex-wrap gap-3">
                 {['Military Prime Contractors', 'Military Subcontractors', 'Military Supply Chain', 'CUI Handlers'].map((org, index) => (
                   <span
                     key={index}
-                    className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium border border-blue-200 dark:border-blue-800"
+                    className="px-4 py-2 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 rounded-full text-sm font-medium border border-primary-200 dark:border-primary-800"
                   >
                     {org}
                   </span>
@@ -310,8 +310,8 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
 
             {/* CMMC Domains Overview */}
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                  <Shield className="w-6 h-6 mr-3 text-green-500" />
+                <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
+                  <Shield className="w-6 h-6 mr-3 text-success-500" />
                   CMMC Domains (14)
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -323,8 +323,8 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
                     'Risk Assessment (RA)', 'Security Assessment (CA)', 'System and Communications Protection (SC)',
                     'System and Information Integrity (SI)'
                   ].map((domain, index) => (
-                    <div key={index} className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                      <span className="text-sm font-medium text-green-800 dark:text-green-300">{domain}</span>
+                    <div key={index} className="p-3 bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800 rounded-lg">
+                      <span className="text-sm font-medium text-success-800 dark:text-success-300">{domain}</span>
                     </div>
                   ))}
                 </div>
@@ -332,21 +332,21 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
           </div>
 
           {/* Preparation Checklist */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-              <Lightbulb className="w-8 h-8 mr-3 text-yellow-500" />
+          <div className="card-standard p-8">
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+              <Lightbulb className="w-8 h-8 mr-3 text-warning-500" />
               CMMC Assessment Preparation
             </h2>
             
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
               Gather these materials before starting your CMMC assessment to ensure accurate evaluation and C3PAO readiness:
             </p>
             
             <div className="grid md:grid-cols-2 gap-4">
               {getPreparationChecklist('cmmc').map((item, index) => (
-                <div key={index} className="flex items-start space-x-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
-                  <div className="w-6 h-6 border-2 border-yellow-500 rounded flex-shrink-0 mt-0.5"></div>
-                  <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                <div key={index} className="flex items-start space-x-3 p-4 bg-warning-50 dark:bg-warning-900/20 rounded-lg border border-warning-200 dark:border-warning-800">
+                  <div className="w-6 h-6 border-2 border-warning-500 rounded flex-shrink-0 mt-0.5"></div>
+                  <span className="text-text-primary-light dark:text-text-primary-dark">{item}</span>
                 </div>
               ))}
             </div>
@@ -356,50 +356,50 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Quick Facts */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 sticky top-24">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="card-standard p-6 sticky top-24">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
               Quick Facts
             </h3>
             
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-gray-600 dark:text-gray-300">Version</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-text-secondary-light dark:text-text-secondary-dark">Version</span>
+                <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                   {currentFramework.version}
                 </span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-gray-600 dark:text-gray-300">Estimated Time</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-text-secondary-light dark:text-text-secondary-dark">Estimated Time</span>
+                <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                   {currentFramework?.estimatedTime || 'N/A'} minutes
                 </span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-gray-600 dark:text-gray-300">Total Controls</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-text-secondary-light dark:text-text-secondary-dark">Total Controls</span>
+                <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                   110
                 </span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-gray-600 dark:text-gray-300">Domains</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-text-secondary-light dark:text-text-secondary-dark">Domains</span>
+                <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                   14
                 </span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-gray-600 dark:text-gray-300">CMMC Level</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-text-secondary-light dark:text-text-secondary-dark">CMMC Level</span>
+                <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                   Level 2 (CUI Protection)
                 </span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-gray-600 dark:text-gray-300">Assessment Type</span>
-                <span className="font-medium text-gray-900 dark:text-white capitalize">
+                <span className="text-text-secondary-light dark:text-text-secondary-dark">Assessment Type</span>
+                <span className="font-medium text-text-primary-light dark:text-text-primary-dark capitalize">
                   Military Contractor Compliance
                 </span>
               </div>
@@ -407,75 +407,75 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
           </div>
 
           {/* Assessment Tips */}
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
-            <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-4 flex items-center">
+          <div className="bg-gradient-to-br from-success-50 to-success-50 dark:from-success-900/20 dark:to-success-900/20 rounded-xl p-6 border border-success-200 dark:border-success-800">
+            <h3 className="text-lg font-semibold text-success-900 dark:text-success-100 mb-4 flex items-center">
               <Lightbulb className="w-5 h-5 mr-2" />
               CMMC Assessment Tips
             </h3>
             
-            <ul className="space-y-3 text-sm text-green-800 dark:text-green-200">
+            <ul className="space-y-3 text-sm text-success-800 dark:text-success-200">
               <li className="flex items-start space-x-2">
-                <CheckCircle className="w-4 h-4 mt-0.5 text-green-600" />
+                <CheckCircle className="w-4 h-4 mt-0.5 text-success-600" />
                 <span>This CMMC 2.0 Level 2 assessment covers all 110 required controls - take your time for accurate evaluation</span>
               </li>
               <li className="flex items-start space-x-2">
-                <CheckCircle className="w-4 h-4 mt-0.5 text-green-600" />
+                <CheckCircle className="w-4 h-4 mt-0.5 text-success-600" />
                 <span>Use the CMMC implementation guidance and CUI protection examples provided</span>
               </li>
               <li className="flex items-start space-x-2">
-                <CheckCircle className="w-4 h-4 mt-0.5 text-green-600" />
+                <CheckCircle className="w-4 h-4 mt-0.5 text-success-600" />
                 <span>Your progress is automatically saved</span>
               </li>
               <li className="flex items-start space-x-2">
-                <CheckCircle className="w-4 h-4 mt-0.5 text-green-600" />
+                <CheckCircle className="w-4 h-4 mt-0.5 text-success-600" />
                 <span>You can pause and resume at any time</span>
               </li>
               <li className="flex items-start space-x-2">
-                <CheckCircle className="w-4 h-4 mt-0.5 text-green-600" />
+                <CheckCircle className="w-4 h-4 mt-0.5 text-success-600" />
                 <span>Estimated completion time: 240 minutes for complete CMMC evaluation</span>
               </li>
               <li className="flex items-start space-x-2">
-                <CheckCircle className="w-4 h-4 mt-0.5 text-green-600" />
+                <CheckCircle className="w-4 h-4 mt-0.5 text-success-600" />
                 <span>Generate SSP and POAM documents upon completion</span>
               </li>
             </ul>
           </div>
 
           {/* Maturity Levels */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
+          <div className="card-standard p-6">
+            <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
               CMMC 2.0 Level 2 Requirements
             </h4>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <div className="w-4 h-4 bg-red-500 rounded-full" />
+                <div className="w-4 h-4 bg-error-500 rounded-full" />
                 <div>
-                  <div className="font-medium text-gray-900 dark:text-white text-sm">
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark text-sm">
                     Process Institutionalization
                   </div>
-                  <div className="text-xs text-gray-600 dark:text-gray-300">
+                  <div className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
                     Documented policies and procedures
                   </div>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
-                <div className="w-4 h-4 bg-orange-500 rounded-full" />
+                <div className="w-4 h-4 bg-warning-500 rounded-full" />
                 <div>
-                  <div className="font-medium text-gray-900 dark:text-white text-sm">
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark text-sm">
                     CUI Protection
                   </div>
-                  <div className="text-xs text-gray-600 dark:text-gray-300">
+                  <div className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
                     All 110 controls implemented
                   </div>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
-                <div className="w-4 h-4 bg-green-500 rounded-full" />
+                <div className="w-4 h-4 bg-success-500 rounded-full" />
                 <div>
-                  <div className="font-medium text-gray-900 dark:text-white text-sm">
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark text-sm">
                     C3PAO Assessment Ready
                   </div>
-                  <div className="text-xs text-gray-600 dark:text-gray-300">
+                  <div className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
                     Third-party assessment preparation
                   </div>
                 </div>
@@ -498,7 +498,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
           <div className="space-y-3">
            <Link
              to="/compliance-workflow"
-             className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-2xl font-bold text-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 flex items-center space-x-3 mx-auto"
+             className="w-full bg-gradient-to-r from-secondary-400 to-accent-500 text-white py-4 px-6 rounded-2xl font-bold text-xl hover:from-secondary-500 hover:to-accent-600 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 flex items-center space-x-3 mx-auto"
            >
              <Activity className="w-6 h-6" />
              <span>Start Implementation Workflow</span>
@@ -506,7 +506,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
            
             <button
               onClick={() => setShowOrganizationForm(!showOrganizationForm)}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
+              className="w-full bg-gradient-to-r from-primary-500 to-secondary-400 text-white py-4 px-6 rounded-xl font-bold hover:from-primary-600 hover:to-secondary-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
             >
               <Play className="w-5 h-5" />
               <span>Start CMMC Level {selectedLevel} Assessment</span>
@@ -514,7 +514,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
             
             <button
               onClick={() => onStartAssessment(undefined, selectedFramework)}
-              className="w-full border-2 border-blue-600 text-blue-600 dark:text-blue-400 py-3 px-6 rounded-xl font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex items-center justify-center space-x-2"
+              className="w-full border-2 border-primary-500 text-primary-500 dark:text-primary-400 py-3 px-6 rounded-xl font-medium hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 flex items-center justify-center space-x-2"
             >
               <ArrowRight className="w-4 h-4" />
               <span>Quick CMMC Level {selectedLevel} Start</span>
@@ -523,7 +523,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
             {onShowTemplates && (
               <button
                 onClick={() => onShowTemplates(selectedFramework)}
-                className="w-full border-2 border-green-600 text-green-600 dark:text-green-400 py-3 px-6 rounded-xl font-medium hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-200 flex items-center justify-center space-x-2"
+                className="w-full border-2 border-success-500 text-success-500 dark:text-success-400 py-3 px-6 rounded-xl font-medium hover:bg-success-50 dark:hover:bg-success-900/20 transition-all duration-200 flex items-center justify-center space-x-2"
               >
                 <FileText className="w-4 h-4" />
                 <span>Browse Templates</span>
@@ -536,14 +536,14 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
       {/* Organization Information Modal */}
       {showOrganizationForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="card-standard p-8 max-w-md w-full mx-4 shadow-2xl">
+            <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
               Military Contractor Information (Optional)
             </h3>
             
             <form onSubmit={handleOrganizationSubmit} className="space-y-4">
               <div>
-                <label htmlFor="org-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="org-name" className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Contractor Organization Name
                 </label>
                 <input
@@ -551,20 +551,20 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
                   id="org-name"
                   value={organizationInfo.name || ''}
                   onChange={(e) => setOrganizationInfo(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-4 py-2"
                   placeholder="Enter contractor organization name"
                 />
               </div>
               
               <div>
-                <label htmlFor="org-industry" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="org-industry" className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Industry
                 </label>
                 <select
                   id="org-industry"
                   value={organizationInfo.industry || ''}
                   onChange={(e) => setOrganizationInfo(prev => ({ ...prev, industry: e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-4 py-2"
                 >
                   <option value="">Select military industry</option>
                   <option value="Aerospace & Military">Aerospace & Military</option>
@@ -579,14 +579,14 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
               </div>
               
               <div>
-                <label htmlFor="org-size" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="org-size" className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Organization Size
                 </label>
                 <select
                   id="org-size"
                   value={organizationInfo.size || ''}
                   onChange={(e) => setOrganizationInfo(prev => ({ ...prev, size: e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-4 py-2"
                 >
                   <option value="">Select size</option>
                   <option value="Small (1-50 employees)">Small (1-50 employees)</option>
@@ -597,7 +597,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
               </div>
               
               <div>
-                <label htmlFor="org-assessor" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="org-assessor" className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   CMMC Assessor/Lead Name
                 </label>
                 <input
@@ -605,7 +605,7 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
                   id="org-assessor"
                   value={organizationInfo.assessor || ''}
                   onChange={(e) => setOrganizationInfo(prev => ({ ...prev, assessor: e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input-standard w-full px-4 py-2"
                   placeholder="Assessment lead or CMMC coordinator name"
                 />
               </div>
@@ -614,13 +614,13 @@ const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Rename
                 <button
                   type="button"
                   onClick={() => setShowOrganizationForm(false)}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                  className="btn-secondary flex-1 px-6 py-3 rounded-xl transition font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-colors font-medium"
+                  className="btn-primary flex-1 px-6 py-3 rounded-xl transition font-medium"
                 >
                   Start CMMC Assessment
                 </button>
