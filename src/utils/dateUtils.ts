@@ -1,121 +1,109 @@
 /**
- * Date validation and manipulation utilities
- * Provides safe date operations with null/undefined handling
+ * Date Utility Functions
+ * 
+ * Safe date operations to prevent runtime errors with null, undefined, or invalid dates.
+ * Based on recommendations from RUNTIME_ERRORS_INSPECTION_REPORT.md
  */
 
 /**
- * Checks if a date string, Date object, or null/undefined is a valid date
- * @param date - The date value to validate
+ * Checks if a date value is valid
+ * @param date - Date string, Date object, null, or undefined
  * @returns true if the date is valid, false otherwise
  */
 export function isValidDate(date: string | Date | null | undefined): boolean {
   if (!date) return false;
-  
-  const d = date instanceof Date ? date : new Date(date);
-  return !isNaN(d.getTime()) && d instanceof Date;
+  try {
+    const d = date instanceof Date ? date : new Date(date);
+    return !isNaN(d.getTime());
+  } catch {
+    return false;
+  }
 }
 
 /**
- * Safely gets the timestamp (milliseconds since epoch) from a date
- * Returns 0 for invalid dates instead of throwing
- * @param date - The date value to convert
+ * Safely gets the timestamp from a date value
+ * @param date - Date string, Date object, null, or undefined
  * @returns Timestamp in milliseconds, or 0 if invalid
  */
 export function safeGetTime(date: string | Date | null | undefined): number {
   if (!isValidDate(date)) return 0;
-  
   const d = date instanceof Date ? date : new Date(date);
   return d.getTime();
 }
 
 /**
- * Calculates the number of days between two dates
- * Returns a safe value even if dates are invalid
- * @param date1 - First date (or current date if not provided)
- * @param date2 - Second date
- * @returns Number of days difference, or 0 if invalid
+ * Calculates days between two dates safely
+ * @param date1 - First date (string, Date, null, or undefined)
+ * @param date2 - Second date (string, Date, null, or undefined), defaults to now
+ * @returns Number of days between dates, or Infinity if either date is invalid
  */
-export function daysBetween(date1: string | Date | null | undefined, date2?: string | Date | null | undefined): number {
-  const d1 = date2 ? safeGetTime(date1) : Date.now();
-  const d2 = date2 ? safeGetTime(date2) : safeGetTime(date1);
-  
-  if (d1 === 0 || d2 === 0) return 0;
-  
-  const diff = Math.abs(d1 - d2);
-  return Math.floor(diff / (1000 * 60 * 60 * 24));
-}
-
-/**
- * Checks if a date is within a certain number of days from now
- * @param date - The date to check
- * @param days - Number of days threshold
- * @returns true if within threshold, false otherwise
- */
-export function isWithinDays(date: string | Date | null | undefined, days: number): boolean {
-  if (!date || days < 0) return false;
-  
-  const daysDiff = daysBetween(date);
-  return daysDiff >= 0 && daysDiff <= days;
-}
-
-/**
- * Safely creates a Date object from a value
- * Returns null for invalid dates instead of Invalid Date object
- * @param date - The date value to convert
- * @returns Date object or null if invalid
- */
-export function safeCreateDate(date: string | Date | null | undefined): Date | null {
-  if (!date) return null;
-  
-  const d = date instanceof Date ? date : new Date(date);
-  if (isNaN(d.getTime())) return null;
-  
-  return d;
-}
-
-/**
- * Compares two dates for sorting purposes
- * Handles invalid dates gracefully
- * @param a - First date
- * @param b - Second date
- * @returns Comparison result: negative if a < b, positive if a > b, 0 if equal
- */
-export function compareDates(
-  a: string | Date | null | undefined,
-  b: string | Date | null | undefined
+export function daysBetween(
+  date1: string | Date | null | undefined,
+  date2: string | Date | null | undefined = new Date()
 ): number {
-  const aTime = safeGetTime(a);
-  const bTime = safeGetTime(b);
+  const time1 = safeGetTime(date1);
+  const time2 = safeGetTime(date2);
   
-  // Handle cases where both are invalid
-  if (aTime === 0 && bTime === 0) return 0;
+  if (time1 === 0 || time2 === 0) return Infinity;
   
-  // Invalid dates sort to the end
-  if (aTime === 0) return 1;
-  if (bTime === 0) return -1;
-  
-  return bTime - aTime; // Descending order by default
+  const diffMs = Math.abs(time2 - time1);
+  return diffMs / (1000 * 60 * 60 * 24);
 }
 
 /**
- * Formats a date to a readable string with fallback
- * @param date - The date to format
- * @param options - Intl.DateTimeFormatOptions
- * @param fallback - Fallback string if date is invalid
- * @returns Formatted date string or fallback
+ * Checks if a date is within the last N days
+ * @param date - Date to check
+ * @param days - Number of days (default: 7)
+ * @returns true if date is within the last N days, false otherwise
  */
-export function safeFormatDate(
+export function isWithinLastDays(
   date: string | Date | null | undefined,
-  options?: Intl.DateTimeFormatOptions,
-  fallback: string = 'Invalid Date'
-): string {
-  const d = safeCreateDate(date);
-  if (!d) return fallback;
+  days: number = 7
+): boolean {
+  if (!isValidDate(date)) return false;
   
-  try {
-    return d.toLocaleDateString(undefined, options);
-  } catch {
-    return fallback;
-  }
+  const daysSince = daysBetween(date, new Date());
+  return daysSince >= 0 && daysSince <= days;
 }
 
+/**
+ * Safely sorts an array of objects by date property
+ * @param array - Array of objects with a date property
+ * @param dateKey - Key of the date property
+ * @param ascending - Sort order (default: false = descending)
+ * @returns Sorted array
+ */
+export function sortByDate<T extends Record<string, any>>(
+  array: T[],
+  dateKey: keyof T,
+  ascending: boolean = false
+): T[] {
+  return [...array].sort((a, b) => {
+    const aTime = safeGetTime(a[dateKey]);
+    const bTime = safeGetTime(b[dateKey]);
+    
+    if (isNaN(aTime) || isNaN(bTime)) {
+      // Put invalid dates at the end
+      if (isNaN(aTime) && isNaN(bTime)) return 0;
+      return isNaN(aTime) ? 1 : -1;
+    }
+    
+    return ascending ? aTime - bTime : bTime - aTime;
+  });
+}
+
+/**
+ * Gets the latest item from an array sorted by date
+ * @param array - Array of objects with a date property
+ * @param dateKey - Key of the date property
+ * @returns Latest item or undefined if array is empty
+ */
+export function getLatestByDate<T extends Record<string, any>>(
+  array: T[],
+  dateKey: keyof T
+): T | undefined {
+  if (!array || array.length === 0) return undefined;
+  
+  const sorted = sortByDate(array, dateKey, false);
+  return sorted[0];
+}

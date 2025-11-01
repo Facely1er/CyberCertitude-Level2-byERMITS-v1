@@ -129,8 +129,11 @@ const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       ? Math.round(savedAssessments.reduce((sum, assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
       : 0;
     const recentReports = savedAssessments.filter(a => {
-      const daysSinceModified = (new Date().getTime() - new Date(a.lastModified).getTime()) / (1000 * 60 * 60 * 24);
-      return daysSinceModified <= 7;
+      if (!a.lastModified) return false;
+      const lastModified = new Date(a.lastModified).getTime();
+      if (isNaN(lastModified)) return false;
+      const daysSinceModified = (new Date().getTime() - lastModified) / (1000 * 60 * 60 * 24);
+      return daysSinceModified <= 7 && daysSinceModified >= 0;
     }).length;
 
     return { total, completed, avgScore, recentReports };
