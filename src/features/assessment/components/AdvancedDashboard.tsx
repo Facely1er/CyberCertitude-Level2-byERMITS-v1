@@ -3,17 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { 
   Plus, 
   Search, 
-  ListFilter as Filter, 
-  Download, 
   Upload, 
   ChartBar as BarChart3, 
-  Calendar, 
   Clock, 
   CircleCheck as CheckCircle, 
   CircleAlert as AlertCircle, 
   TrendingUp, 
   FileText, 
-  Users, 
   Shield, 
   Target, 
   Eye, 
@@ -22,10 +18,7 @@ import {
   Activity, 
   Star, 
   Flag, 
-  Bookmark, 
   ChartPie as PieChartIcon, 
-  Settings, 
-  RefreshCw, 
   ArrowUp, 
   ArrowDown, 
   Info, 
@@ -36,7 +29,6 @@ import {
   ArrowRight, 
   Lightbulb, 
   ExternalLink, 
-  TrendingDown, 
   TriangleAlert as AlertTriangle, 
   Database 
 } from 'lucide-react';
@@ -68,7 +60,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   onDeleteAssessment,
   onGenerateReport,
   onExportAssessment,
-  onImportAssessment,
+  onImportAssessment: _onImportAssessment,
   userProfile,
   addNotification
 }) => {
@@ -77,7 +69,6 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const [filterRisk, setFilterRisk] = useState('all');
   const [sortBy, setSortBy] = useState<'date' | 'score' | 'name' | 'progress'>('date');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
   const [selectedAssessments, setSelectedAssessments] = useState<string[]>([]);
   
@@ -92,7 +83,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   };
 
   // Generate recommendations based on function name and gap
-  const generateRecommendation = (functionName: string, gap: number): string => {
+  const generateRecommendation = (functionName: string, _gap: number): string => {
     const recommendations: Record<string, string> = {
       'Access Control': 'Implement multi-factor authentication and role-based access controls',
       'Asset Management': 'Deploy automated asset discovery and maintain comprehensive inventory',
@@ -516,7 +507,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 <span className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">Demo Mode</span>
               </div>
             )}
-            <label htmlFor="import-backup-input" className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 cursor-pointer flex items-center space-x-2 shadow-sm hover:shadow-md">
+            <label htmlFor="import-backup-input" className="btn-secondary px-6 py-3 rounded-xl transition-all duration-200 cursor-pointer flex items-center space-x-2 shadow-sm hover:shadow-md">
               <Upload className="w-4 h-4" />
               <span className="font-medium">Import Backup</span>
               <input
@@ -554,44 +545,44 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+              <div className="card-standard p-6">
+                <div className="text-3xl font-bold text-success-600 dark:text-success-400 mb-2">
                   {cmmcMetrics.implementedControls}
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   Implemented Controls / 110
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-3">
+                <div className="w-full bg-support-light dark:bg-support-dark rounded-full h-2 mt-3">
                   <div
-                    className="bg-green-500 h-2 rounded-full transition-all duration-500"
+                    className="bg-success-500 h-2 rounded-full transition-all duration-500"
                     style={{ width: `${(cmmcMetrics.implementedControls / 110) * 100}%` }}
                   />
                 </div>
               </div>
               
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">
+              <div className="card-standard p-6">
+                <div className="text-3xl font-bold text-warning-600 dark:text-warning-400 mb-2">
                   {cmmcMetrics.gaps}
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   Implementation Gaps
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-3">
+                <div className="w-full bg-support-light dark:bg-support-dark rounded-full h-2 mt-3">
                   <div
-                    className="bg-orange-500 h-2 rounded-full transition-all duration-500"
+                    className="bg-warning-500 h-2 rounded-full transition-all duration-500"
                     style={{ width: `${(cmmcMetrics.gaps / 110) * 100}%` }}
                   />
                 </div>
               </div>
               
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+              <div className="card-standard p-6">
+                <div className="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-2">
                   Level 2
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   CMMC 2.0 Target Level
                 </div>
-                <div className="text-xs text-blue-600 dark:text-blue-400 mt-2">
+                <div className="text-xs text-primary-600 dark:text-primary-400 mt-2">
                   CUI Protection Required
                 </div>
               </div>

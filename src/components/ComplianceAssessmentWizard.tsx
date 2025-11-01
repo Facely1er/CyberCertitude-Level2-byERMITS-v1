@@ -234,9 +234,9 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
     const scoreBreakdown = getScoreBreakdown();
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 via-background-light to-accent-50 dark:from-primary-950 dark:via-background-dark dark:to-accent-950">
       <div className="max-w-4xl mx-auto px-6 py-8">
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="card-standard p-8">
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
               <Link to="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
@@ -247,56 +247,56 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
                 />
               </Link>
             </div>
-            <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Assessment Complete!</h1>
-            <p className="text-gray-600">Your CMMC 2.0 compliance assessment results</p>
+            <CheckCircle className="w-16 h-16 text-success-500 mx-auto mb-4" />
+            <h1 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">Assessment Complete!</h1>
+            <p className="text-text-secondary-light dark:text-text-secondary-dark">Your CMMC 2.0 compliance assessment results</p>
           </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-blue-50 rounded-lg p-6 text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">{overallScore}%</div>
-                <div className="text-lg font-semibold text-gray-800">Overall Score</div>
-                <div className="text-sm text-gray-600">CMMC 2.0 Compliance</div>
+              <div className="bg-primary-50 dark:bg-primary-900/30 rounded-xl p-6 text-center border border-primary-200 dark:border-primary-800">
+                <div className="text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">{overallScore}%</div>
+                <div className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Overall Score</div>
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">CMMC 2.0 Compliance</div>
               </div>
 
-              <div className="bg-green-50 rounded-lg p-6 text-center">
-                <div className="text-4xl font-bold text-green-600 mb-2">{complianceLevel}</div>
-                <div className="text-lg font-semibold text-gray-800">Compliance Level</div>
-                <div className="text-sm text-gray-600">Assessment Grade</div>
+              <div className="bg-success-50 dark:bg-success-900/30 rounded-xl p-6 text-center border border-success-200 dark:border-success-800">
+                <div className="text-4xl font-bold text-success-600 dark:text-success-400 mb-2">{complianceLevel}</div>
+                <div className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Compliance Level</div>
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Assessment Grade</div>
               </div>
 
-              <div className="bg-purple-50 rounded-lg p-6 text-center">
-                <div className="text-4xl font-bold text-purple-600 mb-2">{answers.length}</div>
-                <div className="text-lg font-semibold text-gray-800">Questions Answered</div>
-                <div className="text-sm text-gray-600">Out of {assessmentQuestions.length}</div>
+              <div className="bg-secondary-50 dark:bg-secondary-900/30 rounded-xl p-6 text-center border border-secondary-200 dark:border-secondary-800">
+                <div className="text-4xl font-bold text-secondary-600 dark:text-secondary-400 mb-2">{answers.length}</div>
+                <div className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Questions Answered</div>
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Out of {assessmentQuestions.length}</div>
               </div>
             </div>
 
             <div className="mb-8">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">Score Breakdown by Category</h2>
+              <h2 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">Score Breakdown by Category</h2>
               <div className="space-y-4">
                 {scoreBreakdown.map(({ category, score }) => (
-                  <div key={category} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <span className="font-semibold text-gray-800">{category}</span>
+                  <div key={category} className="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark rounded-xl border border-support-light dark:border-support-dark">
+                    <span className="font-semibold text-text-primary-light dark:text-text-primary-dark">{category}</span>
                     <div className="flex items-center">
-                      <div className="w-32 bg-gray-200 rounded-full h-2 mr-3">
+                      <div className="w-32 bg-support-light dark:bg-support-dark rounded-full h-2 mr-3">
                         <div
                           className={`h-2 rounded-full ${
-                            score >= 75 ? 'bg-green-500' :
-                            score >= 50 ? 'bg-yellow-500' :
-                            'bg-red-500'
+                            score >= 75 ? 'bg-success-500' :
+                            score >= 50 ? 'bg-warning-500' :
+                            'bg-error-500'
                           }`}
                           style={{ width: `${score}%` }}
                         ></div>
                       </div>
-                      <span className="font-semibold text-gray-800 w-12 text-right">{score}%</span>
+                      <span className="font-semibold text-text-primary-light dark:text-text-primary-dark w-12 text-right">{score}%</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
+            <div className="bg-gradient-to-r from-primary-500 to-secondary-400 rounded-xl p-6 text-white">
               <h3 className="text-lg font-bold mb-4">Next Steps</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -327,7 +327,7 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
                   setCurrentAnswer(null);
                   setNotes('');
                 }}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold"
+                className="btn-primary px-6 py-3 rounded-xl font-semibold"
               >
                 Retake Assessment
               </button>
@@ -339,9 +339,9 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-background-light to-accent-50 dark:from-primary-950 dark:via-background-dark dark:to-accent-950">
       <div className="max-w-4xl mx-auto px-6 py-8">
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="card-standard p-8">
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center space-x-4 mb-4">
@@ -354,17 +354,17 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
               </Link>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h1 className="text-2xl font-bold text-gray-800">CMMC 2.0 Compliance Assessment</h1>
-                  <div className="text-sm text-gray-600">
+                  <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">CMMC 2.0 Compliance Assessment</h1>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                     Question {currentStep + 1} of {assessmentQuestions.length}
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+            <div className="w-full bg-support-light dark:bg-support-dark rounded-full h-2 mb-4">
               <div
-                className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                className="bg-primary-500 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
@@ -373,15 +373,15 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
           {/* Question */}
           <div className="mb-8">
             <div className="flex items-start mb-4">
-              <div className="bg-blue-100 rounded-full p-2 mr-4 flex-shrink-0">
-                <Target className="w-6 h-6 text-blue-600" />
+              <div className="bg-primary-100 dark:bg-primary-900/30 rounded-full p-2 mr-4 flex-shrink-0">
+                <Target className="w-6 h-6 text-primary-600 dark:text-primary-400" />
               </div>
               <div className="flex-1">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">{currentQuestion.question}</h2>
-                <p className="text-gray-600 mb-2">{currentQuestion.description}</p>
-                <div className="flex items-center text-sm text-gray-500">
-                  <span className="bg-gray-100 px-2 py-1 rounded mr-2">{currentQuestion.category}</span>
-                  <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">{currentQuestion.controlId}</span>
+                <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">{currentQuestion.question}</h2>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">{currentQuestion.description}</p>
+                <div className="flex items-center text-sm text-text-muted-light dark:text-text-muted-dark">
+                  <span className="bg-background-light dark:bg-background-dark px-2 py-1 rounded mr-2 border border-support-light dark:border-support-dark">{currentQuestion.category}</span>
+                  <span className="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 px-2 py-1 rounded">{currentQuestion.controlId}</span>
                 </div>
               </div>
             </div>
@@ -389,15 +389,15 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
 
           {/* Answer Options */}
           <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Select your current implementation level:</h3>
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Select your current implementation level:</h3>
             <div className="space-y-3">
               {currentQuestion.options.map((option, index) => (
                 <label
                   key={index}
-                  className={`flex items-start p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                  className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${
                     currentAnswer === index
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                      ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                      : 'border-support-light dark:border-support-dark hover:border-primary-300 dark:hover:border-primary-700 hover:bg-background-light dark:hover:bg-background-dark'
                   }`}
                 >
                   <input
@@ -409,8 +409,8 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
                     className="mt-1 mr-3"
                   />
                   <div className="flex-1">
-                    <div className="font-medium text-gray-800">{option.text}</div>
-                    <div className="text-sm text-gray-600 mt-1">Score: {option.score}%</div>
+                    <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{option.text}</div>
+                    <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1">Score: {option.score}%</div>
                   </div>
                 </label>
               ))}
@@ -419,14 +419,14 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
 
           {/* Notes */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
               Additional Notes (Optional)
             </label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Add any additional context or details about your current implementation..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="input-standard"
               rows={3}
             />
           </div>
@@ -436,7 +436,7 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
             <button
               onClick={handlePrevious}
               disabled={currentStep === 0}
-              className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+              className="btn-secondary px-6 py-3 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
             >
               <ChevronLeft className="w-4 h-4 mr-2" />
               Previous
@@ -445,7 +445,7 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
             <button
               onClick={handleNext}
               disabled={currentAnswer === null}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+              className="btn-primary px-6 py-3 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
             >
               {currentStep === assessmentQuestions.length - 1 ? 'Complete Assessment' : 'Next'}
               <ChevronRight className="w-4 h-4 ml-2" />
