@@ -358,7 +358,16 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
                 {currentAssessment.requirements.filter(req => req.status === 'completed').length} of {currentAssessment.requirements.length} requirements completed
               </span>
               <span>
-                {Math.ceil((currentAssessment.scheduledDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days remaining
+                {(() => {
+                  if (!currentAssessment.scheduledDate) return 'N/A';
+                  const scheduledDate = currentAssessment.scheduledDate instanceof Date 
+                    ? currentAssessment.scheduledDate 
+                    : new Date(currentAssessment.scheduledDate);
+                  const scheduledTime = scheduledDate.getTime();
+                  if (isNaN(scheduledTime)) return 'Invalid date';
+                  const daysRemaining = Math.ceil((scheduledTime - new Date().getTime()) / (1000 * 60 * 60 * 24));
+                  return `${daysRemaining} days remaining`;
+                })()}
               </span>
             </div>
           </div>

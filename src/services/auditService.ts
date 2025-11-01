@@ -131,9 +131,15 @@ export class AuditService {
         });
       }
 
-      return filtered.sort((a, b) => 
-        new Date(b.scheduledDate).getTime() - new Date(a.scheduledDate).getTime()
-      );
+      return filtered.sort((a, b) => {
+        const aTime = a.scheduledDate ? new Date(a.scheduledDate).getTime() : 0;
+        const bTime = b.scheduledDate ? new Date(b.scheduledDate).getTime() : 0;
+        // Handle invalid dates
+        if (isNaN(aTime) || isNaN(bTime)) {
+          return isNaN(aTime) && isNaN(bTime) ? 0 : (isNaN(aTime) ? 1 : -1);
+        }
+        return bTime - aTime;
+      });
     } catch (error) {
       logger.error('Failed to get audits', error);
       return [];
@@ -213,9 +219,15 @@ export class AuditService {
         filtered = filtered.filter(f => f.auditId === auditId);
       }
 
-      return filtered.sort((a, b) => 
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
+      return filtered.sort((a, b) => {
+        const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        // Handle invalid dates
+        if (isNaN(aTime) || isNaN(bTime)) {
+          return isNaN(aTime) && isNaN(bTime) ? 0 : (isNaN(aTime) ? 1 : -1);
+        }
+        return bTime - aTime;
+      });
     } catch (error) {
       logger.error('Failed to get findings', error);
       return [];

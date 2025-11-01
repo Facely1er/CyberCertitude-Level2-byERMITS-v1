@@ -62,9 +62,14 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
   const functionAnalysis = React.useMemo(() => {
     if (savedAssessments.length === 0) return [];
 
-    const latestAssessment = savedAssessments.sort((a, b) => 
-      new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
-    )[0];
+    const latestAssessment = savedAssessments.sort((a, b) => {
+      const aTime = a.lastModified ? new Date(a.lastModified).getTime() : 0;
+      const bTime = b.lastModified ? new Date(b.lastModified).getTime() : 0;
+      if (isNaN(aTime) || isNaN(bTime)) {
+        return isNaN(aTime) && isNaN(bTime) ? 0 : (isNaN(aTime) ? 1 : -1);
+      }
+      return bTime - aTime;
+    })[0];
 
     if (!latestAssessment || !latestAssessment.responses) return [];
 

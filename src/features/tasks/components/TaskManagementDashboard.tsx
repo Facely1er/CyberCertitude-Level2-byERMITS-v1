@@ -89,7 +89,10 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
     }, {} as Record<string, number>);
 
     const upcomingDeadlines = tasks.filter(t => {
-      const daysUntilDue = (new Date(t.dueDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24);
+      if (!t.dueDate) return false;
+      const dueDateTime = new Date(t.dueDate).getTime();
+      if (isNaN(dueDateTime)) return false;
+      const daysUntilDue = (dueDateTime - new Date().getTime()) / (1000 * 60 * 60 * 24);
       return daysUntilDue <= 7 && daysUntilDue > 0 && t.status !== 'completed';
     }).length;
 

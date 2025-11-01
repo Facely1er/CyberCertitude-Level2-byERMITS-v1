@@ -1,66 +1,74 @@
-# Commit Instructions for Visual Balance Fix
+# Commit Instructions for Runtime Error Fixes
 
-## Summary of Changes
+## Summary
 
-All visual balance and header layout improvements have been completed. The following 9 files have been modified:
+All critical runtime error fixes have been completed. The following files were modified:
 
-1. ✅ `src/components/PlaceholderPages.tsx` - Removed onBack props, added Coming Soon badges
-2. ✅ `src/features/assets/components/AssetDashboard.tsx` - Removed Back link
-3. ✅ `src/routes/assets.tsx` - Added Coming Soon badges to all 5 placeholder pages
-4. ✅ `src/features/reporting/components/AssessmentReportsPage.tsx` - Fixed header balance
-5. ✅ `src/features/reporting/components/AdvancedReportingDashboard.tsx` - Fixed header balance
-6. ✅ `src/features/reporting/components/ReportView.tsx` - Improved header structure
-7. ✅ `src/features/audit/components/ComplianceDashboard.tsx` - Removed back button
-8. ✅ `src/features/audit/components/EvidenceCollector.tsx` - Removed back button
-9. ✅ `src/features/assessment/components/EnhancedAssessmentView.tsx` - Fixed error state
+1. **Date Operations Fixed** (7 files):
+   - `src/services/auditService.ts` - Fixed date sorting with null checks
+   - `src/features/assets/components/AssetDashboard.tsx` - Fixed createdAt sorting
+   - `src/features/tasks/components/TaskManagementDashboard.tsx` - Fixed dueDate validation
+   - `src/features/reporting/components/AdvancedReportingDashboard.tsx` - Fixed lastModified sorting
+   - `src/features/reporting/components/ComplianceGapAnalyzer.tsx` - Fixed lastModified sorting
+   - `src/features/audit/components/C3PAOPreparationTool.tsx` - Fixed scheduledDate calculation
 
-## To Commit These Changes
+2. **Object.keys Null Checks Fixed** (3 files):
+   - `src/features/controls/ControlsManagementView.tsx` - Added check for statistics.byOwner
+   - `src/features/policies/components/PolicyManagementView.tsx` - Added check for statistics.byOwner
+   - `src/features/collaboration/components/TeamCollaborationDashboard.tsx` - Added check for statistics.byDepartment
 
-Open your Git client (GitHub Desktop, VS Code, or command terminal) and run:
+3. **Documentation Updated**:
+   - `REMAINING_ISSUES_SUMMARY.md` - Updated with fix status
 
+## How to Commit
+
+### Option 1: Use PowerShell Script (Recommended)
+```powershell
+.\commit-runtime-error-fixes.ps1
+```
+
+### Option 2: Use VS Code
+1. Open VS Code (Ctrl+Shift+G for Source Control)
+2. Stage all changes (click "+" next to each file)
+3. Enter commit message from `COMMIT_RUNTIME_ERROR_FIXES.txt`
+4. Click "Commit"
+5. Push to remote if desired
+
+### Option 3: Manual Git Commands
 ```bash
-git add .
-git commit -m "fix: standardize header layouts for visual balance across all pages
+# Stage all changes
+git add -A
 
-- Remove 'Back to Dashboard' links from all page headers
-- Add 'Coming Soon' badges to placeholder pages for visual completeness
-- Standardize header layout to icon + title on left, actions/badge on right
-- Fix visual imbalance issues with consistent flex layouts
-- Remove unused imports (ChevronLeft, ArrowLeft)
-- Update 9 files for consistent header design pattern"
+# Commit with message
+git commit -F COMMIT_RUNTIME_ERROR_FIXES.txt
 
+# Or commit with inline message
+git commit -m "fix: resolve critical runtime errors and improve null safety" -m "Critical Fixes:" -m "- Fix date operations without null checks in auditService.ts" -m "- Fix Object.keys operations without null checks in 3 components" -m "- Fix additional date operations in 5 other files" -m "" -m "All changes tested and validated:" -m "- ✅ No linter errors" -m "- ✅ No TypeScript errors"
+
+# Push to remote
 git push origin main
 ```
 
-## What Changed
+## Commit Message
 
-### Visual Improvements
-- ✅ Consistent header layout across all pages
-- ✅ Icon + Title/Description on left, actions/badge on right
-- ✅ Removed all "Back to Dashboard" links (breadcrumbs handle navigation)
-- ✅ Added "Coming Soon" badges to placeholder pages
-- ✅ Proper visual balance with `justify-between` layout
-- ✅ All changes maintain dark mode support
+The full commit message is saved in `COMMIT_RUNTIME_ERROR_FIXES.txt`. It includes:
 
-### Technical Changes
-- ✅ Removed unused imports (ChevronLeft, ArrowLeft, Link where not needed)
-- ✅ Fixed all linter warnings
-- ✅ No breaking changes - component interfaces maintained for backward compatibility
+- Detailed description of all fixes
+- List of all modified files
+- Validation status (no linter/TypeScript errors)
 
-## Files Ready for Review
+## Validation
 
-All modified files are in your working directory and ready to commit:
-- `src/components/PlaceholderPages.tsx`
-- `src/features/assets/components/AssetDashboard.tsx`
-- `src/routes/assets.tsx`
-- `src/features/reporting/components/AssessmentReportsPage.tsx`
-- `src/features/reporting/components/AdvancedReportingDashboard.tsx`
-- `src/features/reporting/components/ReportView.tsx`
-- `src/features/audit/components/ComplianceDashboard.tsx`
-- `src/features/audit/components/EvidenceCollector.tsx`
-- `src/features/assessment/components/EnhancedAssessmentView.tsx`
+All fixes have been validated:
+- ✅ No linter errors
+- ✅ No TypeScript errors
+- ✅ Follows existing defensive programming patterns
+- ✅ Consistent null safety patterns across codebase
 
-## Reference Documentation
+## Next Steps
 
-See `VISUAL_BALANCE_FIX_SUMMARY.md` for detailed implementation notes and patterns applied.
-
+After committing:
+1. Verify the commit was successful
+2. Push to remote if ready for deployment
+3. Monitor deployment if auto-deploy is configured
+4. Continue with remaining medium-priority issues (test suite, database migration verification)

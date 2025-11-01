@@ -137,7 +137,14 @@ const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     if (savedAssessments.length === 0) return [];
 
     const assessment = selectedAssessment === 'latest' 
-      ? savedAssessments.sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())[0]
+      ? savedAssessments.sort((a, b) => {
+          const aTime = a.lastModified ? new Date(a.lastModified).getTime() : 0;
+          const bTime = b.lastModified ? new Date(b.lastModified).getTime() : 0;
+          if (isNaN(aTime) || isNaN(bTime)) {
+            return isNaN(aTime) && isNaN(bTime) ? 0 : (isNaN(aTime) ? 1 : -1);
+          }
+          return bTime - aTime;
+        })[0]
       : savedAssessments.find(a => a.id === selectedAssessment);
 
     if (!assessment) return [];

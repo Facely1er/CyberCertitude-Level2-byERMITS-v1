@@ -339,7 +339,7 @@ const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
               className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="all">All Owners</option>
-              {statistics && Object.keys(statistics.byOwner).map(owner => (
+              {statistics && statistics.byOwner && Object.keys(statistics.byOwner).map(owner => (
                 <option key={owner} value={owner}>{owner}</option>
               ))}
             </select>

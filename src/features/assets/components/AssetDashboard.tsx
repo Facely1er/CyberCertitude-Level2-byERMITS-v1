@@ -579,7 +579,14 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <div className="space-y-4">
                 {assets
-                  .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                  .sort((a, b) => {
+                    const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+                    const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+                    if (isNaN(aTime) || isNaN(bTime)) {
+                      return isNaN(aTime) && isNaN(bTime) ? 0 : (isNaN(aTime) ? 1 : -1);
+                    }
+                    return bTime - aTime;
+                  })
                   .slice(0, 5)
                   .map((asset) => {
                     const IconComponent = getCategoryIcon(asset.category);
