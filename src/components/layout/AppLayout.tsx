@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, Shield, BarChart3, CheckCircle, FileText, Database, FileBarChart, CheckSquare, Users, Settings } from 'lucide-react';
+import { Menu, Shield, BarChart3, CheckCircle, FileText, Database, FileBarChart, CheckSquare, Users, Settings, Scale } from 'lucide-react';
 import { AccessibleNavigation } from '../AccessibleNavigation';
 import { AccountDropdown } from '../AccountDropdown';
 import { ThemeToggle } from '../../shared/components/ui/ThemeToggle';
@@ -147,7 +147,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       {/* Footer */}
       <footer className="bg-surface-light dark:bg-surface-dark border-t border-support-light dark:border-support-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {/* Company Info */}
             <div className="md:col-span-1">
               <div className="flex items-start space-x-2 mb-4">
@@ -192,7 +192,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/assessment-intro')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <Shield className="w-4 h-4" />
                     <span>New Assessment</span>
@@ -201,7 +201,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/dashboard')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <BarChart3 className="w-4 h-4" />
                     <span>Dashboard</span>
@@ -210,7 +210,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/compliance')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <CheckCircle className="w-4 h-4" />
                     <span>Compliance</span>
@@ -219,7 +219,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/evidence')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <FileText className="w-4 h-4" />
                     <span>Evidence</span>
@@ -237,7 +237,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/assets')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <Database className="w-4 h-4" />
                     <span>Assets</span>
@@ -246,7 +246,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/reports')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <FileBarChart className="w-4 h-4" />
                     <span>Reports</span>
@@ -255,7 +255,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/tasks')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <CheckSquare className="w-4 h-4" />
                     <span>Tasks</span>
@@ -264,10 +264,64 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/policies')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <FileText className="w-4 h-4" />
                     <span>Policies</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+            
+            {/* Legal */}
+            <div>
+              <h3 className="text-sm font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
+                Legal
+              </h3>
+              <ul className="space-y-1">
+                <li>
+                  <button
+                    onClick={() => navigate('/legal/terms-of-service')}
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+                  >
+                    <Scale className="w-4 h-4" />
+                    <span>Terms of Service</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/legal/privacy-policy')}
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+                  >
+                    <Shield className="w-4 h-4" />
+                    <span>Privacy Policy</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/legal/cookie-policy')}
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+                  >
+                    <FileText className="w-4 h-4" />
+                    <span>Cookie Policy</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/legal/acceptable-use-policy')}
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+                  >
+                    <Shield className="w-4 h-4" />
+                    <span>Acceptable Use</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/legal/disclaimer')}
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+                  >
+                    <FileText className="w-4 h-4" />
+                    <span>Disclaimer</span>
                   </button>
                 </li>
               </ul>
@@ -282,7 +336,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/team')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <Users className="w-4 h-4" />
                     <span>Team</span>
@@ -291,7 +345,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 <li>
                   <button
                     onClick={() => navigate('/settings')}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <Settings className="w-4 h-4" />
                     <span>Settings</span>
@@ -301,86 +355,86 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             </div>
             
             {/* Mobile Navigation */}
-            <div className="md:hidden mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div className="md:hidden mt-8 pt-8 border-t border-support-light dark:border-support-dark">
               <div className="grid grid-cols-2 gap-4">
                 <button
                   onClick={() => navigate('/assessment-intro')}
-                  className="flex items-center space-x-2 p-3 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  className="flex items-center space-x-2 p-3 text-left bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
                 >
-                  <Shield className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <Shield className="w-4 h-4 text-primary-500 dark:text-primary-400" />
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     New Assessment
                   </span>
                 </button>
                 <button
                   onClick={() => navigate('/dashboard')}
-                  className="flex items-center space-x-2 p-3 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  className="flex items-center space-x-2 p-3 text-left bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
                 >
-                  <BarChart3 className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <BarChart3 className="w-4 h-4 text-primary-500 dark:text-primary-400" />
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     Dashboard
                   </span>
                 </button>
                 <button
                   onClick={() => navigate('/compliance')}
-                  className="flex items-center space-x-2 p-3 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  className="flex items-center space-x-2 p-3 text-left bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
                 >
-                  <CheckCircle className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <CheckCircle className="w-4 h-4 text-primary-500 dark:text-primary-400" />
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     Compliance
                   </span>
                 </button>
                 <button
                   onClick={() => navigate('/evidence')}
-                  className="flex items-center space-x-2 p-3 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  className="flex items-center space-x-2 p-3 text-left bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
                 >
-                  <FileText className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <FileText className="w-4 h-4 text-primary-500 dark:text-primary-400" />
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     Evidence
                   </span>
                 </button>
                 <button
                   onClick={() => navigate('/assets')}
-                  className="flex items-center space-x-2 p-3 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  className="flex items-center space-x-2 p-3 text-left bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
                 >
-                  <Database className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <Database className="w-4 h-4 text-primary-500 dark:text-primary-400" />
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     Assets
                   </span>
                 </button>
                 <button
                   onClick={() => navigate('/reports')}
-                  className="flex items-center space-x-2 p-3 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  className="flex items-center space-x-2 p-3 text-left bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
                 >
-                  <FileBarChart className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <FileBarChart className="w-4 h-4 text-primary-500 dark:text-primary-400" />
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     Reports
                   </span>
                 </button>
                 <button
                   onClick={() => navigate('/tasks')}
-                  className="flex items-center space-x-2 p-3 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  className="flex items-center space-x-2 p-3 text-left bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
                 >
-                  <CheckSquare className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <CheckSquare className="w-4 h-4 text-primary-500 dark:text-primary-400" />
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     Tasks
                   </span>
                 </button>
                 <button
                   onClick={() => navigate('/policies')}
-                  className="flex items-center space-x-2 p-3 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  className="flex items-center space-x-2 p-3 text-left bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
                 >
-                  <FileText className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <FileText className="w-4 h-4 text-primary-500 dark:text-primary-400" />
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     Policies
                   </span>
                 </button>
                 <button
                   onClick={() => navigate('/team')}
-                  className="flex items-center space-x-2 p-3 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  className="flex items-center space-x-2 p-3 text-left bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
                 >
-                  <Users className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <Users className="w-4 h-4 text-primary-500 dark:text-primary-400" />
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     Team
                   </span>
                 </button>

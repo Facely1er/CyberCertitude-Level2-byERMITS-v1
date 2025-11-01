@@ -154,6 +154,24 @@ export const StartScreen: React.FC<StartScreenProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
         {/* Enhanced Hero Section */}
         <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+          {/* Logo */}
+          <div className="flex justify-center mb-6 sm:mb-8">
+            <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+              <img 
+                src="/cybercertitude.png" 
+                alt="CyberCertitude" 
+                className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0" 
+              />
+              <div className="flex flex-col text-left">
+                <span className="text-lg sm:text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
+                  CyberCertitude™
+                </span>
+                <span className="text-xs sm:text-sm text-text-secondary-light dark:text-text-secondary-dark">
+                  CMMC 2.0 Compliance • by ERMITS
+                </span>
+              </div>
+            </Link>
+          </div>
           <div className="mb-8 sm:mb-12">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
               <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">

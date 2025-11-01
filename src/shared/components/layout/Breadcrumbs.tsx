@@ -15,6 +15,7 @@ interface BreadcrumbsProps {
   showHome?: boolean;
   homeLabel?: string;
   separator?: React.ReactNode;
+  showLogo?: boolean;
 }
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ 
@@ -22,7 +23,8 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   className = '', 
   showHome = true,
   homeLabel = 'Dashboard',
-  separator = <ChevronRight className="w-4 h-4 text-text-muted-light dark:text-text-muted-dark" />
+  separator = <ChevronRight className="w-4 h-4 text-text-muted-light dark:text-text-muted-dark" />,
+  showLogo = true
 }) => {
   return (
     <nav 
@@ -30,6 +32,22 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
       aria-label="Breadcrumb navigation"
       role="navigation"
     >
+      {showLogo && (
+        <>
+          <Link
+            to="/"
+            className="flex items-center flex-shrink-0 hover:opacity-80 transition-opacity"
+            aria-label="Go to home"
+          >
+            <img 
+              src="/cybercertitude.png" 
+              alt="CyberCertitude" 
+              className="w-8 h-8 flex-shrink-0 mr-2" 
+            />
+          </Link>
+          {items.length > 0 && separator}
+        </>
+      )}
       {showHome && (
         <>
           <Link

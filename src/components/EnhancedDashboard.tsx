@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Download, CheckCircle, TrendingUp, AlertCircle, FileText, Users, Clock, Target, ChevronRight, ChevronDown, BarChart3, Zap, Database, Eye } from 'lucide-react';
 import { ProgressTrackingService, EnhancedProgress, SmartRecommendation } from '../utils/progressTracking';
 import { enhancedDownloadService } from '../utils/enhancedDownload';
@@ -133,9 +134,18 @@ const EnhancedDashboard: React.FC = () => {
         {/* Header */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">Enhanced Compliance Dashboard</h1>
-              <p className="text-gray-600">Track progress, manage templates, and get smart recommendations</p>
+            <div className="flex items-center space-x-4">
+              <Link to="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
+                <img 
+                  src="/cybercertitude.png" 
+                  alt="CyberCertitude" 
+                  className="w-12 h-12 flex-shrink-0" 
+                />
+              </Link>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">Enhanced Compliance Dashboard</h1>
+                <p className="text-gray-600">Track progress, manage templates, and get smart recommendations</p>
+              </div>
             </div>
             <button
               onClick={loadProgress}

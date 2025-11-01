@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, CheckCircle, AlertCircle, Clock, Target, FileText, BarChart3 } from 'lucide-react';
 
 interface AssessmentQuestion {
@@ -234,13 +235,22 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-        <div className="max-w-4xl mx-auto px-6 py-8">
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <div className="text-center mb-8">
-              <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">Assessment Complete!</h1>
-              <p className="text-gray-600">Your CMMC 2.0 compliance assessment results</p>
+      <div className="max-w-4xl mx-auto px-6 py-8">
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className="text-center mb-8">
+            <div className="flex justify-center mb-4">
+              <Link to="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
+                <img 
+                  src="/cybercertitude.png" 
+                  alt="CyberCertitude" 
+                  className="w-16 h-16 flex-shrink-0" 
+                />
+              </Link>
             </div>
+            <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">Assessment Complete!</h1>
+            <p className="text-gray-600">Your CMMC 2.0 compliance assessment results</p>
+          </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-blue-50 rounded-lg p-6 text-center">
@@ -334,10 +344,21 @@ const ComplianceAssessmentWizard: React.FC<ComplianceAssessmentWizardProps> = ({
         <div className="bg-white rounded-xl shadow-lg p-8">
           {/* Header */}
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h1 className="text-2xl font-bold text-gray-800">CMMC 2.0 Compliance Assessment</h1>
-              <div className="text-sm text-gray-600">
-                Question {currentStep + 1} of {assessmentQuestions.length}
+            <div className="flex items-center space-x-4 mb-4">
+              <Link to="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
+                <img 
+                  src="/cybercertitude.png" 
+                  alt="CyberCertitude" 
+                  className="w-12 h-12 flex-shrink-0" 
+                />
+              </Link>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h1 className="text-2xl font-bold text-gray-800">CMMC 2.0 Compliance Assessment</h1>
+                  <div className="text-sm text-gray-600">
+                    Question {currentStep + 1} of {assessmentQuestions.length}
+                  </div>
+                </div>
               </div>
             </div>
             
