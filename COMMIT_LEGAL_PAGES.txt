@@ -1,0 +1,22 @@
+docs: update legal policy pages formatting and content
+
+Updates to legal component pages:
+- AcceptableUsePolicyPage: Formatting improvements and content updates
+- CookiePolicyPage: Enhanced formatting and content
+- PrivacyPolicyPage: Comprehensive updates (974 lines changed)
+- TermsOfServicePage: Major content updates (1137 lines changed)
+
+Changes include:
+- Header formatting improvements (uppercase titles)
+- Spacing improvements (mb-4 classes added to lists)
+- Content updates and enhancements
+- Text formatting and readability improvements
+
+Files Modified:
+- src/features/legal/components/AcceptableUsePolicyPage.tsx (353 lines changed)
+- src/features/legal/components/CookiePolicyPage.tsx (468 lines changed)
+- src/features/legal/components/PrivacyPolicyPage.tsx (974 lines changed)
+- src/features/legal/components/TermsOfServicePage.tsx (1137 lines changed)
+
+Total: 2629 insertions, 303 deletions
+

@@ -34,7 +34,7 @@ import {
 } from 'lucide-react';
 
 import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
-import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '@/shared/components/ui';
+import { QuickNavigationPanel, RelatedLinks, InternalLinkCard, ProgressBar } from '@/shared/components/ui';
 import { useInternalLinking } from '@/shared/hooks';
 import { AssessmentData, UserProfile } from '@/shared/types';
 import { getFramework, cmmcFramework } from '@/data/frameworks';
@@ -82,6 +82,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     if (responses.length === 0) return 0;
     return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
   };
+
 
   // Generate recommendations based on function name and gap
   const generateRecommendation = (functionName: string, _gap: number): string => {
@@ -572,10 +573,12 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   Implemented Controls / 110
                 </div>
-                <div className="w-full bg-support-light dark:bg-support-dark rounded-full h-2 mt-3">
-                  <div
-                    className="bg-success-500 h-2 rounded-full transition-all duration-500"
-                    style={{ width: `${(cmmcMetrics.implementedControls / 110) * 100}%` }}
+                <div className="mt-3">
+                  <ProgressBar
+                    percentage={(cmmcMetrics.implementedControls / 110) * 100}
+                    height="h-2"
+                    backgroundColor="bg-support-light dark:bg-support-dark"
+                    progressColor="bg-success-500"
                   />
                 </div>
               </div>
@@ -587,10 +590,12 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   Implementation Gaps
                 </div>
-                <div className="w-full bg-support-light dark:bg-support-dark rounded-full h-2 mt-3">
-                  <div
-                    className="bg-warning-500 h-2 rounded-full transition-all duration-500"
-                    style={{ width: `${(cmmcMetrics.gaps / 110) * 100}%` }}
+                <div className="mt-3">
+                  <ProgressBar
+                    percentage={(cmmcMetrics.gaps / 110) * 100}
+                    height="h-2"
+                    backgroundColor="bg-support-light dark:bg-support-dark"
+                    progressColor="bg-warning-500"
                   />
                 </div>
               </div>
@@ -818,15 +823,17 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                      <CheckCircle className="w-6 h-6 text-green-600" />}
                   </div>
                 </div>
-                <div className="mt-4 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full transition-all duration-500 ${
+                <div className="mt-4">
+                  <ProgressBar
+                    percentage={stats.total > 0 ? ((count as number) / stats.total) * 100 : 0}
+                    height="h-2"
+                    backgroundColor="bg-gray-200 dark:bg-gray-700"
+                    progressColor={
                       risk === 'critical' ? 'bg-red-500' :
                       risk === 'high' ? 'bg-orange-500' :
                       risk === 'medium' ? 'bg-yellow-500' :
                       'bg-green-500'
-                    }`}
-                    style={{ width: `${stats.total > 0 ? ((count as number) / stats.total) * 100 : 0}%` }}
+                    }
                   />
                 </div>
               </div>
@@ -939,6 +946,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
+                aria-label="Filter by assessment status"
                 className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Status</option>
@@ -949,6 +957,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               <select
                 value={filterRisk}
                 onChange={(e) => setFilterRisk(e.target.value)}
+                aria-label="Filter by risk level"
                 className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Risk Levels</option>
@@ -961,6 +970,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
+                aria-label="Sort assessments by"
                 className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="date">Sort by Date</option>
@@ -1097,8 +1107,10 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                       <div className="flex items-center space-x-3">
                         <input
                           type="checkbox"
+                          id={`assessment-checkbox-${assessment.id}`}
                           checked={selectedAssessments.includes(assessment.id)}
                           onChange={() => toggleAssessmentSelection(assessment.id)}
+                          aria-label={`Select ${assessment.frameworkName} assessment for bulk actions`}
                           className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                         />
                         <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -1139,10 +1151,12 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                       </div>
                     </div>
 
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-4">
-                      <div
-                        className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full transition-all duration-500"
-                        style={{ width: `${(progress / totalQuestions) * 100}%` }}
+                    <div className="mb-4">
+                      <ProgressBar
+                        percentage={(progress / totalQuestions) * 100}
+                        height="h-2"
+                        backgroundColor="bg-gray-200 dark:bg-gray-700"
+                        progressColor="bg-gradient-to-r from-blue-500 to-indigo-600"
                       />
                     </div>
 
@@ -1168,6 +1182,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                       </button>
                       <button
                         onClick={() => setShowDeleteConfirm(assessment.id)}
+                        aria-label={`Delete ${assessment.frameworkName} assessment`}
                         className="p-2 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -1386,10 +1401,12 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                                 </div>
                               </div>
                               
-                              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-4">
-                                <div
-                                  className="bg-gradient-to-r from-orange-500 to-red-500 h-3 rounded-full"
-                                  style={{ width: `${gap.score}%` }}
+                              <div className="mb-4">
+                                <ProgressBar
+                                  percentage={gap.score}
+                                  height="h-3"
+                                  backgroundColor="bg-gray-200 dark:bg-gray-700"
+                                  progressColor="bg-gradient-to-r from-orange-500 to-red-500"
                                 />
                               </div>
                             </div>
