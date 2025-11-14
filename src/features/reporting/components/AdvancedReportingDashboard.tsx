@@ -24,6 +24,9 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
   const [reportType, setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
 
   const calculateAssessmentScore = (assessment: AssessmentData) => {
+    if (!assessment || !assessment.responses || typeof assessment.responses !== 'object') {
+      return 0;
+    }
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
     return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
@@ -118,7 +121,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
   if (savedAssessments.length === 0) {
     return (
       <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-12 text-center">
-        <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+        <FileText className="w-16 h-16 text-text-muted-light dark:text-text-muted-dark mx-auto mb-4" />
         <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
           No Assessment Data Available
         </h3>
@@ -191,7 +194,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
                 {overallMetrics.improvementTrend > 0 ? (
                   <TrendingUp className="w-4 h-4 text-green-500" />
                 ) : overallMetrics.improvementTrend < 0 ? (
-                  <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
+                  <TrendingUp className="w-4 h-4 text-error-500 rotate-180" />
                 ) : null}
                 <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
                   Comprehensive CMMC reporting and compliance tracking
@@ -373,7 +376,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {functionAnalysis.map((func, index) => (
-                <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <tr key={index} className="hover:bg-support-light dark:hover:bg-support-dark/50">
                   <td className="py-4 px-4">
                     <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                       {func.name}
@@ -384,7 +387,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
                       func.score >= 80 ? 'text-green-600 dark:text-green-400' :
                       func.score >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
                       func.score >= 40 ? 'text-orange-600 dark:text-orange-400' :
-                      'text-red-600 dark:text-red-400'
+                      'text-error-600 dark:text-error-400'
                     }`}>
                       {func.score}%
                     </span>
@@ -405,7 +408,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
                       func.score >= 80 ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' :
                       func.score >= 60 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                       func.score >= 40 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' :
-                      'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
+                      'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300'
                     }`}>
                       {func.score >= 80 ? 'Adaptive' :
                        func.score >= 60 ? 'Repeatable' :
@@ -421,17 +424,17 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
 
       {/* Executive Summary */}
       {reportType === 'executive' && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark:border-blue-800">
-          <h3 className="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-6">
+        <div className="bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/20 rounded-xl p-8 border border-primary-200 dark:border-primary-800">
+          <h3 className="text-2xl font-bold text-primary-900 dark:text-primary-100 mb-6">
             Executive Summary - NIST CSF v2.0 Implementation
           </h3>
           
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-3">
+              <h4 className="font-semibold text-primary-800 dark:text-primary-200 mb-3">
                 Current State Assessment
               </h4>
-              <ul className="space-y-2 text-blue-700 dark:text-blue-300">
+              <ul className="space-y-2 text-primary-700 dark:text-primary-300">
                 <li>• Overall maturity score: {overallMetrics.avgScore}%</li>
                 <li>• {overallMetrics.completedAssessments} assessments completed</li>
                 <li>• Current maturity level: {
@@ -444,10 +447,10 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
             </div>
             
             <div>
-              <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-3">
+              <h4 className="font-semibold text-primary-800 dark:text-primary-200 mb-3">
                 Key Recommendations
               </h4>
-              <ul className="space-y-2 text-blue-700 dark:text-blue-300">
+              <ul className="space-y-2 text-primary-700 dark:text-primary-300">
                 <li>• Focus on functions scoring below 75%</li>
                 <li>• Prioritize evidence collection for implemented controls</li>
                 <li>• Establish continuous monitoring capabilities</li>
@@ -467,9 +470,9 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
         <div className="grid md:grid-cols-3 gap-4">
           <button
             onClick={() => onExportReport('pdf')}
-            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors"
           >
-            <FileText className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <FileText className="w-6 h-6 text-error-600 dark:text-error-400" />
             <div className="text-left">
               <div className="font-medium text-text-primary-light dark:text-text-primary-dark">PDF Report</div>
               <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Executive summary and detailed analysis</div>
@@ -478,7 +481,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
           
           <button
             onClick={() => onExportReport('excel')}
-            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors"
           >
             <BarChart3 className="w-6 h-6 text-green-600 dark:text-green-400" />
             <div className="text-left">
@@ -489,7 +492,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
           
           <button
             onClick={() => onExportReport('json')}
-            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors"
           >
             <Settings className="w-6 h-6 text-primary-600 dark:text-primary-400" />
             <div className="text-left">
