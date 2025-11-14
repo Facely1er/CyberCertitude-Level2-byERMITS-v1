@@ -194,7 +194,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
               We've sent a magic link to <strong>{sentEmail}</strong>
             </p>
             {lastSentTime && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">
                 Sent {Math.floor((Date.now() - lastSentTime.getTime()) / 1000)} seconds ago
               </p>
             )}
@@ -202,8 +202,8 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
           <div className="space-y-6">
             {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+              <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
+                <p className="text-sm text-error-600 dark:text-error-400">{error}</p>
               </div>
             )}
             
@@ -242,7 +242,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
                   setError('');
                   setFormData(prev => ({ ...prev, email: '' }));
                 }}
-                className="block w-full text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 text-sm"
+                className="block w-full text-text-muted-light dark:text-text-muted-dark hover:text-gray-700 dark:hover:text-gray-300 text-sm"
               >
                 ← Use a different email address
               </button>
@@ -453,7 +453,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         </div>
         
         <div className="mt-4 text-center">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-text-muted-light dark:text-text-muted-dark">
             🔐 Secure passwordless registration • No passwords to manage • Enterprise-grade security
           </p>
         </div>

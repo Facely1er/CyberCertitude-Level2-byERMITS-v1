@@ -141,7 +141,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
               We've sent a magic link to <strong>{sentEmail}</strong>
             </p>
             {lastSentTime && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">
                 Sent {Math.floor((Date.now() - lastSentTime.getTime()) / 1000)} seconds ago
               </p>
             )}
@@ -149,13 +149,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
           <div className="space-y-6">
             {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+              <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
+                <p className="text-sm text-error-600 dark:text-error-400">{error}</p>
               </div>
             )}
             
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-              <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
+            <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-4">
+              <h3 className="font-medium text-primary-900 dark:text-primary-100 mb-2">
                 What to do next:
               </h3>
               <ol className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
@@ -189,7 +189,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
                   setLastSentTime(null);
                   setError('');
                 }}
-                className="block w-full text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 text-sm"
+                className="block w-full text-text-muted-light dark:text-text-muted-dark hover:text-gray-700 dark:hover:text-gray-300 text-sm"
               >
                 ← Use a different email address
               </button>
@@ -242,8 +242,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             </div>
           </div>
 
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-            <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-1">
+          <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-4">
+            <h3 className="font-medium text-primary-900 dark:text-primary-100 mb-1">
               Passwordless Authentication
             </h3>
             <p className="text-sm text-blue-800 dark:text-blue-200">
@@ -283,7 +283,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         </div>
         
         <div className="mt-4 text-center">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-text-muted-light dark:text-text-muted-dark">
             🔐 Secure passwordless authentication • No passwords to remember • Enterprise-grade security
           </p>
         </div>

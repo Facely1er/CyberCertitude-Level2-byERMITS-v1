@@ -6,7 +6,7 @@ interface LoadingSpinnerProps {
   className?: string;
 }
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
+export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
   size = 'md', 
   message,
   className = '' 
@@ -21,7 +21,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
     <div className={`flex flex-col items-center justify-center ${className}`}>
       <div className={`${sizeClasses[size]} animate-spin rounded-full border-b-2 border-primary-600`} />
       {message && (
-        <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">{message}</p>
+        <p className="mt-4 text-sm text-text-secondary-light dark:text-text-secondary-dark">{message}</p>
       )}
     </div>
   );

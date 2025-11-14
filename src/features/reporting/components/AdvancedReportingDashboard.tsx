@@ -117,12 +117,12 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
 
   if (savedAssessments.length === 0) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-12 text-center">
         <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+        <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
           No Assessment Data Available
         </h3>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-text-secondary-light dark:text-text-secondary-dark">
           Complete a NIST CSF v2.0 assessment to generate comprehensive reports and analytics.
         </p>
       </div>
@@ -137,27 +137,32 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
       </div>
       
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6 mb-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl">
                 <BarChart3 className="w-8 h-8 text-purple-600 dark:text-purple-400" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   Advanced Analytics
                 </h2>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Comprehensive reporting and trend analysis for implementation tracking
                 </p>
               </div>
             </div>
           
           <div className="flex items-center space-x-3">
+            <label htmlFor="report-type-select" className="sr-only">
+              Select report type
+            </label>
             <select
+              id="report-type-select"
+              aria-label="Select report type"
               value={reportType}
               onChange={(e) => setReportType(e.target.value as any)}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             >
               <option value="executive">Executive Summary</option>
               <option value="detailed">Detailed Analysis</option>
@@ -177,32 +182,32 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Overall Score</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{overallMetrics.avgScore}%</p>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Overall Score</p>
+              <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{overallMetrics.avgScore}%</p>
               <div className="flex items-center space-x-1 mt-1">
                 {overallMetrics.improvementTrend > 0 ? (
                   <TrendingUp className="w-4 h-4 text-green-500" />
                 ) : overallMetrics.improvementTrend < 0 ? (
                   <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
                 ) : null}
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
                   Comprehensive CMMC reporting and compliance tracking
                 </span>
               </div>
             </div>
-            <Target className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+            <Target className="w-8 h-8 text-primary-600 dark:text-primary-400" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Compliance Rate</p>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Compliance Rate</p>
               <p className="text-3xl font-bold text-green-600 dark:text-green-400">{overallMetrics.complianceRate}%</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">
                 Target: 75% (Repeatable)
               </p>
             </div>
@@ -210,12 +215,12 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed Assessments</p>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Completed Assessments</p>
               <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{overallMetrics.completedAssessments}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">
                 of {overallMetrics.totalAssessments} total
               </p>
             </div>
@@ -223,14 +228,14 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Maturity Level</p>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Maturity Level</p>
               <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
                 {overallMetrics.avgScore >= 76 ? '4' : overallMetrics.avgScore >= 51 ? '3' : overallMetrics.avgScore >= 26 ? '2' : '1'}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">
                 {overallMetrics.avgScore >= 76 ? 'Adaptive' : overallMetrics.avgScore >= 51 ? 'Repeatable' : overallMetrics.avgScore >= 26 ? 'Risk Informed' : 'Partial'}
               </p>
             </div>
@@ -242,8 +247,8 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Function Scores */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
             NIST CSF v2.0 Function Scores
           </h3>
           <div className="h-80">
@@ -279,8 +284,8 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
         </div>
 
         {/* Trend Analysis */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
             Implementation Progress Trend
           </h3>
           <div className="h-80">
@@ -309,8 +314,8 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
         </div>
 
         {/* Compliance Distribution */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
             Compliance Distribution
           </h3>
           <div className="h-80">
@@ -340,28 +345,28 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
       </div>
 
       {/* Function Details Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+        <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
           CMMC Domain Scores
         </h3>
         
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="text-left py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              <tr className="border-b border-support-light dark:border-support-dark">
+                <th className="text-left py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                   Function
                 </th>
-                <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                   Score
                 </th>
-                <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                   Weight
                 </th>
-                <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                   Progress
                 </th>
-                <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                   Status
                 </th>
               </tr>
@@ -370,7 +375,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
               {functionAnalysis.map((func, index) => (
                 <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                   <td className="py-4 px-4">
-                    <div className="font-medium text-gray-900 dark:text-white">
+                    <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                       {func.name}
                     </div>
                   </td>
@@ -384,14 +389,14 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
                       {func.score}%
                     </span>
                   </td>
-                  <td className="py-4 px-4 text-center text-gray-900 dark:text-white">
+                  <td className="py-4 px-4 text-center text-text-primary-light dark:text-text-primary-dark">
                     {func.weight}%
                   </td>
                   <td className="py-4 px-4 text-center">
-                    <div className="text-sm text-gray-900 dark:text-white">
+                    <div className="text-sm text-text-primary-light dark:text-text-primary-dark">
                       {func.questionsAnswered}/{func.totalQuestions}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                       {func.completionRate}% complete
                     </div>
                   </td>
@@ -454,42 +459,42 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
       )}
 
       {/* Export Options */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+        <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
           Export & Sharing Options
         </h3>
         
         <div className="grid md:grid-cols-3 gap-4">
           <button
             onClick={() => onExportReport('pdf')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
           >
             <FileText className="w-6 h-6 text-red-600 dark:text-red-400" />
             <div className="text-left">
-              <div className="font-medium text-gray-900 dark:text-white">PDF Report</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Executive summary and detailed analysis</div>
+              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">PDF Report</div>
+              <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Executive summary and detailed analysis</div>
             </div>
           </button>
           
           <button
             onClick={() => onExportReport('excel')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
           >
             <BarChart3 className="w-6 h-6 text-green-600 dark:text-green-400" />
             <div className="text-left">
-              <div className="font-medium text-gray-900 dark:text-white">Excel Workbook</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Data analysis and pivot tables</div>
+              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Excel Workbook</div>
+              <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Data analysis and pivot tables</div>
             </div>
           </button>
           
           <button
             onClick={() => onExportReport('json')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
           >
-            <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <Settings className="w-6 h-6 text-primary-600 dark:text-primary-400" />
             <div className="text-left">
-              <div className="font-medium text-gray-900 dark:text-white">JSON Data</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Raw data for integration</div>
+              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">JSON Data</div>
+              <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Raw data for integration</div>
             </div>
           </button>
         </div>

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, ChartBar as BarChart3, TrendingUp, TrendingDown, TriangleAlert as AlertTriangle, Target, RefreshCw, Activity, Zap, Calendar, FileText } from 'lucide-react';
+import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { logger } from '@/utils/logger';
 import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -127,11 +128,34 @@ const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
     }
   };
 
+  // Progress bar component that avoids inline styles by using refs
+  const ProgressBar: React.FC<{ 
+    percentage: number; 
+    height?: string;
+    colorClass: string;
+    transitionDuration?: string;
+  }> = ({ percentage, height = 'h-4', colorClass, transitionDuration = 'duration-500' }) => {
+    const barRef = useRef<HTMLDivElement>(null);
+    const clampedPercentage = Math.max(0, Math.min(100, percentage));
+    
+    useEffect(() => {
+      if (barRef.current) {
+        barRef.current.style.setProperty('--progress-width', `${clampedPercentage}%`);
+      }
+    }, [clampedPercentage]);
+    
+    return (
+      <div 
+        ref={barRef}
+        className={`${height} rounded-full transition-all ${transitionDuration} progress-bar-fill ${colorClass}`}
+      />
+    );
+  };
+
   if (!complianceData) {
     return (
       <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center ${className}`}>
-        <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
-        <p className="text-gray-600 dark:text-gray-300">Loading real-time compliance data...</p>
+        <LoadingSpinner size="lg" message="Loading real-time compliance data..." />
       </div>
     );
   }
@@ -205,13 +229,15 @@ const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
           </p>
           
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-6">
-            <div
-              className={`h-4 rounded-full transition-all duration-500 ${
+            <ProgressBar
+              percentage={complianceData.overallCompliance}
+              height="h-4"
+              colorClass={
                 complianceData.overallCompliance >= 80 ? 'bg-green-500' :
                 complianceData.overallCompliance >= 60 ? 'bg-yellow-500' :
                 complianceData.overallCompliance >= 40 ? 'bg-orange-500' : 'bg-red-500'
-              }`}
-              style={{ width: `${complianceData.overallCompliance}%` }}
+              }
+              transitionDuration="duration-500"
             />
           </div>
           
@@ -271,13 +297,15 @@ const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
               </div>
               
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
-                <div
-                  className={`h-2 rounded-full transition-all duration-300 ${
+                <ProgressBar
+                  percentage={score}
+                  height="h-2"
+                  colorClass={
                     score >= 80 ? 'bg-green-500' :
                     score >= 60 ? 'bg-yellow-500' :
                     score >= 40 ? 'bg-orange-500' : 'bg-red-500'
-                  }`}
-                  style={{ width: `${score}%` }}
+                  }
+                  transitionDuration="duration-300"
                 />
               </div>
               
@@ -448,9 +476,11 @@ const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
                 </span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div
-                  className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${complianceData.controlImplementationProgress}%` }}
+                <ProgressBar
+                  percentage={complianceData.controlImplementationProgress}
+                  height="h-2"
+                  colorClass="bg-blue-500"
+                  transitionDuration="duration-300"
                 />
               </div>
             </div>
@@ -463,9 +493,11 @@ const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
                 </span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div
-                  className="bg-green-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${complianceData.evidenceCollectionProgress}%` }}
+                <ProgressBar
+                  percentage={complianceData.evidenceCollectionProgress}
+                  height="h-2"
+                  colorClass="bg-green-500"
+                  transitionDuration="duration-300"
                 />
               </div>
             </div>

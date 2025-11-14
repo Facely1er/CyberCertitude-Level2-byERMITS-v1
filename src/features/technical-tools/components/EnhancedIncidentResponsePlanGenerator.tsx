@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { TriangleAlert as AlertTriangle, Plus, Download, Save, FileText, Users, Shield, Clock, CircleAlert as AlertCircle, CircleCheck as CheckCircle, Mail, Phone, Circle as XCircle } from 'lucide-react';
+import { TriangleAlert as AlertTriangle, Plus, Download, FileText, Users, Shield, Clock, CircleAlert as AlertCircle, Mail, Phone, Circle as XCircle } from 'lucide-react';
+import { LoadingSpinner } from '../../../shared/components/ui/LoadingSpinner';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import incidentResponseService, {
   IncidentResponsePlan,
-  IncidentClassification,
-  ResponseTeamMember,
-  CommunicationTemplate,
-  EscalationProcedure
+  ResponseTeamMember
 } from '../../../services/incidentResponseService';
 
 const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
@@ -18,11 +16,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
   const [organizationName, setOrganizationName] = useState('');
   const [version, setVersion] = useState('1.0');
 
-  const [editingClassification, setEditingClassification] = useState<IncidentClassification | null>(
-    null
-  );
   const [editingTeamMember, setEditingTeamMember] = useState<ResponseTeamMember | null>(null);
-  const [editingTemplate, setEditingTemplate] = useState<CommunicationTemplate | null>(null);
 
   useEffect(() => {
     initializePlan();
@@ -87,9 +81,10 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
   const handleAddTeamMember = () => {
     if (!plan || !editingTeamMember) return;
 
+    const { id: _, ...memberData } = editingTeamMember;
     const newMember: ResponseTeamMember = {
       id: crypto.randomUUID(),
-      ...editingTeamMember
+      ...memberData
     };
 
     setPlan({
@@ -352,6 +347,9 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                     setEditingTeamMember({ ...editingTeamMember, name: e.target.value })
                   }
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  aria-label="Team member name"
+                  title="Team member name"
+                  placeholder="Enter team member name"
                 />
               </div>
               <div>
@@ -365,6 +363,9 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                     setEditingTeamMember({ ...editingTeamMember, role: e.target.value })
                   }
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  aria-label="Team member role"
+                  title="Team member role"
+                  placeholder="Enter team member role"
                 />
               </div>
               <div>
@@ -378,6 +379,9 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                     setEditingTeamMember({ ...editingTeamMember, email: e.target.value })
                   }
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  aria-label="Team member email"
+                  title="Team member email"
+                  placeholder="Enter team member email"
                 />
               </div>
               <div>
@@ -391,6 +395,9 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                     setEditingTeamMember({ ...editingTeamMember, phone: e.target.value })
                   }
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  aria-label="Team member phone"
+                  title="Team member phone"
+                  placeholder="Enter team member phone"
                 />
               </div>
               <div>
@@ -406,6 +413,8 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                     })
                   }
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  aria-label="RACI responsibility"
+                  title="RACI responsibility"
                 >
                   <option value="R">Responsible (R) - Does the work</option>
                   <option value="A">Accountable (A) - Makes decisions</option>
@@ -426,6 +435,8 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                     })
                   }
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  aria-label="Escalation level"
+                  title="Escalation level"
                 >
                   <option value="1">Level 1 - Initial Response</option>
                   <option value="2">Level 2 - Security Team Lead</option>
@@ -488,6 +499,8 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                 <button
                   onClick={() => handleRemoveTeamMember(member.id)}
                   className="p-2 text-gray-400 hover:text-red-600 transition-colors"
+                  aria-label={`Remove team member ${member.name}`}
+                  title={`Remove team member ${member.name}`}
                 >
                   <XCircle className="w-5 h-5" />
                 </button>
@@ -749,8 +762,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+          <LoadingSpinner size="lg" message="Loading..." />
         </div>
       </div>
     );

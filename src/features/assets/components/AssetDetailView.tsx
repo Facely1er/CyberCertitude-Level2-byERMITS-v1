@@ -204,15 +204,17 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   </h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label htmlFor="asset-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Name
                       </label>
                       {isEditing ? (
                         <input
+                          id="asset-name"
                           type="text"
                           value={editedAsset.name}
                           onChange={(e) => setEditedAsset(prev => ({ ...prev, name: e.target.value }))}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          aria-label="Asset name"
                         />
                       ) : (
                         <p className="text-gray-900 dark:text-white">{asset.name}</p>
@@ -220,15 +222,17 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label htmlFor="asset-description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Description
                       </label>
                       {isEditing ? (
                         <textarea
+                          id="asset-description"
                           value={editedAsset.description}
                           onChange={(e) => setEditedAsset(prev => ({ ...prev, description: e.target.value }))}
                           rows={3}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                          aria-label="Asset description"
                         />
                       ) : (
                         <p className="text-gray-900 dark:text-white">{asset.description}</p>
@@ -237,14 +241,16 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                     
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label htmlFor="asset-category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Category
                         </label>
                         {isEditing ? (
                           <select
+                            id="asset-category"
                             value={editedAsset.category}
                             onChange={(e) => setEditedAsset(prev => ({ ...prev, category: e.target.value as any }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            aria-label="Asset category"
                           >
                             <option value="hardware">Hardware</option>
                             <option value="software">Software</option>
@@ -261,14 +267,16 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       </div>
                       
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label htmlFor="asset-criticality" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Criticality
                         </label>
                         {isEditing ? (
                           <select
+                            id="asset-criticality"
                             value={editedAsset.criticality}
                             onChange={(e) => setEditedAsset(prev => ({ ...prev, criticality: e.target.value as any }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            aria-label="Asset criticality"
                           >
                             <option value="critical">Critical</option>
                             <option value="high">High</option>
@@ -292,14 +300,16 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   </h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label htmlFor="asset-information-classification" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Information Classification
                       </label>
                       {isEditing ? (
                         <select
+                          id="asset-information-classification"
                           value={editedAsset.informationClassification}
                           onChange={(e) => setEditedAsset(prev => ({ ...prev, informationClassification: e.target.value as any }))}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          aria-label="Information classification"
                         >
                           <option value="public">Public</option>
                           <option value="internal">Internal</option>
@@ -314,15 +324,17 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                     
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label htmlFor="asset-owner" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Owner
                         </label>
                         {isEditing ? (
                           <input
+                            id="asset-owner"
                             type="text"
                             value={editedAsset.owner}
                             onChange={(e) => setEditedAsset(prev => ({ ...prev, owner: e.target.value }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            aria-label="Asset owner"
                           />
                         ) : (
                           <p className="text-gray-900 dark:text-white">{asset.owner}</p>
@@ -330,15 +342,17 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       </div>
                       
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label htmlFor="asset-custodian" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Custodian
                         </label>
                         {isEditing ? (
                           <input
+                            id="asset-custodian"
                             type="text"
                             value={editedAsset.custodian || ''}
                             onChange={(e) => setEditedAsset(prev => ({ ...prev, custodian: e.target.value }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            aria-label="Asset custodian"
                           />
                         ) : (
                           <p className="text-gray-900 dark:text-white">{asset.custodian || 'Not specified'}</p>
@@ -416,14 +430,16 @@ const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   </h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label htmlFor="asset-status" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Status
                       </label>
                       {isEditing ? (
                         <select
+                          id="asset-status"
                           value={editedAsset.status}
                           onChange={(e) => setEditedAsset(prev => ({ ...prev, status: e.target.value as any }))}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          aria-label="Asset status"
                         >
                           <option value="active">Active</option>
                           <option value="inactive">Inactive</option>

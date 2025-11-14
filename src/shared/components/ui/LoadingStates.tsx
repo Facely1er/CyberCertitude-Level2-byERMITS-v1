@@ -51,7 +51,7 @@ interface ErrorStateProps {
   className?: string;
 }
 
-const ErrorState: React.FC<ErrorStateProps> = ({
+export const ErrorState: React.FC<ErrorStateProps> = ({
   error,
   onRetry,
   className = ''

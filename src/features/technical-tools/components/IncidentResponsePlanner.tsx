@@ -214,10 +214,11 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label htmlFor="effectiveDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Effective Date
           </label>
             <input
+              id="effectiveDate"
               type="date"
               value={plan.effectiveDate.toISOString().split('T')[0]}
               onChange={(e) => setPlan(prev => prev ? { ...prev, effectiveDate: new Date(e.target.value), updated_at: new Date() } : null)}
@@ -403,8 +404,9 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Responsibility</label>
+                <label htmlFor="responsibility" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Responsibility</label>
                 <select
+                  id="responsibility"
                   value={newTeamMember.responsibility || 'R'}
                   onChange={(e) => setNewTeamMember(prev => ({ ...prev, responsibility: e.target.value as 'R' | 'A' | 'C' | 'I' }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
@@ -416,8 +418,9 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Escalation Level</label>
+                <label htmlFor="escalationLevel" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Escalation Level</label>
                 <select
+                  id="escalationLevel"
                   value={newTeamMember.escalationLevel || 1}
                   onChange={(e) => setNewTeamMember(prev => ({ ...prev, escalationLevel: parseInt(e.target.value) }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
@@ -635,8 +638,9 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Type</label>
+                <label htmlFor="templateType" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Type</label>
                 <select
+                  id="templateType"
                   value={newTemplate.type || 'internal'}
                   onChange={(e) => setNewTemplate(prev => ({ ...prev, type: e.target.value as any }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
@@ -680,12 +684,13 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
               </div>
               <div className="flex items-center">
                 <input
+                  id="approvalRequired"
                   type="checkbox"
                   checked={newTemplate.approvalRequired || false}
                   onChange={(e) => setNewTemplate(prev => ({ ...prev, approvalRequired: e.target.checked }))}
                   className="mr-2"
                 />
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Approval Required</label>
+                <label htmlFor="approvalRequired" className="text-sm font-medium text-gray-700 dark:text-gray-300">Approval Required</label>
               </div>
             </div>
             <div className="flex gap-2 mt-4">
@@ -775,10 +780,7 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading incident response plan...</p>
-          </div>
+          <LoadingSpinner size="lg" message="Loading incident response plan..." />
         </div>
       </div>
     );
@@ -787,13 +789,7 @@ const IncidentResponsePlanner: React.FC<IncidentResponsePlannerProps> = ({
   if (error) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-6">
-          <div className="flex items-center">
-            <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mr-2" />
-            <h3 className="text-lg font-medium text-red-800 dark:text-red-200">Error</h3>
-          </div>
-          <p className="mt-2 text-red-700 dark:text-red-300">{error}</p>
-        </div>
+        <ErrorState error={error} onRetry={() => window.location.reload()} />
       </div>
     );
   }

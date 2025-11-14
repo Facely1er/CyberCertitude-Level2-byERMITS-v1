@@ -140,6 +140,11 @@
   .flex-responsive {
     @apply flex flex-col sm:flex-row gap-4 sm:gap-6;
   }
+
+  /* Progress bar utilities using CSS custom properties */
+  .progress-bar-fill {
+    width: var(--progress-width, 0%);
+  }
 }
 
 /* Enable smooth scrolling for the entire application */
@@ -270,5 +275,11 @@ body, #root, .scroll-container {
   
   .sticky-footer {
     @apply mt-auto;
+  }
+  
+  /* Progress bar with dynamic width using CSS variable */
+  .progress-bar-fill {
+    width: var(--progress-width, 0%);
+    transition: width 0.3s ease;
   }
 }

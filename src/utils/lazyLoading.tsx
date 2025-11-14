@@ -1,15 +1,8 @@
 import React, { Suspense, ComponentType } from 'react';
 import { ErrorBoundary } from '../components/ErrorBoundary';
+import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
+import { ErrorState } from '@/shared/components/ui/LoadingStates';
 import { logger } from '@/utils/logger';
-
-
-// Loading spinner component
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center min-h-[400px]">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-    <span className="ml-3 text-gray-600 dark:text-gray-300">Loading...</span>
-  </div>
-);
 
 // Enhanced lazy loading with error boundary
 const lazyWithErrorBoundary = <P extends object>(
@@ -53,24 +46,11 @@ export const createLazyRoute = <P extends object>(
       // Return a fallback component
       return {
         default: () => (
-          <div className="flex items-center justify-center min-h-[400px] text-center">
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-red-800 dark:text-red-200 mb-2">
-                Failed to Load Component
-              </h3>
-              <p className="text-red-600 dark:text-red-300 mb-4">
-                The {componentName} component could not be loaded.
-              </p>
-              <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                Error: {error instanceof Error ? error.message : 'Unknown error'}
-              </div>
-              <button 
-                onClick={() => window.location.reload()} 
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-              >
-                Reload Page
-              </button>
-            </div>
+          <div className="flex items-center justify-center min-h-[400px]">
+            <ErrorState 
+              error={`The ${componentName} component could not be loaded. ${error instanceof Error ? error.message : 'Unknown error'}`}
+              onRetry={() => window.location.reload()}
+            />
           </div>
         )
       };
@@ -81,7 +61,7 @@ export const createLazyRoute = <P extends object>(
   const WrappedComponent = React.forwardRef<any, P>((props, ref) => {
     return (
       <ErrorBoundary>
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]"><LoadingSpinner size="lg" message="Loading..." /></div>}>
           <LazyComponent {...props} ref={ref} />
         </Suspense>
       </ErrorBoundary>

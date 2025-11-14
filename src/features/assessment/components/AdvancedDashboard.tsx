@@ -498,7 +498,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             <h1 className="text-responsive-xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
               {userProfile ? `Welcome back, ${userProfile.name}` : 'CMMC 2.0 Cybersecurity Compliance'}
             </h1>
-            <p className="text-responsive-md text-gray-600 dark:text-gray-300">
+            <p className="text-responsive-md text-text-secondary-light dark:text-text-secondary-dark">
               {userProfile 
                 ? `Manage CMMC 2.0 compliance for ${userProfile.organization}`
                 : 'Comprehensive CMMC 2.0 certification readiness platform'
@@ -506,15 +506,15 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </p>
             {userProfile && (
               <div className="flex items-center space-x-6 mt-3">
-                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center space-x-2 text-sm text-text-muted-light dark:text-text-muted-dark">
                   <Star className="w-4 h-4" />
                   <span>{userProfile?.role || 'User'}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center space-x-2 text-sm text-text-muted-light dark:text-text-muted-dark">
                   <Activity className="w-4 h-4" />
                   <span>Last login: {userProfile?.lastLogin?.toLocaleDateString() || 'Today'}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center space-x-2 text-sm text-text-muted-light dark:text-text-muted-dark">
                   <Clock className="w-4 h-4" />
                   <span>{stats.totalTimeSpent || 0} min total</span>
                 </div>
@@ -552,10 +552,10 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 <Shield className="w-12 h-12 text-white" />
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-blue-900 dark:text-blue-100 mb-2">
+                <h2 className="text-3xl font-bold text-primary-900 dark:text-primary-100 mb-2">
                   CMMC 2.0 Level 2 Readiness
                 </h2>
-                <p className="text-blue-700 dark:text-blue-300">
+                <p className="text-primary-700 dark:text-primary-300">
                   Overall implementation progress for Military contractor certification
                 </p>
               </div>
@@ -619,10 +619,10 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         {savedAssessments && savedAssessments.some(a => a.frameworkId === 'cmmc') && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Domain Compliance Bar Chart */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
               <div className="flex items-center space-x-3 mb-6">
-                <BarChart3 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                <BarChart3 className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">
                   CMMC 2.0 Domain Compliance
                 </h3>
               </div>
@@ -655,16 +655,16 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   showLegend={false}
                 />
               </div>
-              <div className="mt-4 text-sm text-gray-600 dark:text-gray-300 text-center">
+              <div className="mt-4 text-sm text-text-secondary-light dark:text-text-secondary-dark text-center">
                 14 CMMC 2.0 domains • Target: 75% for C3PAO readiness
               </div>
             </div>
 
             {/* Implementation Status Distribution Pie Chart */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
               <div className="flex items-center space-x-3 mb-6">
                 <Database className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">
                   Implementation Status Distribution
                 </h3>
               </div>
@@ -685,8 +685,8 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
                 {cmmcMetrics.statusDistribution.map((status, index) => (
                   <div key={index} className="flex items-center justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">{status.status}:</span>
-                    <span className="font-medium text-gray-900 dark:text-white">{status.count}</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">{status.status}:</span>
+                    <span className="font-medium text-text-primary-light dark:text-text-primary-dark">{status.count}</span>
                   </div>
                 ))}
               </div>
@@ -697,14 +697,14 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         {/* Enhanced Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           {/* Enhanced CMMC Statistics */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Implemented Controls</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Implemented Controls</p>
                 <p className="text-3xl font-bold text-green-600 dark:text-green-400">
                   {cmmcMetrics.implementedControls}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">
                   of 110 CMMC controls
                 </p>
               </div>
@@ -712,14 +712,14 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Implementation Gaps</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Implementation Gaps</p>
                 <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
                   {cmmcMetrics.gaps}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">
                   controls need attention
                 </p>
               </div>
@@ -727,13 +727,13 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:scale-105 transition-all duration-300 group">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark hover:shadow-xl hover:scale-105 transition-all duration-300 group">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">
                   Total Assessments
                 </p>
-                <p className="text-3xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <p className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {stats.total}
                 </p>
                 <div className="flex items-center space-x-2 mt-2">
@@ -744,23 +744,23 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 </div>
               </div>
               <div className="p-3 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 rounded-full group-hover:scale-110 transition-transform">
-                <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <FileText className="w-6 h-6 text-primary-600 dark:text-primary-400" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">CMMC Readiness</p>
-                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">CMMC Readiness</p>
+                <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">
                   {cmmcMetrics.overallScore}%
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">
                   C3PAO assessment ready
                 </p>
               </div>
-              <Award className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Award className="w-8 h-8 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
         </div>
@@ -768,8 +768,8 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         {/* Risk Distribution */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
           {/* Risk Distribution Chart */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
               <PieChartIcon className="w-6 h-6 mr-3 text-purple-600 dark:text-purple-400" />
               Risk Distribution
             </h3>
@@ -787,7 +787,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               />
             </div>
             <div className="mt-4 text-center">
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                 Total Assessments: {stats.total}
               </p>
             </div>
@@ -796,17 +796,17 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           {/* Risk Distribution Cards */}
           <div className="lg:col-span-2 grid grid-cols-2 gap-4">
             {stats.riskDistribution ? Object.entries(stats.riskDistribution).map(([risk, count]) => (
-              <div key={risk} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
+              <div key={risk} className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark hover:shadow-xl transition-all duration-300 group">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400 capitalize">
+                    <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark capitalize">
                       {risk} Risk
                     </p>
-                    <p className="text-3xl font-bold text-gray-900 dark:text-white group-hover:scale-110 transition-transform">
+                    <p className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark group-hover:scale-110 transition-transform">
                       {count}
                     </p>
                     <div className="mt-2">
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
                         {stats.total > 0 ? Math.round(((count as number) / stats.total) * 100) : 0}% of total
                       </span>
                     </div>
@@ -827,7 +827,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   <ProgressBar
                     percentage={stats.total > 0 ? ((count as number) / stats.total) * 100 : 0}
                     height="h-2"
-                    backgroundColor="bg-gray-200 dark:bg-gray-700"
+                    backgroundColor="bg-support-light dark:bg-support-dark"
                     progressColor={
                       risk === 'critical' ? 'bg-red-500' :
                       risk === 'high' ? 'bg-orange-500' :
@@ -842,16 +842,16 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         </div>
 
         {/* Quick Actions - NIST CSF v2.0 Focused */}
-        <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 mb-10">
+        <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 shadow-xl border border-support-light dark:border-support-dark mb-10">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg">
               <Shield className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               CMMC Certification Readiness Journey
             </h2>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
             Complete CMMC 2.0 Level 2 certification workflow from initial assessment to C3PAO evaluation readiness
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -864,17 +864,17 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   <Building className="w-6 h-6 text-red-600 dark:text-red-400" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                  <h3 className="font-bold text-lg text-text-primary-light dark:text-text-primary-dark group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
                     CMMC 2.0 Level 2
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1 line-clamp-2">
                     {cmmcFramework?.estimatedTime || 240} minutes • {cmmcFramework?.sections?.reduce((sum, section) => 
                       sum + section.categories.reduce((catSum, category) => 
                         catSum + category.questions.length, 0), 0) || 110} controls
                   </p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
 
                 Complete CMMC 2.0 Level 2 assessment with all 110 controls for Government contractors handling Controlled Unclassified Information (CUI).
               </p>
@@ -889,15 +889,15 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   <Eye className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  <h3 className="font-bold text-lg text-text-primary-light dark:text-text-primary-dark group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                     CMMC Policy Templates
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1 line-clamp-2">
                     14 domains • Policy templates • SSP components
                   </p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
                 Complete CMMC policy template library for all 14 domains with System Security Plan (SSP) components.
               </p>
             </Link>
@@ -911,15 +911,15 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   <Zap className="w-6 h-6 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                  <h3 className="font-bold text-lg text-text-primary-light dark:text-text-primary-dark group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
                     CMMC Implementation Workflow
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1 line-clamp-2">
                     Complete workflow • 4 phases • Structured roadmap
                   </p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
                 Complete CMMC implementation workflow with detailed phases, activities, and C3PAO assessment preparation.
               </p>
             </Link>
@@ -927,17 +927,17 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         </div>
 
         {/* Enhanced Filters and Controls */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
             <div className="flex-1 max-w-lg">
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark w-5 h-5" />
                 <input
                   type="text"
                   placeholder="Search CMMC and cybersecurity assessments..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full pl-12 pr-4 py-3 border border-support-light dark:border-support-dark rounded-xl bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
                 />
               </div>
             </div>
@@ -947,7 +947,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
                 aria-label="Filter by assessment status"
-                className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-4 py-3 border border-support-light dark:border-support-dark rounded-xl bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="all">All Status</option>
                 <option value="completed">Completed</option>
@@ -958,7 +958,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 value={filterRisk}
                 onChange={(e) => setFilterRisk(e.target.value)}
                 aria-label="Filter by risk level"
-                className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-4 py-3 border border-support-light dark:border-support-dark rounded-xl bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="all">All Risk Levels</option>
                 <option value="low">Low Risk</option>
@@ -971,7 +971,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
                 aria-label="Sort assessments by"
-                className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-4 py-3 border border-support-light dark:border-support-dark rounded-xl bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="date">Sort by Date</option>
                 <option value="score">Sort by Score</option>
@@ -981,7 +981,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
               <button
                 onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                className="px-4 py-3 border border-support-light dark:border-support-dark rounded-xl bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
               >
                 {sortOrder === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
               </button>
@@ -1021,19 +1021,19 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         </div>
 
         {/* Assessments Display */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
+          <div className="p-6 border-b border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-gradient-to-br from-green-100 to-emerald-200 dark:from-green-900/30 dark:to-emerald-800/30 rounded-lg">
                   <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">
                  Complete Compliance Implementation System
                 </h2>
               </div>
               {filteredAndSortedAssessments.length > 0 && (
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-sm text-text-muted-light dark:text-text-muted-dark">
                   {stats.completed} completed • {stats.inProgress} in progress
                 </div>
               )}
@@ -1046,12 +1046,12 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-full"></div>
                 </div>
-                <Shield className="w-16 h-16 text-gray-400 mx-auto relative z-10" />
+                <Shield className="w-16 h-16 text-text-muted-light dark:text-text-muted-dark mx-auto relative z-10" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+              <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
                 {(!savedAssessments || savedAssessments.length === 0) ? 'No Assessments Yet' : 'No Matching Assessments'}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md mx-auto">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mb-8 max-w-md mx-auto">
                 {(!savedAssessments || savedAssessments.length === 0) 
                   ? 'Start your first cybersecurity assessment to begin compliance journey'
                   : 'Try adjusting your search or filter criteria'
@@ -1064,18 +1064,18 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                >
                  <div className="flex items-center space-x-4 mb-4">
                    <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl group-hover:from-blue-200 group-hover:to-indigo-300 dark:group-hover:from-blue-800/50 dark:group-hover:to-indigo-700/50 transition-all duration-300 group-hover:scale-110">
-                     <Activity className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                     <Activity className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                    </div>
                    <div>
-                     <h3 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                     <h3 className="font-bold text-lg text-text-primary-light dark:text-text-primary-dark group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                        Implementation Workflow
                      </h3>
-                     <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
+                     <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1 line-clamp-2">
                        Multi-framework • 4 phases • Structured roadmap
                      </p>
                    </div>
                  </div>
-                 <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                 <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
                    Complete implementation roadmap with detailed phases, activities, deliverables, and timelines for CMMC, Privacy, and NIST CSF compliance.
                  </p>
                </Link>
@@ -1102,7 +1102,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     catSum + category.questions.length, 0), 0);
 
                 return (
-                  <div key={assessment.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
+                  <div key={assessment.id} className="border border-support-light dark:border-support-dark rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center space-x-3">
                         <input
@@ -1111,9 +1111,9 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                           checked={selectedAssessments.includes(assessment.id)}
                           onChange={() => toggleAssessmentSelection(assessment.id)}
                           aria-label={`Select ${assessment.frameworkName} assessment for bulk actions`}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-gray-300 text-blue-600 focus:ring-primary-500"
                         />
-                        <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <h3 className="font-bold text-text-primary-light dark:text-text-primary-dark group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                           {assessment.frameworkName}
                         </h3>
                       </div>
@@ -1127,24 +1127,24 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     </div>
                     
                     {assessment.organizationInfo?.name && (
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                      <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3">
                         {assessment.organizationInfo.name}
                       </p>
                     )}
 
                     <div className="space-y-3 mb-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600 dark:text-gray-300">Overall Score</span>
+                        <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Overall Score</span>
                         <span className={`font-bold ${getScoreColor(score)}`}>{score}%</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600 dark:text-gray-300">Progress</span>
-                        <span className="font-medium text-gray-900 dark:text-white">
+                        <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Progress</span>
+                        <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {progress}/{totalQuestions}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600 dark:text-gray-300">Risk Level</span>
+                        <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Risk Level</span>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskColor(score)}`}>
                           {score >= 80 ? 'Low' : score >= 60 ? 'Medium' : score >= 40 ? 'High' : 'Critical'}
                         </span>
@@ -1155,12 +1155,12 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                       <ProgressBar
                         percentage={(progress / totalQuestions) * 100}
                         height="h-2"
-                        backgroundColor="bg-gray-200 dark:bg-gray-700"
+                        backgroundColor="bg-support-light dark:bg-support-dark"
                         progressColor="bg-gradient-to-r from-blue-500 to-indigo-600"
                       />
                     </div>
 
-                    <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
+                    <div className="flex items-center justify-between text-xs text-text-muted-light dark:text-text-muted-dark mb-4">
                       <span>{new Date(assessment.lastModified).toLocaleDateString()}</span>
                       {assessment.timeSpent && (
                         <span>{assessment.timeSpent} min</span>
@@ -1198,22 +1198,22 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         {/* Delete Confirmation Modal */}
         {showDeleteConfirm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-support-light dark:border-support-dark">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="p-3 bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900/30 dark:to-red-800/30 rounded-full">
                   <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   Delete Assessment
                 </h3>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mb-8 leading-relaxed">
                 Are you sure you want to delete this cybersecurity assessment? This action cannot be undone.
               </p>
               <div className="flex space-x-4">
                 <button
                   onClick={() => setShowDeleteConfirm(null)}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium"
+                  className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium"
                 >
                   Cancel
                 </button>
@@ -1237,9 +1237,9 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             {/* Radar Chart and Function Analysis */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
               {/* Radar Chart */}
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-                  <Target className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+              <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+                <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+                  <Target className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
                   CMMC Domain Performance
                 </h3>
                 <div className="h-80">
@@ -1251,14 +1251,14 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     className="h-full"
                   />
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-3 text-center">
+                <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-3 text-center">
                   Current implementation vs. target (75%)
                 </p>
               </div>
 
               {/* Function Scores Bar Chart */}
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
+              <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+                <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
                   <BarChart3 className="w-6 h-6 mr-3 text-green-600 dark:text-green-400" />
                   Domain Implementation Progress
                 </h3>
@@ -1292,17 +1292,17 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </div>
 
             {/* Gap Analysis Summary */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 mt-8">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8 mt-8">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-3">
                   <div className="p-3 bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 rounded-xl">
                     <AlertTriangle className="w-8 h-8 text-orange-600 dark:text-orange-400" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                       CMMC Gap Analysis & Remediation
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-text-secondary-light dark:text-text-secondary-dark">
                       Priority areas requiring immediate attention for certification readiness
                     </p>
                   </div>
@@ -1339,8 +1339,8 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     </div>
                     
                     <div className="text-center p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                      <TrendingUp className="w-8 h-8 text-blue-600 dark:text-blue-400 mx-auto mb-3" />
-                      <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                      <TrendingUp className="w-8 h-8 text-primary-600 dark:text-primary-400 mx-auto mb-3" />
+                      <div className="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-2">
                         {(() => {
                           if (smartRecommendations.length === 0) return 0;
                           const months = smartRecommendations.map(rec => {
@@ -1356,7 +1356,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
                   {/* Top Priority Gaps */}
                   <div className="space-y-4 mb-8">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                    <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark flex items-center">
                       <Flag className="w-5 h-5 mr-2 text-red-500" />
                       Top Priority Gaps Requiring Attention
                     </h3>
@@ -1370,7 +1370,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                             </div>
                             <div className="flex-1">
                               <div className="flex items-center space-x-3 mb-2">
-                                <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+                                <h4 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                                   {gap.name}
                                 </h4>
                                 <span className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -1405,7 +1405,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                                 <ProgressBar
                                   percentage={gap.score}
                                   height="h-3"
-                                  backgroundColor="bg-gray-200 dark:bg-gray-700"
+                                  backgroundColor="bg-support-light dark:bg-support-dark"
                                   progressColor="bg-gradient-to-r from-orange-500 to-red-500"
                                 />
                               </div>
@@ -1449,12 +1449,12 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   {smartRecommendations.length > 0 && (
                     <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark:border-blue-800 mb-8">
                       <div className="flex items-center space-x-3 mb-6">
-                        <Lightbulb className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                        <Lightbulb className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                         <div>
-                          <h3 className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                          <h3 className="text-2xl font-bold text-primary-900 dark:text-primary-100">
                             Smart Remediation Recommendations
                           </h3>
-                          <p className="text-blue-700 dark:text-blue-300">
+                          <p className="text-primary-700 dark:text-primary-300">
                             AI-powered suggestions based on your assessment results
                           </p>
                         </div>
@@ -1462,12 +1462,12 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {smartRecommendations.slice(0, 4).map((rec, index) => (
-                          <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-blue-200 dark:border-blue-700 hover:shadow-lg transition-all duration-300">
+                          <div key={index} className="bg-surface-light dark:bg-surface-dark rounded-lg p-6 border border-blue-200 dark:border-blue-700 hover:shadow-lg transition-all duration-300">
                             <div className="flex items-center space-x-3 mb-3">
                               <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
                                 {index + 1}
                               </div>
-                              <h4 className="font-bold text-gray-900 dark:text-white">
+                              <h4 className="font-bold text-text-primary-light dark:text-text-primary-dark">
                                 {rec.function}
                               </h4>
                               <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -1479,14 +1479,14 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                               </span>
                             </div>
                             
-                            <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 leading-relaxed">
+                            <p className="text-text-secondary-light dark:text-text-secondary-dark text-sm mb-4 leading-relaxed">
                               {rec.recommendation}
                             </p>
                             
                             <div className="grid grid-cols-3 gap-3 mb-4">
                               <div className="text-center">
-                                <div className="text-lg font-bold text-blue-600 dark:text-blue-400">{rec.timeframe}</div>
-                                <div className="text-xs text-gray-500 dark:text-gray-400">Timeline</div>
+                                <div className="text-lg font-bold text-primary-600 dark:text-primary-400">{rec.timeframe}</div>
+                                <div className="text-xs text-text-muted-light dark:text-text-muted-dark">Timeline</div>
                               </div>
                               <div className="text-center">
                                 <div className={`text-lg font-bold ${
@@ -1496,11 +1496,11 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                                 }`}>
                                   {rec.effort.charAt(0).toUpperCase() + rec.effort.slice(1)}
                                 </div>
-                                <div className="text-xs text-gray-500 dark:text-gray-400">Effort</div>
+                                <div className="text-xs text-text-muted-light dark:text-text-muted-dark">Effort</div>
                               </div>
                               <div className="text-center">
                                 <div className="text-lg font-bold text-green-600 dark:text-green-400">{rec.impact}</div>
-                                <div className="text-xs text-gray-500 dark:text-gray-400">Impact</div>
+                                <div className="text-xs text-text-muted-light dark:text-text-muted-dark">Impact</div>
                               </div>
                             </div>
                             
@@ -1513,7 +1513,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                               </Link>
                               <Link
                                 to="/evidence"
-                                className="flex-1 border border-blue-600 text-blue-600 dark:text-blue-400 py-2 px-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors text-sm font-medium text-center"
+                                className="flex-1 border border-blue-600 text-primary-600 dark:text-primary-400 py-2 px-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors text-sm font-medium text-center"
                               >
                                 Collect Evidence
                               </Link>
@@ -1536,8 +1536,8 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   )}
 
                   {/* Function Performance Table */}
-                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
+                  <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6 mb-8">
+                    <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
                       <Award className="w-6 h-6 mr-3 text-purple-600 dark:text-purple-400" />
                       Detailed CMMC Domain Performance
                     </h3>
@@ -1545,23 +1545,23 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     <div className="overflow-x-auto">
                       <table className="w-full">
                         <thead>
-                          <tr className="border-b border-gray-200 dark:border-gray-700">
-                            <th className="text-left py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                          <tr className="border-b border-support-light dark:border-support-dark">
+                            <th className="text-left py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                               CMMC Domain
                             </th>
-                            <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                               Score
                             </th>
-                            <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                               Progress
                             </th>
-                            <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                               Gap to 75%
                             </th>
-                            <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                               Priority
                             </th>
-                            <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                               Action
                             </th>
                           </tr>
@@ -1570,7 +1570,7 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                           {functionAnalysis.map((func, index) => (
                             <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                               <td className="py-4 px-4">
-                                <div className="font-medium text-gray-900 dark:text-white">
+                                <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                                   {func.name}
                                 </div>
                               </td>
@@ -1585,10 +1585,10 @@ const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                                 </span>
                               </td>
                               <td className="py-4 px-4 text-center">
-                                <div className="text-sm text-gray-900 dark:text-white">
+                                <div className="text-sm text-text-primary-light dark:text-text-primary-dark">
                                   {func.answered}/{func.total}
                                 </div>
-                                <div className="text-xs text-gray-500 dark:text-gray-400">
+                                <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                                   {func.completionRate}%
                                 </div>
                               </td>

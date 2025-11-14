@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { CircleCheck as CheckCircle, Circle as XCircle, TriangleAlert as AlertTriangle, Clock, Shield, ChartBar as BarChart3, TrendingUp, TrendingDown, RefreshCw, Download, Eye, Settings, Users, FileText, Database, Target, Calendar, ExternalLink, Play, Pause, Store as Stop } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { CircleCheck as CheckCircle, Circle as XCircle, TriangleAlert as AlertTriangle, Clock, ChartBar as BarChart3, TrendingUp, TrendingDown, RefreshCw, Download, Eye, Settings, FileText, Target, Play, ChevronRight } from 'lucide-react';
 import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
 
@@ -236,8 +236,8 @@ const CMMCComplianceDashboard: React.FC<CMMCComplianceDashboardProps> = ({
   onExport
 }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [metrics, setMetrics] = useState<ComplianceMetric[]>(COMPLIANCE_METRICS);
-  const [controls, setControls] = useState<ComplianceControl[]>(COMPLIANCE_CONTROLS);
+  const [metrics] = useState<ComplianceMetric[]>(COMPLIANCE_METRICS);
+  const [controls] = useState<ComplianceControl[]>(COMPLIANCE_CONTROLS);
   const [alerts, setAlerts] = useState<ComplianceAlert[]>(COMPLIANCE_ALERTS);
   const [selectedTimeRange, setSelectedTimeRange] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -282,9 +282,9 @@ const CMMCComplianceDashboard: React.FC<CMMCComplianceDashboardProps> = ({
     switch (type) {
       case 'warning': return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
       case 'error': return <XCircle className="w-5 h-5 text-red-500" />;
-      case 'info': return <Clock className="w-5 h-5 text-blue-500" />;
+      case 'info': return <Clock className="w-5 h-5 text-primary-500" />;
       case 'success': return <CheckCircle className="w-5 h-5 text-green-500" />;
-      default: return <AlertTriangle className="w-5 h-5 text-gray-500" />;
+      default: return <AlertTriangle className="w-5 h-5 text-text-muted-light dark:text-text-muted-dark" />;
     }
   };
 
@@ -296,10 +296,27 @@ const CMMCComplianceDashboard: React.FC<CMMCComplianceDashboardProps> = ({
     }
   };
 
-  const overallCompliance = metrics.find(m => m.id === 'overall-compliance')?.value || 0;
-  const controlsAssessed = metrics.find(m => m.id === 'controls-assessed')?.value || 0;
-  const evidenceCollected = metrics.find(m => m.id === 'evidence-collected')?.value || 0;
-  const daysToAssessment = metrics.find(m => m.id === 'days-to-assessment')?.value || 0;
+  // Progress bar component that avoids inline styles
+  const ProgressBar: React.FC<{ 
+    percentage: number; 
+    statusColor: string;
+  }> = ({ percentage, statusColor }) => {
+    const barRef = useRef<HTMLDivElement>(null);
+    
+    useEffect(() => {
+      if (barRef.current) {
+        barRef.current.style.setProperty('--progress-width', `${percentage}%`);
+      }
+    }, [percentage]);
+    
+    return (
+      <div 
+        ref={barRef}
+        className={`h-2 rounded-full progress-bar-fill ${statusColor}`}
+      />
+    );
+  };
+
 
 
   return (
@@ -408,14 +425,14 @@ const CMMCComplianceDashboard: React.FC<CMMCComplianceDashboardProps> = ({
 
               {metric.target > 0 && (
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                  <div 
-                    className={`h-2 rounded-full transition-all duration-300 ${
+                  <ProgressBar
+                    percentage={Math.min(100, (metric.value / metric.target) * 100)}
+                    statusColor={
                       metric.status === 'excellent' ? 'bg-green-500' :
                       metric.status === 'good' ? 'bg-blue-500' :
                       metric.status === 'warning' ? 'bg-yellow-500' :
                       'bg-red-500'
-                    }`}
-                    style={{ width: `${Math.min(100, (metric.value / metric.target) * 100)}%` }}
+                    }
                   />
                 </div>
               )}
@@ -451,9 +468,9 @@ const CMMCComplianceDashboard: React.FC<CMMCComplianceDashboardProps> = ({
                   className={`p-4 rounded-lg border-l-4 ${
                     alert.type === 'warning' ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-400' :
                     alert.type === 'error' ? 'bg-red-50 dark:bg-red-900/20 border-red-400' :
-                    alert.type === 'info' ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-400' :
+                    alert.type === 'info' ? 'bg-primary-50 dark:bg-primary-900/20 border-primary-400' :
                     'bg-green-50 dark:bg-green-900/20 border-green-400'
-                  } ${!alert.isRead ? 'ring-2 ring-blue-200 dark:ring-blue-800' : ''}`}
+                  } ${!alert.isRead ? 'ring-2 ring-primary-200 dark:ring-primary-800' : ''}`}
                 >
                   <div className="flex items-start gap-3">
                     {getAlertIcon(alert.type)}
@@ -560,14 +577,14 @@ const CMMCComplianceDashboard: React.FC<CMMCComplianceDashboardProps> = ({
                           <span className="font-medium text-gray-900 dark:text-white">{control.implementationProgress}%</span>
                         </div>
                         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                          <div 
-                            className={`h-2 rounded-full transition-all duration-300 ${
+                          <ProgressBar
+                            percentage={control.implementationProgress}
+                            statusColor={
                               control.status === 'compliant' ? 'bg-green-500' :
                               control.status === 'partially-compliant' ? 'bg-yellow-500' :
                               control.status === 'non-compliant' ? 'bg-red-500' :
                               'bg-gray-400'
-                            }`}
-                            style={{ width: `${control.implementationProgress}%` }}
+                            }
                           />
                         </div>
                       </div>

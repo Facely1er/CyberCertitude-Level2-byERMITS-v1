@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CircleCheck as CheckCircle, Shield, FileText, Settings, Target, Play, ArrowRight, ArrowLeft, Download, BookOpen, SquareCheck as CheckSquare, Save } from 'lucide-react';
 import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
 import LevelSelector from '@/components/LevelSelector';
@@ -233,6 +233,9 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
   const [activeStep, setActiveStep] = useState<string | null>(null);
   const [showStepDetails, setShowStepDetails] = useState(false);
   const [workflowProgress, setWorkflowProgress] = useState(0);
+  const workflowProgressRef = useRef<HTMLDivElement>(null);
+  const phaseProgressRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const stepProgressRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   // Calculate overall progress
   useEffect(() => {
@@ -241,6 +244,28 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
       acc + phase.steps.filter(step => step.status === 'completed').length, 0
     );
     setWorkflowProgress(Math.round((completedSteps / totalSteps) * 100));
+  }, [phases]);
+
+  // Update progress bar widths via refs to avoid inline styles
+  useEffect(() => {
+    if (workflowProgressRef.current) {
+      workflowProgressRef.current.style.width = `${workflowProgress}%`;
+    }
+  }, [workflowProgress]);
+
+  useEffect(() => {
+    phases.forEach(phase => {
+      const ref = phaseProgressRefs.current[phase.id];
+      if (ref) {
+        ref.style.width = `${phase.progress}%`;
+      }
+      phase.steps.forEach(step => {
+        const stepRef = stepProgressRefs.current[`${phase.id}-${step.id}`];
+        if (stepRef) {
+          stepRef.style.width = `${step.progress}%`;
+        }
+      });
+    });
   }, [phases]);
 
   // Update phases based on selected level
@@ -457,8 +482,8 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
             <div 
-              className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300"
-              style={{ width: `${workflowProgress}%` }}
+              ref={workflowProgressRef}
+              className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300 progress-bar-fill"
             />
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
@@ -503,12 +528,12 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                   <div 
-                    className={`h-2 rounded-full transition-all duration-300 ${
+                    ref={(el) => { phaseProgressRefs.current[phase.id] = el; }}
+                    className={`h-2 rounded-full transition-all duration-300 progress-bar-fill ${
                       phase.status === 'completed' ? 'bg-green-500' :
                       phase.status === 'in-progress' ? 'bg-blue-500' :
                       'bg-gray-400'
                     }`}
-                    style={{ width: `${phase.progress}%` }}
                   />
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
@@ -597,12 +622,12 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                         <div 
-                          className={`h-2 rounded-full transition-all duration-300 ${
+                          ref={(el) => { stepProgressRefs.current[`${phase.id}-${step.id}`] = el; }}
+                          className={`h-2 rounded-full transition-all duration-300 progress-bar-fill ${
                             step.status === 'completed' ? 'bg-green-500' :
                             step.status === 'in-progress' ? 'bg-blue-500' :
                             'bg-gray-400'
                           }`}
-                          style={{ width: `${step.progress}%` }}
                         />
                       </div>
                     </div>
@@ -699,16 +724,22 @@ const CMMCJourneyWorkflow: React.FC<CMMCJourneyWorkflowProps> = ({
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Update Progress</h4>
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label 
+                      htmlFor={`progress-${phase.id}-${step.id}`}
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
                       Progress: {step.progress}%
                     </label>
                     <input
+                      id={`progress-${phase.id}-${step.id}`}
                       type="range"
                       min="0"
                       max="100"
                       value={step.progress}
                       onChange={(e) => updateStepProgress(phase.id, step.id, parseInt(e.target.value))}
                       className="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer"
+                      aria-label={`Update progress for ${step.title}`}
+                      title={`Progress: ${step.progress}%`}
                     />
                   </div>
                   <div className="flex gap-2">
