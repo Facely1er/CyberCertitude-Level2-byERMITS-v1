@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TriangleAlert as AlertTriangle, Plus, Save, Download, Clock, Users, FileText, CircleCheck as CheckCircle, Shield, Target, AlertCircle, Phone, Mail, Calendar, BarChart3, ChevronDown, ChevronRight, Copy, Check } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { LoadingSpinner } from '../../../shared/components/ui/LoadingSpinner';
+import { ErrorState } from '../../../shared/components/ui/LoadingStates';
 import incidentResponseService, { IncidentResponsePlan, ResponseTeamMember, CommunicationTemplate } from '../../../services/incidentResponseService';
 
 interface IncidentResponsePlannerProps {
