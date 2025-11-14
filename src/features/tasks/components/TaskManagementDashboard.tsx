@@ -25,7 +25,7 @@ const ProgressBar: React.FC<{ progress: number; className?: string; showTransiti
   return (
     <div 
       ref={containerRef}
-      className={`w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 ${className}`}
+      className={`w-full bg-support-light dark:bg-support-dark rounded-full h-2 ${className}`}
     >
       <div
         className={`progress-bar-fill bg-green-500 h-2 rounded-full ${showTransition ? 'transition-all duration-300' : ''}`}
@@ -150,18 +150,18 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
 
   const getStatusColor = (status: TaskStatus) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'in-progress': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
-      case 'blocked': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-      case 'review': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
-      case 'overdue': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      case 'completed': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'in-progress': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300';
+      case 'blocked': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      case 'review': return 'bg-secondary-100 dark:bg-secondary-900/30 text-secondary-800 dark:text-secondary-300';
+      case 'overdue': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      default: return 'bg-support-light dark:bg-support-dark/30 text-text-primary-light dark:text-text-primary-dark';
     }
   };
 
   const getPriorityColor = (priority: TaskPriority) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 dark:text-red-400';
+      case 'critical': return 'text-error-600 dark:text-error-400';
       case 'high': return 'text-orange-600 dark:text-orange-400';
       case 'medium': return 'text-yellow-600 dark:text-yellow-400';
       case 'low': return 'text-green-600 dark:text-green-400';
@@ -414,9 +414,9 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Overdue</p>
-              <p className="text-3xl font-bold text-red-600 dark:text-red-400">{metrics.overdueTasks}</p>
+              <p className="text-3xl font-bold text-error-600 dark:text-error-400">{metrics.overdueTasks}</p>
             </div>
-            <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
+            <AlertTriangle className="w-8 h-8 text-error-600 dark:text-error-400" />
           </div>
         </div>
 
@@ -458,7 +458,7 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
         <div className="flex flex-col space-y-4 mb-6">
           <div className="flex-1 max-w-lg">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search tasks..."
@@ -470,15 +470,15 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
           </div>
           
           <div className="flex items-center justify-between">
-            <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+            <div className="flex space-x-1 bg-support-light dark:bg-support-dark rounded-lg p-1">
               {(['kanban', 'list', 'calendar'] as const).map((view) => (
                 <button
                   key={view}
                   onClick={() => setActiveView(view)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
                     activeView === view
-                      ? 'bg-green-600 text-white'
-                      : 'text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-200 dark:hover:bg-gray-600'
+                      ? 'bg-success-600 text-white'
+                      : 'text-text-secondary-light dark:text-text-secondary-dark hover:bg-support-light dark:hover:bg-support-dark'
                   }`}
                 >
                   {view}
@@ -566,11 +566,11 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
             {kanbanColumns.map((column) => (
               <div key={column.id} className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-support-light dark:bg-support-dark/50 rounded-lg">
                   <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                     {column.title}
                   </h3>
-                  <span className="bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full text-xs font-medium">
+                  <span className="bg-support-light dark:bg-support-dark text-text-primary-light dark:text-text-primary-dark px-2 py-1 rounded-full text-xs font-medium">
                     {column.tasks.length}
                   </span>
                 </div>
@@ -593,7 +593,7 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
                       </div>
 
                       <div className="flex items-center justify-between mb-3">
-                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded">
+                        <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 text-xs rounded">
                           {task.nistSubcategory || task.relatedControlId}
                         </span>
                         <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
@@ -607,13 +607,13 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
                         </div>
                         <div className="flex items-center space-x-1">
                           {task.comments.length > 0 && (
-                            <span className="flex items-center space-x-1 text-xs text-gray-500">
+                            <span className="flex items-center space-x-1 text-xs text-text-muted-light dark:text-text-muted-dark">
                               <MessageSquare className="w-3 h-3" />
                               <span>{task.comments.length}</span>
                             </span>
                           )}
                           {task.attachments.length > 0 && (
-                            <span className="flex items-center space-x-1 text-xs text-gray-500">
+                            <span className="flex items-center space-x-1 text-xs text-text-muted-light dark:text-text-muted-dark">
                               <Paperclip className="w-3 h-3" />
                               <span>{task.attachments.length}</span>
                             </span>
@@ -626,12 +626,12 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
                       <div className="flex items-center justify-between">
                         <div className="flex -space-x-2">
                           {task.assignedTo.slice(0, 3).map((userId, index) => (
-                            <div key={index} className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
+                            <div key={index} className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
                               {userId.charAt(userId.length - 1)}
                             </div>
                           ))}
                           {task.assignedTo.length > 3 && (
-                            <div className="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
+                            <div className="w-6 h-6 bg-support-light dark:bg-support-dark rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
                               +{task.assignedTo.length - 3}
                             </div>
                           )}
@@ -665,7 +665,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                               
                               addNotification('info', taskDetails);
                             }}
-                            className="p-1 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                            className="p-1 text-text-muted-light dark:text-text-muted-dark hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                             aria-label="View task details"
                             title="View task details"
                           >
@@ -673,7 +673,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                           </button>
                           <button
                             onClick={() => handleDeleteTask(task.id)}
-                            className="p-1 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                            className="p-1 text-text-muted-light dark:text-text-muted-dark hover:text-error-600 dark:hover:text-error-400 transition-colors"
                             aria-label="Delete task"
                             title="Delete task"
                           >
@@ -688,7 +688,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                           <button
                             onClick={() => handleUpdateTaskStatus(task.id, 'in-progress')}
                             disabled={task.status === 'in-progress'}
-                            className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-2 py-1 rounded hover:bg-blue-200 dark:hover:bg-blue-800/50 disabled:opacity-50 transition-colors"
+                            className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 px-2 py-1 rounded hover:bg-primary-200 dark:hover:bg-primary-800/50 disabled:opacity-50 transition-colors"
                           >
                             Start
                           </button>
@@ -702,7 +702,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                           <button
                             onClick={() => handleUpdateTaskStatus(task.id, 'blocked')}
                             disabled={task.status === 'blocked'}
-                            className="text-xs bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 px-2 py-1 rounded hover:bg-red-200 dark:hover:bg-red-800/50 disabled:opacity-50 transition-colors"
+                            className="text-xs bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300 px-2 py-1 rounded hover:bg-error-200 dark:hover:bg-error-800/50 disabled:opacity-50 transition-colors"
                           >
                             Block
                           </button>
@@ -722,7 +722,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
         <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-gray-700">
+              <thead className="bg-support-light dark:bg-support-dark">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                     Task
@@ -752,7 +752,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
               </thead>
               <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {filteredTasks.map((task) => (
-                  <tr key={task.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                  <tr key={task.id} className="hover:bg-support-light dark:hover:bg-support-dark/50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
@@ -769,7 +769,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex -space-x-2">
                         {task.assignedTo.slice(0, 2).map((userId, index) => (
-                          <div key={index} className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
+                          <div key={index} className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
                             {userId.charAt(userId.length - 1)}
                           </div>
                         ))}
@@ -827,7 +827,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                             
                             addNotification('info', taskDetails);
                           }}
-                          className="p-2 text-primary-600 dark:text-primary-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                          className="p-2 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 rounded-lg transition-colors"
                           aria-label="View task details"
                           title="View task details"
                         >
@@ -843,7 +843,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                         </button>
                         <button
                           onClick={() => handleDeleteTask(task.id)}
-                          className="p-2 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors"
+                          className="p-2 text-error-600 dark:text-error-400 hover:bg-error-100 dark:hover:bg-error-900/30 rounded-lg transition-colors"
                           aria-label="Delete task"
                           title="Delete task"
                         >
@@ -869,7 +869,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
             
             <form onSubmit={handleCreateTask} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Task Title *
                 </label>
                 <input
@@ -883,7 +883,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Description *
                 </label>
                 <textarea
@@ -898,7 +898,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Task Type *
                   </label>
                   <select
@@ -931,7 +931,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Priority *
                   </label>
                   <select
@@ -952,7 +952,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Compliance Framework *
                   </label>
                   <select
@@ -975,7 +975,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Framework Category
                   </label>
                   <input
@@ -990,7 +990,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Control/Requirement ID
                   </label>
                   <input
@@ -1003,7 +1003,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Assigned To *
                   </label>
                   <select
@@ -1031,7 +1031,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Due Date *
                   </label>
                   <input
@@ -1046,7 +1046,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Estimated Hours
                   </label>
                   <input
@@ -1084,7 +1084,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                       framework: 'NIST CSF v2.0'
                     });
                   }}
-                  className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>
