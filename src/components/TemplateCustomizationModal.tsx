@@ -9,12 +9,7 @@ import {
   AlertTriangle,
   FileText,
   Settings,
-  User,
-  Building,
-  Calendar,
-  Mail,
-  Phone,
-  MapPin
+  Building
 } from 'lucide-react';
 import { TemplateContent, FieldDefinition } from '../data/templates';
 import { templateService } from '../services/templateService';
@@ -87,7 +82,7 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
   };
 
   const handleFieldChange = (fieldName: string, value: any) => {
-    setCustomizations(prev => ({
+    setCustomizations((prev: any) => ({
       ...prev,
       [fieldName]: value
     }));
@@ -208,6 +203,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             type="date"
             value={value}
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
+            aria-label={fieldDef.placeholder || fieldName}
+            title={fieldDef.placeholder || fieldName}
             className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
               fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
             }`}
@@ -232,6 +229,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
           <select
             value={value}
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
+            aria-label={fieldDef.placeholder || fieldName}
+            title={fieldDef.placeholder || fieldName}
             className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
               fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
             }`}
@@ -253,6 +252,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
                 handleFieldChange(fieldName, file.name);
               }
             }}
+            aria-label={fieldDef.placeholder || fieldName}
+            title={fieldDef.placeholder || fieldName}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         );
@@ -275,14 +276,14 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
   const renderFieldGroup = (title: string, fields: Record<string, FieldDefinition>, icon: React.ReactNode) => {
     return (
       <div className="space-y-4">
-        <div className="flex items-center space-x-2 pb-2 border-b border-gray-200">
+        <div className="flex items-center space-x-2 pb-2 border-b border-support-light dark:border-support-dark">
           {icon}
-          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">{title}</h3>
         </div>
         <div className="space-y-4">
           {Object.entries(fields).map(([fieldName, fieldDef]) => (
             <div key={fieldName}>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-1">
                 {fieldDef.placeholder}
                 {fieldDef.required && <span className="text-red-500 ml-1">*</span>}
               </label>
@@ -300,29 +301,31 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+        <div className="flex items-center justify-between p-4 border-b border-support-light dark:border-support-dark">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">{template.name}</h2>
-            <p className="text-sm text-gray-600">{template.description}</p>
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{template.name}</h2>
+            <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">{template.description}</p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            aria-label="Close modal"
+            title="Close modal"
+            className="text-text-muted-light dark:text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark"
           >
             <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200">
+        <div className="flex border-b border-support-light dark:border-support-dark">
           <button
             onClick={() => setActiveTab('form')}
             className={`px-4 py-2 text-sm font-medium ${
               activeTab === 'form'
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-primary-600 dark:text-primary-400 border-b-2 border-primary-600'
+                : 'text-text-muted-light dark:text-text-muted-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
             }`}
           >
             <Settings className="w-4 h-4 inline mr-2" />
@@ -332,8 +335,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             onClick={() => setActiveTab('preview')}
             className={`px-4 py-2 text-sm font-medium ${
               activeTab === 'preview'
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-primary-600 dark:text-primary-400 border-b-2 border-primary-600'
+                : 'text-text-muted-light dark:text-text-muted-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
             }`}
           >
             <Eye className="w-4 h-4 inline mr-2" />
@@ -347,12 +350,12 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             <div className="p-6 space-y-6">
               {/* Validation Errors */}
               {!validation.valid && validation.errors.length > 0 && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
                   <div className="flex items-center space-x-2 mb-2">
-                    <AlertTriangle className="w-5 h-5 text-red-600" />
-                    <h4 className="text-sm font-medium text-red-800">Please fix the following errors:</h4>
+                    <AlertTriangle className="w-5 h-5 text-error-600 dark:text-error-400" />
+                    <h4 className="text-sm font-medium text-error-800 dark:text-error-300">Please fix the following errors:</h4>
                   </div>
-                  <ul className="text-sm text-red-700 space-y-1">
+                  <ul className="text-sm text-error-700 dark:text-error-400 space-y-1">
                     {validation.errors.map((error, index) => (
                       <li key={index}>• {error}</li>
                     ))}
@@ -365,7 +368,7 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
                 renderFieldGroup(
                   'Company Information',
                   template.interactiveFields.companyInfo,
-                  <Building className="w-5 h-5 text-blue-600" />
+                  <Building className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                 )
               )}
 
@@ -374,7 +377,7 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
                 renderFieldGroup(
                   'System Information',
                   template.interactiveFields.systemInfo,
-                  <Settings className="w-5 h-5 text-green-600" />
+                  <Settings className="w-5 h-5 text-success-600 dark:text-success-400" />
                 )
               )}
 
@@ -383,13 +386,13 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
                 renderFieldGroup(
                   'Additional Information',
                   template.interactiveFields.customFields,
-                  <FileText className="w-5 h-5 text-purple-600" />
+                  <FileText className="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
                 )
               )}
 
               {/* Template Metadata */}
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h4 className="text-sm font-medium text-gray-700 mb-2">Template Information</h4>
+              <div className="bg-support-light dark:bg-support-dark rounded-lg p-4">
+                <h4 className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">Template Information</h4>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <span className="font-medium">Category:</span> {template.category}
@@ -408,9 +411,9 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             </div>
           ) : (
             <div className="p-6">
-              <div className="bg-white border border-gray-200 rounded-lg p-4 max-h-[60vh] overflow-y-auto">
+              <div className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4 max-h-[60vh] overflow-y-auto">
                 <div className="prose max-w-none">
-                  <pre className="whitespace-pre-wrap text-sm text-gray-700 font-mono">
+                  <pre className="whitespace-pre-wrap text-sm text-text-primary-light dark:text-text-primary-dark font-mono">
                     {preview}
                   </pre>
                 </div>
@@ -420,14 +423,14 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-4 border-t border-gray-200 bg-gray-50">
+        <div className="flex items-center justify-between p-4 border-t border-support-light dark:border-support-dark bg-support-light dark:bg-support-dark">
           <div className="flex items-center space-x-2">
             {validation.valid ? (
-              <CheckCircle className="w-5 h-5 text-green-600" />
+              <CheckCircle className="w-5 h-5 text-success-600 dark:text-success-400" />
             ) : (
-              <AlertTriangle className="w-5 h-5 text-red-600" />
+              <AlertTriangle className="w-5 h-5 text-error-600 dark:text-error-400" />
             )}
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
               {validation.valid ? 'Ready to export' : `${validation.errors.length} validation errors`}
             </span>
           </div>
@@ -435,7 +438,7 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
           <div className="flex space-x-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-gray-600 hover:text-gray-800"
+              className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
             >
               Cancel
             </button>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TemplateCustomizationModal } from '../components/TemplateCustomizationModal';
+import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import { logger } from '@/utils/logger';
 
 export const TemplateCustomizationRoute: React.FC = () => {
@@ -32,7 +33,7 @@ export const TemplateCustomizationRoute: React.FC = () => {
   if (!template) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <LoadingSpinner size="lg" message="Loading template..." />
       </div>
     );
   }
@@ -48,15 +49,15 @@ export const TemplateCustomizationRoute: React.FC = () => {
       />
       
       <div className="text-center py-12">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+        <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
           Template Customization
         </h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-6">
+        <p className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
           Template customization functionality will be available here.
         </p>
         <button
           onClick={() => setShowCustomizationModal(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
         >
           Open Customization Modal
         </button>
