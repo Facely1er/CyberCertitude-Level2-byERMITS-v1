@@ -101,7 +101,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-gray-200 dark:border-gray-700">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-support-light dark:border-support-dark">
         {/* Progress Indicator */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex space-x-2">
@@ -109,14 +109,14 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
               <div
                 key={index}
                 className={`w-2 h-2 rounded-full transition-colors ${
-                  index <= currentStep ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
+                  index <= currentStep ? 'bg-primary-600' : 'bg-support-light dark:bg-primary-600'
                 }`}
               />
             ))}
           </div>
           <button
             onClick={handleSkip}
-            className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+            className="text-sm text-text-muted-light dark:text-text-muted-dark hover:text-text-primary-light dark:hover:text-text-secondary-dark"
           >
             Skip tour
           </button>
@@ -124,15 +124,15 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
 
         {/* Step Content */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900/30 rounded-full">
-            <IconComponent className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-primary-100 dark:bg-primary-900/30 rounded-full">
+            <IconComponent className="w-8 h-8 text-primary-600 dark:text-primary-400" />
           </div>
           
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+          <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-3">
             {currentStepData.title}
           </h3>
           
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
             {currentStepData.description}
           </p>
         </div>
@@ -142,7 +142,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
           {currentStepData.action && (
             <button
               onClick={currentStepData.action.onClick}
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="w-full bg-primary-600 text-white py-3 px-6 rounded-lg hover:bg-primary-700 transition-colors font-medium"
             >
               {currentStepData.action.label}
             </button>
@@ -152,7 +152,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
             <button
               onClick={prevStep}
               disabled={currentStep === 0}
-              className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              className="flex-1 bg-support-light dark:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark py-3 px-6 rounded-lg hover:bg-support-light dark:hover:bg-primary-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Previous</span>
@@ -160,7 +160,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
             
             <button
               onClick={nextStep}
-              className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2"
+              className="flex-1 bg-primary-600 text-white py-3 px-6 rounded-lg hover:bg-primary-700 transition-colors font-medium flex items-center justify-center space-x-2"
             >
               <span>{currentStep === steps.length - 1 ? 'Get Started' : 'Next'}</span>
               {currentStep === steps.length - 1 ? (

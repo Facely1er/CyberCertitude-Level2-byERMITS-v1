@@ -437,11 +437,11 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Control Coverage</p>
-                  <p className="text-3xl font-bold text-green-600 dark:text-green-400">
+                  <p className="text-3xl font-bold text-success-600 dark:text-success-400">
                     {metrics.controlCoverage}%
                   </p>
                 </div>
-                <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+                <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
               </div>
             </div>
 
@@ -683,13 +683,13 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
 
                 {/* All Good State */}
                 {metrics.maintenanceOverdue === 0 && metrics.vulnerabilityCount === 0 && metrics.controlCoverage >= 80 && (
-                  <div className="flex items-start space-x-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                    <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
+                  <div className="flex items-start space-x-3 p-4 bg-success-50 dark:bg-success-900/20 rounded-lg border border-success-200 dark:border-success-800">
+                    <CheckCircle className="w-5 h-5 text-success-600 dark:text-success-400 mt-0.5" />
                     <div>
-                      <h4 className="font-medium text-green-800 dark:text-green-300">
+                      <h4 className="font-medium text-success-800 dark:text-success-300">
                         All Systems Healthy
                       </h4>
-                      <p className="text-sm text-green-700 dark:text-green-400">
+                      <p className="text-sm text-success-700 dark:text-success-400">
                         No critical issues detected
                       </p>
                     </div>
@@ -721,7 +721,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 onClick={onViewCategories}
                 className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
               >
-                <Target className="w-6 h-6 text-green-600 dark:text-green-400" />
+                <Target className="w-6 h-6 text-success-600 dark:text-success-400" />
                 <div>
                   <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Categorization</div>
                   <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Manage categories</div>
@@ -789,8 +789,8 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 to="/assets/roadmap"
                 className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
               >
-                <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800/50 transition-colors">
-                  <Calendar className="w-6 h-6 text-green-600 dark:text-green-400" />
+                <div className="p-3 bg-success-100 dark:bg-success-900/30 rounded-lg group-hover:bg-success-200 dark:group-hover:bg-success-800/50 transition-colors">
+                  <Calendar className="w-6 h-6 text-success-600 dark:text-success-400" />
                 </div>
                 <div>
                   <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Implementation Roadmap</div>
@@ -843,7 +843,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                   placeholder="Choose a file"
                   aria-label="Import File"
                   onChange={(e) => setImportFile(e.target.files?.[0] || null)}
-                  className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
               
@@ -869,15 +869,15 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               {importStatus === 'error' && (
                 <div className="p-3 bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg">
-                  <p className="text-red-700 dark:text-red-300 text-sm">
+                  <p className="text-error-700 dark:text-error-300 text-sm">
                     Import failed. Please check the file format and try again.
                   </p>
                 </div>
               )}
               
               {importStatus === 'success' && (
-                <div className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                  <p className="text-green-700 dark:text-green-300 text-sm">
+                <div className="p-3 bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800 rounded-lg">
+                  <p className="text-success-700 dark:text-success-300 text-sm">
                     Assets imported successfully!
                   </p>
                 </div>

@@ -277,21 +277,21 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
 
   const getContentIcon = (type: string) => {
     switch (type) {
-      case 'video': return <Play className="w-4 h-4 text-red-500" />;
-      case 'text': return <FileText className="w-4 h-4 text-blue-500" />;
-      case 'interactive': return <Target className="w-4 h-4 text-green-500" />;
+      case 'video': return <Play className="w-4 h-4 text-error-500" />;
+      case 'text': return <FileText className="w-4 h-4 text-primary-500" />;
+      case 'interactive': return <Target className="w-4 h-4 text-success-500" />;
       case 'quiz': return <CheckCircle className="w-4 h-4 text-purple-500" />;
-      case 'document': return <FileText className="w-4 h-4 text-gray-500" />;
-      default: return <FileText className="w-4 h-4 text-gray-500" />;
+      case 'document': return <FileText className="w-4 h-4 text-text-muted-light" />;
+      default: return <FileText className="w-4 h-4 text-text-muted-light" />;
     }
   };
 
   const getLevelColor = (level: TrainingLevel): string => {
     const colors = {
-      'beginner': 'text-green-600 bg-green-100',
+      'beginner': 'text-success-600 bg-success-100',
       'intermediate': 'text-yellow-600 bg-yellow-100',
       'advanced': 'text-orange-600 bg-orange-100',
-      'expert': 'text-red-600 bg-red-100'
+      'expert': 'text-error-600 bg-error-100'
     };
     return colors[level];
   };
@@ -301,37 +301,37 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
       {/* Module Details */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Module Title
           </label>
           <input
             type="text"
             value={module.title}
             onChange={(e) => setModule(prev => ({ ...prev, title: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter module title"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Author
           </label>
           <input
             type="text"
             value={module.author}
             onChange={(e) => setModule(prev => ({ ...prev, author: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter author name"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Category
           </label>
           <select
             value={module.category}
             onChange={(e) => setModule(prev => ({ ...prev, category: e.target.value as TrainingCategory }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             {TRAINING_CATEGORIES.map(category => (
               <option key={category} value={category}>{category}</option>
@@ -339,13 +339,13 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Level
           </label>
           <select
             value={module.level}
             onChange={(e) => setModule(prev => ({ ...prev, level: e.target.value as TrainingLevel }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             {TRAINING_LEVELS.map(level => (
               <option key={level} value={level}>{level.charAt(0).toUpperCase() + level.slice(1)}</option>
@@ -353,14 +353,14 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
           </select>
         </div>
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Description
           </label>
           <textarea
             value={module.description}
             onChange={(e) => setModule(prev => ({ ...prev, description: e.target.value }))}
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter module description"
           />
         </div>
@@ -368,7 +368,7 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
 
       {/* Learning Objectives */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
           Learning Objectives
         </label>
         <div className="flex gap-2 mb-2">
@@ -377,24 +377,24 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
             value={newObjective}
             onChange={(e) => setNewObjective(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && addObjective()}
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter learning objective"
           />
           <button
             onClick={addObjective}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             Add
           </button>
         </div>
         <div className="space-y-2">
           {module.objectives.map((objective, index) => (
-            <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <CheckCircle className="w-4 h-4 text-green-500" />
-              <span className="flex-1 text-gray-900 dark:text-white">{objective}</span>
+            <div key={index} className="flex items-center gap-2 p-2 bg-background-light dark:bg-surface-dark rounded-lg">
+              <CheckCircle className="w-4 h-4 text-success-500" />
+              <span className="flex-1 text-text-primary-light dark:text-text-primary-dark">{objective}</span>
               <button
                 onClick={() => removeObjective(index)}
-                className="text-red-500 hover:text-red-700 transition-colors"
+                className="text-error-500 hover:text-error-700 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -405,7 +405,7 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
 
       {/* Prerequisites */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
           Prerequisites
         </label>
         <div className="flex gap-2 mb-2">
@@ -414,24 +414,24 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
             value={newPrerequisite}
             onChange={(e) => setNewPrerequisite(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && addPrerequisite()}
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter prerequisite"
           />
           <button
             onClick={addPrerequisite}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             Add
           </button>
         </div>
         <div className="space-y-2">
           {module.prerequisites.map((prerequisite, index) => (
-            <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <BookOpen className="w-4 h-4 text-blue-500" />
-              <span className="flex-1 text-gray-900 dark:text-white">{prerequisite}</span>
+            <div key={index} className="flex items-center gap-2 p-2 bg-background-light dark:bg-surface-dark rounded-lg">
+              <BookOpen className="w-4 h-4 text-primary-500" />
+              <span className="flex-1 text-text-primary-light dark:text-text-primary-dark">{prerequisite}</span>
               <button
                 onClick={() => removePrerequisite(index)}
-                className="text-red-500 hover:text-red-700 transition-colors"
+                className="text-error-500 hover:text-error-700 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -442,7 +442,7 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
 
       {/* Target Audience */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
           Target Audience
         </label>
         <div className="flex gap-2 mb-2">
@@ -451,24 +451,24 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
             value={newAudience}
             onChange={(e) => setNewAudience(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && addTargetAudience()}
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter target audience"
           />
           <button
             onClick={addTargetAudience}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             Add
           </button>
         </div>
         <div className="space-y-2">
           {module.targetAudience.map((audience, index) => (
-            <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div key={index} className="flex items-center gap-2 p-2 bg-background-light dark:bg-surface-dark rounded-lg">
               <Users className="w-4 h-4 text-purple-500" />
-              <span className="flex-1 text-gray-900 dark:text-white">{audience}</span>
+              <span className="flex-1 text-text-primary-light dark:text-text-primary-dark">{audience}</span>
               <button
                 onClick={() => removeTargetAudience(index)}
-                className="text-red-500 hover:text-red-700 transition-colors"
+                className="text-error-500 hover:text-error-700 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -479,7 +479,7 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
 
       {/* CMMC Practices */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
           CMMC Practices
         </label>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -501,9 +501,9 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
                     }));
                   }
                 }}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="rounded border-support-light text-primary-600 focus:ring-primary-500"
               />
-              <span className="text-sm text-gray-700 dark:text-gray-300">{practice}</span>
+              <span className="text-sm text-text-primary-light dark:text-text-secondary-dark">{practice}</span>
             </label>
           ))}
         </div>
@@ -511,7 +511,7 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
 
       {/* Tags */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
           Tags
         </label>
         <div className="flex gap-2 mb-2">
@@ -520,12 +520,12 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
             value={newTag}
             onChange={(e) => setNewTag(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && addTag()}
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter tag"
           />
           <button
             onClick={addTag}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             Add
           </button>
@@ -534,12 +534,12 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
           {module.tags.map((tag, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
+              className="inline-flex items-center gap-1 px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-sm rounded-full"
             >
               {tag}
               <button
                 onClick={() => removeTag(index)}
-                className="ml-1 text-blue-600 hover:text-blue-800"
+                className="ml-1 text-primary-600 hover:text-primary-800"
               >
                 <XCircle className="w-3 h-3" />
               </button>
@@ -553,12 +553,12 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
   const renderContent = () => (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
           Training Content ({module.content.length} items)
         </h3>
         <button
           onClick={() => setShowContentForm(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
         >
           <Plus className="w-4 h-4" />
           Add Content
@@ -566,45 +566,45 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
       </div>
 
       {module.content.length === 0 ? (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-8 text-text-muted-light dark:text-text-muted-dark">
           No content added yet. Click "Add Content" to get started.
         </div>
       ) : (
         <div className="space-y-4">
           {module.content.map((content) => (
-            <div key={content.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+            <div key={content.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     {getContentIcon(content.type)}
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                       {content.title}
                     </h4>
-                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
+                    <span className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark text-xs rounded">
                       {content.type.toUpperCase()}
                     </span>
-                    <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                    <span className="flex items-center gap-1 text-sm text-text-muted-light dark:text-text-muted-dark">
                       <Clock className="w-4 h-4" />
                       {content.duration} min
                     </span>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">
                     {content.content}
                   </p>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-text-muted-light dark:text-text-muted-dark">
                     Order: {content.order}
                   </div>
                 </div>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setEditingContent(content.id)}
-                    className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                    className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
                   >
                     <Edit className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => deleteContent(content.id)}
-                    className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                    className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -620,12 +620,12 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
   const renderAssessments = () => (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
           Assessments ({module.assessments.length} assessments)
         </h3>
         <button
           onClick={() => setShowAssessmentForm(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
         >
           <Plus className="w-4 h-4" />
           Add Assessment
@@ -633,25 +633,25 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
       </div>
 
       {module.assessments.length === 0 ? (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-8 text-text-muted-light dark:text-text-muted-dark">
           No assessments added yet. Click "Add Assessment" to get started.
         </div>
       ) : (
         <div className="space-y-4">
           {module.assessments.map((assessment) => (
-            <div key={assessment.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+            <div key={assessment.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <CheckCircle className="w-5 h-5 text-purple-500" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                       {assessment.title}
                     </h4>
                     <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded">
                       {assessment.questions.length} questions
                     </span>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-text-secondary-light dark:text-text-muted-dark">
                     <div>
                       <span className="font-medium">Passing Score:</span> {assessment.passingScore}%
                     </div>
@@ -669,7 +669,7 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
                 <div className="flex gap-2">
                   <button
                     onClick={() => setEditingAssessment(assessment.id)}
-                    className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                    className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
                   >
                     <Edit className="w-4 h-4" />
                   </button>
@@ -679,7 +679,7 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
                       assessments: prev.assessments.filter(a => a.id !== assessment.id),
                       lastUpdated: new Date()
                     }))}
-                    className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                    className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -696,13 +696,13 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Status
           </label>
           <select
             value={module.status}
             onChange={(e) => setModule(prev => ({ ...prev, status: e.target.value as any }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="draft">Draft</option>
             <option value="published">Published</option>
@@ -710,36 +710,36 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Version
           </label>
           <input
             type="text"
             value={module.version}
             onChange={(e) => setModule(prev => ({ ...prev, version: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           />
         </div>
       </div>
 
-      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-        <h4 className="font-medium text-gray-900 dark:text-white mb-2">Module Statistics</h4>
+      <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+        <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-2">Module Statistics</h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Total Duration:</span>
-            <p className="text-gray-600 dark:text-gray-400">{module.duration} minutes</p>
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Total Duration:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">{module.duration} minutes</p>
           </div>
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Content Items:</span>
-            <p className="text-gray-600 dark:text-gray-400">{module.content.length}</p>
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Content Items:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">{module.content.length}</p>
           </div>
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Assessments:</span>
-            <p className="text-gray-600 dark:text-gray-400">{module.assessments.length}</p>
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Assessments:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">{module.assessments.length}</p>
           </div>
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">CMMC Practices:</span>
-            <p className="text-gray-600 dark:text-gray-400">{module.cmmcPractices.length}</p>
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">CMMC Practices:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">{module.cmmcPractices.length}</p>
           </div>
         </div>
       </div>
@@ -751,30 +751,30 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg">
         {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <BookOpen className="w-6 h-6 text-blue-600" />
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark flex items-center gap-2">
+                <BookOpen className="w-6 h-6 text-primary-600" />
                 Training Module Generator
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 Create comprehensive training modules for CMMC compliance
               </p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => onSave?.(module)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Save className="w-4 h-4" />
                 Save Module
               </button>
               <button
                 onClick={() => onExport?.(module)}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 Export
@@ -784,7 +784,7 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-support-light dark:border-support-dark">
           <nav className="flex space-x-8 px-6">
             {[
               { id: 'overview', label: 'Overview', icon: Eye },
@@ -797,8 +797,8 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                    ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                    : 'border-transparent text-text-muted-light hover:text-text-primary-light hover:border-support-light dark:text-text-muted-dark dark:hover:text-text-secondary-dark'
                 }`}
               >
                 <tab.icon className="w-4 h-4" />
@@ -819,33 +819,33 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
         {/* Content Form Modal */}
         {showContentForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6 border-b border-support-light dark:border-support-dark">
+                <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                   Add Training Content
                 </h3>
               </div>
               <div className="p-6 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Title
                     </label>
                     <input
                       type="text"
                       value={newContent.title}
                       onChange={(e) => setNewContent(prev => ({ ...prev, title: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Type
                     </label>
                     <select
                       value={newContent.type}
                       onChange={(e) => setNewContent(prev => ({ ...prev, type: e.target.value as any }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     >
                       <option value="text">Text</option>
                       <option value="video">Video</option>
@@ -856,38 +856,38 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Content
                   </label>
                   <textarea
                     value={newContent.content}
                     onChange={(e) => setNewContent(prev => ({ ...prev, content: e.target.value }))}
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Duration (minutes)
                   </label>
                   <input
                     type="number"
                     value={newContent.duration}
                     onChange={(e) => setNewContent(prev => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
               </div>
-              <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">
+              <div className="p-6 border-t border-support-light dark:border-support-dark flex justify-end gap-3">
                 <button
                   onClick={() => setShowContentForm(false)}
-                  className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                  className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={addContent}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                 >
                   Add Content
                 </button>
@@ -899,59 +899,59 @@ const TrainingModuleGenerator: React.FC<TrainingModuleGeneratorProps> = ({
         {/* Assessment Form Modal */}
         {showAssessmentForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6 border-b border-support-light dark:border-support-dark">
+                <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                   Add Assessment
                 </h3>
               </div>
               <div className="p-6 space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Title
                   </label>
                   <input
                     type="text"
                     value={newAssessment.title}
                     onChange={(e) => setNewAssessment(prev => ({ ...prev, title: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Passing Score (%)
                     </label>
                     <input
                       type="number"
                       value={newAssessment.passingScore}
                       onChange={(e) => setNewAssessment(prev => ({ ...prev, passingScore: parseInt(e.target.value) || 80 }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Attempts
                     </label>
                     <input
                       type="number"
                       value={newAssessment.attempts}
                       onChange={(e) => setNewAssessment(prev => ({ ...prev, attempts: parseInt(e.target.value) || 3 }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     />
                   </div>
                 </div>
               </div>
-              <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">
+              <div className="p-6 border-t border-support-light dark:border-support-dark flex justify-end gap-3">
                 <button
                   onClick={() => setShowAssessmentForm(false)}
-                  className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                  className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={addAssessment}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                 >
                   Add Assessment
                 </button>

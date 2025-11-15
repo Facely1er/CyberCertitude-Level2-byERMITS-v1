@@ -30,14 +30,14 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, navItem
       />
       
       {/* Menu Panel */}
-      <div className="absolute right-0 top-0 h-full w-80 bg-white dark:bg-gray-800 shadow-xl">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="absolute right-0 top-0 h-full w-80 bg-surface-light dark:bg-surface-dark shadow-xl">
+        <div className="flex items-center justify-between p-4 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
             Navigation
           </h2>
           <button
             onClick={onClose}
-            className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            className="p-2 text-text-muted-light hover:text-text-primary-light dark:text-text-muted-dark dark:hover:text-text-primary-light"
           >
             <X className="w-5 h-5" />
           </button>
@@ -48,7 +48,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, navItem
             <div key={item.label}>
               {item.children ? (
                 <div className="space-y-2">
-                  <div className="flex items-center space-x-2 px-3 py-2 text-sm font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <div className="flex items-center space-x-2 px-3 py-2 text-sm font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
                     <item.icon className="w-4 h-4" />
                     <span>{item.label}</span>
                   </div>
@@ -59,15 +59,15 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, navItem
                         onClick={() => handleNavigation(child.href)}
                         className={`w-full flex items-center space-x-3 px-3 py-2 text-left rounded-lg transition-colors ${
                           isActive(child.href)
-                            ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50'
+                            ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
+                            : 'text-text-primary-light dark:text-text-secondary-dark hover:bg-support-light dark:hover:bg-surface-dark/50'
                         }`}
                       >
                         <child.icon className="w-4 h-4" />
                         <div className="flex-1">
                           <div className="text-sm font-medium">{child.label}</div>
                           {child.description && (
-                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            <div className="text-xs text-text-muted-light dark:text-text-muted-dark mt-0.5">
                               {child.description}
                             </div>
                           )}
@@ -81,15 +81,15 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, navItem
                   onClick={() => handleNavigation(item.href)}
                   className={`w-full flex items-center space-x-3 px-3 py-3 text-left rounded-lg transition-colors ${
                     isActive(item.href)
-                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50'
+                      ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
+                      : 'text-text-primary-light dark:text-text-secondary-dark hover:bg-support-light dark:hover:bg-surface-dark/50'
                   }`}
                 >
                   <item.icon className="w-5 h-5" />
                   <div className="flex-1">
                     <div className="text-sm font-medium">{item.label}</div>
                     {item.description && (
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                      <div className="text-xs text-text-muted-light dark:text-text-muted-dark mt-0.5">
                         {item.description}
                       </div>
                     )}

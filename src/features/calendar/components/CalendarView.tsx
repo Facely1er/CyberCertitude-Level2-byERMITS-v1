@@ -78,11 +78,11 @@ const CalendarView: React.FC<CalendarViewProps> = ({
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'bg-red-500';
+      case 'critical': return 'bg-error-500';
       case 'high': return 'bg-orange-500';
       case 'medium': return 'bg-yellow-500';
-      case 'low': return 'bg-green-500';
-      default: return 'bg-gray-500';
+      case 'low': return 'bg-success-500';
+      default: return 'bg-support-light';
     }
   };
 
@@ -90,23 +90,23 @@ const CalendarView: React.FC<CalendarViewProps> = ({
   const today = new Date();
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 ${className}`}>
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+    <div className={`bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark ${className}`}>
+      <div className="p-6 border-b border-support-light dark:border-support-dark">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
-              <Calendar className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark flex items-center">
+              <Calendar className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
               Activity Calendar
             </h2>
-            <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+            <div className="flex space-x-1 bg-support-light dark:bg-surface-dark rounded-lg p-1">
               {(['month', 'week', 'day'] as const).map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setViewMode(mode)}
                   className={`px-3 py-1 rounded text-sm font-medium transition-colors capitalize ${
                     viewMode === mode
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                      ? 'bg-primary-600 text-white'
+                      : 'text-text-secondary-light dark:text-text-secondary-dark hover:bg-support-light dark:hover:bg-primary-600'
                   }`}
                 >
                   {mode}
@@ -116,7 +116,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
           </div>
           <button
             onClick={onCreateEvent}
-            className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
           >
             <Plus className="w-4 h-4" />
             <span>Add Event</span>
@@ -126,16 +126,16 @@ const CalendarView: React.FC<CalendarViewProps> = ({
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigateMonth('prev')}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-support-light dark:hover:bg-surface-dark rounded-lg transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
             {currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
           </h3>
           <button
             onClick={() => navigateMonth('next')}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-support-light dark:hover:bg-surface-dark rounded-lg transition-colors"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -147,7 +147,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
           {/* Calendar Grid */}
           <div className="grid grid-cols-7 gap-1 mb-4">
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-              <div key={day} className="p-2 text-center text-sm font-medium text-gray-500 dark:text-gray-400">
+              <div key={day} className="p-2 text-center text-sm font-medium text-text-muted-light dark:text-text-muted-dark">
                 {day}
               </div>
             ))}
@@ -162,20 +162,20 @@ const CalendarView: React.FC<CalendarViewProps> = ({
               return (
                 <div
                   key={index}
-                  className={`min-h-[100px] p-2 border border-gray-200 dark:border-gray-700 rounded-lg ${
+                  className={`min-h-[100px] p-2 border border-support-light dark:border-support-dark rounded-lg ${
                     isCurrentMonth 
-                      ? 'bg-white dark:bg-gray-800' 
-                      : 'bg-gray-50 dark:bg-gray-700/50'
+                      ? 'bg-surface-light dark:bg-surface-dark' 
+                      : 'bg-background-light dark:bg-surface-dark/50'
                   } ${
                     isToday ? 'ring-2 ring-blue-500' : ''
                   }`}
                 >
                   <div className={`text-sm font-medium mb-2 ${
                     isCurrentMonth 
-                      ? 'text-gray-900 dark:text-white' 
-                      : 'text-gray-400 dark:text-gray-500'
+                      ? 'text-text-primary-light dark:text-text-primary-dark' 
+                      : 'text-text-muted-dark dark:text-text-muted-light'
                   } ${
-                    isToday ? 'text-blue-600 dark:text-blue-400' : ''
+                    isToday ? 'text-primary-600 dark:text-primary-400' : ''
                   }`}>
                     {day.getDate()}
                   </div>
@@ -192,7 +192,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({
                       </div>
                     ))}
                     {dayEvents.length > 2 && (
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                      <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                         +{dayEvents.length - 2} more
                       </div>
                     )}

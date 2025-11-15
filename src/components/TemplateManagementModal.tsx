@@ -157,29 +157,29 @@ export const TemplateManagementModal: React.FC<TemplateManagementModalProps> = (
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-support-light">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Template Management</h2>
-            <p className="text-gray-600">Select or create assessment templates</p>
+            <h2 className="text-2xl font-bold text-text-primary-light">Template Management</h2>
+            <p className="text-text-secondary-light">Select or create assessment templates</p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-text-muted-dark hover:text-text-secondary-light transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200">
+        <div className="flex border-b border-support-light">
           <button
             onClick={() => setActiveTab('assessment')}
             className={`px-6 py-3 text-sm font-medium ${
               activeTab === 'assessment'
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-primary-600 border-b-2 border-primary-600'
+                : 'text-text-muted-light hover:text-text-primary-light'
             }`}
           >
             <FileText className="w-4 h-4 inline mr-2" />
@@ -189,8 +189,8 @@ export const TemplateManagementModal: React.FC<TemplateManagementModalProps> = (
             onClick={() => setActiveTab('content')}
             className={`px-6 py-3 text-sm font-medium ${
               activeTab === 'content'
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-primary-600 border-b-2 border-primary-600'
+                : 'text-text-muted-light hover:text-text-primary-light'
             }`}
           >
             <Settings className="w-4 h-4 inline mr-2" />
@@ -206,19 +206,19 @@ export const TemplateManagementModal: React.FC<TemplateManagementModalProps> = (
               <div className="mb-6 space-y-4">
                 <div className="flex items-center space-x-4">
                   <div className="flex-1 relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-4 h-4" />
                     <input
                       type="text"
                       placeholder="Search templates..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-support-light rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
                   <select
                     value={selectedIndustry}
                     onChange={(e) => setSelectedIndustry(e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="px-3 py-2 border border-support-light rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   >
                     <option value="">All Industries</option>
                     <option value="military">Military</option>
@@ -230,7 +230,7 @@ export const TemplateManagementModal: React.FC<TemplateManagementModalProps> = (
                   <select
                     value={selectedSize}
                     onChange={(e) => setSelectedSize(e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="px-3 py-2 border border-support-light rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   >
                     <option value="">All Sizes</option>
                     <option value="small">Small</option>
@@ -239,7 +239,7 @@ export const TemplateManagementModal: React.FC<TemplateManagementModalProps> = (
                   </select>
                   <button
                     onClick={() => setShowCreateForm(true)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
+                    className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center space-x-2"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Create Template</span>
@@ -250,28 +250,28 @@ export const TemplateManagementModal: React.FC<TemplateManagementModalProps> = (
               {/* Assessment Templates Grid */}
               {loading ? (
                 <div className="flex items-center justify-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredTemplates.map((template) => (
                     <div
                       key={template.id}
-                      className="bg-gray-50 rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow"
+                      className="bg-background-light rounded-lg p-6 border border-support-light hover:shadow-md transition-shadow"
                     >
                       <div className="flex items-start justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-gray-900">
+                        <h3 className="text-lg font-semibold text-text-primary-light">
                           {template.name}
                         </h3>
                         <div className="flex items-center space-x-1">
                           <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                          <span className="text-sm text-gray-600">
+                          <span className="text-sm text-text-secondary-light">
                             {template.rating.toFixed(1)}
                           </span>
                         </div>
                       </div>
 
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      <p className="text-text-secondary-light text-sm mb-4 line-clamp-3">
                         {template.description}
                       </p>
 
@@ -279,19 +279,19 @@ export const TemplateManagementModal: React.FC<TemplateManagementModalProps> = (
                         {template.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                            className="px-2 py-1 bg-primary-100 text-primary-800 text-xs rounded-full"
                           >
                             {tag}
                           </span>
                         ))}
                         {template.tags.length > 3 && (
-                          <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                          <span className="px-2 py-1 bg-support-light text-text-secondary-light text-xs rounded-full">
                             +{template.tags.length - 3}
                           </span>
                         )}
                       </div>
 
-                      <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                      <div className="flex items-center justify-between text-sm text-text-muted-light mb-4">
                         <span>{template.industry}</span>
                         <span>{template.downloadCount} downloads</span>
                       </div>
@@ -299,14 +299,14 @@ export const TemplateManagementModal: React.FC<TemplateManagementModalProps> = (
                       <div className="flex items-center space-x-2">
                         <button
                           onClick={() => handleSelectTemplate(template)}
-                          className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
+                          className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2"
                         >
                           <Download className="w-4 h-4" />
                           <span>Use Template</span>
                         </button>
                         <button
                           onClick={() => handleDeleteTemplate(template.id)}
-                          className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="px-3 py-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -318,13 +318,13 @@ export const TemplateManagementModal: React.FC<TemplateManagementModalProps> = (
 
               {filteredTemplates.length === 0 && !loading && (
                 <div className="text-center py-12">
-                  <div className="text-gray-400 mb-4">
+                  <div className="text-text-muted-dark mb-4">
                     <FileText className="w-16 h-16 mx-auto" />
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <h3 className="text-lg font-medium text-text-primary-light mb-2">
                     No templates found
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-text-secondary-light">
                     Try adjusting your search criteria or create a new template.
                   </p>
                 </div>

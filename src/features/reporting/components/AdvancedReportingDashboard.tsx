@@ -192,7 +192,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
               <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{overallMetrics.avgScore}%</p>
               <div className="flex items-center space-x-1 mt-1">
                 {overallMetrics.improvementTrend > 0 ? (
-                  <TrendingUp className="w-4 h-4 text-green-500" />
+                  <TrendingUp className="w-4 h-4 text-success-500" />
                 ) : overallMetrics.improvementTrend < 0 ? (
                   <TrendingUp className="w-4 h-4 text-error-500 rotate-180" />
                 ) : null}
@@ -209,12 +209,12 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Compliance Rate</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{overallMetrics.complianceRate}%</p>
+              <p className="text-3xl font-bold text-success-600 dark:text-success-400">{overallMetrics.complianceRate}%</p>
               <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">
                 Target: 75% (Repeatable)
               </p>
             </div>
-            <Shield className="w-8 h-8 text-green-600 dark:text-green-400" />
+            <Shield className="w-8 h-8 text-success-600 dark:text-success-400" />
           </div>
         </div>
 
@@ -384,7 +384,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
                   </td>
                   <td className="py-4 px-4 text-center">
                     <span className={`text-lg font-bold ${
-                      func.score >= 80 ? 'text-green-600 dark:text-green-400' :
+                      func.score >= 80 ? 'text-success-600 dark:text-success-400' :
                       func.score >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
                       func.score >= 40 ? 'text-orange-600 dark:text-orange-400' :
                       'text-error-600 dark:text-error-400'
@@ -405,7 +405,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
                   </td>
                   <td className="py-4 px-4 text-center">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      func.score >= 80 ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' :
+                      func.score >= 80 ? 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300' :
                       func.score >= 60 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                       func.score >= 40 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' :
                       'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300'
@@ -483,7 +483,7 @@ const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
             onClick={() => onExportReport('excel')}
             className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors"
           >
-            <BarChart3 className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <BarChart3 className="w-6 h-6 text-success-600 dark:text-success-400" />
             <div className="text-left">
               <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Excel Workbook</div>
               <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Data analysis and pivot tables</div>

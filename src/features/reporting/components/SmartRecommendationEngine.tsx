@@ -271,20 +271,20 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
+      case 'critical': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300 border-error-200 dark:border-error-800';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800';
       case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
-      case 'low': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
-      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-800';
+      case 'low': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300 border-success-200 dark:border-success-800';
+      default: return 'bg-support-light dark:bg-background-dark/30 text-text-primary-light dark:text-text-secondary-dark border-support-light dark:border-support-dark';
     }
   };
 
   const getEffortIcon = (effort: string) => {
     switch (effort) {
-      case 'high': return <AlertTriangle className="w-4 h-4 text-red-500" />;
+      case 'high': return <AlertTriangle className="w-4 h-4 text-error-500" />;
       case 'medium': return <Clock className="w-4 h-4 text-yellow-500" />;
-      case 'low': return <CheckCircle className="w-4 h-4 text-green-500" />;
-      default: return <Clock className="w-4 h-4 text-gray-500" />;
+      case 'low': return <CheckCircle className="w-4 h-4 text-success-500" />;
+      default: return <Clock className="w-4 h-4 text-text-muted-light" />;
     }
   };
 
@@ -299,12 +299,12 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
 
   if (recommendations.length === 0) {
     return (
-      <div className={`bg-green-50 dark:bg-green-900/20 rounded-xl p-8 text-center ${className}`}>
-        <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">
+      <div className={`bg-success-50 dark:bg-success-900/20 rounded-xl p-8 text-center ${className}`}>
+        <CheckCircle className="w-16 h-16 text-success-500 mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-success-800 dark:text-success-300 mb-2">
           Excellent Security Posture
         </h3>
-        <p className="text-green-600 dark:text-green-400">
+        <p className="text-success-600 dark:text-success-400">
           Your assessment shows strong security controls. Continue monitoring and maintaining current practices.
         </p>
       </div>
@@ -318,10 +318,10 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
           <Lightbulb className="w-8 h-8 text-purple-600 dark:text-purple-400" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
             Smart Recommendations
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">
             Contextual improvement suggestions based on your assessment results
           </p>
         </div>
@@ -329,35 +329,35 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
 
       {/* Summary Stats */}
       <div className="grid md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-lg p-4 border border-support-light dark:border-support-dark">
           <div className="flex items-center space-x-3">
-            <Target className="w-5 h-5 text-blue-500" />
+            <Target className="w-5 h-5 text-primary-500" />
             <div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Total Impact</div>
-              <div className="font-bold text-blue-600 dark:text-blue-400">
+              <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Total Impact</div>
+              <div className="font-bold text-primary-600 dark:text-primary-400">
                 +{recommendations.reduce((sum, rec) => sum + rec.impact, 0)}%
               </div>
             </div>
           </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-lg p-4 border border-support-light dark:border-support-dark">
           <div className="flex items-center space-x-3">
-            <AlertTriangle className="w-5 h-5 text-red-500" />
+            <AlertTriangle className="w-5 h-5 text-error-500" />
             <div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Critical Items</div>
-              <div className="font-bold text-red-600 dark:text-red-400">
+              <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Critical Items</div>
+              <div className="font-bold text-error-600 dark:text-error-400">
                 {recommendations.filter(r => r.priority === 'critical').length}
               </div>
             </div>
           </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-lg p-4 border border-support-light dark:border-support-dark">
           <div className="flex items-center space-x-3">
             <Clock className="w-5 h-5 text-orange-500" />
             <div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Avg Timeframe</div>
+              <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Avg Timeframe</div>
               <div className="font-bold text-orange-600 dark:text-orange-400">
                 3-6 months
               </div>
@@ -365,12 +365,12 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
           </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-lg p-4 border border-support-light dark:border-support-dark">
           <div className="flex items-center space-x-3">
-            <TrendingUp className="w-5 h-5 text-green-500" />
+            <TrendingUp className="w-5 h-5 text-success-500" />
             <div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Risk Reduction</div>
-              <div className="font-bold text-green-600 dark:text-green-400">
+              <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Risk Reduction</div>
+              <div className="font-bold text-success-600 dark:text-success-400">
                 {Math.round(recommendations.reduce((sum, rec) => sum + rec.riskReduction, 0) / recommendations.length)}%
               </div>
             </div>
@@ -381,13 +381,13 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
       {/* Recommendations List */}
       <div className="space-y-6">
         {recommendations.map((rec, index) => (
-          <div key={rec.id} className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+          <div key={rec.id} className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 border border-support-light dark:border-support-dark shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center space-x-3 mb-2">
                   <div className="flex items-center space-x-2">
-                    <span className="text-lg font-bold text-gray-400">#{index + 1}</span>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <span className="text-lg font-bold text-text-muted-dark">#{index + 1}</span>
+                    <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                       {rec.title}
                     </h3>
                   </div>
@@ -395,17 +395,17 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
                     {rec.priority.charAt(0).toUpperCase() + rec.priority.slice(1)} Priority
                   </span>
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed mb-4">
                   {rec.description}
                 </p>
               </div>
               
               <div className="flex items-center space-x-2 ml-4">
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
                     +{rec.impact}%
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                     Expected Impact
                   </div>
                 </div>
@@ -417,28 +417,28 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
               <div className="flex items-center space-x-2">
                 {getEffortIcon(rec.effort)}
                 <div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">Effort</div>
-                  <div className="font-medium text-gray-900 dark:text-white capitalize">
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">Effort</div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark capitalize">
                     {rec.effort}
                   </div>
                 </div>
               </div>
 
               <div className="flex items-center space-x-2">
-                <Clock className="w-4 h-4 text-blue-500" />
+                <Clock className="w-4 h-4 text-primary-500" />
                 <div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">Timeframe</div>
-                  <div className="font-medium text-gray-900 dark:text-white">
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">Timeframe</div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                     {rec.timeframe}
                   </div>
                 </div>
               </div>
 
               <div className="flex items-center space-x-2">
-                <DollarSign className="w-4 h-4 text-green-500" />
+                <DollarSign className="w-4 h-4 text-success-500" />
                 <div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">Cost</div>
-                  <div className="font-medium text-gray-900 dark:text-white">
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">Cost</div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                     {getCostIcon(rec.cost)} {rec.cost.charAt(0).toUpperCase() + rec.cost.slice(1)}
                   </div>
                 </div>
@@ -447,8 +447,8 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
               <div className="flex items-center space-x-2">
                 <TrendingUp className="w-4 h-4 text-purple-500" />
                 <div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">Risk Reduction</div>
-                  <div className="font-medium text-gray-900 dark:text-white">
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">Risk Reduction</div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                     {rec.riskReduction}%
                   </div>
                 </div>
@@ -456,14 +456,14 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
             </div>
 
             {/* Business Value */}
-            <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div className="mb-4 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
               <div className="flex items-start space-x-2">
-                <Star className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+                <Star className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-0.5" />
                 <div>
-                  <div className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
+                  <div className="font-semibold text-primary-900 dark:text-primary-100 mb-1">
                     Business Value
                   </div>
-                  <div className="text-blue-800 dark:text-blue-200 text-sm">
+                  <div className="text-primary-800 dark:text-primary-200 text-sm">
                     {rec.businessValue}
                   </div>
                 </div>
@@ -472,17 +472,17 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
 
             {/* Implementation Steps */}
             <div className="mb-6">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+              <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3 flex items-center">
                 <Zap className="w-4 h-4 mr-2 text-yellow-500" />
                 Implementation Steps
               </h4>
               <div className="grid md:grid-cols-2 gap-2">
                 {rec.steps.map((step, stepIndex) => (
                   <div key={stepIndex} className="flex items-start space-x-2">
-                    <div className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
+                    <div className="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
                       {stepIndex + 1}
                     </div>
-                    <span className="text-sm text-gray-600 dark:text-gray-300">{step}</span>
+                    <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">{step}</span>
                   </div>
                 ))}
               </div>
@@ -490,26 +490,26 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
 
             {/* Resources */}
             <div className="mb-6">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
-                <BookOpen className="w-4 h-4 mr-2 text-green-500" />
+              <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3 flex items-center">
+                <BookOpen className="w-4 h-4 mr-2 text-success-500" />
                 Recommended Resources
               </h4>
               <div className="grid md:grid-cols-2 gap-3">
                 {rec.resources.map((resource, resIndex) => (
-                  <div key={resIndex} className="border border-gray-200 dark:border-gray-600 rounded-lg p-3">
+                  <div key={resIndex} className="border border-support-light dark:border-support-dark rounded-lg p-3">
                     <div className="flex items-center justify-between mb-2">
-                      <div className="font-medium text-gray-900 dark:text-white">
+                      <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                         {resource.name}
                       </div>
-                      <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded capitalize">
+                      <span className="text-xs bg-support-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark px-2 py-1 rounded capitalize">
                         {resource.type}
                       </span>
                     </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                    <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-2">
                       {resource.description}
                     </div>
                     {resource.cost && (
-                      <div className="text-xs text-green-600 dark:text-green-400 font-medium">
+                      <div className="text-xs text-success-600 dark:text-success-400 font-medium">
                         {resource.cost}
                       </div>
                     )}
@@ -518,7 +518,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
                         href={resource.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center space-x-1 text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-2"
+                        className="inline-flex items-center space-x-1 text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 mt-2"
                       >
                         <span>Learn more</span>
                         <ExternalLink className="w-3 h-3" />
@@ -530,15 +530,15 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
             </div>
 
             {/* Success Metrics */}
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
+            <div className="border-t border-support-light dark:border-support-dark pt-4">
+              <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
                 Success Metrics
               </h4>
               <div className="flex flex-wrap gap-2">
                 {rec.successMetrics.map((metric, metricIndex) => (
                   <span
                     key={metricIndex}
-                    className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-sm rounded-full"
+                    className="px-3 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300 text-sm rounded-full"
                   >
                     {metric}
                   </span>
@@ -550,26 +550,26 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
       </div>
 
       {/* Action Summary */}
-      <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
-        <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">
+      <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-primary-200 dark:border-primary-800">
+        <h3 className="text-lg font-semibold text-primary-900 dark:text-primary-100 mb-3">
           Implementation Roadmap
         </h3>
         <div className="grid md:grid-cols-3 gap-4 text-sm">
           <div>
-            <div className="text-blue-700 dark:text-blue-300 font-medium">Phase 1 (0-3 months)</div>
-            <div className="text-blue-600 dark:text-blue-400">
+            <div className="text-primary-700 dark:text-primary-300 font-medium">Phase 1 (0-3 months)</div>
+            <div className="text-primary-600 dark:text-primary-400">
               {recommendations.filter(r => r.priority === 'critical').length} critical items
             </div>
           </div>
           <div>
-            <div className="text-blue-700 dark:text-blue-300 font-medium">Phase 2 (3-6 months)</div>
-            <div className="text-blue-600 dark:text-blue-400">
+            <div className="text-primary-700 dark:text-primary-300 font-medium">Phase 2 (3-6 months)</div>
+            <div className="text-primary-600 dark:text-primary-400">
               {recommendations.filter(r => r.priority === 'high').length} high priority items
             </div>
           </div>
           <div>
-            <div className="text-blue-700 dark:text-blue-300 font-medium">Phase 3 (6+ months)</div>
-            <div className="text-blue-600 dark:text-blue-400">
+            <div className="text-primary-700 dark:text-primary-300 font-medium">Phase 3 (6+ months)</div>
+            <div className="text-primary-600 dark:text-primary-400">
               {recommendations.filter(r => r.priority === 'medium' || r.priority === 'low').length} optimization items
             </div>
           </div>

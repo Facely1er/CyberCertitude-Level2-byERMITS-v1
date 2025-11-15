@@ -265,11 +265,11 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
 
   const getCategoryIcon = (category: AuditCategory) => {
     switch (category) {
-      case 'Access Control': return <Shield className="w-4 h-4 text-blue-500" />;
-      case 'Awareness and Training': return <Target className="w-4 h-4 text-green-500" />;
+      case 'Access Control': return <Shield className="w-4 h-4 text-primary-500" />;
+      case 'Awareness and Training': return <Target className="w-4 h-4 text-success-500" />;
       case 'Audit and Accountability': return <CheckSquare className="w-4 h-4 text-purple-500" />;
       case 'Configuration Management': return <FileText className="w-4 h-4 text-orange-500" />;
-      default: return <CheckSquare className="w-4 h-4 text-gray-500" />;
+      default: return <CheckSquare className="w-4 h-4 text-text-muted-light" />;
     }
   };
 
@@ -278,37 +278,37 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
       {/* Checklist Details */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Checklist Title
           </label>
           <input
             type="text"
             value={checklist.title}
             onChange={(e) => setChecklist(prev => ({ ...prev, title: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter checklist title"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Author
           </label>
           <input
             type="text"
             value={checklist.author}
             onChange={(e) => setChecklist(prev => ({ ...prev, author: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter author name"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Framework
           </label>
           <select
             value={checklist.framework}
             onChange={(e) => setChecklist(prev => ({ ...prev, framework: e.target.value as any }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             {FRAMEWORKS.map(framework => (
               <option key={framework} value={framework}>{framework}</option>
@@ -316,13 +316,13 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Level
           </label>
           <select
             value={checklist.level}
             onChange={(e) => setChecklist(prev => ({ ...prev, level: e.target.value as any }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             {LEVELS.map(level => (
               <option key={level} value={level}>{level}</option>
@@ -330,13 +330,13 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Category
           </label>
           <select
             value={checklist.category}
             onChange={(e) => setChecklist(prev => ({ ...prev, category: e.target.value as AuditCategory }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             {AUDIT_CATEGORIES.map(category => (
               <option key={category} value={category}>{category}</option>
@@ -344,26 +344,26 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Version
           </label>
           <input
             type="text"
             value={checklist.version}
             onChange={(e) => setChecklist(prev => ({ ...prev, version: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter version"
           />
         </div>
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Description
           </label>
           <textarea
             value={checklist.description}
             onChange={(e) => setChecklist(prev => ({ ...prev, description: e.target.value }))}
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter checklist description"
           />
         </div>
@@ -371,7 +371,7 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
 
       {/* Tags */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
           Tags
         </label>
         <div className="flex gap-2 mb-2">
@@ -380,12 +380,12 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
             value={newTag}
             onChange={(e) => setNewTag(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && addTag()}
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter tag"
           />
           <button
             onClick={addTag}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             Add
           </button>
@@ -394,12 +394,12 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
           {checklist.tags.map((tag, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
+              className="inline-flex items-center gap-1 px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-sm rounded-full"
             >
               {tag}
               <button
                 onClick={() => removeTag(index)}
-                className="ml-1 text-blue-600 hover:text-blue-800"
+                className="ml-1 text-primary-600 hover:text-primary-800"
               >
                 <XCircle className="w-3 h-3" />
               </button>
@@ -409,28 +409,28 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
       </div>
 
       {/* Statistics */}
-      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-        <h4 className="font-medium text-gray-900 dark:text-white mb-2">Checklist Statistics</h4>
+      <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+        <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-2">Checklist Statistics</h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Sections:</span>
-            <p className="text-gray-600 dark:text-gray-400">{checklist.sections.length}</p>
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Sections:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">{checklist.sections.length}</p>
           </div>
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Total Items:</span>
-            <p className="text-gray-600 dark:text-gray-400">
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Total Items:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">
               {checklist.sections.reduce((sum, section) => sum + section.items.length, 0)}
             </p>
           </div>
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Total Weight:</span>
-            <p className="text-gray-600 dark:text-gray-400">
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Total Weight:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">
               {checklist.sections.reduce((sum, section) => sum + section.weight, 0)}%
             </p>
           </div>
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">CMMC Practices:</span>
-            <p className="text-gray-600 dark:text-gray-400">
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">CMMC Practices:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">
               {new Set(checklist.sections.flatMap(s => s.items.map(i => i.cmmcPractice))).size}
             </p>
           </div>
@@ -442,12 +442,12 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
   const renderSections = () => (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
           Sections ({checklist.sections.length} sections)
         </h3>
         <button
           onClick={() => setShowSectionForm(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
         >
           <Plus className="w-4 h-4" />
           Add Section
@@ -455,44 +455,44 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
       </div>
 
       {checklist.sections.length === 0 ? (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-8 text-text-muted-light dark:text-text-muted-dark">
           No sections added yet. Click "Add Section" to get started.
         </div>
       ) : (
         <div className="space-y-4">
           {checklist.sections.map((section) => (
-            <div key={section.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+            <div key={section.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <CheckSquare className="w-5 h-5 text-blue-500" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <CheckSquare className="w-5 h-5 text-primary-500" />
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                       {section.title}
                     </h4>
-                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
+                    <span className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark text-xs rounded">
                       {section.items.length} items
                     </span>
-                    <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                    <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded">
                       {section.weight}% weight
                     </span>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">
                     {section.description}
                   </p>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-text-muted-light dark:text-text-muted-dark">
                     Order: {section.order}
                   </div>
                 </div>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setEditingSection(section.id)}
-                    className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                    className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
                   >
                     <Edit className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => deleteSection(section.id)}
-                    className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                    className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -508,14 +508,14 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
   const renderItems = () => (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
           Audit Items
         </h3>
         <div className="flex gap-2">
           <select
             value={selectedSection || ''}
             onChange={(e) => setSelectedSection(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="">Select Section</option>
             {checklist.sections.map(section => (
@@ -525,7 +525,7 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
           <button
             onClick={() => setShowItemForm(true)}
             disabled={!selectedSection}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add Item
@@ -534,47 +534,47 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
       </div>
 
       {checklist.sections.length === 0 ? (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-8 text-text-muted-light dark:text-text-muted-dark">
           No sections available. Please add sections first.
         </div>
       ) : (
         <div className="space-y-4">
           {checklist.sections.map((section) => (
-            <div key={section.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+            <div key={section.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
+              <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center gap-2">
                 {getCategoryIcon(section.title as AuditCategory)}
                 {section.title}
-                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
+                <span className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark text-xs rounded">
                   {section.items.length} items
                 </span>
               </h4>
               {section.items.length === 0 ? (
-                <div className="text-center py-4 text-gray-500 dark:text-gray-400">
+                <div className="text-center py-4 text-text-muted-light dark:text-text-muted-dark">
                   No items in this section.
                 </div>
               ) : (
                 <div className="space-y-3">
                   {section.items.map((item) => (
-                    <div key={item.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+                    <div key={item.id} className="bg-background-light dark:bg-surface-dark rounded-lg p-3">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
-                            <h5 className="font-medium text-gray-900 dark:text-white">
+                            <h5 className="font-medium text-text-primary-light dark:text-text-primary-dark">
                               {item.question}
                             </h5>
-                            <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                            <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded">
                               {item.cmmcPractice}
                             </span>
-                            <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded">
+                            <span className="px-2 py-1 bg-success-100 dark:bg-success-900 text-success-800 dark:text-success-200 text-xs rounded">
                               {item.weight} pts
                             </span>
                           </div>
-                          <p className="text-gray-600 dark:text-gray-300 mb-2">
+                          <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">
                             {item.description}
                           </p>
                           {item.evidenceRequired.length > 0 && (
                             <div className="mb-2">
-                              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Evidence Required:</span>
+                              <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Evidence Required:</span>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {item.evidenceRequired.map((evidence, index) => (
                                   <span key={index} className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs rounded">
@@ -586,7 +586,7 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
                           )}
                           {item.assessmentCriteria.length > 0 && (
                             <div>
-                              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Assessment Criteria:</span>
+                              <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Assessment Criteria:</span>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {item.assessmentCriteria.map((criteria, index) => (
                                   <span key={index} className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded">
@@ -600,13 +600,13 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
                         <div className="flex gap-2">
                           <button
                             onClick={() => setEditingItem(item.id)}
-                            className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                            className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => deleteItem(item.id)}
-                            className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                            className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -627,13 +627,13 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Status
           </label>
           <select
             value={checklist.status}
             onChange={(e) => setChecklist(prev => ({ ...prev, status: e.target.value as any }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="draft">Draft</option>
             <option value="published">Published</option>
@@ -641,36 +641,36 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Version
           </label>
           <input
             type="text"
             value={checklist.version}
             onChange={(e) => setChecklist(prev => ({ ...prev, version: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           />
         </div>
       </div>
 
-      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-        <h4 className="font-medium text-gray-900 dark:text-white mb-2">Checklist Summary</h4>
+      <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+        <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-2">Checklist Summary</h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Framework:</span>
-            <p className="text-gray-600 dark:text-gray-400">{checklist.framework}</p>
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Framework:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">{checklist.framework}</p>
           </div>
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Level:</span>
-            <p className="text-gray-600 dark:text-gray-400">{checklist.level}</p>
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Level:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">{checklist.level}</p>
           </div>
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Category:</span>
-            <p className="text-gray-600 dark:text-gray-400">{checklist.category}</p>
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Category:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">{checklist.category}</p>
           </div>
           <div>
-            <span className="font-medium text-gray-700 dark:text-gray-300">Status:</span>
-            <p className="text-gray-600 dark:text-gray-400">{checklist.status}</p>
+            <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Status:</span>
+            <p className="text-text-secondary-light dark:text-text-muted-dark">{checklist.status}</p>
           </div>
         </div>
       </div>
@@ -682,30 +682,30 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg">
         {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <CheckSquare className="w-6 h-6 text-green-600" />
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark flex items-center gap-2">
+                <CheckSquare className="w-6 h-6 text-success-600" />
                 Audit Checklist Generator
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 Create comprehensive audit checklists for CMMC compliance
               </p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => onSave?.(checklist)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Save className="w-4 h-4" />
                 Save Checklist
               </button>
               <button
                 onClick={() => onExport?.(checklist)}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 Export
@@ -715,7 +715,7 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-support-light dark:border-support-dark">
           <nav className="flex space-x-8 px-6">
             {[
               { id: 'overview', label: 'Overview', icon: Eye },
@@ -728,8 +728,8 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                    ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                    : 'border-transparent text-text-muted-light hover:text-text-primary-light hover:border-support-light dark:text-text-muted-dark dark:hover:text-text-secondary-dark'
                 }`}
               >
                 <tab.icon className="w-4 h-4" />
@@ -750,57 +750,57 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
         {/* Section Form Modal */}
         {showSectionForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6 border-b border-support-light dark:border-support-dark">
+                <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                   Add Section
                 </h3>
               </div>
               <div className="p-6 space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Title
                   </label>
                   <input
                     type="text"
                     value={newSection.title}
                     onChange={(e) => setNewSection(prev => ({ ...prev, title: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Description
                   </label>
                   <textarea
                     value={newSection.description}
                     onChange={(e) => setNewSection(prev => ({ ...prev, description: e.target.value }))}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Weight (%)
                   </label>
                   <input
                     type="number"
                     value={newSection.weight}
                     onChange={(e) => setNewSection(prev => ({ ...prev, weight: parseInt(e.target.value) || 0 }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
               </div>
-              <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">
+              <div className="p-6 border-t border-support-light dark:border-support-dark flex justify-end gap-3">
                 <button
                   onClick={() => setShowSectionForm(false)}
-                  className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                  className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={addSection}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                 >
                   Add Section
                 </button>
@@ -812,33 +812,33 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
         {/* Item Form Modal */}
         {showItemForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6 border-b border-support-light dark:border-support-dark">
+                <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                   Add Audit Item
                 </h3>
               </div>
               <div className="p-6 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Question
                     </label>
                     <input
                       type="text"
                       value={newItem.question}
                       onChange={(e) => setNewItem(prev => ({ ...prev, question: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Category
                     </label>
                     <select
                       value={newItem.category}
                       onChange={(e) => setNewItem(prev => ({ ...prev, category: e.target.value as AuditCategory }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     >
                       {AUDIT_CATEGORIES.map(category => (
                         <option key={category} value={category}>{category}</option>
@@ -847,25 +847,25 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Description
                   </label>
                   <textarea
                     value={newItem.description}
                     onChange={(e) => setNewItem(prev => ({ ...prev, description: e.target.value }))}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       CMMC Practice
                     </label>
                     <select
                       value={newItem.cmmcPractice}
                       onChange={(e) => setNewItem(prev => ({ ...prev, cmmcPractice: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     >
                       <option value="">Select Practice</option>
                       {CMMC_PRACTICES.map(practice => (
@@ -874,19 +874,19 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Weight (points)
                     </label>
                     <input
                       type="number"
                       value={newItem.weight}
                       onChange={(e) => setNewItem(prev => ({ ...prev, weight: parseInt(e.target.value) || 1 }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Evidence Required
                   </label>
                   <div className="flex gap-2 mb-2">
@@ -895,12 +895,12 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
                       value={newEvidence}
                       onChange={(e) => setNewEvidence(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && addEvidence()}
-                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                       placeholder="Enter evidence requirement"
                     />
                     <button
                       onClick={addEvidence}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                     >
                       Add
                     </button>
@@ -923,7 +923,7 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Assessment Criteria
                   </label>
                   <div className="flex gap-2 mb-2">
@@ -932,12 +932,12 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
                       value={newCriteria}
                       onChange={(e) => setNewCriteria(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && addCriteria()}
-                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                       placeholder="Enter assessment criteria"
                     />
                     <button
                       onClick={addCriteria}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                     >
                       Add
                     </button>
@@ -960,16 +960,16 @@ const AuditChecklistGenerator: React.FC<AuditChecklistGeneratorProps> = ({
                   </div>
                 </div>
               </div>
-              <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">
+              <div className="p-6 border-t border-support-light dark:border-support-dark flex justify-end gap-3">
                 <button
                   onClick={() => setShowItemForm(false)}
-                  className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                  className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={addItem}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                 >
                   Add Item
                 </button>

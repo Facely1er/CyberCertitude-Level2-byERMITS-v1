@@ -121,26 +121,26 @@ const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({ onInstall, onDismis
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 max-w-md mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-4">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-lg shadow-lg border border-support-light dark:border-support-dark p-4">
         <div className="flex items-start space-x-3">
           <div className="flex-shrink-0">
-            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-              <Download className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center">
+              <Download className="w-5 h-5 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
           
           <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+            <h3 className="text-sm font-medium text-text-primary-light dark:text-text-primary-light">
               Install CMMC Platform
             </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">
               Get quick access to your compliance tools with our app
             </p>
             
             <div className="flex items-center space-x-2 mt-3">
               <button
                 onClick={handleInstallClick}
-                className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
               >
                 <Download className="w-3 h-3 mr-1" />
                 Install
@@ -148,7 +148,7 @@ const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({ onInstall, onDismis
               
               <button
                 onClick={handleManualInstall}
-                className="inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-gray-600 text-xs font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="inline-flex items-center px-3 py-1.5 border border-support-light dark:border-support-dark text-xs font-medium rounded-md text-text-primary-light dark:text-text-secondary-dark bg-surface-light dark:bg-surface-dark hover:bg-background-light dark:hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
               >
                 Manual Install
               </button>
@@ -157,14 +157,14 @@ const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({ onInstall, onDismis
           
           <button
             onClick={handleDismiss}
-            className="flex-shrink-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            className="flex-shrink-0 text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
         
-        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-          <div className="flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-3 pt-3 border-t border-support-light dark:border-support-dark">
+          <div className="flex items-center space-x-4 text-xs text-text-muted-light dark:text-text-muted-dark">
             <div className="flex items-center">
               <Smartphone className="w-3 h-3 mr-1" />
               Mobile App

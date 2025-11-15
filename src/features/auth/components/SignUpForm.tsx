@@ -182,15 +182,15 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     
     return (
       <div className="w-full max-w-md mx-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-8">
           <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
-              <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+            <div className="mx-auto w-16 h-16 bg-success-100 dark:bg-success-900/30 rounded-full flex items-center justify-center mb-4">
+              <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               Check Your Email
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark mt-2">
               We've sent a magic link to <strong>{sentEmail}</strong>
             </p>
             {lastSentTime && (
@@ -207,11 +207,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
               </div>
             )}
             
-            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-              <h3 className="font-medium text-green-900 dark:text-green-100 mb-2">
+            <div className="bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800 rounded-lg p-4">
+              <h3 className="font-medium text-success-900 dark:text-success-100 mb-2">
                 Complete your registration:
               </h3>
-              <ol className="text-sm text-green-800 dark:text-green-200 space-y-1">
+              <ol className="text-sm text-success-800 dark:text-success-200 space-y-1">
                 <li>1. Check your email inbox for a message from CyberCertitude™</li>
                 <li>2. Click the "Complete Registration" link</li>
                 <li>3. You'll be signed in automatically</li>
@@ -220,14 +220,14 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             </div>
 
             <div className="text-center space-y-4">
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                 Didn't receive the email?
               </p>
               
               <button
                 onClick={handleResendLink}
                 disabled={isLoading || cooldown > 0}
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-medium disabled:opacity-50"
+                className="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 font-medium disabled:opacity-50"
               >
                 {isLoading ? 'Sending...' : 
                  cooldown > 0 ? `Resend in ${cooldown}s` : 
@@ -242,7 +242,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
                   setError('');
                   setFormData(prev => ({ ...prev, email: '' }));
                 }}
-                className="block w-full text-text-muted-light dark:text-text-muted-dark hover:text-gray-700 dark:hover:text-gray-300 text-sm"
+                className="block w-full text-text-muted-light dark:text-text-muted-dark hover:text-text-primary-light dark:hover:text-text-secondary-dark text-sm"
               >
                 ← Use a different email address
               </button>
@@ -279,40 +279,40 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-8">
         <div className="text-center mb-8">
-          <div className="mx-auto w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
-            <Shield className="w-6 h-6 text-green-600 dark:text-green-400" />
+          <div className="mx-auto w-12 h-12 bg-success-100 dark:bg-success-900/30 rounded-full flex items-center justify-center mb-4">
+            <Shield className="w-6 h-6 text-success-600 dark:text-success-400" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
             Create Your Account
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 mt-2">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark mt-2">
             Join CyberCertitude™ for CMMC compliance
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+            <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
+              <p className="text-sm text-error-600 dark:text-error-400">{error}</p>
             </div>
           )}
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="firstName" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 First Name
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-dark" />
                 <input
                   id="firstName"
                   name="firstName"
                   type="text"
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   placeholder="First name"
                   autoComplete="given-name"
                   required
@@ -320,7 +320,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
               </div>
             </div>
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="lastName" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Last Name
               </label>
               <input
@@ -329,7 +329,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
                 type="text"
                 value={formData.lastName}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Last name"
                 autoComplete="family-name"
                 required
@@ -338,18 +338,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Email Address
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-dark" />
               <input
                 id="email"
                 name="email"
                 type="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter your email"
                 autoComplete="email"
                 required
@@ -358,18 +358,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           </div>
 
           <div>
-            <label htmlFor="organization" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="organization" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Organization
             </label>
             <div className="relative">
-              <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-dark" />
               <input
                 id="organization"
                 name="organization"
                 type="text"
                 value={formData.organization}
                 onChange={handleInputChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Your organization"
                 autoComplete="organization"
                 required
@@ -379,7 +379,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="industry" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="industry" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Industry
               </label>
               <select
@@ -387,7 +387,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
                 name="industry"
                 value={formData.industry}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 {industries.map(industry => (
                   <option key={industry} value={industry}>{industry}</option>
@@ -395,7 +395,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
               </select>
             </div>
             <div>
-              <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="role" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Role
               </label>
               <select
@@ -403,7 +403,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
                 name="role"
                 value={formData.role}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 {roles.map(role => (
                   <option key={role.value} value={role.value}>{role.label}</option>
@@ -412,11 +412,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             </div>
           </div>
 
-          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-            <h3 className="font-medium text-green-900 dark:text-green-100 mb-1">
+          <div className="bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800 rounded-lg p-4">
+            <h3 className="font-medium text-success-900 dark:text-success-100 mb-1">
               🪄 Passwordless Registration
             </h3>
-            <p className="text-sm text-green-800 dark:text-green-200">
+            <p className="text-sm text-success-800 dark:text-success-200">
               Create your account securely without a password. We'll send you a magic link to complete registration instantly.
             </p>
           </div>
@@ -424,7 +424,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full bg-success-600 text-white py-3 px-4 rounded-lg hover:bg-success-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {isLoading ? (
               <>
@@ -441,11 +441,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
             Already have an account?{' '}
             <button
               onClick={onSwitchToLogin}
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-medium"
+              className="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 font-medium"
             >
               Sign in
             </button>

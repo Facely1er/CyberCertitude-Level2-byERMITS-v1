@@ -146,11 +146,11 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400';
+      case 'critical': return 'text-error-600 bg-error-50 dark:bg-error-900/20 dark:text-error-400';
       case 'high': return 'text-orange-600 bg-orange-50 dark:bg-orange-900/20 dark:text-orange-400';
       case 'medium': return 'text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 dark:text-yellow-400';
-      case 'low': return 'text-green-600 bg-green-50 dark:bg-green-900/20 dark:text-green-400';
-      default: return 'text-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-gray-400';
+      case 'low': return 'text-success-600 bg-success-50 dark:bg-success-900/20 dark:text-success-400';
+      default: return 'text-text-secondary-light bg-background-light dark:bg-surface-dark dark:text-text-muted-dark';
     }
   };
 
@@ -166,17 +166,17 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-background-light dark:bg-background-dark flex items-center justify-center">
         <div className="text-center">
-          <RefreshCw className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600 dark:text-gray-300">Loading audit logs...</p>
+          <RefreshCw className="w-8 h-8 animate-spin text-primary-600 mx-auto mb-4" />
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Loading audit logs...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark">
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Breadcrumbs */}
         <div className="mb-6">
@@ -188,15 +188,15 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack}
-                className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                className="p-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   Security Audit Logs
                 </h1>
-                <p className="text-gray-600 dark:text-gray-300 mt-1">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                   Review detailed audit trails for all system activities and user actions
                 </p>
               </div>
@@ -204,14 +204,14 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
             <div className="flex items-center space-x-3">
               <button
                 onClick={loadAuditLogs}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Refresh</span>
               </button>
               <button
                 onClick={exportLogs}
-                className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -220,32 +220,32 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
           </div>
 
           {/* Filters */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-sm border border-support-light dark:border-support-dark">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Search
                 </label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-muted-dark" />
                   <input
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search logs..."
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Severity
                 </label>
                 <select
                   value={severityFilter}
                   onChange={(e) => setSeverityFilter(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 >
                   <option value="all">All Severities</option>
                   <option value="critical">Critical</option>
@@ -256,13 +256,13 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Date Range
                 </label>
                 <select
                   value={dateFilter}
                   onChange={(e) => setDateFilter(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 >
                   <option value="all">All Time</option>
                   <option value="today">Today</option>
@@ -273,7 +273,7 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
               </div>
               
               <div className="flex items-end">
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-sm text-text-muted-light dark:text-text-muted-dark">
                   {filteredLogs.length} of {auditLogs.length} entries
                 </div>
               </div>
@@ -282,53 +282,53 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
         </div>
 
         {/* Logs Table */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-support-light dark:border-support-dark overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-gray-700">
+              <thead className="bg-background-light dark:bg-surface-dark">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-secondary-dark uppercase tracking-wider">
                     Timestamp
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-secondary-dark uppercase tracking-wider">
                     User
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-secondary-dark uppercase tracking-wider">
                     Action
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-secondary-dark uppercase tracking-wider">
                     Resource
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-secondary-dark uppercase tracking-wider">
                     Severity
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-secondary-dark uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-secondary-dark uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {filteredLogs.map((log) => (
-                  <tr key={log.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                  <tr key={log.id} className="hover:bg-background-light dark:hover:bg-surface-dark">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary-light dark:text-text-primary-dark">
                       <div className="flex items-center space-x-2">
-                        <Calendar className="w-4 h-4 text-gray-400" />
+                        <Calendar className="w-4 h-4 text-text-muted-dark" />
                         <span>{log.timestamp.toLocaleString()}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary-light dark:text-text-primary-dark">
                       <div className="flex items-center space-x-2">
-                        <User className="w-4 h-4 text-gray-400" />
+                        <User className="w-4 h-4 text-text-muted-dark" />
                         <span>{log.userName}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary-light dark:text-text-primary-dark">
                       {log.action}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-text-primary-light dark:text-text-primary-dark">
                       {log.resource}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -340,8 +340,8 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         log.success 
-                          ? 'text-green-800 bg-green-100 dark:bg-green-900/20 dark:text-green-400'
-                          : 'text-red-800 bg-red-100 dark:bg-red-900/20 dark:text-red-400'
+                          ? 'text-success-800 bg-success-100 dark:bg-success-900/20 dark:text-success-400'
+                          : 'text-error-800 bg-error-100 dark:bg-error-900/20 dark:text-error-400'
                       }`}>
                         {log.success ? 'Success' : 'Failed'}
                       </span>
@@ -349,7 +349,7 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <button
                         onClick={() => setSelectedLog(log)}
-                        className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center space-x-1"
+                        className="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 flex items-center space-x-1"
                       >
                         <Eye className="w-4 h-4" />
                         <span>View</span>
@@ -365,15 +365,15 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
         {/* Log Detail Modal */}
         {selectedLog && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                     Audit Log Details
                   </h3>
                   <button
                     onClick={() => setSelectedLog(null)}
-                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    className="text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -384,39 +384,39 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                         Timestamp
                       </label>
-                      <p className="text-sm text-gray-900 dark:text-white">
+                      <p className="text-sm text-text-primary-light dark:text-text-primary-dark">
                         {selectedLog.timestamp.toLocaleString()}
                       </p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                         User
                       </label>
-                      <p className="text-sm text-gray-900 dark:text-white">
+                      <p className="text-sm text-text-primary-light dark:text-text-primary-dark">
                         {selectedLog.userName} ({selectedLog.userId})
                       </p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                         Action
                       </label>
-                      <p className="text-sm text-gray-900 dark:text-white">
+                      <p className="text-sm text-text-primary-light dark:text-text-primary-dark">
                         {selectedLog.action}
                       </p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                         Resource
                       </label>
-                      <p className="text-sm text-gray-900 dark:text-white">
+                      <p className="text-sm text-text-primary-light dark:text-text-primary-dark">
                         {selectedLog.resource}
                       </p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                         Severity
                       </label>
                       <span className={`inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${getSeverityColor(selectedLog.severity)}`}>
@@ -425,13 +425,13 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
                       </span>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                         Status
                       </label>
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         selectedLog.success 
-                          ? 'text-green-800 bg-green-100 dark:bg-green-900/20 dark:text-green-400'
-                          : 'text-red-800 bg-red-100 dark:bg-red-900/20 dark:text-red-400'
+                          ? 'text-success-800 bg-success-100 dark:bg-success-900/20 dark:text-success-400'
+                          : 'text-error-800 bg-error-100 dark:bg-error-900/20 dark:text-error-400'
                       }`}>
                         {selectedLog.success ? 'Success' : 'Failed'}
                       </span>
@@ -439,20 +439,20 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                       Details
                     </label>
-                    <p className="text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+                    <p className="text-sm text-text-primary-light dark:text-text-primary-dark bg-background-light dark:bg-surface-dark p-3 rounded-lg">
                       {selectedLog.details}
                     </p>
                   </div>
                   
                   {selectedLog.ipAddress && (
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                         IP Address
                       </label>
-                      <p className="text-sm text-gray-900 dark:text-white">
+                      <p className="text-sm text-text-primary-light dark:text-text-primary-dark">
                         {selectedLog.ipAddress}
                       </p>
                     </div>
@@ -460,10 +460,10 @@ const AuditLogsView: React.FC<AuditLogsViewProps> = ({ onBack, addNotification }
                   
                   {selectedLog.userAgent && (
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                         User Agent
                       </label>
-                      <p className="text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 p-3 rounded-lg break-all">
+                      <p className="text-sm text-text-primary-light dark:text-text-primary-dark bg-background-light dark:bg-surface-dark p-3 rounded-lg break-all">
                         {selectedLog.userAgent}
                       </p>
                     </div>

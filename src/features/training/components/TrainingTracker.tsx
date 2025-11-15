@@ -86,11 +86,11 @@ const TrainingTracker: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'in-progress': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+      case 'completed': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'in-progress': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300';
       case 'scheduled': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'overdue': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      case 'overdue': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      default: return 'bg-support-light dark:bg-background-dark/30 text-text-primary-light dark:text-text-secondary-dark';
     }
   };
 
@@ -115,7 +115,7 @@ const TrainingTracker: React.FC = () => {
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -123,8 +123,8 @@ const TrainingTracker: React.FC = () => {
                 <GraduationCap className="w-8 h-8 text-purple-600 dark:text-purple-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Training Tracker</h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">Training Tracker</h1>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Track training completion and certifications
                 </p>
               </div>
@@ -141,61 +141,61 @@ const TrainingTracker: React.FC = () => {
 
       {/* Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
               <GraduationCap className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
           </div>
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Total Trainings</h3>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">{stats.total}</p>
+          <h3 className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">Total Trainings</h3>
+          <p className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">{stats.total}</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-              <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <div className="p-2 bg-success-100 dark:bg-success-900/30 rounded-lg">
+              <CheckCircle className="w-6 h-6 text-success-600 dark:text-success-400" />
             </div>
           </div>
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Completed</h3>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">{stats.completed}</p>
+          <h3 className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">Completed</h3>
+          <p className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">{stats.completed}</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-              <Clock className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+              <Clock className="w-6 h-6 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">In Progress</h3>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">{stats.inProgress}</p>
+          <h3 className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">In Progress</h3>
+          <p className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">{stats.inProgress}</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-              <AlertTriangle className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <div className="p-2 bg-error-100 dark:bg-error-900/30 rounded-lg">
+              <AlertTriangle className="w-6 h-6 text-error-600 dark:text-error-400" />
             </div>
           </div>
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Overdue</h3>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">{stats.overdue}</p>
+          <h3 className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">Overdue</h3>
+          <p className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">{stats.overdue}</p>
         </div>
       </div>
 
       {/* Training Catalog */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Training Catalog</h2>
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Training Catalog</h2>
         </div>
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {['Security Awareness', 'CMMC Compliance', 'Data Protection', 'Incident Response', 'Access Control', 'Business Continuity'].map((training) => (
-              <div key={training} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer">
+              <div key={training} className="border border-support-light dark:border-support-dark rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer">
                 <div className="flex items-center space-x-3 mb-3">
                   <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
                     <BookOpen className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">{training}</h3>
+                  <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{training}</h3>
                 </div>
                 <button className="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm">
                   Enroll Now
@@ -207,23 +207,23 @@ const TrainingTracker: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center space-x-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-dark" />
               <input
                 type="text"
                 placeholder="Search trainings..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
               />
             </div>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
             >
               <option value="all">All Categories</option>
               <option value="Security">Security</option>
@@ -233,7 +233,7 @@ const TrainingTracker: React.FC = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
             >
               <option value="all">All Status</option>
               <option value="scheduled">Scheduled</option>
@@ -246,9 +246,9 @@ const TrainingTracker: React.FC = () => {
       </div>
 
       {/* Training List */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Training Sessions</h2>
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Training Sessions</h2>
         </div>
         <div className="p-6">
           <div className="space-y-4">
@@ -256,15 +256,15 @@ const TrainingTracker: React.FC = () => {
               filteredTrainings.map((training) => {
                 const progress = training.participants > 0 ? (training.completed / training.participants) * 100 : 0;
                 return (
-                  <div key={training.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div key={training.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center space-x-4">
                         <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
                           <GraduationCap className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                         </div>
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{training.title}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">{training.category} • Owner: {training.owner}</p>
+                          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">{training.title}</h3>
+                          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">{training.category} • Owner: {training.owner}</p>
                         </div>
                       </div>
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(training.status)}`}>
@@ -274,10 +274,10 @@ const TrainingTracker: React.FC = () => {
                     
                     <div className="mb-4">
                       <div className="flex items-center justify-between text-sm mb-2">
-                        <span className="text-gray-600 dark:text-gray-300">Progress: {training.completed}/{training.participants} participants</span>
-                        <span className="text-gray-600 dark:text-gray-300">{Math.round(progress)}%</span>
+                        <span className="text-text-secondary-light dark:text-text-secondary-dark">Progress: {training.completed}/{training.participants} participants</span>
+                        <span className="text-text-secondary-light dark:text-text-secondary-dark">{Math.round(progress)}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
                         <div 
                           className="bg-purple-600 h-2 rounded-full transition-all"
                           style={{ width: `${progress}%` }}
@@ -286,7 +286,7 @@ const TrainingTracker: React.FC = () => {
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-300">
+                      <div className="flex items-center space-x-6 text-sm text-text-secondary-light dark:text-text-secondary-dark">
                         <div className="flex items-center space-x-2">
                           <Calendar className="w-4 h-4" />
                           <span>{training.scheduledDate.toLocaleDateString()}</span>
@@ -297,13 +297,13 @@ const TrainingTracker: React.FC = () => {
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <button className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                        <button className="p-2 text-text-secondary-light dark:text-text-secondary-dark hover:bg-support-light dark:hover:bg-surface-dark rounded-lg transition-colors">
                           <Download className="w-4 h-4" />
                         </button>
-                        <button className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                        <button className="p-2 text-text-secondary-light dark:text-text-secondary-dark hover:bg-support-light dark:hover:bg-surface-dark rounded-lg transition-colors">
                           <Edit className="w-4 h-4" />
                         </button>
-                        <button className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors">
+                        <button className="p-2 text-error-600 dark:text-error-400 hover:bg-error-50 dark:hover:bg-error-900/10 rounded-lg transition-colors">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -313,9 +313,9 @@ const TrainingTracker: React.FC = () => {
               })
             ) : (
               <div className="text-center py-12">
-                <GraduationCap className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No training sessions found</h3>
-                <p className="text-gray-600 dark:text-gray-300">Get started by creating your first training session</p>
+                <GraduationCap className="w-16 h-16 mx-auto text-text-muted-dark mb-4" />
+                <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-2">No training sessions found</h3>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">Get started by creating your first training session</p>
               </div>
             )}
           </div>

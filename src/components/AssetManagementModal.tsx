@@ -192,14 +192,14 @@ export const AssetManagementModal: React.FC<AssetManagementModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-surface-light dark:bg-surface-dark border-b border-support-light dark:border-support-dark px-6 py-4 flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
             {asset ? 'Edit Asset' : 'Create New Asset'}
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            className="text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark"
           >
             <X className="w-6 h-6" />
           </button>
@@ -207,58 +207,58 @@ export const AssetManagementModal: React.FC<AssetManagementModalProps> = ({
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {errors.submit && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 flex items-center space-x-2">
-              <AlertCircle className="w-5 h-5 text-red-500" />
-              <span className="text-red-700 dark:text-red-300">{errors.submit}</span>
+            <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4 flex items-center space-x-2">
+              <AlertCircle className="w-5 h-5 text-error-500" />
+              <span className="text-error-700 dark:text-error-300">{errors.submit}</span>
             </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Basic Information */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Basic Information</h3>
+              <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Basic Information</h3>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                   Asset Name *
                 </label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                    errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    errors.name ? 'border-error-500' : 'border-support-light dark:border-support-dark'
+                  } bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark`}
                   placeholder="Enter asset name"
                 />
-                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                {errors.name && <p className="text-error-500 text-sm mt-1">{errors.name}</p>}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                   Description *
                 </label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => handleInputChange('description', e.target.value)}
                   rows={3}
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                    errors.description ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    errors.description ? 'border-error-500' : 'border-support-light dark:border-support-dark'
+                  } bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark`}
                   placeholder="Describe the asset"
                 />
-                {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
+                {errors.description && <p className="text-error-500 text-sm mt-1">{errors.description}</p>}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                     Category
                   </label>
                   <select
                     value={formData.category}
                     onChange={(e) => handleInputChange('category', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                   >
                     <option value="hardware">Hardware</option>
                     <option value="software">Software</option>
@@ -269,28 +269,28 @@ export const AssetManagementModal: React.FC<AssetManagementModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                     Subcategory
                   </label>
                   <input
                     type="text"
                     value={formData.subcategory}
                     onChange={(e) => handleInputChange('subcategory', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                     placeholder="e.g., Server, Database"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                   Type
                 </label>
                 <input
                   type="text"
                   value={formData.type}
                   onChange={(e) => handleInputChange('type', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                   placeholder="e.g., Physical Server, Cloud Instance"
                 />
               </div>
@@ -298,87 +298,87 @@ export const AssetManagementModal: React.FC<AssetManagementModalProps> = ({
 
             {/* Ownership & Location */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Ownership & Location</h3>
+              <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Ownership & Location</h3>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                   Owner *
                 </label>
                 <input
                   type="text"
                   value={formData.owner}
                   onChange={(e) => handleInputChange('owner', e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                    errors.owner ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    errors.owner ? 'border-error-500' : 'border-support-light dark:border-support-dark'
+                  } bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark`}
                   placeholder="Asset owner"
                 />
-                {errors.owner && <p className="text-red-500 text-sm mt-1">{errors.owner}</p>}
+                {errors.owner && <p className="text-error-500 text-sm mt-1">{errors.owner}</p>}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                   Custodian *
                 </label>
                 <input
                   type="text"
                   value={formData.custodian}
                   onChange={(e) => handleInputChange('custodian', e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                    errors.custodian ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                    errors.custodian ? 'border-error-500' : 'border-support-light dark:border-support-dark'
+                  } bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark`}
                   placeholder="Asset custodian"
                 />
-                {errors.custodian && <p className="text-red-500 text-sm mt-1">{errors.custodian}</p>}
+                {errors.custodian && <p className="text-error-500 text-sm mt-1">{errors.custodian}</p>}
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                     Building *
                   </label>
                   <input
                     type="text"
                     value={formData.location.building}
                     onChange={(e) => handleInputChange('location.building', e.target.value)}
-                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.building ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                    } bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                      errors.building ? 'border-error-500' : 'border-support-light dark:border-support-dark'
+                    } bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark`}
                     placeholder="Building"
                   />
-                  {errors.building && <p className="text-red-500 text-sm mt-1">{errors.building}</p>}
+                  {errors.building && <p className="text-error-500 text-sm mt-1">{errors.building}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                     Floor *
                   </label>
                   <input
                     type="text"
                     value={formData.location.floor}
                     onChange={(e) => handleInputChange('location.floor', e.target.value)}
-                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.floor ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                    } bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                      errors.floor ? 'border-error-500' : 'border-support-light dark:border-support-dark'
+                    } bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark`}
                     placeholder="Floor"
                   />
-                  {errors.floor && <p className="text-red-500 text-sm mt-1">{errors.floor}</p>}
+                  {errors.floor && <p className="text-error-500 text-sm mt-1">{errors.floor}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                     Room *
                   </label>
                   <input
                     type="text"
                     value={formData.location.room}
                     onChange={(e) => handleInputChange('location.room', e.target.value)}
-                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.room ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                    } bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
+                      errors.room ? 'border-error-500' : 'border-support-light dark:border-support-dark'
+                    } bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark`}
                     placeholder="Room"
                   />
-                  {errors.room && <p className="text-red-500 text-sm mt-1">{errors.room}</p>}
+                  {errors.room && <p className="text-error-500 text-sm mt-1">{errors.room}</p>}
                 </div>
               </div>
             </div>
@@ -386,17 +386,17 @@ export const AssetManagementModal: React.FC<AssetManagementModalProps> = ({
 
           {/* Classification & Security */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Classification & Security</h3>
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Classification & Security</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                   Criticality Level
                 </label>
                 <select
                   value={formData.criticality}
                   onChange={(e) => handleInputChange('criticality', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -406,13 +406,13 @@ export const AssetManagementModal: React.FC<AssetManagementModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                   Information Classification
                 </label>
                 <select
                   value={formData.informationClassification}
                   onChange={(e) => handleInputChange('informationClassification', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                 >
                   <option value="public">Public</option>
                   <option value="internal">Internal</option>
@@ -422,13 +422,13 @@ export const AssetManagementModal: React.FC<AssetManagementModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                   Business Value
                 </label>
                 <select
                   value={formData.businessValue}
                   onChange={(e) => handleInputChange('businessValue', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -444,54 +444,54 @@ export const AssetManagementModal: React.FC<AssetManagementModalProps> = ({
                   type="checkbox"
                   checked={formData.handlesCUI}
                   onChange={(e) => handleInputChange('handlesCUI', e.target.checked)}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-primary-600 bg-support-light border-support-light rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-surface-dark dark:border-support-dark"
                 />
-                <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                <span className="ml-2 text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">
                   Handles CUI (Controlled Unclassified Information)
                 </span>
               </label>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                 CUI Categories (comma-separated)
               </label>
               <input
                 type="text"
                 value={formData.cuiCategory.join(', ')}
                 onChange={(e) => handleInputChange('cuiCategory', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                 placeholder="e.g., Technical Data, Financial Information"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-1">
                 Tags (comma-separated)
               </label>
               <input
                 type="text"
                 value={formData.tags.join(', ')}
                 onChange={(e) => handleInputChange('tags', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                 placeholder="e.g., production, critical, legacy"
               />
             </div>
           </div>
 
           {/* Form Actions */}
-          <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex justify-end space-x-4 pt-6 border-t border-support-light dark:border-support-dark">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              className="px-4 py-2 text-text-primary-light dark:text-text-secondary-dark bg-support-light dark:bg-surface-dark rounded-lg hover:bg-support-light dark:hover:bg-primary-600 transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
+              className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
             >
               <Save className="w-4 h-4" />
               <span>{isSubmitting ? 'Saving...' : (asset ? 'Update Asset' : 'Create Asset')}</span>

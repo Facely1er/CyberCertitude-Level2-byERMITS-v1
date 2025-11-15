@@ -632,21 +632,21 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack}
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+              <div className="h-6 w-px bg-support-light dark:bg-primary-600" />
               <div className="flex items-center space-x-3">
-                <BookOpen className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <BookOpen className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   Interactive User Manual
                 </h1>
               </div>
@@ -654,12 +654,12 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
             <div className="flex items-center space-x-3">
               <button 
                 onClick={() => setShowVideoTutorials(!showVideoTutorials)}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors"
               >
                 <Video className="w-4 h-4" />
                 <span>Video Tutorials</span>
               </button>
-              <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <button className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
                 <Download className="w-4 h-4" />
                 <span>Download PDF</span>
               </button>
@@ -671,13 +671,13 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
       {/* Search Bar */}
       <div className="mb-6">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-5 h-5" />
           <input
             type="text"
             placeholder="Search the manual..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
           />
         </div>
       </div>
@@ -685,9 +685,9 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar Navigation */}
         <div className="lg:col-span-1">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 sticky top-24">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark sticky top-24">
             <div className="p-6">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              <h2 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
                 Table of Contents
               </h2>
               <nav className="space-y-2">
@@ -695,12 +695,12 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
                   // Define proper color classes based on section.color
                   const getActiveColors = (color: string) => {
                     switch(color) {
-                      case 'blue': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
-                      case 'green': return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300';
+                      case 'blue': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300';
+                      case 'green': return 'bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-300';
                       case 'indigo': return 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300';
                       case 'orange': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
                       case 'purple': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300';
-                      default: return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
+                      default: return 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300';
                     }
                   };
 
@@ -711,7 +711,7 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
                       className={`w-full text-left p-3 rounded-lg transition-colors flex items-center space-x-3 ${
                         activeSection === section.id
                           ? getActiveColors(section.color)
-                          : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                          : 'hover:bg-support-light dark:hover:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark'
                       }`}
                     >
                       <section.icon className="w-5 h-5" />
@@ -728,23 +728,23 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
         <div className="lg:col-span-3 space-y-8">
           {/* Current Section Content */}
           {currentSection && (
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
               <div className="flex items-center space-x-3 mb-6">
                 {(() => {
                   const getIconColor = (color: string) => {
                     switch(color) {
-                      case 'blue': return 'text-blue-600 dark:text-blue-400';
-                      case 'green': return 'text-green-600 dark:text-green-400';
+                      case 'blue': return 'text-primary-600 dark:text-primary-400';
+                      case 'green': return 'text-success-600 dark:text-success-400';
                       case 'indigo': return 'text-indigo-600 dark:text-indigo-400';
                       case 'orange': return 'text-orange-600 dark:text-orange-400';
                       case 'purple': return 'text-purple-600 dark:text-purple-400';
-                      default: return 'text-blue-600 dark:text-blue-400';
+                      default: return 'text-primary-600 dark:text-primary-400';
                     }
                   };
                   const Icon = currentSection.icon;
                   return <Icon className={`w-8 h-8 ${getIconColor(currentSection.color)}`} />;
                 })()}
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   {currentSection.title}
                 </h2>
               </div>
@@ -752,12 +752,12 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
               <div className="space-y-8">
                 {currentSection.content.map((item, index) => (
                   <div key={index} className="space-y-6">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">
                       {item.title}
                     </h3>
                     
                     <div className="prose prose-gray dark:prose-invert max-w-none">
-                      <div className="whitespace-pre-line text-gray-600 dark:text-gray-300 leading-relaxed">
+                      <div className="whitespace-pre-line text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
                         {item.content}
                       </div>
                     </div>
@@ -766,9 +766,9 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
                     {item.features && (
                       <div className="grid md:grid-cols-2 gap-4">
                         {item.features.map((feature, idx) => (
-                          <div key={idx} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            <CheckCircle className="w-5 h-5 text-green-500" />
-                            <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                          <div key={idx} className="flex items-center space-x-3 p-3 bg-background-light dark:bg-surface-dark rounded-lg">
+                            <CheckCircle className="w-5 h-5 text-success-500" />
+                            <span className="text-text-primary-light dark:text-text-secondary-dark">{feature}</span>
                           </div>
                         ))}
                       </div>
@@ -778,13 +778,13 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
                     {item.steps && (
                       <div className="space-y-4">
                         {item.steps.map((step, idx) => (
-                          <div key={idx} className="flex items-start space-x-4 p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
-                            <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                              <span className="text-blue-600 dark:text-blue-400 font-semibold">{step.step}</span>
+                          <div key={idx} className="flex items-start space-x-4 p-4 border border-support-light dark:border-support-dark rounded-lg">
+                            <div className="flex-shrink-0 w-8 h-8 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
+                              <span className="text-primary-600 dark:text-primary-400 font-semibold">{step.step}</span>
                             </div>
                             <div className="flex-1">
-                              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{step.title}</h4>
-                              <p className="text-gray-600 dark:text-gray-300 mb-3">{step.description}</p>
+                              <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">{step.title}</h4>
+                              <p className="text-text-secondary-light dark:text-text-secondary-dark mb-3">{step.description}</p>
                               <button 
                                 onClick={() => {
                                   if (step.action === 'Go to Profile Settings') onNavigate?.('/profile');
@@ -792,7 +792,7 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
                                   else if (step.action === 'View Gap Analysis') onNavigate?.('/reports');
                                   else if (step.action === 'Generate Reports') onNavigate?.('/reports');
                                 }}
-                                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium flex items-center space-x-1"
+                                className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium flex items-center space-x-1"
                               >
                                 <span>{step.action}</span>
                                 <ArrowRight className="w-4 h-4" />
@@ -807,12 +807,12 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
                     {item.requirements && (
                       <div className="grid md:grid-cols-2 gap-6">
                         {item.requirements.map((req, idx) => (
-                          <div key={idx} className="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
-                            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">{req.category}</h4>
+                          <div key={idx} className="p-4 border border-support-light dark:border-support-dark rounded-lg">
+                            <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">{req.category}</h4>
                             <ul className="space-y-2">
                               {req.items.map((item, itemIdx) => (
-                                <li key={itemIdx} className="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
-                                  <CheckCircle className="w-4 h-4 text-green-500" />
+                                <li key={itemIdx} className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark">
+                                  <CheckCircle className="w-4 h-4 text-success-500" />
                                   <span>{item}</span>
                                 </li>
                               ))}
@@ -826,12 +826,12 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
                     {item.domains && (
                       <div className="grid md:grid-cols-2 gap-4">
                         {item.domains.map((domain, idx) => (
-                          <div key={idx} className="p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:shadow-md transition-shadow">
+                          <div key={idx} className="p-4 border border-support-light dark:border-support-dark rounded-lg hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between mb-2">
-                              <h4 className="font-semibold text-gray-900 dark:text-white">{domain.name}</h4>
-                              <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">{domain.controls} controls</span>
+                              <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{domain.name}</h4>
+                              <span className="text-sm text-primary-600 dark:text-primary-400 font-medium">{domain.controls} controls</span>
                             </div>
-                            <p className="text-gray-600 dark:text-gray-300 text-sm">{domain.description}</p>
+                            <p className="text-text-secondary-light dark:text-text-secondary-dark text-sm">{domain.description}</p>
                           </div>
                         ))}
                       </div>
@@ -841,14 +841,14 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
                     {item.maturityScale && (
                       <div className="space-y-4">
                         {item.maturityScale.map((level, idx) => (
-                          <div key={idx} className="flex items-center space-x-4 p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                          <div key={idx} className="flex items-center space-x-4 p-4 border border-support-light dark:border-support-dark rounded-lg">
                             <div className={`w-4 h-4 rounded-full bg-${level.color}-500`} />
                             <div className="flex-1">
-                              <h4 className="font-semibold text-gray-900 dark:text-white">{level.level}</h4>
-                              <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">{level.description}</p>
+                              <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{level.level}</h4>
+                              <p className="text-text-secondary-light dark:text-text-secondary-dark text-sm mb-2">{level.description}</p>
                               <div className="flex flex-wrap gap-2">
                                 {level.examples.map((example, exIdx) => (
-                                  <span key={exIdx} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs">
+                                  <span key={exIdx} className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark rounded text-xs">
                                     {example}
                                   </span>
                                 ))}
@@ -866,23 +866,23 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
 
           {/* Video Tutorials */}
           {showVideoTutorials && (
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                <Video className="w-8 h-8 mr-3 text-blue-600 dark:text-blue-400" />
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
+              <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+                <Video className="w-8 h-8 mr-3 text-primary-600 dark:text-primary-400" />
                 Video Tutorials
               </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 {videoTutorials.map((tutorial, index) => (
-                  <div key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
-                    <div className="aspect-video bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                      <Play className="w-12 h-12 text-gray-400" />
+                  <div key={index} className="border border-support-light dark:border-support-dark rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="aspect-video bg-support-light dark:bg-surface-dark flex items-center justify-center">
+                      <Play className="w-12 h-12 text-text-muted-dark" />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{tutorial.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">{tutorial.description}</p>
+                      <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">{tutorial.title}</h3>
+                      <p className="text-text-secondary-light dark:text-text-secondary-dark text-sm mb-3">{tutorial.description}</p>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">{tutorial.duration}</span>
-                        <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">{tutorial.duration}</span>
+                        <button className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
                           Watch Now
                         </button>
                       </div>
@@ -896,19 +896,19 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
           {/* Quick Reference Cards */}
           <div className="grid md:grid-cols-2 gap-6">
             {/* Keyboard Shortcuts */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Settings className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+              <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
+                <Settings className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
                 Keyboard Shortcuts
               </h3>
               <div className="space-y-3">
                 {shortcuts.map((shortcut, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <div>
-                      <span className="text-gray-600 dark:text-gray-300">{shortcut.action}</span>
-                      <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">({shortcut.category})</span>
+                      <span className="text-text-secondary-light dark:text-text-secondary-dark">{shortcut.action}</span>
+                      <span className="ml-2 text-xs text-text-muted-light dark:text-text-muted-dark">({shortcut.category})</span>
                     </div>
-                    <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded text-sm font-mono">
+                    <kbd className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-light rounded text-sm font-mono">
                       {shortcut.key}
                     </kbd>
                   </div>
@@ -917,74 +917,74 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Target className="w-6 h-6 mr-3 text-green-600 dark:text-green-400" />
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+              <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
+                <Target className="w-6 h-6 mr-3 text-success-600 dark:text-success-400" />
                 Quick Actions
               </h3>
               <div className="space-y-3">
                 <button 
                   onClick={() => onNavigate?.('/assessment-intro')}
-                  className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center space-x-3"
+                  className="w-full text-left p-3 rounded-lg border border-support-light dark:border-support-dark hover:bg-background-light dark:hover:bg-surface-dark transition-colors flex items-center space-x-3"
                 >
-                  <Play className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                  <span className="text-gray-700 dark:text-gray-300">Start New Assessment</span>
+                  <Play className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                  <span className="text-text-primary-light dark:text-text-secondary-dark">Start New Assessment</span>
                 </button>
                 <button 
                   onClick={() => onShowTemplates?.()}
-                  className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center space-x-3"
+                  className="w-full text-left p-3 rounded-lg border border-support-light dark:border-support-dark hover:bg-background-light dark:hover:bg-surface-dark transition-colors flex items-center space-x-3"
                 >
-                  <FileText className="w-5 h-5 text-green-600 dark:text-green-400" />
-                  <span className="text-gray-700 dark:text-gray-300">View Templates</span>
+                  <FileText className="w-5 h-5 text-success-600 dark:text-success-400" />
+                  <span className="text-text-primary-light dark:text-text-secondary-dark">View Templates</span>
                 </button>
                 <button 
                   onClick={() => onNavigate?.('/reports')}
-                  className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center space-x-3"
+                  className="w-full text-left p-3 rounded-lg border border-support-light dark:border-support-dark hover:bg-background-light dark:hover:bg-surface-dark transition-colors flex items-center space-x-3"
                 >
                   <BarChart3 className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                  <span className="text-gray-700 dark:text-gray-300">Compare Assessments</span>
+                  <span className="text-text-primary-light dark:text-text-secondary-dark">Compare Assessments</span>
                 </button>
                 <button 
                   onClick={() => onNavigate?.('/reports')}
-                  className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center space-x-3"
+                  className="w-full text-left p-3 rounded-lg border border-support-light dark:border-support-dark hover:bg-background-light dark:hover:bg-surface-dark transition-colors flex items-center space-x-3"
                 >
                   <Download className="w-5 h-5 text-orange-600 dark:text-orange-400" />
-                  <span className="text-gray-700 dark:text-gray-300">Export Data</span>
+                  <span className="text-text-primary-light dark:text-text-secondary-dark">Export Data</span>
                 </button>
               </div>
             </div>
           </div>
 
           {/* FAQ Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-              <HelpCircle className="w-8 h-8 mr-3 text-blue-600 dark:text-blue-400" />
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+              <HelpCircle className="w-8 h-8 mr-3 text-primary-600 dark:text-primary-400" />
               Frequently Asked Questions
             </h2>
             
             <div className="space-y-4">
               {filteredFaqs.map((faq, index) => (
-                <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <div key={index} className="border border-support-light dark:border-support-dark rounded-lg">
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    className="w-full flex items-center justify-between p-4 text-left hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors"
                   >
                     <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
+                      <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                         {faq.question}
                       </span>
-                      <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">({faq.category})</span>
+                      <span className="ml-2 text-xs text-text-muted-light dark:text-text-muted-dark">({faq.category})</span>
                     </div>
                     {expandedFaq === index ? (
-                      <ChevronDown className="w-5 h-5 text-gray-500" />
+                      <ChevronDown className="w-5 h-5 text-text-muted-light" />
                     ) : (
-                      <ChevronRight className="w-5 h-5 text-gray-500" />
+                      <ChevronRight className="w-5 h-5 text-text-muted-light" />
                     )}
                   </button>
                   
                   {expandedFaq === index && (
                     <div className="px-4 pb-4">
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                      <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>
@@ -995,19 +995,19 @@ export const InteractiveUserManual: React.FC<InteractiveUserManualProps> = ({ on
           </div>
 
           {/* Support Section */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800 p-8">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-primary-200 dark:border-primary-800 p-8">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
               Need Additional Help?
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
               Our comprehensive support resources are designed to help you achieve CMMC 2.0 Level 2 compliance successfully.
             </p>
             <div className="grid md:grid-cols-2 gap-4">
-              <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2">
+              <button className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium flex items-center justify-center space-x-2">
                 <BookOpen className="w-5 h-5" />
                 <span>Browse Documentation</span>
               </button>
-              <button className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium flex items-center justify-center space-x-2">
+              <button className="bg-success-600 text-white px-6 py-3 rounded-lg hover:bg-success-700 transition-colors font-medium flex items-center justify-center space-x-2">
                 <Video className="w-5 h-5" />
                 <span>Watch Tutorials</span>
               </button>

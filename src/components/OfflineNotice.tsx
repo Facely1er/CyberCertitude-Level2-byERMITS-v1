@@ -15,8 +15,8 @@ export const OfflineNotice: React.FC<OfflineNoticeProps> = ({ isOnline, showNoti
     }`}>
       <div className={`px-6 py-3 rounded-full shadow-lg border ${
         isOnline 
-          ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200'
-          : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200'
+          ? 'bg-success-50 dark:bg-success-900/20 border-success-200 dark:border-success-800 text-success-800 dark:text-success-200'
+          : 'bg-error-50 dark:bg-error-900/20 border-error-200 dark:border-error-800 text-error-800 dark:text-error-200'
       }`}>
         <div className="flex items-center space-x-2">
           {isOnline ? (

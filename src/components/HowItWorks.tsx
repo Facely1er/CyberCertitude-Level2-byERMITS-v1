@@ -128,19 +128,19 @@ export const HowItWorks: React.FC = () => {
       title: 'Reduced Time to Compliance',
       description: 'Streamlined workflows and automation reduce implementation time by up to 60%',
       icon: Clock,
-      color: 'text-blue-600 dark:text-blue-400'
+      color: 'text-primary-600 dark:text-primary-400'
     },
     {
       title: 'Lower Cost of Certification',
       description: 'Self-service platform eliminates need for expensive consultants while maintaining quality',
       icon: TrendingUp,
-      color: 'text-green-600 dark:text-green-400'
+      color: 'text-success-600 dark:text-success-400'
     },
     {
       title: 'Reduced Risk',
       description: 'Comprehensive gap analysis and continuous monitoring identify risks early',
       icon: AlertCircle,
-      color: 'text-red-600 dark:text-red-400'
+      color: 'text-error-600 dark:text-error-400'
     },
     {
       title: 'Better Documentation',
@@ -196,31 +196,31 @@ export const HowItWorks: React.FC = () => {
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 md:p-12 mb-12 text-center text-white shadow-2xl">
           <div className="max-w-4xl mx-auto">
             <div className="flex justify-center mb-6">
-              <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+              <div className="p-4 bg-surface-light/20 rounded-2xl backdrop-blur-sm">
                 <Play className="w-12 h-12" />
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               How CyberCertitude Works
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-primary-100 mb-8 leading-relaxed">
               Your complete guide to achieving CMMC 2.0 Level 2 certification with our comprehensive platform
             </p>
-            <div className="mt-6 text-sm text-blue-200">
+            <div className="mt-6 text-sm text-primary-200">
               <p>For detailed implementation guidance, see <Link to="/workflow-guidance" className="underline font-semibold hover:text-white">Workflow Guidance</Link></p>
               <p className="mt-2">For complete documentation, see <Link to="/user-manual" className="underline font-semibold hover:text-white">User Manual</Link></p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/assessment-intro"
-                className="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center space-x-2"
+                className="bg-surface-light text-primary-600 px-8 py-4 rounded-xl font-bold hover:bg-primary-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center space-x-2"
               >
                 <Play className="w-5 h-5" />
                 <span>Start Your Assessment</span>
               </Link>
               <Link
                 to="/dashboard"
-                className="bg-blue-700/50 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700/70 transition-all duration-200 border-2 border-white/30 flex items-center justify-center space-x-2"
+                className="bg-primary-700/50 text-white px-8 py-4 rounded-xl font-bold hover:bg-primary-700/70 transition-all duration-200 border-2 border-white/30 flex items-center justify-center space-x-2"
               >
                 <BarChart3 className="w-5 h-5" />
                 <span>View Dashboard</span>
@@ -440,14 +440,14 @@ export const HowItWorks: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/assessment-intro"
-              className="bg-white text-primary-600 dark:text-primary-500 px-8 py-4 rounded-xl font-bold hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
+              className="bg-surface-light text-primary-600 dark:text-primary-500 px-8 py-4 rounded-xl font-bold hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
             >
               <Target className="w-5 h-5" />
               <span>Start Assessment</span>
             </Link>
             <Link
               to="/dashboard"
-              className="border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all duration-200 flex items-center justify-center space-x-2"
+              className="border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-surface-light/10 transition-all duration-200 flex items-center justify-center space-x-2"
             >
               <Eye className="w-5 h-5" />
               <span>Explore Platform</span>

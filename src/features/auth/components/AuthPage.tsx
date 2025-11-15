@@ -22,7 +22,7 @@ const AuthPage: React.FC = () => {
         <div className="mb-8 text-center">
           <button
             onClick={() => navigate('/')}
-            className="inline-flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+            className="inline-flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Home</span>
@@ -31,16 +31,16 @@ const AuthPage: React.FC = () => {
 
         {/* Logo and Title */}
         <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-4">
             <img src="/cybercertitude.png" alt="CyberCertitude" className="w-12 h-12 rounded-full" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">
             CyberCertitude™
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">
             CMMC 2.0 Level 2 Compliance Platform
           </p>
-          <div className="mt-4 inline-flex items-center space-x-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 px-4 py-2 rounded-full text-sm font-medium">
+          <div className="mt-4 inline-flex items-center space-x-2 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-200 px-4 py-2 rounded-full text-sm font-medium">
             <Mail className="w-4 h-4" />
             <span>Magic Link Authentication</span>
           </div>
@@ -61,14 +61,14 @@ const AuthPage: React.FC = () => {
 
         {/* Footer */}
         <div className="mt-8 text-center">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-text-muted-light dark:text-text-muted-dark">
             🔐 Enterprise-grade security with passwordless authentication<br/>
             By continuing, you agree to our{' '}
-            <button className="text-blue-600 dark:text-blue-400 hover:underline">
+            <button className="text-primary-600 dark:text-primary-400 hover:underline">
               Terms of Service
             </button>{' '}
             and{' '}
-            <button className="text-blue-600 dark:text-blue-400 hover:underline">
+            <button className="text-primary-600 dark:text-primary-400 hover:underline">
               Privacy Policy
             </button>
           </p>

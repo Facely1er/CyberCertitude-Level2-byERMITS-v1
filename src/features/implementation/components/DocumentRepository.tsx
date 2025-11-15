@@ -23,14 +23,14 @@ const DocumentRepository: React.FC = () => {
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Document Repository</h1>
-              <p className="text-gray-600 dark:text-gray-300">Centralized storage for all compliance documents</p>
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">Document Repository</h1>
+              <p className="text-text-secondary-light dark:text-text-secondary-dark">Centralized storage for all compliance documents</p>
             </div>
-            <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            <button className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
               <Upload className="w-4 h-4" />
               <span>Upload Document</span>
             </button>
@@ -38,37 +38,37 @@ const DocumentRepository: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-dark" />
             <input
               type="text"
               placeholder="Search documents..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
             />
           </div>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
         <div className="p-6">
           <div className="space-y-4">
             {documents.map((doc) => (
-              <div key={doc.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <div key={doc.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
-                    <FileText className="w-8 h-8 text-blue-600" />
+                    <FileText className="w-8 h-8 text-primary-600" />
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">{doc.name}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">{doc.type} • {doc.size}</p>
+                      <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{doc.name}</h3>
+                      <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">{doc.type} • {doc.size}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-                      <Download className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+                    <button className="p-2 hover:bg-support-light dark:hover:bg-surface-dark rounded-lg">
+                      <Download className="w-5 h-5 text-text-secondary-light dark:text-text-secondary-dark" />
                     </button>
                   </div>
                 </div>

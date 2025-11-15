@@ -20,35 +20,35 @@ const AuditLogsPage: React.FC = () => {
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Audit Logs</h1>
-          <p className="text-gray-600 dark:text-gray-300">Complete audit trail of system activities</p>
+          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">Audit Logs</h1>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Complete audit trail of system activities</p>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-dark" />
             <input
               type="text"
               placeholder="Search audit logs..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
             />
           </div>
         </div>
         <div className="p-6">
           <div className="space-y-2">
             {logs.map((log) => (
-              <div key={log.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <div key={log.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">{log.action}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{log.user} • {log.timestamp}</p>
+                    <p className="font-medium text-text-primary-light dark:text-text-primary-dark">{log.action}</p>
+                    <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">{log.user} • {log.timestamp}</p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs ${
-                    log.status === 'Success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    log.status === 'Success' ? 'bg-success-100 text-success-800' : 'bg-error-100 text-error-800'
                   }`}>
                     {log.status}
                   </span>

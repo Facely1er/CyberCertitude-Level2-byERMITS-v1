@@ -252,7 +252,7 @@ const ScenarioTemplates: React.FC = () => {
       <div className="flex gap-2 flex-wrap sm:flex-nowrap">
         <button
           onClick={() => showPreview(scenario)}
-          className="px-4 sm:px-6 py-2 sm:py-3 bg-white border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition font-semibold flex items-center shadow-md text-sm sm:text-base flex-shrink-0"
+          className="px-4 sm:px-6 py-2 sm:py-3 bg-surface-light border-2 border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition font-semibold flex items-center shadow-md text-sm sm:text-base flex-shrink-0"
         >
           <Eye className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
           Preview
@@ -261,7 +261,7 @@ const ScenarioTemplates: React.FC = () => {
           <button
             onClick={() => setShowFormatMenu(isOpen ? null : scenario.id)}
             disabled={isDownloading}
-            className="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold flex items-center shadow-md disabled:opacity-50 text-sm sm:text-base flex-shrink-0"
+            className="px-4 sm:px-6 py-2 sm:py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition font-semibold flex items-center shadow-md disabled:opacity-50 text-sm sm:text-base flex-shrink-0"
           >
             <Download className="w-5 h-5 mr-2" />
             {isDownloading ? 'Generating...' : 'Download'}
@@ -269,33 +269,33 @@ const ScenarioTemplates: React.FC = () => {
           </button>
 
           {isOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-10">
+            <div className="absolute right-0 mt-2 w-48 bg-surface-light rounded-lg shadow-xl border border-support-light z-10">
               <button
                 onClick={() => downloadScenario(scenario, 'md')}
-                className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center text-sm border-b border-gray-100"
+                className="w-full px-4 py-3 text-left hover:bg-background-light flex items-center text-sm border-b border-support-light"
               >
-                <FileText className="w-4 h-4 mr-3 text-gray-600" />
+                <FileText className="w-4 h-4 mr-3 text-text-secondary-light" />
                 Markdown (.md)
               </button>
               <button
                 onClick={() => downloadScenario(scenario, 'docx')}
-                className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center text-sm border-b border-gray-100"
+                className="w-full px-4 py-3 text-left hover:bg-background-light flex items-center text-sm border-b border-support-light"
               >
-                <File className="w-4 h-4 mr-3 text-blue-600" />
+                <File className="w-4 h-4 mr-3 text-primary-600" />
                 Word (.docx)
               </button>
               <button
                 onClick={() => downloadScenario(scenario, 'pdf')}
-                className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center text-sm border-b border-gray-100"
+                className="w-full px-4 py-3 text-left hover:bg-background-light flex items-center text-sm border-b border-support-light"
               >
-                <File className="w-4 h-4 mr-3 text-red-600" />
+                <File className="w-4 h-4 mr-3 text-error-600" />
                 PDF (.pdf)
               </button>
               <button
                 onClick={() => downloadScenario(scenario, 'xlsx')}
-                className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center text-sm rounded-b-lg"
+                className="w-full px-4 py-3 text-left hover:bg-background-light flex items-center text-sm rounded-b-lg"
               >
-                <FileSpreadsheet className="w-4 h-4 mr-3 text-green-600" />
+                <FileSpreadsheet className="w-4 h-4 mr-3 text-success-600" />
                 Excel (.xlsx)
               </button>
             </div>
@@ -322,23 +322,23 @@ const ScenarioTemplates: React.FC = () => {
             <img src="/cybercertitude.png" alt="CyberCertitude" className="w-8 h-8 sm:w-10 sm:h-10 mr-2 sm:mr-4 flex-shrink-0" />
             <span className="break-words">CMMC 2.0 Enterprise Documents</span>
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-blue-100">Complete, Production-Ready Documentation</p>
-          <p className="text-xs sm:text-sm text-blue-200 mt-2">50-150 page comprehensive templates with real content</p>
+          <p className="text-base sm:text-lg lg:text-xl text-primary-100">Complete, Production-Ready Documentation</p>
+          <p className="text-xs sm:text-sm text-primary-200 mt-2">50-150 page comprehensive templates with real content</p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="bg-white rounded-xl shadow-xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8 hover:shadow-2xl transition-all duration-300 animate-slide-up">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">🎯 Enterprise-Grade Templates</h2>
-          <p className="text-gray-600 mb-6">
+        <div className="bg-surface-light rounded-xl shadow-xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8 hover:shadow-2xl transition-all duration-300 animate-slide-up">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-text-primary-light">🎯 Enterprise-Grade Templates</h2>
+          <p className="text-text-secondary-light mb-6">
             Each template is a complete, detailed document ranging from 25-150 pages with actual implementation
             content, procedures, forms, and examples. These are production-ready documents used by CMMC-certified organizations.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-            <div className="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-4">
-              <h3 className="font-semibold text-green-800 mb-2">✓ What You Get</h3>
-              <ul className="text-sm text-green-700 space-y-1">
+            <div className="bg-success-50 border border-success-200 rounded-lg p-3 sm:p-4">
+              <h3 className="font-semibold text-success-800 mb-2">✓ What You Get</h3>
+              <ul className="text-sm text-success-700 space-y-1">
                 <li>• Complete procedures and workflows</li>
                 <li>• Pre-filled forms and checklists</li>
                 <li>• Real examples and scenarios</li>
@@ -346,9 +346,9 @@ const ScenarioTemplates: React.FC = () => {
               </ul>
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
-              <h3 className="font-semibold text-blue-800 mb-2">✓ Ready for C3PAO</h3>
-              <ul className="text-sm text-blue-700 space-y-1">
+            <div className="bg-primary-50 border border-primary-200 rounded-lg p-3 sm:p-4">
+              <h3 className="font-semibold text-primary-800 mb-2">✓ Ready for C3PAO</h3>
+              <ul className="text-sm text-primary-700 space-y-1">
                 <li>• All 110 controls addressed</li>
                 <li>• NIST 800-171 aligned</li>
                 <li>• Evidence-ready structure</li>
@@ -365,27 +365,27 @@ const ScenarioTemplates: React.FC = () => {
             return (
               <div
                 key={scenario.id}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition overflow-hidden border border-gray-200"
+                className="bg-surface-light rounded-xl shadow-lg hover:shadow-xl transition overflow-hidden border border-support-light"
               >
                 <div className="p-4 sm:p-6">
                   <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4 mb-4">
                     <div className="flex items-start flex-1 min-w-0">
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-blue-100 flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-primary-100 flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
                         {isImageIcon ? (
                           <img src={IconComponent} alt="Icon" className="w-6 h-6 sm:w-8 sm:h-8" />
                         ) : (
-                          <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
+                          <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-primary-600" />
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-2 break-words">{scenario.title}</h3>
-                        <p className="text-gray-600 mb-3">{scenario.description}</p>
+                        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-text-primary-light mb-2 break-words">{scenario.title}</h3>
+                        <p className="text-text-secondary-light mb-3">{scenario.description}</p>
 
                         <div className="flex flex-wrap gap-2 mb-3">
-                          <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full bg-blue-100 text-blue-700 font-medium">
+                          <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full bg-primary-100 text-primary-700 font-medium">
                             {scenario.pages} pages
                           </span>
-                          <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full bg-gray-100 text-gray-700 font-medium">
+                          <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full bg-support-light text-text-primary-light font-medium">
                             {scenario.controls.length} controls
                           </span>
                         </div>
@@ -395,12 +395,12 @@ const ScenarioTemplates: React.FC = () => {
                     <ActionButtons scenario={scenario} />
                   </div>
 
-                  <div className="border-t border-gray-200 pt-3 sm:pt-4">
-                    <h4 className="font-semibold text-gray-700 mb-2 text-xs sm:text-sm uppercase tracking-wide">Includes:</h4>
+                  <div className="border-t border-support-light pt-3 sm:pt-4">
+                    <h4 className="font-semibold text-text-primary-light mb-2 text-xs sm:text-sm uppercase tracking-wide">Includes:</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {scenario.includes.map((item, idx) => (
-                        <div key={idx} className="flex items-start text-sm text-gray-600">
-                          <span className="text-blue-500 mr-2">▸</span>
+                        <div key={idx} className="flex items-start text-sm text-text-secondary-light">
+                          <span className="text-primary-500 mr-2">▸</span>
                           <span>{item}</span>
                         </div>
                       ))}

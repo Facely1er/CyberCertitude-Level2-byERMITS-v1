@@ -16,7 +16,7 @@ vi.mock('../hooks/useProductionMonitoring', () => ({
   useProductionMonitoring: vi.fn(() => ({
     metrics: { healthStatus: 'healthy' },
     isMonitoring: true,
-    getHealthStatusColor: vi.fn(() => 'text-green-600')
+    getHealthStatusColor: vi.fn(() => 'text-success-600')
   }))
 }));
 

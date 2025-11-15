@@ -28,7 +28,7 @@ const ProgressBar: React.FC<{ progress: number; className?: string; showTransiti
       className={`w-full bg-support-light dark:bg-support-dark rounded-full h-2 ${className}`}
     >
       <div
-        className={`progress-bar-fill bg-green-500 h-2 rounded-full ${showTransition ? 'transition-all duration-300' : ''}`}
+        className={`progress-bar-fill bg-success-500 h-2 rounded-full ${showTransition ? 'transition-all duration-300' : ''}`}
         aria-label={`Task progress: ${progress}%`}
         title={`Task progress: ${progress}%`}
       />
@@ -164,7 +164,7 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
       case 'critical': return 'text-error-600 dark:text-error-400';
       case 'high': return 'text-orange-600 dark:text-orange-400';
       case 'medium': return 'text-yellow-600 dark:text-yellow-400';
-      case 'low': return 'text-green-600 dark:text-green-400';
+      case 'low': return 'text-success-600 dark:text-success-400';
     }
   };
 
@@ -365,7 +365,7 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-xl">
-                <CheckSquare className="w-8 h-8 text-green-600 dark:text-green-400" />
+                <CheckSquare className="w-8 h-8 text-success-600 dark:text-success-400" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
@@ -379,7 +379,7 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
             
             <button
               onClick={() => setShowCreateTask(true)}
-              className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+              className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
             >
               <Plus className="w-4 h-4" />
               <span>Create Task</span>
@@ -404,9 +404,9 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Completed</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{metrics.completedTasks}</p>
+              <p className="text-3xl font-bold text-success-600 dark:text-success-400">{metrics.completedTasks}</p>
             </div>
-            <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+            <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
           </div>
         </div>
 
@@ -626,12 +626,12 @@ const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
                       <div className="flex items-center justify-between">
                         <div className="flex -space-x-2">
                           {task.assignedTo.slice(0, 3).map((userId, index) => (
-                            <div key={index} className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
+                            <div key={index} className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-support-dark">
                               {userId.charAt(userId.length - 1)}
                             </div>
                           ))}
                           {task.assignedTo.length > 3 && (
-                            <div className="w-6 h-6 bg-support-light dark:bg-support-dark rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
+                            <div className="w-6 h-6 bg-support-light dark:bg-support-dark rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-support-dark">
                               +{task.assignedTo.length - 3}
                             </div>
                           )}
@@ -695,7 +695,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                           <button
                             onClick={() => handleUpdateTaskStatus(task.id, 'completed')}
                             disabled={task.status === 'completed'}
-                            className="text-xs bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded hover:bg-green-200 dark:hover:bg-green-800/50 disabled:opacity-50 transition-colors"
+                            className="text-xs bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300 px-2 py-1 rounded hover:bg-success-200 dark:hover:bg-success-800/50 disabled:opacity-50 transition-colors"
                           >
                             Complete
                           </button>
@@ -769,7 +769,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex -space-x-2">
                         {task.assignedTo.slice(0, 2).map((userId, index) => (
-                          <div key={index} className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
+                          <div key={index} className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-support-dark">
                             {userId.charAt(userId.length - 1)}
                           </div>
                         ))}
@@ -835,7 +835,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                         </button>
                         <button
                           onClick={() => addNotification('info', 'Task editing feature coming soon')}
-                          className="p-2 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
+                          className="p-2 text-success-600 dark:text-success-400 hover:bg-success-100 dark:hover:bg-success-900/30 rounded-lg transition-colors"
                           aria-label="Edit task"
                           title="Edit task"
                         >
@@ -1084,13 +1084,13 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                       framework: 'NIST CSF v2.0'
                     });
                   }}
-                  className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark rounded-xl hover:bg-background-light dark:hover:bg-surface-dark transition-colors font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 bg-success-600 text-white rounded-xl hover:bg-success-700 transition-colors font-medium"
                 >
                   Create Task
                 </button>

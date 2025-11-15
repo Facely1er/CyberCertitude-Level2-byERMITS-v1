@@ -282,7 +282,7 @@ const ComplianceToolkit: React.FC = () => {
       <div className="flex gap-2" ref={isOpen ? dropdownRef : null}>
         <button
           onClick={() => showPreview(templateName, domainId)}
-          className="px-3 sm:px-4 py-2 bg-white border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition flex items-center text-xs sm:text-sm font-medium flex-shrink-0"
+          className="px-3 sm:px-4 py-2 bg-surface-light border-2 border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition flex items-center text-xs sm:text-sm font-medium flex-shrink-0"
         >
           <Eye className="w-4 h-4 mr-2" />
           Preview
@@ -291,7 +291,7 @@ const ComplianceToolkit: React.FC = () => {
           <button
             onClick={() => setShowFormatMenu(isOpen ? null : menuId)}
             disabled={isDownloading}
-            className="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center text-xs sm:text-sm font-medium disabled:opacity-50 flex-shrink-0"
+            className="px-3 sm:px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition flex items-center text-xs sm:text-sm font-medium disabled:opacity-50 flex-shrink-0"
           >
             <Download className="w-4 h-4 mr-2" />
             {isDownloading ? 'Generating...' : 'Download'}
@@ -299,15 +299,15 @@ const ComplianceToolkit: React.FC = () => {
           </button>
 
           {isOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-20">
+            <div className="absolute right-0 mt-2 w-48 bg-surface-light rounded-lg shadow-xl border border-support-light z-20">
               <button
                 onClick={() => {
                   downloadTemplate(templateName, domainId, 'md');
                   setShowFormatMenu(null);
                 }}
-                className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center text-sm border-b border-gray-100"
+                className="w-full px-4 py-2 text-left hover:bg-background-light flex items-center text-sm border-b border-support-light"
               >
-                <FileText className="w-4 h-4 mr-2 text-gray-600" />
+                <FileText className="w-4 h-4 mr-2 text-text-secondary-light" />
                 Markdown (.md)
               </button>
               <button
@@ -315,9 +315,9 @@ const ComplianceToolkit: React.FC = () => {
                   downloadTemplate(templateName, domainId, 'docx');
                   setShowFormatMenu(null);
                 }}
-                className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center text-sm border-b border-gray-100"
+                className="w-full px-4 py-2 text-left hover:bg-background-light flex items-center text-sm border-b border-support-light"
               >
-                <File className="w-4 h-4 mr-2 text-blue-600" />
+                <File className="w-4 h-4 mr-2 text-primary-600" />
                 Word (.docx)
               </button>
               <button
@@ -325,9 +325,9 @@ const ComplianceToolkit: React.FC = () => {
                   downloadTemplate(templateName, domainId, 'pdf');
                   setShowFormatMenu(null);
                 }}
-                className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center text-sm border-b border-gray-100"
+                className="w-full px-4 py-2 text-left hover:bg-background-light flex items-center text-sm border-b border-support-light"
               >
-                <File className="w-4 h-4 mr-2 text-red-600" />
+                <File className="w-4 h-4 mr-2 text-error-600" />
                 PDF (.pdf)
               </button>
               <button
@@ -335,9 +335,9 @@ const ComplianceToolkit: React.FC = () => {
                   downloadTemplate(templateName, domainId, 'xlsx');
                   setShowFormatMenu(null);
                 }}
-                className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center text-sm rounded-b-lg"
+                className="w-full px-4 py-2 text-left hover:bg-background-light flex items-center text-sm rounded-b-lg"
               >
-                <FileSpreadsheet className="w-4 h-4 mr-2 text-green-600" />
+                <FileSpreadsheet className="w-4 h-4 mr-2 text-success-600" />
                 Excel (.xlsx)
               </button>
             </div>
@@ -364,75 +364,75 @@ const ComplianceToolkit: React.FC = () => {
             <img src="/cybercertitude.png" alt="CyberCertitude" className="w-8 h-8 sm:w-10 sm:h-10 mr-2 sm:mr-3 flex-shrink-0" />
             <div className="flex flex-col">
               <span className="break-words">CyberCertitude™</span>
-              <span className="text-lg sm:text-xl lg:text-2xl font-semibold text-blue-100">CMMC 2.0 Toolkit</span>
-              <span className="text-sm sm:text-base text-blue-200">by ERMITS</span>
+              <span className="text-lg sm:text-xl lg:text-2xl font-semibold text-primary-100">CMMC 2.0 Toolkit</span>
+              <span className="text-sm sm:text-base text-primary-200">by ERMITS</span>
             </div>
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-blue-100">Complete Templates for Evidence Collection & Documentation</p>
-          <p className="text-xs sm:text-sm text-blue-200 mt-2">110 Controls • 14 Domains • Level 2 Certification Ready</p>
+          <p className="text-base sm:text-lg lg:text-xl text-primary-100">Complete Templates for Evidence Collection & Documentation</p>
+          <p className="text-xs sm:text-sm text-primary-200 mt-2">110 Controls • 14 Domains • Level 2 Certification Ready</p>
         </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Core Documentation Templates</h2>
+        <div className="bg-surface-light rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-text-primary-light">Core Documentation Templates</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
             {coreDocuments.map((doc, idx) => (
-              <div key={idx} className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 hover:shadow-md transition">
-                <h3 className="font-semibold text-gray-800 mb-1">{doc.name}</h3>
-                <p className="text-sm text-gray-600 mb-3">{doc.description}</p>
+              <div key={idx} className="border border-support-light rounded-lg p-4 hover:border-primary-500 hover:shadow-md transition">
+                <h3 className="font-semibold text-text-primary-light mb-1">{doc.name}</h3>
+                <p className="text-sm text-text-secondary-light mb-3">{doc.description}</p>
                 <ActionButtons templateName={doc.name} domainId="Core" />
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Domain-Specific Templates (14 CMMC Domains)</h2>
+        <div className="bg-surface-light rounded-xl shadow-lg p-4 sm:p-6">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-text-primary-light">Domain-Specific Templates (14 CMMC Domains)</h2>
 
           <div className="space-y-3">
             {domains.map((domain) => (
-              <div key={domain.id} className="border border-gray-200 rounded-lg overflow-hidden">
+              <div key={domain.id} className="border border-support-light rounded-lg overflow-hidden">
                 <button
                   onClick={() => setExpandedDomain(expandedDomain === domain.id ? null : domain.id)}
-                  className="w-full px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between hover:bg-gray-50 transition"
+                  className="w-full px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between hover:bg-background-light transition"
                 >
                   <div className="flex items-center flex-1 min-w-0">
                     {expandedDomain === domain.id ? (
-                      <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 mr-2 sm:mr-3 flex-shrink-0" />
+                      <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-text-secondary-light mr-2 sm:mr-3 flex-shrink-0" />
                     ) : (
-                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 mr-2 sm:mr-3 flex-shrink-0" />
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-text-secondary-light mr-2 sm:mr-3 flex-shrink-0" />
                     )}
                     <div className="text-left min-w-0 flex-1">
-                      <div className="font-semibold text-gray-800 text-sm sm:text-base break-words">
+                      <div className="font-semibold text-text-primary-light text-sm sm:text-base break-words">
                         {domain.id} - {domain.name}
                       </div>
-                      <div className="text-xs sm:text-sm text-gray-500 mt-1">
+                      <div className="text-xs sm:text-sm text-text-muted-light mt-1">
                         {domain.controls} controls • {domain.templates.length} templates
                       </div>
                     </div>
                   </div>
-                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 flex-shrink-0 ml-2" />
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-success-500 flex-shrink-0 ml-2" />
                 </button>
 
                 {expandedDomain === domain.id && (
-                  <div className="px-5 py-4 bg-gray-50 border-t border-gray-200">
+                  <div className="px-5 py-4 bg-background-light border-t border-support-light">
                     <div className="space-y-3">
                       {domain.templates.map((template, idx) => (
-                        <div key={idx} className="bg-white rounded-lg p-4 border border-gray-200">
+                        <div key={idx} className="bg-surface-light rounded-lg p-4 border border-support-light">
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
                               <div className="flex items-center mb-2">
-                                <h4 className="font-semibold text-gray-800">{template.name}</h4>
+                                <h4 className="font-semibold text-text-primary-light">{template.name}</h4>
                                 <span className={`ml-3 px-2 py-1 text-xs rounded-full ${
                                   template.type === 'policy'
-                                    ? 'bg-blue-100 text-blue-700'
-                                    : 'bg-green-100 text-green-700'
+                                    ? 'bg-primary-100 text-primary-700'
+                                    : 'bg-success-100 text-success-700'
                                 }`}>
                                   {template.type}
                                 </span>
                               </div>
-                              <p className="text-sm text-gray-600">{template.description}</p>
+                              <p className="text-sm text-text-secondary-light">{template.description}</p>
                             </div>
                             <ActionButtons templateName={template.name} domainId={domain.id} />
                           </div>
@@ -451,7 +451,7 @@ const ComplianceToolkit: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div>
               <h4 className="font-semibold mb-2">Phase 1: Assessment (Week 1-2)</h4>
-              <ul className="text-sm space-y-1 text-blue-100">
+              <ul className="text-sm space-y-1 text-primary-100">
                 <li>• Download and complete SSP template</li>
                 <li>• Conduct gap analysis using assessment templates</li>
                 <li>• Document current control implementation</li>
@@ -459,7 +459,7 @@ const ComplianceToolkit: React.FC = () => {
             </div>
             <div>
               <h4 className="font-semibold mb-2">Phase 2: Evidence Collection (Week 3-6)</h4>
-              <ul className="text-sm space-y-1 text-blue-100">
+              <ul className="text-sm space-y-1 text-primary-100">
                 <li>• Use domain templates to gather evidence</li>
                 <li>• Complete policy documentation</li>
                 <li>• Implement missing controls per POAM</li>

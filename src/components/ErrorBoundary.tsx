@@ -109,13 +109,13 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
-          <div className="max-w-lg w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
-            <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-red-100 dark:bg-red-900/30 rounded-full">
-              <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
+        <div className="min-h-screen flex items-center justify-center bg-background-light dark:bg-background-dark px-4">
+          <div className="max-w-lg w-full bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8 text-center">
+            <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-error-100 dark:bg-error-900/30 rounded-full">
+              <AlertTriangle className="w-8 h-8 text-error-600 dark:text-error-400" />
             </div>
             
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
               Something went wrong
             </h1>
             
@@ -124,7 +124,7 @@ export class ErrorBoundary extends Component<Props, State> {
               this.state.error.message.includes('Minified React error #306') ||
               this.state.error.message.includes('Rules of Hooks')
             ) ? (
-              <div className="text-gray-600 dark:text-gray-300 mb-6">
+              <div className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
                 <p className="mb-4">
                   <strong>React Hook Error Detected</strong>
                 </p>
@@ -145,7 +145,7 @@ export class ErrorBoundary extends Component<Props, State> {
               this.state.error.message.includes('Illegal constructor') ||
               this.state.error.message.includes('TypeError: Illegal constructor')
             ) ? (
-              <div className="text-gray-600 dark:text-gray-300 mb-6">
+              <div className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
                 <p className="mb-4">
                   <strong>Constructor Error Detected</strong>
                 </p>
@@ -164,17 +164,17 @@ export class ErrorBoundary extends Component<Props, State> {
                 </ul>
               </div>
             ) : (
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
                 We're sorry, but something unexpected happened. Our team has been notified and is working on a fix.
               </p>
             )}
 
             {this.props.showErrorDetails && ENV.isDevelopment && this.state.error && (
-              <details className="mb-6 text-left bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <details className="mb-6 text-left bg-support-light dark:bg-surface-dark rounded-lg p-4">
+                <summary className="cursor-pointer text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Error Details (Development Mode)
                 </summary>
-                <div className="text-xs font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-40 bg-gray-50 dark:bg-gray-800 p-3 rounded border">
+                <div className="text-xs font-mono text-text-primary-light dark:text-text-primary-light overflow-auto max-h-40 bg-background-light dark:bg-surface-dark p-3 rounded border">
                   <div className="mb-2">
                     <strong>Error ID:</strong> {this.state.errorId}
                   </div>
@@ -198,7 +198,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="space-y-3">
               <button
                 onClick={this.handleRetry}
-                className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg hover:bg-primary-700 transition-colors font-medium flex items-center justify-center space-x-2"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Try Again</span>
@@ -207,7 +207,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={this.handleReload}
-                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                  className="border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark py-2 px-4 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <RefreshCw className="w-4 h-4" />
                   <span>Reload</span>
@@ -215,7 +215,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 
                 <button
                   onClick={this.handleGoHome}
-                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                  className="border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark py-2 px-4 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <Home className="w-4 h-4" />
                   <span>Home</span>
@@ -225,7 +225,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <div className="flex space-x-3">
                 <button
                   onClick={this.handleReportError}
-                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  className="flex-1 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark py-2 px-4 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Bug className="w-4 h-4" />
                   <span>Copy Error Details</span>
@@ -233,7 +233,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 
                 <a
                   href="mailto:support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId}"
-                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  className="flex-1 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark py-2 px-4 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Report</span>
@@ -242,14 +242,14 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             
             {this.state.errorId && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-6">
+              <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-6">
                 Error ID: {this.state.errorId}
               </p>
             )}
 
             {ENV.isProduction && (
-              <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                <p className="text-sm text-blue-800 dark:text-blue-200">
+              <div className="mt-6 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
+                <p className="text-sm text-primary-800 dark:text-primary-200">
                   Our monitoring systems have been automatically notified. 
                   If this issue persists, please contact support with the Error ID above.
                 </p>

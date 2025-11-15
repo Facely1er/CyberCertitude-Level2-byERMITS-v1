@@ -29,20 +29,20 @@ export const PlaceholderPage: React.FC<PlaceholderPageProps> = ({
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                <Icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <Icon className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{title}</h1>
-                <p className="text-gray-600 dark:text-gray-300">{description}</p>
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">{title}</h1>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">{description}</p>
               </div>
             </div>
             
-            <div className="text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg whitespace-nowrap">
+            <div className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark bg-support-light dark:bg-surface-dark px-4 py-2 rounded-lg whitespace-nowrap">
               Coming Soon
             </div>
           </div>
@@ -50,14 +50,14 @@ export const PlaceholderPage: React.FC<PlaceholderPageProps> = ({
       </div>
 
       {/* Coming Soon Notice */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800 p-6 mb-8">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-primary-200 dark:border-primary-800 p-6 mb-8">
         <div className="flex items-center space-x-3">
-          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-            <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+            <BookOpen className="w-6 h-6 text-primary-600 dark:text-primary-400" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">Coming Soon</h3>
-            <p className="text-blue-700 dark:text-blue-200">
+            <h3 className="text-lg font-semibold text-primary-900 dark:text-primary-100">Coming Soon</h3>
+            <p className="text-primary-700 dark:text-primary-200">
               This feature is currently under development. We're working hard to bring you a comprehensive solution.
             </p>
           </div>
@@ -68,14 +68,14 @@ export const PlaceholderPage: React.FC<PlaceholderPageProps> = ({
       {features.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {features.map((feature, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+            <div key={index} className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                  <CheckSquare className="w-6 h-6 text-green-600 dark:text-green-400" />
+                <div className="p-2 bg-success-100 dark:bg-success-900/30 rounded-lg">
+                  <CheckSquare className="w-6 h-6 text-success-600 dark:text-success-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Feature {index + 1}</h3>
+                <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Feature {index + 1}</h3>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">{feature}</p>
+              <p className="text-text-secondary-light dark:text-text-secondary-dark text-sm">{feature}</p>
             </div>
           ))}
         </div>
@@ -83,18 +83,18 @@ export const PlaceholderPage: React.FC<PlaceholderPageProps> = ({
 
       {/* Next Steps */}
       {nextSteps.length > 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center space-x-2">
-            <Target className="w-5 h-5 text-blue-500" />
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center space-x-2">
+            <Target className="w-5 h-5 text-primary-500" />
             <span>What's Coming Next</span>
           </h3>
           <div className="space-y-3">
             {nextSteps.map((step, index) => (
               <div key={index} className="flex items-start space-x-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">{index + 1}</span>
+                <div className="flex-shrink-0 w-6 h-6 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
+                  <span className="text-xs font-semibold text-primary-600 dark:text-primary-400">{index + 1}</span>
                 </div>
-                <p className="text-gray-700 dark:text-gray-300">{step}</p>
+                <p className="text-text-primary-light dark:text-text-secondary-dark">{step}</p>
               </div>
             ))}
           </div>
@@ -102,20 +102,20 @@ export const PlaceholderPage: React.FC<PlaceholderPageProps> = ({
       )}
 
       {/* Alternative Actions */}
-      <div className="mt-8 bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Alternative Actions</h3>
+      <div className="mt-8 bg-background-light dark:bg-surface-dark/50 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Alternative Actions</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <button className="flex items-center space-x-3 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-colors">
-            <FileText className="w-5 h-5 text-blue-500" />
-            <span className="text-sm font-medium text-gray-900 dark:text-white">View Documentation</span>
+          <button className="flex items-center space-x-3 p-4 bg-surface-light dark:bg-surface-dark rounded-lg border border-support-light dark:border-support-dark hover:border-primary-300 dark:hover:border-primary-600 transition-colors">
+            <FileText className="w-5 h-5 text-primary-500" />
+            <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">View Documentation</span>
           </button>
-          <button className="flex items-center space-x-3 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-colors">
-            <Users className="w-5 h-5 text-green-500" />
-            <span className="text-sm font-medium text-gray-900 dark:text-white">Contact Support</span>
+          <button className="flex items-center space-x-3 p-4 bg-surface-light dark:bg-surface-dark rounded-lg border border-support-light dark:border-support-dark hover:border-primary-300 dark:hover:border-primary-600 transition-colors">
+            <Users className="w-5 h-5 text-success-500" />
+            <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">Contact Support</span>
           </button>
-          <button className="flex items-center space-x-3 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-colors">
+          <button className="flex items-center space-x-3 p-4 bg-surface-light dark:bg-surface-dark rounded-lg border border-support-light dark:border-support-dark hover:border-primary-300 dark:hover:border-primary-600 transition-colors">
             <BarChart3 className="w-5 h-5 text-purple-500" />
-            <span className="text-sm font-medium text-gray-900 dark:text-white">View Dashboard</span>
+            <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">View Dashboard</span>
           </button>
         </div>
       </div>

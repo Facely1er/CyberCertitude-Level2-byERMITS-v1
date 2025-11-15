@@ -110,16 +110,16 @@ const PolicyTemplates: React.FC = () => {
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <FileText className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Policy Templates</h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">Policy Templates</h1>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Pre-formatted policies aligned with NIST SP 800-171 and CMMC 2.0
                 </p>
               </div>
@@ -129,24 +129,24 @@ const PolicyTemplates: React.FC = () => {
       </div>
 
       {/* Search and Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center space-x-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-dark" />
               <input
                 type="text"
                 placeholder="Search policy templates..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
               />
             </div>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               aria-label="Filter by category"
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
             >
               <option value="all">All Categories</option>
               <option value="Security">Security</option>
@@ -163,21 +163,21 @@ const PolicyTemplates: React.FC = () => {
       {/* Templates Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredTemplates.map((template) => (
-          <div key={template.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow">
+          <div key={template.id} className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark hover:shadow-xl transition-shadow">
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                  <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-xl">
+                  <FileText className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                 </div>
-                <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-xs font-medium">
+                <span className="px-3 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300 rounded-full text-xs font-medium">
                   {template.framework || 'CMMC 2.0'}
                 </span>
               </div>
               
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{template.name || 'Unnamed Template'}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{template.description || 'No description available'}</p>
+              <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">{template.name || 'Unnamed Template'}</h3>
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-4">{template.description || 'No description available'}</p>
               
-              <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mb-4">
+              <div className="flex items-center justify-between text-sm text-text-secondary-light dark:text-text-muted-dark mb-4">
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-1">
                     <BookOpen className="w-4 h-4" />
@@ -191,13 +191,13 @@ const PolicyTemplates: React.FC = () => {
               </div>
               
               <div className="flex items-center space-x-2">
-                <button className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <button className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
                   <Eye className="w-4 h-4" />
                   <span>Preview</span>
                 </button>
                 <button 
                   aria-label="Download template"
-                  className="flex items-center justify-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="flex items-center justify-center space-x-2 px-4 py-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors"
                 >
                   <Download className="w-4 h-4" />
                 </button>
@@ -208,10 +208,10 @@ const PolicyTemplates: React.FC = () => {
       </div>
 
       {filteredTemplates.length === 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
-          <FileText className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No templates found</h3>
-          <p className="text-gray-600 dark:text-gray-300">Try adjusting your search criteria</p>
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-12 text-center">
+          <FileText className="w-16 h-16 mx-auto text-text-muted-dark mb-4" />
+          <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-2">No templates found</h3>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Try adjusting your search criteria</p>
         </div>
       )}
     </div>

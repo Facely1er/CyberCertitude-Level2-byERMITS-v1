@@ -105,8 +105,8 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 <button
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                     item.children?.some(child => child.href && isActive(child.href))
-                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/20'
+                      ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
+                      : 'text-text-primary-light dark:text-text-secondary-dark hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50/50 dark:hover:bg-primary-900/20'
                   }`}
                   onClick={() => {
                     // Toggle dropdown on click
@@ -137,7 +137,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 
                 {openDropdowns.has(item.label) && (
                   <div 
-                    className="absolute top-full left-0 mt-1 w-72 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50"
+                    className="absolute top-full left-0 mt-1 w-72 bg-surface-light dark:bg-surface-dark rounded-lg shadow-lg border border-support-light dark:border-support-dark py-2 z-50"
                     role="menu"
                     tabIndex={-1}
                     aria-label={`${item.label} submenu`}
@@ -156,10 +156,10 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                       <Link
                         key={child.label}
                         to={child.href!}
-                        className={`flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
+                        className={`flex items-center gap-3 px-4 py-2.5 hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors ${
                           isActive(child.href!)
-                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                            : 'text-gray-700 dark:text-gray-300'
+                            ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                            : 'text-text-primary-light dark:text-text-secondary-dark'
                         }`}
                         role="menuitem"
                         aria-label={`${child.label}: ${child.description || ''}`}
@@ -168,7 +168,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                         <div className="flex-1 min-w-0">
                           <div className="font-medium text-sm truncate">{child.label}</div>
                           {child.description && (
-                            <div className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">
+                            <div className="text-xs text-text-muted-light dark:text-text-muted-dark truncate mt-0.5">
                               {child.description}
                             </div>
                           )}
@@ -183,8 +183,8 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 to={item.href!}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive(item.href!)
-                    ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/20'
+                    ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
+                    : 'text-text-primary-light dark:text-text-secondary-dark hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50/50 dark:hover:bg-primary-900/20'
                 }`}
                 role="menuitem"
                 aria-label={item.description || item.label}

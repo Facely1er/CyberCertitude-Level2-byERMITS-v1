@@ -162,8 +162,8 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-center h-64">
-          <RefreshCw className="w-8 h-8 animate-spin text-blue-600" />
-          <span className="ml-2 text-gray-600 dark:text-gray-300">Loading controls...</span>
+          <RefreshCw className="w-8 h-8 animate-spin text-primary-600" />
+          <span className="ml-2 text-text-secondary-light dark:text-text-secondary-dark">Loading controls...</span>
         </div>
       </div>
     );
@@ -171,42 +171,42 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'implemented': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'in-progress': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+      case 'implemented': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'in-progress': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300';
       case 'planned': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'not-implemented': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+      case 'not-implemented': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
       case 'tested': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
-      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      default: return 'bg-support-light dark:bg-background-dark/30 text-text-primary-light dark:text-text-secondary-dark';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 dark:text-red-400';
+      case 'critical': return 'text-error-600 dark:text-error-400';
       case 'high': return 'text-orange-600 dark:text-orange-400';
       case 'medium': return 'text-yellow-600 dark:text-yellow-400';
-      case 'low': return 'text-green-600 dark:text-green-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'low': return 'text-success-600 dark:text-success-400';
+      default: return 'text-text-secondary-light dark:text-text-muted-dark';
     }
   };
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case 'critical': return 'text-red-600 dark:text-red-400';
+      case 'critical': return 'text-error-600 dark:text-error-400';
       case 'high': return 'text-orange-600 dark:text-orange-400';
       case 'medium': return 'text-yellow-600 dark:text-yellow-400';
-      case 'low': return 'text-green-600 dark:text-green-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'low': return 'text-success-600 dark:text-success-400';
+      default: return 'text-text-secondary-light dark:text-text-muted-dark';
     }
   };
 
   const getComplianceColor = (status: string) => {
     switch (status) {
-      case 'compliant': return 'text-green-600 dark:text-green-400';
+      case 'compliant': return 'text-success-600 dark:text-success-400';
       case 'partially-compliant': return 'text-yellow-600 dark:text-yellow-400';
-      case 'non-compliant': return 'text-red-600 dark:text-red-400';
-      case 'not-assessed': return 'text-gray-600 dark:text-gray-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'non-compliant': return 'text-error-600 dark:text-error-400';
+      case 'not-assessed': return 'text-text-secondary-light dark:text-text-muted-dark';
+      default: return 'text-text-secondary-light dark:text-text-muted-dark';
     }
   };
 
@@ -219,18 +219,18 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <Shield className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   Controls Management
                 </h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Manage and monitor NIST CSF v2.0 security controls implementation
                 </p>
               </div>
@@ -238,7 +238,7 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             
             <button
               onClick={() => addNotification('info', 'Control creation is available through the assessment workflow')}
-              className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
             >
               <Plus className="w-4 h-4" />
               <span>Add Control</span>
@@ -250,60 +250,60 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
       {/* Statistics */}
       {statistics && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Controls</p>
-                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{statistics.total}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">Total Controls</p>
+                <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{statistics.total}</p>
               </div>
-              <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Shield className="w-8 h-8 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Implemented</p>
-                <p className="text-3xl font-bold text-green-600 dark:text-green-400">{statistics.byStatus.implemented || 0}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">Implemented</p>
+                <p className="text-3xl font-bold text-success-600 dark:text-success-400">{statistics.byStatus.implemented || 0}</p>
               </div>
-              <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+              <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</p>
-                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{statistics.byStatus['in-progress'] || 0}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">In Progress</p>
+                <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{statistics.byStatus['in-progress'] || 0}</p>
               </div>
-              <Clock className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Clock className="w-8 h-8 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Not Implemented</p>
-                <p className="text-3xl font-bold text-red-600 dark:text-red-400">{statistics.byStatus['not-implemented'] || 0}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">Not Implemented</p>
+                <p className="text-3xl font-bold text-error-600 dark:text-error-400">{statistics.byStatus['not-implemented'] || 0}</p>
               </div>
-              <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
+              <AlertTriangle className="w-8 h-8 text-error-600 dark:text-error-400" />
             </div>
           </div>
         </div>
       )}
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8 p-6">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8 p-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
           <div className="flex-1 max-w-lg">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search controls..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -312,7 +312,7 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <select
               value={filterFunction}
               onChange={(e) => setFilterFunction(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Functions</option>
               <option value="Govern">Govern</option>
@@ -326,7 +326,7 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Status</option>
               <option value="not-implemented">Not Implemented</option>
@@ -339,7 +339,7 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <select
               value={filterPriority}
               onChange={(e) => setFilterPriority(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Priorities</option>
               <option value="low">Low</option>
@@ -351,7 +351,7 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <select
               value={filterOwner}
               onChange={(e) => setFilterOwner(e.target.value)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Owners</option>
               {statistics && statistics.byOwner && Object.keys(statistics.byOwner).map(owner => (
@@ -361,7 +361,7 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
             <button
               onClick={handleExportControls}
-              className="flex items-center space-x-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-3 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
             >
               <Download className="w-4 h-4" />
               <span>Export</span>
@@ -371,9 +371,9 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
       </div>
 
       {/* Controls List */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">
             NIST CSF v2.0 Security Controls ({filteredControls.length})
           </h2>
         </div>
@@ -381,11 +381,11 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         <div className="p-6">
           <div className="space-y-6">
             {filteredControls.map((control) => (
-              <div key={control.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div key={control.id} className="border border-support-light dark:border-support-dark rounded-lg p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                         {control.name}
                       </h3>
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(control.status)}`}>
@@ -396,25 +396,25 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                       </span>
                     </div>
                     
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">
                       {control.description}
                     </p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Control ID:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{control.id.toUpperCase()}</div>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Control ID:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{control.id.toUpperCase()}</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Function:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{control.nistFunction}</div>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Function:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{control.nistFunction}</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Owner:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Owner:</span>
                         <select
                           value={control.owner}
                           onChange={(e) => handleOwnerChange(control.id, e.target.value)}
-                          className="mt-1 px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="mt-1 px-2 py-1 text-sm border border-support-light dark:border-support-dark rounded bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                         >
                           <option value="CISO">CISO</option>
                           <option value="IT Security Team">IT Security Team</option>
@@ -427,8 +427,8 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                         </select>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Effectiveness:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Effectiveness:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {control.effectiveness.replace('-', ' ')}
                         </div>
                       </div>
@@ -436,26 +436,26 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Compliance:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Compliance:</span>
                         <div className={`font-medium ${getComplianceColor(control.complianceStatus)}`}>
                           {control.complianceStatus.replace('-', ' ')}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Risk Level:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Risk Level:</span>
                         <div className={`font-medium ${getRiskColor(control.riskLevel)}`}>
                           {control.riskLevel}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Cost:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Cost:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           ${control.cost.toLocaleString()}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Effort:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Effort:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {control.effort}
                         </div>
                       </div>
@@ -463,12 +463,12 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Timeline:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{control.timeline}</div>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Timeline:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{control.timeline}</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Last Assessed:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Last Assessed:</span>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {control.lastAssessed.toLocaleDateString()}
                         </div>
                       </div>
@@ -476,19 +476,19 @@ const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
                     {control.implementationNotes && (
                       <div className="mb-4">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Implementation Notes:</span>
-                        <div className="mt-1 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                          <p className="text-sm text-gray-700 dark:text-gray-300">{control.implementationNotes}</p>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Implementation Notes:</span>
+                        <div className="mt-1 p-3 bg-background-light dark:bg-surface-dark rounded-lg">
+                          <p className="text-sm text-text-primary-light dark:text-text-secondary-dark">{control.implementationNotes}</p>
                         </div>
                       </div>
                     )}
 
                     {control.evidence && control.evidence.length > 0 && (
                       <div className="mb-4">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Evidence Required:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Evidence Required:</span>
                         <div className="mt-1 flex flex-wrap gap-2">
                           {control.evidence.map((evidence, index) => (
-                            <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full">
+                            <span key={index} className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 text-xs rounded-full">
                               {evidence}
                             </span>
                           ))}
@@ -523,7 +523,7 @@ Next Assessment: ${control.nextAssessment.toLocaleDateString()}`;
                       
                       addNotification('info', controlDetails);
                     }}
-                    className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
                   >
                     <Eye className="w-4 h-4" />
                     <span>View Details</span>
@@ -532,7 +532,7 @@ Next Assessment: ${control.nextAssessment.toLocaleDateString()}`;
                   <select
                     value={control.status}
                     onChange={(e) => handleStatusChange(control.id, e.target.value as Control['status'])}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   >
                     <option value="not-implemented">Not Implemented</option>
                     <option value="planned">Planned</option>
@@ -544,7 +544,7 @@ Next Assessment: ${control.nextAssessment.toLocaleDateString()}`;
                   <select
                     value={control.priority}
                     onChange={(e) => handlePriorityChange(control.id, e.target.value as Control['priority'])}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   >
                     <option value="low">Low Priority</option>
                     <option value="medium">Medium Priority</option>
@@ -554,7 +554,7 @@ Next Assessment: ${control.nextAssessment.toLocaleDateString()}`;
                   
                   <button
                     onClick={() => handleDeleteControl(control.id)}
-                    className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                    className="flex items-center space-x-2 bg-error-600 text-white px-4 py-2 rounded-lg hover:bg-error-700 transition-colors"
                   >
                     <Edit3 className="w-4 h-4" />
                     <span>Delete</span>
@@ -566,11 +566,11 @@ Next Assessment: ${control.nextAssessment.toLocaleDateString()}`;
           
           {filteredControls.length === 0 && (
             <div className="text-center py-12">
-              <Shield className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+              <Shield className="w-16 h-16 text-text-muted-dark mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                 No Controls Found
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
                 {searchTerm || filterStatus !== 'all' || filterFunction !== 'all' || filterPriority !== 'all' || filterOwner !== 'all'
                   ? 'No controls match your current search and filter criteria. Try adjusting your filters.'
                   : 'No security controls have been configured yet. Generate controls from your CMMC assessment or create them manually.'}
@@ -586,13 +586,13 @@ Next Assessment: ${control.nextAssessment.toLocaleDateString()}`;
                         addNotification('error', 'Failed to generate controls from assessment');
                       }
                     }}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors"
                   >
                     Generate from Assessment
                   </button>
                   <button
                     onClick={() => addNotification('info', 'Manual control creation is available through the assessment workflow')}
-                    className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark px-6 py-3 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors"
                   >
                     Create Manually
                   </button>

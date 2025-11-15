@@ -225,11 +225,11 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
 
   const getRiskLevelColor = (level: RiskLevel): string => {
     const colors = {
-      'very-low': 'text-green-600 bg-green-100',
-      'low': 'text-green-700 bg-green-200',
+      'very-low': 'text-success-600 bg-success-100',
+      'low': 'text-success-700 bg-success-200',
       'medium': 'text-yellow-600 bg-yellow-100',
       'high': 'text-orange-600 bg-orange-100',
-      'very-high': 'text-red-600 bg-red-100'
+      'very-high': 'text-error-600 bg-error-100'
     };
     return colors[level];
   };
@@ -237,35 +237,35 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
   const renderThreats = () => (
     <div className="space-y-4">
       {threatModel.threats.map((threat) => (
-        <div key={threat.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+        <div key={threat.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <AlertTriangle className="w-5 h-5 text-red-500" />
-                <h3 className="font-semibold text-gray-900 dark:text-white">
+                <AlertTriangle className="w-5 h-5 text-error-500" />
+                <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                   {threat.title}
                 </h3>
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskLevelColor(getRiskLevelFromScore(threat.riskScore))}`}>
                   {getRiskLevelFromScore(threat.riskScore).toUpperCase()}
                 </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="text-sm text-text-muted-light dark:text-text-muted-dark">
                   Score: {threat.riskScore}
                 </span>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 mb-2">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">
                 {threat.description}
               </p>
-              <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-4 text-sm text-text-muted-light dark:text-text-muted-dark">
                 <span>Category: {threat.category}</span>
                 <span>Likelihood: {threat.likelihood}</span>
                 <span>Impact: {threat.impact}</span>
               </div>
               {threat.cmmcPractices.length > 0 && (
                 <div className="mt-2">
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">CMMC Practices:</span>
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">CMMC Practices:</span>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {threat.cmmcPractices.map((practice, index) => (
-                      <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                      <span key={index} className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded">
                         {practice}
                       </span>
                     ))}
@@ -276,7 +276,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
             <div className="flex gap-2">
               <button
                 onClick={() => setEditingItem(threat.id)}
-                className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
               >
                 <Edit className="w-4 h-4" />
               </button>
@@ -286,7 +286,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
                   threats: prev.threats.filter(t => t.id !== threat.id),
                   lastUpdated: new Date()
                 }))}
-                className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -300,33 +300,33 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
   const renderAttackVectors = () => (
     <div className="space-y-4">
       {threatModel.attackVectors.map((vector) => (
-        <div key={vector.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+        <div key={vector.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <Target className="w-5 h-5 text-orange-500" />
-                <h3 className="font-semibold text-gray-900 dark:text-white">
+                <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                   {vector.name}
                 </h3>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 mb-2">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">
                 {vector.description}
               </p>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="font-medium text-gray-700 dark:text-gray-300">Entry Point:</span>
-                  <p className="text-gray-600 dark:text-gray-400">{vector.entryPoint}</p>
+                  <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Entry Point:</span>
+                  <p className="text-text-secondary-light dark:text-text-muted-dark">{vector.entryPoint}</p>
                 </div>
                 <div>
-                  <span className="font-medium text-gray-700 dark:text-gray-300">Target:</span>
-                  <p className="text-gray-600 dark:text-gray-400">{vector.target}</p>
+                  <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Target:</span>
+                  <p className="text-text-secondary-light dark:text-text-muted-dark">{vector.target}</p>
                 </div>
               </div>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setEditingItem(vector.id)}
-                className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
               >
                 <Edit className="w-4 h-4" />
               </button>
@@ -336,7 +336,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
                   attackVectors: prev.attackVectors.filter(v => v.id !== vector.id),
                   lastUpdated: new Date()
                 }))}
-                className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -350,27 +350,27 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
   const renderSecurityBoundaries = () => (
     <div className="space-y-4">
       {threatModel.securityBoundaries.map((boundary) => (
-        <div key={boundary.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+        <div key={boundary.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <Shield className="w-5 h-5 text-blue-500" />
-                <h3 className="font-semibold text-gray-900 dark:text-white">
+                <Shield className="w-5 h-5 text-primary-500" />
+                <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                   {boundary.name}
                 </h3>
-                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
+                <span className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark text-xs rounded">
                   {boundary.type.toUpperCase()}
                 </span>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 mb-2">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">
                 {boundary.description}
               </p>
               {boundary.controls.length > 0 && (
                 <div className="mt-2">
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Controls:</span>
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Controls:</span>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {boundary.controls.map((control, index) => (
-                      <span key={index} className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded">
+                      <span key={index} className="px-2 py-1 bg-success-100 dark:bg-success-900 text-success-800 dark:text-success-200 text-xs rounded">
                         {control}
                       </span>
                     ))}
@@ -381,7 +381,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
             <div className="flex gap-2">
               <button
                 onClick={() => setEditingItem(boundary.id)}
-                className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
               >
                 <Edit className="w-4 h-4" />
               </button>
@@ -391,7 +391,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
                   securityBoundaries: prev.securityBoundaries.filter(b => b.id !== boundary.id),
                   lastUpdated: new Date()
                 }))}
-                className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -405,38 +405,38 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
   const renderDataFlows = () => (
     <div className="space-y-4">
       {threatModel.dataFlows.map((flow) => (
-        <div key={flow.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+        <div key={flow.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <Database className="w-5 h-5 text-purple-500" />
-                <h3 className="font-semibold text-gray-900 dark:text-white">
+                <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                   {flow.name}
                 </h3>
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  flow.protectionLevel === 'high' ? 'bg-red-100 text-red-800' :
+                  flow.protectionLevel === 'high' ? 'bg-error-100 text-error-800' :
                   flow.protectionLevel === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-green-100 text-green-800'
+                  'bg-success-100 text-success-800'
                 }`}>
                   {flow.protectionLevel.toUpperCase()}
                 </span>
-                <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded">
                   {flow.dataType}
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="font-medium text-gray-700 dark:text-gray-300">Source:</span>
-                  <p className="text-gray-600 dark:text-gray-400">{flow.source}</p>
+                  <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Source:</span>
+                  <p className="text-text-secondary-light dark:text-text-muted-dark">{flow.source}</p>
                 </div>
                 <div>
-                  <span className="font-medium text-gray-700 dark:text-gray-300">Destination:</span>
-                  <p className="text-gray-600 dark:text-gray-400">{flow.destination}</p>
+                  <span className="font-medium text-text-primary-light dark:text-text-secondary-dark">Destination:</span>
+                  <p className="text-text-secondary-light dark:text-text-muted-dark">{flow.destination}</p>
                 </div>
               </div>
               {flow.controls.length > 0 && (
                 <div className="mt-2">
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Controls:</span>
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Controls:</span>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {flow.controls.map((control, index) => (
                       <span key={index} className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded">
@@ -450,7 +450,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
             <div className="flex gap-2">
               <button
                 onClick={() => setEditingItem(flow.id)}
-                className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
               >
                 <Edit className="w-4 h-4" />
               </button>
@@ -460,7 +460,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
                   dataFlows: prev.dataFlows.filter(f => f.id !== flow.id),
                   lastUpdated: new Date()
                 }))}
-                className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -478,24 +478,24 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Threat Title
                 </label>
                 <input
                   type="text"
                   value={newThreat.title}
                   onChange={(e) => setNewThreat(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Category
                 </label>
                 <select
                   value={newThreat.category}
                   onChange={(e) => setNewThreat(prev => ({ ...prev, category: e.target.value as ThreatCategory }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 >
                   {THREAT_CATEGORIES.map(category => (
                     <option key={category} value={category}>{category}</option>
@@ -504,25 +504,25 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Description
               </label>
               <textarea
                 value={newThreat.description}
                 onChange={(e) => setNewThreat(prev => ({ ...prev, description: e.target.value }))}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Likelihood
                 </label>
                 <select
                   value={newThreat.likelihood}
                   onChange={(e) => setNewThreat(prev => ({ ...prev, likelihood: e.target.value as RiskLevel }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 >
                   {RISK_LEVELS.map(level => (
                     <option key={level} value={level}>{level.replace('-', ' ').toUpperCase()}</option>
@@ -530,13 +530,13 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Impact
                 </label>
                 <select
                   value={newThreat.impact}
                   onChange={(e) => setNewThreat(prev => ({ ...prev, impact: e.target.value as RiskLevel }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 >
                   {RISK_LEVELS.map(level => (
                     <option key={level} value={level}>{level.replace('-', ' ').toUpperCase()}</option>
@@ -547,13 +547,13 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowForm(false)}
-                className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={addThreat}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 Add Threat
               </button>
@@ -576,30 +576,30 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg">
         {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark flex items-center gap-2">
                 <Target className="w-6 h-6 text-orange-600" />
                 Threat Modeling Tool
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 Analyze and model security threats for CMMC compliance
               </p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => onSave?.(threatModel)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Save className="w-4 h-4" />
                 Save Model
               </button>
               <button
                 onClick={() => onExport?.(threatModel)}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 Export
@@ -609,41 +609,41 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
         </div>
 
         {/* System Details */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 System Name
               </label>
               <input
                 type="text"
                 value={threatModel.systemName}
                 onChange={(e) => setThreatModel(prev => ({ ...prev, systemName: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter system name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 System ID
               </label>
               <input
                 type="text"
                 value={threatModel.systemId}
                 onChange={(e) => setThreatModel(prev => ({ ...prev, systemId: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter system ID"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Description
               </label>
               <textarea
                 value={threatModel.description}
                 onChange={(e) => setThreatModel(prev => ({ ...prev, description: e.target.value }))}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter system description"
               />
             </div>
@@ -651,7 +651,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-support-light dark:border-support-dark">
           <nav className="flex space-x-8 px-6">
             {[
               { id: 'threats', label: 'Threats', icon: AlertTriangle, count: threatModel.threats.length },
@@ -664,13 +664,13 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                    ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                    : 'border-transparent text-text-muted-light hover:text-text-primary-light hover:border-support-light dark:text-text-muted-dark dark:hover:text-text-secondary-dark'
                 }`}
               >
                 <tab.icon className="w-4 h-4" />
                 {tab.label}
-                <span className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full text-xs">
+                <span className="bg-support-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark px-2 py-1 rounded-full text-xs">
                   {tab.count}
                 </span>
               </button>
@@ -681,7 +681,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
         {/* Content */}
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
               {activeTab === 'threats' && 'Security Threats'}
               {activeTab === 'vectors' && 'Attack Vectors'}
               {activeTab === 'boundaries' && 'Security Boundaries'}
@@ -689,7 +689,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
             </h2>
             <button
               onClick={() => setShowForm(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               <Plus className="w-4 h-4" />
               Add {activeTab === 'threats' ? 'Threat' : activeTab === 'vectors' ? 'Attack Vector' : activeTab === 'boundaries' ? 'Boundary' : 'Data Flow'}
@@ -697,7 +697,7 @@ const ThreatModelingTool: React.FC<ThreatModelingToolProps> = ({
           </div>
 
           {showForm ? (
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
+            <div className="bg-background-light dark:bg-surface-dark rounded-lg p-6 mb-6">
               {renderForm()}
             </div>
           ) : null}

@@ -193,11 +193,11 @@ export const RACIMatrixManager: React.FC<RACIMatrixManagerProps> = ({
 
   const getResponsibilityColor = (resp: string) => {
     switch (resp) {
-      case 'R': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200';
-      case 'A': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200';
+      case 'R': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-200';
+      case 'A': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-200';
       case 'C': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200';
       case 'I': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200';
-      default: return 'bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-600';
+      default: return 'bg-background-light dark:bg-surface-dark text-text-muted-dark dark:text-text-secondary-light';
     }
   };
 
@@ -234,7 +234,7 @@ export const RACIMatrixManager: React.FC<RACIMatrixManagerProps> = ({
               </button>
             )}
             <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-              <Users className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Users className="w-8 h-8 text-primary-600 dark:text-primary-400" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
@@ -282,8 +282,8 @@ export const RACIMatrixManager: React.FC<RACIMatrixManagerProps> = ({
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-              <span className="font-bold text-green-800 dark:text-green-200">R</span>
+            <div className="w-10 h-10 rounded-lg bg-success-100 dark:bg-success-900/30 flex items-center justify-center">
+              <span className="font-bold text-success-800 dark:text-success-200">R</span>
             </div>
             <div>
               <div className="font-semibold text-text-primary-light dark:text-text-primary-dark">Responsible</div>
@@ -291,8 +291,8 @@ export const RACIMatrixManager: React.FC<RACIMatrixManagerProps> = ({
             </div>
           </div>
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-              <span className="font-bold text-blue-800 dark:text-blue-200">A</span>
+            <div className="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
+              <span className="font-bold text-primary-800 dark:text-primary-200">A</span>
             </div>
             <div>
               <div className="font-semibold text-text-primary-light dark:text-text-primary-dark">Accountable</div>
@@ -418,11 +418,11 @@ export const RACIMatrixManager: React.FC<RACIMatrixManagerProps> = ({
                 </div>
                 <div className="mt-2 grid grid-cols-4 gap-1 text-xs">
                   <div className="text-center">
-                    <div className="font-semibold text-green-600 dark:text-green-400">{stats.responsible}</div>
+                    <div className="font-semibold text-success-600 dark:text-success-400">{stats.responsible}</div>
                     <div className="text-text-muted-light dark:text-text-muted-dark">R</div>
                   </div>
                   <div className="text-center">
-                    <div className="font-semibold text-blue-600 dark:text-blue-400">{stats.accountable}</div>
+                    <div className="font-semibold text-primary-600 dark:text-primary-400">{stats.accountable}</div>
                     <div className="text-text-muted-light dark:text-text-muted-dark">A</div>
                   </div>
                   <div className="text-center">

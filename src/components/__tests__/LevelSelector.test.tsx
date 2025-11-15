@@ -61,7 +61,7 @@ describe('LevelSelector', () => {
     const level2Card = screen.getByText('Level 2 - Advanced').closest('div');
     
     // Level 1 should be selected
-    expect(level1Card?.className).toContain('border-green-500');
+    expect(level1Card?.className).toContain('border-success-500');
 
     // Change selection
     rerender(

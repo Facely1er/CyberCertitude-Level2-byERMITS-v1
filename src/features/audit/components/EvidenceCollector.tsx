@@ -259,33 +259,33 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'document': return <FileText className="w-4 h-4 text-blue-500" />;
-      case 'screenshot': return <Eye className="w-4 h-4 text-green-500" />;
+      case 'document': return <FileText className="w-4 h-4 text-primary-500" />;
+      case 'screenshot': return <Eye className="w-4 h-4 text-success-500" />;
       case 'configuration': return <Settings className="w-4 h-4 text-purple-500" />;
       case 'test-result': return <CheckCircle className="w-4 h-4 text-orange-500" />;
       case 'interview': return <Users className="w-4 h-4 text-indigo-500" />;
-      case 'observation': return <Eye className="w-4 h-4 text-gray-500" />;
-      default: return <FileText className="w-4 h-4 text-gray-500" />;
+      case 'observation': return <Eye className="w-4 h-4 text-text-muted-light" />;
+      default: return <FileText className="w-4 h-4 text-text-muted-light" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'verified': return 'text-green-600 bg-green-100';
-      case 'collected': return 'text-blue-600 bg-blue-100';
+      case 'verified': return 'text-success-600 bg-success-100';
+      case 'collected': return 'text-primary-600 bg-primary-100';
       case 'pending': return 'text-yellow-600 bg-yellow-100';
-      case 'rejected': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'rejected': return 'text-error-600 bg-error-100';
+      default: return 'text-text-secondary-light bg-support-light';
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'verified': return <CheckCircle className="w-4 h-4 text-green-500" />;
-      case 'collected': return <FileText className="w-4 h-4 text-blue-500" />;
+      case 'verified': return <CheckCircle className="w-4 h-4 text-success-500" />;
+      case 'collected': return <FileText className="w-4 h-4 text-primary-500" />;
       case 'pending': return <Clock className="w-4 h-4 text-yellow-500" />;
-      case 'rejected': return <XCircle className="w-4 h-4 text-red-500" />;
-      default: return <FileText className="w-4 h-4 text-gray-500" />;
+      case 'rejected': return <XCircle className="w-4 h-4 text-error-500" />;
+      default: return <FileText className="w-4 h-4 text-text-muted-light" />;
     }
   };
 
@@ -302,17 +302,17 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center space-x-4">
             <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-              <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <FileText className="w-8 h-8 text-primary-600 dark:text-primary-400" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 Evidence Collector
               </h1>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark">
                 Collect and manage compliance evidence for CMMC assessments
               </p>
             </div>
@@ -321,12 +321,12 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
       </div>
 
       {/* Evidence Categories Overview */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg mb-8">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
             Evidence Categories
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">
             Evidence organized by CMMC practice areas and compliance domains
           </p>
         </div>
@@ -334,17 +334,17 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Access Control */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 border border-primary-200 dark:border-primary-800">
               <div className="flex items-center space-x-3 mb-3">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                  <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                  <Shield className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-blue-900 dark:text-blue-100">Access Control</h3>
-                  <p className="text-sm text-blue-700 dark:text-blue-300">Identity & Access Management</p>
+                  <h3 className="font-semibold text-primary-900 dark:text-primary-100">Access Control</h3>
+                  <p className="text-sm text-primary-700 dark:text-primary-300">Identity & Access Management</p>
                 </div>
               </div>
-              <div className="text-sm text-blue-700 dark:text-blue-300">
+              <div className="text-sm text-primary-700 dark:text-primary-300">
                 <div className="flex justify-between">
                   <span>Items:</span>
                   <span className="font-medium">{evidenceItems.filter(item => item.category === 'Access Control').length}</span>
@@ -357,17 +357,17 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
             </div>
 
             {/* Awareness and Training */}
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-4 border border-green-200 dark:border-green-800">
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-4 border border-success-200 dark:border-success-800">
               <div className="flex items-center space-x-3 mb-3">
-                <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                  <Users className="w-5 h-5 text-green-600 dark:text-green-400" />
+                <div className="p-2 bg-success-100 dark:bg-success-900/30 rounded-lg">
+                  <Users className="w-5 h-5 text-success-600 dark:text-success-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-green-900 dark:text-green-100">Awareness & Training</h3>
-                  <p className="text-sm text-green-700 dark:text-green-300">Security Education</p>
+                  <h3 className="font-semibold text-success-900 dark:text-success-100">Awareness & Training</h3>
+                  <p className="text-sm text-success-700 dark:text-success-300">Security Education</p>
                 </div>
               </div>
-              <div className="text-sm text-green-700 dark:text-green-300">
+              <div className="text-sm text-success-700 dark:text-success-300">
                 <div className="flex justify-between">
                   <span>Items:</span>
                   <span className="font-medium">{evidenceItems.filter(item => item.category === 'Awareness and Training').length}</span>
@@ -403,17 +403,17 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
             </div>
 
             {/* Incident Response */}
-            <div className="bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-lg p-4 border border-red-200 dark:border-red-800">
+            <div className="bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-lg p-4 border border-error-200 dark:border-error-800">
               <div className="flex items-center space-x-3 mb-3">
-                <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                  <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
+                <div className="p-2 bg-error-100 dark:bg-error-900/30 rounded-lg">
+                  <AlertTriangle className="w-5 h-5 text-error-600 dark:text-error-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-red-900 dark:text-red-100">Incident Response</h3>
-                  <p className="text-sm text-red-700 dark:text-red-300">Security Incidents</p>
+                  <h3 className="font-semibold text-error-900 dark:text-error-100">Incident Response</h3>
+                  <p className="text-sm text-error-700 dark:text-error-300">Security Incidents</p>
                 </div>
               </div>
-              <div className="text-sm text-red-700 dark:text-red-300">
+              <div className="text-sm text-error-700 dark:text-error-300">
                 <div className="flex justify-between">
                   <span>Items:</span>
                   <span className="font-medium">{evidenceItems.filter(item => item.category === 'Incident Response').length}</span>
@@ -429,16 +429,16 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
       </div>
 
       {/* Filters and Search */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-6 mb-8">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-4 h-4" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Search evidence items..."
               />
             </div>
@@ -447,7 +447,7 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             >
               <option value="all">All Categories</option>
               <option value="Access Control">Access Control</option>
@@ -461,7 +461,7 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             >
               <option value="all">All Types</option>
               {EVIDENCE_TYPES.map(type => (
@@ -473,7 +473,7 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             >
               <option value="all">All Statuses</option>
               <option value="pending">Pending</option>
@@ -483,7 +483,7 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
             </select>
             <button
               onClick={() => setShowAddForm(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               <Plus className="w-4 h-4" />
               Add Evidence
@@ -493,39 +493,39 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
       </div>
 
       {/* Evidence Items */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
             Evidence Items ({filteredItems.length})
           </h2>
         </div>
         <div className="p-6">
           {filteredItems.length === 0 ? (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-8 text-text-muted-light dark:text-text-muted-dark">
               No evidence items found matching your criteria.
             </div>
           ) : (
             <div className="space-y-4">
               {filteredItems.map((item) => (
-                <div key={item.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                <div key={item.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         {getTypeIcon(item.type)}
-                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                        <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                           {item.title}
                         </h3>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(item.status)}`}>
                           {item.status.toUpperCase()}
                         </span>
-                        <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
+                        <span className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark text-xs rounded">
                           {item.type.toUpperCase()}
                         </span>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-300 mb-2">
+                      <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">
                         {item.description}
                       </p>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-500 dark:text-gray-400">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-text-muted-light dark:text-text-muted-dark">
                         <div>
                           <span className="font-medium">Category:</span> {item.category}
                         </div>
@@ -538,16 +538,16 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
                       </div>
                       {item.notes && (
                         <div className="mt-2">
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Notes:</span>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.notes}</p>
+                          <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Notes:</span>
+                          <p className="text-sm text-text-secondary-light dark:text-text-muted-dark mt-1">{item.notes}</p>
                         </div>
                       )}
                       {item.tags.length > 0 && (
                         <div className="mt-2">
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Tags:</span>
+                          <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Tags:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {item.tags.map((tag, index) => (
-                              <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                              <span key={index} className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded">
                                 {tag}
                               </span>
                             ))}
@@ -558,13 +558,13 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
                     <div className="flex gap-2">
                       <button
                         onClick={() => setEditingItem(item.id)}
-                        className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                        className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
                       >
                         <Edit className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => deleteEvidenceItem(item.id)}
-                        className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                        className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -580,33 +580,33 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
       {/* Add Evidence Form Modal */}
       {showAddForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-support-light dark:border-support-dark">
+              <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                 Add Evidence Item
               </h3>
             </div>
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Title *
                   </label>
                   <input
                     type="text"
                     value={newItem.title}
                     onChange={(e) => setNewItem(prev => ({ ...prev, title: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Type
                   </label>
                   <select
                     value={newItem.type}
                     onChange={(e) => setNewItem(prev => ({ ...prev, type: e.target.value as any }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   >
                     {EVIDENCE_TYPES.map(type => (
                       <option key={type} value={type}>
@@ -617,36 +617,36 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Description *
                 </label>
                 <textarea
                   value={newItem.description}
                   onChange={(e) => setNewItem(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Category *
                   </label>
                   <input
                     type="text"
                     value={newItem.category}
                     onChange={(e) => setNewItem(prev => ({ ...prev, category: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     CMMC Practice *
                   </label>
                   <select
                     value={newItem.cmmcPractice}
                     onChange={(e) => setNewItem(prev => ({ ...prev, cmmcPractice: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   >
                     <option value="">Select Practice</option>
                     {CMMC_PRACTICES.map(practice => (
@@ -656,18 +656,18 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Notes
                 </label>
                 <textarea
                   value={newItem.notes}
                   onChange={(e) => setNewItem(prev => ({ ...prev, notes: e.target.value }))}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Tags
                 </label>
                 <div className="flex gap-2 mb-2">
@@ -676,12 +676,12 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
                     value={newTag}
                     onChange={(e) => setNewTag(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && addTag()}
-                    className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     placeholder="Enter tag"
                   />
                   <button
                     onClick={addTag}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                   >
                     Add
                   </button>
@@ -690,12 +690,12 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
                   {newItem.tags?.map((tag, index) => (
                     <span
                       key={index}
-                      className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
+                      className="inline-flex items-center gap-1 px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-sm rounded-full"
                     >
                       {tag}
                       <button
                         onClick={() => removeTag(index)}
-                        className="ml-1 text-blue-600 hover:text-blue-800"
+                        className="ml-1 text-primary-600 hover:text-primary-800"
                       >
                         <XCircle className="w-3 h-3" />
                       </button>
@@ -704,16 +704,16 @@ const EvidenceCollector: React.FC<EvidenceCollectorProps> = ({
                 </div>
               </div>
             </div>
-            <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">
+            <div className="p-6 border-t border-support-light dark:border-support-dark flex justify-end gap-3">
               <button
                 onClick={() => setShowAddForm(false)}
-                className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={addEvidenceItem}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 Add Evidence
               </button>

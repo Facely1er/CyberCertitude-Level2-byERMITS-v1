@@ -181,8 +181,8 @@ export const ConfigurationManagementPlanGenerator: React.FC<ConfigurationManagem
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div className="card-standard">
           <div className="flex items-center space-x-3 mb-2">
-            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-              <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+              <Shield className="w-6 h-6 text-primary-600 dark:text-primary-400" />
             </div>
             <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
               CMMC 2.0 Compliance
@@ -444,8 +444,8 @@ export const ConfigurationManagementPlanGenerator: React.FC<ConfigurationManagem
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="card-standard">
               <div className="flex items-center space-x-3 mb-2">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                  <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                  <Shield className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                   Baseline Configurations

@@ -604,19 +604,19 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
 
   const getAssessmentColor = (assessment: string) => {
     switch (assessment) {
-      case 'compliant': return 'text-green-600 bg-green-100';
+      case 'compliant': return 'text-success-600 bg-success-100';
       case 'partially-compliant': return 'text-yellow-600 bg-yellow-100';
-      case 'non-compliant': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'non-compliant': return 'text-error-600 bg-error-100';
+      default: return 'text-text-secondary-light bg-support-light';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 bg-red-100';
+      case 'critical': return 'text-error-600 bg-error-100';
       case 'high': return 'text-orange-600 bg-orange-100';
       case 'medium': return 'text-yellow-600 bg-yellow-100';
-      default: return 'text-green-600 bg-green-100';
+      default: return 'text-success-600 bg-success-100';
     }
   };
 
@@ -643,27 +643,27 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
 
   const renderOverview = () => (
     <div className="space-y-6">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               CMMC 2.0 Level 2 Control Assessor
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-1">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
               Assess and validate all 110 CMMC 2.0 Level 2 security controls
             </p>
           </div>
           <div className="flex gap-2">
             <button
               onClick={() => onSave?.(domains)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               <Save className="w-4 h-4" />
               Save Assessment
             </button>
             <button
               onClick={() => onExport?.(domains)}
-              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
             >
               <Download className="w-4 h-4" />
               Export
@@ -674,20 +674,20 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
         {/* Overall Progress */}
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
               Overall Compliance Progress
             </h3>
-            <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
               {overallProgress}%
             </span>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+          <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-3">
             <div 
               className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300"
               style={{ width: `${overallProgress}%` }}
             />
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-2">
             {filteredDomains.reduce((acc, domain) => acc + domain.controls.filter(control => control.assessment === 'compliant').length, 0)} of {filteredDomains.reduce((acc, domain) => acc + domain.controls.length, 0)} controls compliant
           </p>
         </div>
@@ -695,19 +695,19 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-4 h-4" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               placeholder="Search controls..."
             />
           </div>
           <select
             value={filterAssessment}
             onChange={(e) => setFilterAssessment(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="all">All Assessments</option>
             <option value="not-assessed">Not Assessed</option>
@@ -718,7 +718,7 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
           <select
             value={filterPriority}
             onChange={(e) => setFilterPriority(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="all">All Priorities</option>
             <option value="critical">Critical</option>
@@ -735,24 +735,24 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
               key={domain.id}
               className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                 activeDomain === domain.id
-                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                  : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                  : 'border-support-light dark:border-support-dark hover:border-support-light dark:hover:border-support-light'
               }`}
               onClick={() => setActiveDomain(domain.id)}
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className={`p-2 rounded-lg ${
-                  domain.status === 'completed' ? 'bg-green-100 text-green-600' :
-                  domain.status === 'in-progress' ? 'bg-blue-100 text-blue-600' :
-                  'bg-gray-100 text-gray-600'
+                  domain.status === 'completed' ? 'bg-success-100 text-success-600' :
+                  domain.status === 'in-progress' ? 'bg-primary-100 text-primary-600' :
+                  'bg-support-light text-text-secondary-light'
                 }`}>
                   {getDomainIcon(domain.id)}
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
+                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                     {domain.name}
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                     {domain.controls.length} controls
                   </p>
                 </div>
@@ -760,20 +760,20 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
               
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-300">Progress</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{domain.progress}%</span>
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">Progress</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">{domain.progress}%</span>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
                   <div 
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      domain.status === 'completed' ? 'bg-green-500' :
-                      domain.status === 'in-progress' ? 'bg-blue-500' :
-                      'bg-gray-400'
+                      domain.status === 'completed' ? 'bg-success-500' :
+                      domain.status === 'in-progress' ? 'bg-primary-500' :
+                      'bg-support-light'
                     }`}
                     style={{ width: `${domain.progress}%` }}
                   />
                 </div>
-                <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <div className="flex items-center justify-between text-xs text-text-muted-light dark:text-text-muted-dark">
                   <span>{domain.controls.filter(c => c.assessment === 'compliant').length} compliant</span>
                   <span>{domain.controls.length} total</span>
                 </div>
@@ -791,19 +791,19 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
 
     return (
       <div className="space-y-6">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 {domain.name}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 {domain.description}
               </p>
             </div>
             <button
               onClick={() => setActiveDomain('')}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Overview
@@ -816,8 +816,8 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
                 key={control.id}
                 className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                   activeControl === control.id
-                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                    : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                    : 'border-support-light dark:border-support-dark hover:border-support-light dark:hover:border-support-light'
                 }`}
                 onClick={() => {
                   setActiveControl(control.id);
@@ -827,14 +827,14 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-sm font-bold text-gray-600 dark:text-gray-300">
+                      <div className="w-8 h-8 bg-support-light dark:bg-surface-dark rounded-full flex items-center justify-center text-sm font-bold text-text-secondary-light dark:text-text-secondary-dark">
                         {control.practice}
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-semibold text-gray-900 dark:text-white">
+                        <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                           {control.title}
                         </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                        <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                           {control.description}
                         </p>
                       </div>
@@ -847,7 +847,7 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(control.priority)}`}>
                         {control.priority.toUpperCase()}
                       </span>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
                         {control.level}
                       </span>
                     </div>
@@ -859,7 +859,7 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
                         e.stopPropagation();
                         updateControlAssessment(domain.id, control.id, 'compliant');
                       }}
-                      className="p-2 text-gray-500 hover:text-green-600 transition-colors"
+                      className="p-2 text-text-muted-light hover:text-success-600 transition-colors"
                       title="Mark Compliant"
                     >
                       <CheckCircle className="w-4 h-4" />
@@ -869,7 +869,7 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
                         e.stopPropagation();
                         updateControlAssessment(domain.id, control.id, 'non-compliant');
                       }}
-                      className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                      className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
                       title="Mark Non-Compliant"
                     >
                       <XCircle className="w-4 h-4" />
@@ -891,19 +891,19 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
 
     return (
       <div className="space-y-6">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 {control.practice} - {control.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 {control.description}
               </p>
             </div>
             <button
               onClick={() => setShowControlDetails(false)}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Controls
@@ -913,29 +913,29 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Control Information */}
             <div className="space-y-6">
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Control Information</h4>
+              <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Control Information</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Practice:</span>
-                    <span className="text-gray-900 dark:text-white">{control.practice}</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Practice:</span>
+                    <span className="text-text-primary-light dark:text-text-primary-dark">{control.practice}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Domain:</span>
-                    <span className="text-gray-900 dark:text-white">{control.domain}</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Domain:</span>
+                    <span className="text-text-primary-light dark:text-text-primary-dark">{control.domain}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Level:</span>
-                    <span className="text-gray-900 dark:text-white">{control.level}</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Level:</span>
+                    <span className="text-text-primary-light dark:text-text-primary-dark">{control.level}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Priority:</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Priority:</span>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(control.priority)}`}>
                       {control.priority.toUpperCase()}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Assessment:</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Assessment:</span>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getAssessmentColor(control.assessment)}`}>
                       {control.assessment.replace('-', ' ').toUpperCase()}
                     </span>
@@ -944,12 +944,12 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
               </div>
 
               {/* Assessment Actions */}
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Assessment Actions</h4>
+              <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Assessment Actions</h4>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => updateControlAssessment(domain.id, control.id, 'compliant')}
-                    className="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+                    className="px-3 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors text-sm"
                   >
                     Compliant
                   </button>
@@ -961,13 +961,13 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
                   </button>
                   <button
                     onClick={() => updateControlAssessment(domain.id, control.id, 'non-compliant')}
-                    className="px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
+                    className="px-3 py-2 bg-error-600 text-white rounded-lg hover:bg-error-700 transition-colors text-sm"
                   >
                     Non-Compliant
                   </button>
                   <button
                     onClick={() => updateControlAssessment(domain.id, control.id, 'not-assessed')}
-                    className="px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm"
+                    className="px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-surface-dark transition-colors text-sm"
                   >
                     Not Assessed
                   </button>
@@ -977,32 +977,32 @@ const CMMCControlAssessor: React.FC<CMMCControlAssessorProps> = ({
 
             {/* Implementation Details */}
             <div className="space-y-6">
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Implementation</h4>
+              <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Implementation</h4>
                 <textarea
                   value={control.implementation}
                   onChange={(e) => updateControlDetails(domain.id, control.id, { implementation: e.target.value })}
-                  className="w-full h-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white text-sm"
+                  className="w-full h-24 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark text-sm"
                   placeholder="Describe implementation details..."
                 />
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Verification</h4>
+              <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Verification</h4>
                 <textarea
                   value={control.verification}
                   onChange={(e) => updateControlDetails(domain.id, control.id, { verification: e.target.value })}
-                  className="w-full h-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white text-sm"
+                  className="w-full h-24 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark text-sm"
                   placeholder="Describe verification methods..."
                 />
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Notes</h4>
+              <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Notes</h4>
                 <textarea
                   value={control.notes}
                   onChange={(e) => updateControlDetails(domain.id, control.id, { notes: e.target.value })}
-                  className="w-full h-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white text-sm"
+                  className="w-full h-24 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark text-sm"
                   placeholder="Add assessment notes..."
                 />
               </div>

@@ -83,10 +83,10 @@ const ImplementationOverview: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'in-progress': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+      case 'completed': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'in-progress': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300';
       case 'pending': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      default: return 'bg-support-light dark:bg-background-dark/30 text-text-primary-light dark:text-text-secondary-dark';
     }
   };
 
@@ -98,22 +98,22 @@ const ImplementationOverview: React.FC = () => {
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                <Activity className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <Activity className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">CMMC 2.0 Implementation Overview</h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">CMMC 2.0 Implementation Overview</h1>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Track overall progress, milestones, and compliance status
                 </p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
-              <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <button className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
                 <FileText className="w-4 h-4" />
                 <span>Generate Report</span>
               </button>
@@ -124,72 +124,72 @@ const ImplementationOverview: React.FC = () => {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+              <TrendingUp className="w-6 h-6 text-primary-600 dark:text-primary-400" />
             </div>
-            <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">{Math.round(overallProgress)}%</span>
+            <span className="text-3xl font-bold text-primary-600 dark:text-primary-400">{Math.round(overallProgress)}%</span>
           </div>
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Overall Progress</h3>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{completedControls} of {totalControls} controls complete</p>
+          <h3 className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Overall Progress</h3>
+          <p className="text-xs text-text-secondary-light dark:text-text-muted-dark mt-1">{completedControls} of {totalControls} controls complete</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-              <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <div className="p-2 bg-success-100 dark:bg-success-900/30 rounded-lg">
+              <CheckCircle className="w-6 h-6 text-success-600 dark:text-success-400" />
             </div>
-            <span className="text-3xl font-bold text-green-600 dark:text-green-400">4</span>
+            <span className="text-3xl font-bold text-success-600 dark:text-success-400">4</span>
           </div>
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Completed Domains</h3>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Out of 14 total domains</p>
+          <h3 className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Completed Domains</h3>
+          <p className="text-xs text-text-secondary-light dark:text-text-muted-dark mt-1">Out of 14 total domains</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
               <Clock className="w-6 h-6 text-orange-600 dark:text-orange-400" />
             </div>
             <span className="text-3xl font-bold text-orange-600 dark:text-orange-400">7</span>
           </div>
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">In Progress</h3>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Active implementation tasks</p>
+          <h3 className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">In Progress</h3>
+          <p className="text-xs text-text-secondary-light dark:text-text-muted-dark mt-1">Active implementation tasks</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-              <AlertTriangle className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <div className="p-2 bg-error-100 dark:bg-error-900/30 rounded-lg">
+              <AlertTriangle className="w-6 h-6 text-error-600 dark:text-error-400" />
             </div>
-            <span className="text-3xl font-bold text-red-600 dark:text-red-400">3</span>
+            <span className="text-3xl font-bold text-error-600 dark:text-error-400">3</span>
           </div>
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">At Risk</h3>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Tasks needing attention</p>
+          <h3 className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">At Risk</h3>
+          <p className="text-xs text-text-secondary-light dark:text-text-muted-dark mt-1">Tasks needing attention</p>
         </div>
       </div>
 
       {/* Domain Progress */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Domain Progress</h2>
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Domain Progress</h2>
         </div>
         <div className="p-6">
           <div className="space-y-4">
             {domainProgress.map((domain, idx) => (
-              <div key={idx} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <div key={idx} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-3">
-                    <h3 className="font-semibold text-gray-900 dark:text-white">{domain.domain}</h3>
+                    <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{domain.domain}</h3>
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(domain.status)}`}>
                       {domain.status}
                     </span>
                   </div>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">{domain.completedControls}/{domain.totalControls}</span>
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">{domain.completedControls}/{domain.totalControls}</span>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
                   <div 
-                    className="bg-blue-600 h-2 rounded-full transition-all"
+                    className="bg-primary-600 h-2 rounded-full transition-all"
                     style={{ width: `${domain.progress}%` }}
                   ></div>
                 </div>
@@ -200,22 +200,22 @@ const ImplementationOverview: React.FC = () => {
       </div>
 
       {/* Upcoming Deadlines */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Upcoming Deadlines</h2>
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Upcoming Deadlines</h2>
         </div>
         <div className="p-6">
           <div className="space-y-4">
             {upcomingDeadlines.map((milestone) => (
-              <div key={milestone.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <div key={milestone.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                      <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                      <Target className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">{milestone.name}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">Owner: {milestone.owner}</p>
+                      <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{milestone.name}</h3>
+                      <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Owner: {milestone.owner}</p>
                     </div>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(milestone.status)}`}>
@@ -224,12 +224,12 @@ const ImplementationOverview: React.FC = () => {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-300">Due Date</span>
-                    <span className="font-medium text-gray-900 dark:text-white">{milestone.dueDate.toLocaleDateString()}</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Due Date</span>
+                    <span className="font-medium text-text-primary-light dark:text-text-primary-dark">{milestone.dueDate.toLocaleDateString()}</span>
                   </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
                     <div 
-                      className="bg-blue-600 h-2 rounded-full transition-all"
+                      className="bg-primary-600 h-2 rounded-full transition-all"
                       style={{ width: `${milestone.progress}%` }}
                     ></div>
                   </div>
@@ -241,9 +241,9 @@ const ImplementationOverview: React.FC = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Recent Activity</h2>
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Recent Activity</h2>
         </div>
         <div className="p-6">
           <div className="space-y-3">
@@ -253,13 +253,13 @@ const ImplementationOverview: React.FC = () => {
               { action: 'Security training completed', user: 'Training Team', time: '1 day ago', icon: Users, color: 'purple' },
               { action: 'Risk assessment submitted', user: 'Risk Team', time: '2 days ago', icon: AlertTriangle, color: 'orange' }
             ].map((activity, idx) => (
-              <div key={idx} className="flex items-center space-x-4 p-3 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <div key={idx} className="flex items-center space-x-4 p-3 border border-support-light dark:border-support-dark rounded-lg">
                 <div className={`p-2 bg-${activity.color}-100 dark:bg-${activity.color}-900/30 rounded-lg`}>
                   <activity.icon className={`w-5 h-5 text-${activity.color}-600 dark:text-${activity.color}-400`} />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">{activity.action}</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-300">{activity.user} • {activity.time}</p>
+                  <p className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">{activity.action}</p>
+                  <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">{activity.user} • {activity.time}</p>
                 </div>
               </div>
             ))}

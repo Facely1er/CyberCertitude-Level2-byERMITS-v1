@@ -200,20 +200,20 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
 
   const getMappingTypeColor = React.useCallback((type: string) => {
     switch (type) {
-      case 'direct': return 'text-green-600 bg-green-100';
+      case 'direct': return 'text-success-600 bg-success-100';
       case 'partial': return 'text-yellow-600 bg-yellow-100';
-      case 'equivalent': return 'text-blue-600 bg-blue-100';
+      case 'equivalent': return 'text-primary-600 bg-primary-100';
       case 'custom': return 'text-purple-600 bg-purple-100';
-      default: return 'text-gray-600 bg-gray-100';
+      default: return 'text-text-secondary-light bg-support-light';
     }
   }, []);
 
   const getConfidenceColor = React.useCallback((confidence: string) => {
     switch (confidence) {
-      case 'high': return 'text-green-600 bg-green-100';
+      case 'high': return 'text-success-600 bg-success-100';
       case 'medium': return 'text-yellow-600 bg-yellow-100';
-      case 'low': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'low': return 'text-error-600 bg-error-100';
+      default: return 'text-text-secondary-light bg-support-light';
     }
   }, []);
 
@@ -221,16 +221,16 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
   if (hasError) {
     return (
       <div className="flex items-center justify-center min-h-[400px] text-center">
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-red-800 dark:text-red-200 mb-2">
+        <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-error-800 dark:text-error-200 mb-2">
             React Hook Error Detected
           </h3>
-          <p className="text-red-600 dark:text-red-300 mb-4">
+          <p className="text-error-600 dark:text-error-300 mb-4">
             This component encountered a React hook error. Please try refreshing the page or disabling browser extensions.
           </p>
           <button 
             onClick={() => window.location.reload()} 
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+            className="px-4 py-2 bg-error-600 text-white rounded hover:bg-error-700"
           >
             Reload Page
           </button>
@@ -249,30 +249,30 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs} />
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg">
         {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Target className="w-6 h-6 text-blue-600" />
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark flex items-center gap-2">
+                <Target className="w-6 h-6 text-primary-600" />
                 Security Control Mapper
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 Map security controls across different frameworks for CMMC compliance
               </p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => onSave?.(mappings)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Save className="w-4 h-4" />
                 Save Mappings
               </button>
               <button
                 onClick={() => onExport?.(mappings)}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 Export
@@ -282,16 +282,16 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
         </div>
 
         {/* Filters and Search */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-4 h-4" />
                 <input
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   placeholder="Search control mappings..."
                 />
               </div>
@@ -300,7 +300,7 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
               <select
                 value={filterSource}
                 onChange={(e) => setFilterSource(e.target.value)}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 <option value="all">All Source Frameworks</option>
                 {FRAMEWORKS.map(framework => (
@@ -310,7 +310,7 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
               <select
                 value={filterTarget}
                 onChange={(e) => setFilterTarget(e.target.value)}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 <option value="all">All Target Frameworks</option>
                 {FRAMEWORKS.map(framework => (
@@ -319,7 +319,7 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
               </select>
               <button
                 onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 Add Mapping
@@ -330,23 +330,23 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
 
         {/* Mappings List */}
         <div className="p-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
             Control Mappings ({filteredMappings.length})
           </h2>
 
           {filteredMappings.length === 0 ? (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-8 text-text-muted-light dark:text-text-muted-dark">
               No control mappings found. Click "Add Mapping" to get started.
             </div>
           ) : (
             <div className="space-y-4">
               {filteredMappings.map((mapping) => (
-                <div key={mapping.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                <div key={mapping.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <Target className="w-5 h-5 text-blue-500" />
-                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                        <Target className="w-5 h-5 text-primary-500" />
+                        <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                           {mapping.sourceControl} → {mapping.targetControl}
                         </h3>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getMappingTypeColor(mapping.mappingType || 'direct')}`}>
@@ -356,16 +356,16 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                           {(mapping.confidence || 'high').toUpperCase()}
                         </span>
                         {mapping.verified && (
-                          <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded-full flex items-center gap-1">
+                          <span className="px-2 py-1 bg-success-100 dark:bg-success-900 text-success-800 dark:text-success-200 text-xs rounded-full flex items-center gap-1">
                             <CheckCircle className="w-3 h-3" />
                             VERIFIED
                           </span>
                         )}
                       </div>
-                      <p className="text-gray-600 dark:text-gray-300 mb-2">
+                      <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">
                         {mapping.description}
                       </p>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-500 dark:text-gray-400">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-text-muted-light dark:text-text-muted-dark">
                         <div>
                           <span className="font-medium">Source:</span> {mapping.sourceFramework} - {mapping.sourceControl}
                         </div>
@@ -381,10 +381,10 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                       </div>
                       {mapping.evidence.length > 0 && (
                         <div className="mt-2">
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Evidence:</span>
+                          <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Evidence:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {mapping.evidence.map((evidence, index) => (
-                              <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                              <span key={index} className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded">
                                 {evidence}
                               </span>
                             ))}
@@ -393,21 +393,21 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                       )}
                       {mapping.notes && (
                         <div className="mt-2">
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Notes:</span>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{mapping.notes}</p>
+                          <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Notes:</span>
+                          <p className="text-sm text-text-secondary-light dark:text-text-muted-dark mt-1">{mapping.notes}</p>
                         </div>
                       )}
                     </div>
                     <div className="flex gap-2">
                       <button
                         onClick={() => setEditingMapping(mapping.id)}
-                        className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                        className="p-2 text-text-muted-light hover:text-primary-600 transition-colors"
                       >
                         <Edit className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => deleteMapping(mapping.id)}
-                        className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                        className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -422,34 +422,34 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
         {/* Add Mapping Form Modal */}
         {showAddForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6 border-b border-support-light dark:border-support-dark">
+                <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                   Add Control Mapping
                 </h3>
               </div>
               <div className="p-6 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Source Control *
                     </label>
                     <input
                       type="text"
                       value={newMapping.sourceControl}
                       onChange={(e) => setNewMapping(prev => ({ ...prev, sourceControl: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                       placeholder="e.g., AC.1.001"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Source Framework
                     </label>
                     <select
                       value={newMapping.sourceFramework}
                       onChange={(e) => setNewMapping(prev => ({ ...prev, sourceFramework: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     >
                       {FRAMEWORKS.map(framework => (
                         <option key={framework} value={framework}>{framework}</option>
@@ -457,25 +457,25 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Target Control *
                     </label>
                     <input
                       type="text"
                       value={newMapping.targetControl}
                       onChange={(e) => setNewMapping(prev => ({ ...prev, targetControl: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                       placeholder="e.g., AC-1"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Target Framework
                     </label>
                     <select
                       value={newMapping.targetFramework}
                       onChange={(e) => setNewMapping(prev => ({ ...prev, targetFramework: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     >
                       {FRAMEWORKS.map(framework => (
                         <option key={framework} value={framework}>{framework}</option>
@@ -485,13 +485,13 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Mapping Type
                     </label>
                     <select
                       value={newMapping.mappingType || 'direct'}
                       onChange={(e) => setNewMapping(prev => ({ ...prev, mappingType: e.target.value as any }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     >
                       {MAPPING_TYPES.map(type => (
                         <option key={type} value={type}>
@@ -501,13 +501,13 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       Confidence Level
                     </label>
                     <select
                       value={newMapping.confidence || 'high'}
                       onChange={(e) => setNewMapping(prev => ({ ...prev, confidence: e.target.value as any }))}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     >
                       {CONFIDENCE_LEVELS.map(level => (
                         <option key={level} value={level}>
@@ -518,31 +518,31 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Description *
                   </label>
                   <textarea
                     value={newMapping.description}
                     onChange={(e) => setNewMapping(prev => ({ ...prev, description: e.target.value }))}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     placeholder="Describe the mapping relationship..."
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Implementation
                   </label>
                   <textarea
                     value={newMapping.implementation}
                     onChange={(e) => setNewMapping(prev => ({ ...prev, implementation: e.target.value }))}
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     placeholder="Implementation guidance..."
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Evidence
                   </label>
                   <div className="flex gap-2 mb-2">
@@ -551,12 +551,12 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                       value={newEvidence}
                       onChange={(e) => setNewEvidence(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && addEvidence()}
-                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                       placeholder="Enter evidence item"
                     />
                     <button
                       onClick={addEvidence}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                     >
                       Add
                     </button>
@@ -565,12 +565,12 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                     {(newMapping.evidence || []).map((evidence, index) => (
                       <span
                         key={index}
-                        className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
+                        className="inline-flex items-center gap-1 px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-sm rounded-full"
                       >
                         {evidence}
                         <button
                           onClick={() => removeEvidence(index)}
-                          className="ml-1 text-blue-600 hover:text-blue-800"
+                          className="ml-1 text-primary-600 hover:text-primary-800"
                         >
                           <XCircle className="w-3 h-3" />
                         </button>
@@ -579,28 +579,28 @@ const SecurityControlMapper: React.FC<SecurityControlMapperProps> = ({
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                     Notes
                   </label>
                   <textarea
                     value={newMapping.notes}
                     onChange={(e) => setNewMapping(prev => ({ ...prev, notes: e.target.value }))}
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                     placeholder="Additional notes..."
                   />
                 </div>
               </div>
-              <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">
+              <div className="p-6 border-t border-support-light dark:border-support-dark flex justify-end gap-3">
                 <button
                   onClick={() => setShowAddForm(false)}
-                  className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                  className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={addMapping}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                 >
                   Add Mapping
                 </button>

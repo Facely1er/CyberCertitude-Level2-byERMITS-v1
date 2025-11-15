@@ -200,16 +200,16 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <FileText className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Document Generator</h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">Document Generator</h1>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Generate SSP, POAM, and RACI Matrix from your CMMC assessment
                 </p>
               </div>
@@ -217,7 +217,7 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
             
             <button
               onClick={onBack}
-              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
             >
               <ArrowRight className="w-4 h-4" />
               <span>Back</span>
@@ -230,13 +230,13 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
         {/* Configuration Panel */}
         <div className="space-y-6">
           {/* Assessment Selection */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Select Assessment</h3>
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Select Assessment</h3>
             {savedAssessments.length === 0 ? (
               <div className="text-center py-8">
-                <Database className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600 dark:text-gray-300 mb-4">No assessments found</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <Database className="w-12 h-12 text-text-muted-dark mx-auto mb-4" />
+                <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">No assessments found</p>
+                <p className="text-sm text-text-muted-light dark:text-text-muted-dark">
                   Complete a CMMC assessment first to generate documents
                 </p>
               </div>
@@ -247,20 +247,20 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                     key={assessment.id}
                     className={`p-4 border rounded-lg cursor-pointer transition-colors ${
                       selectedAssessment?.id === assessment.id
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                        : 'border-support-light dark:border-support-dark hover:border-support-light dark:hover:border-support-dark'
                     }`}
                     onClick={() => setSelectedAssessment(assessment)}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-medium text-gray-900 dark:text-white">{assessment.name}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                        <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark">{assessment.name}</h4>
+                        <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                           {assessment.framework} • {new Date(assessment.createdAt).toLocaleDateString()}
                         </p>
                       </div>
                       <CheckCircle className={`w-5 h-5 ${
-                        selectedAssessment?.id === assessment.id ? 'text-blue-500' : 'text-gray-400'
+                        selectedAssessment?.id === assessment.id ? 'text-primary-500' : 'text-text-muted-dark'
                       }`} />
                     </div>
                   </div>
@@ -270,54 +270,54 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
           </div>
 
           {/* Organization Information */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Organization Information</h3>
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Organization Information</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Organization Name *
                 </label>
                 <input
                   type="text"
                   value={organizationInfo.name}
                   onChange={(e) => setOrganizationInfo(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   placeholder="Enter organization name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   System Name *
                 </label>
                 <input
                   type="text"
                   value={organizationInfo.systemName}
                   onChange={(e) => setOrganizationInfo(prev => ({ ...prev, systemName: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   placeholder="Enter system name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   System Description
                 </label>
                 <textarea
                   value={organizationInfo.systemDescription}
                   onChange={(e) => setOrganizationInfo(prev => ({ ...prev, systemDescription: e.target.value }))}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   placeholder="Describe the system and its purpose"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Contact Information
                 </label>
                 <input
                   type="text"
                   value={organizationInfo.contact}
                   onChange={(e) => setOrganizationInfo(prev => ({ ...prev, contact: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   placeholder="Enter contact information"
                 />
               </div>
@@ -325,8 +325,8 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
           </div>
 
           {/* Template Options */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">SSP Generation Options</h3>
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">SSP Generation Options</h3>
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <input
@@ -335,9 +335,9 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                   name="generationMethod"
                   checked={!useTemplate}
                   onChange={() => setUseTemplate(false)}
-                  className="w-4 h-4 text-blue-600"
+                  className="w-4 h-4 text-primary-600"
                 />
-                <label htmlFor="traditional" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="traditional" className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">
                   Generate from Assessment Data
                 </label>
               </div>
@@ -348,21 +348,21 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                   name="generationMethod"
                   checked={useTemplate}
                   onChange={() => setUseTemplate(true)}
-                  className="w-4 h-4 text-blue-600"
+                  className="w-4 h-4 text-primary-600"
                 />
-                <label htmlFor="template" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="template" className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">
                   Use Complete SSP Template
                 </label>
               </div>
               
               {useTemplate && (
-                <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                <div className="mt-4 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-medium text-blue-900 dark:text-blue-100">SSP Template</h4>
+                    <h4 className="font-medium text-primary-900 dark:text-primary-100">SSP Template</h4>
                     <div className="flex space-x-2">
                       <button
                         onClick={() => setShowTemplatePreview(true)}
-                        className="px-3 py-1 text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-700 transition-colors flex items-center space-x-1"
+                        className="px-3 py-1 text-xs bg-primary-100 dark:bg-primary-800 text-primary-700 dark:text-primary-200 rounded hover:bg-primary-200 dark:hover:bg-primary-700 transition-colors flex items-center space-x-1"
                       >
                         <Eye className="w-3 h-3" />
                         <span>Preview</span>
@@ -370,7 +370,7 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                       <button
                         onClick={() => handleCustomizeTemplate(selectedTemplate!)}
                         disabled={!selectedTemplate}
-                        className="px-3 py-1 text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 rounded hover:bg-green-200 dark:hover:bg-green-700 transition-colors flex items-center space-x-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3 py-1 text-xs bg-success-100 dark:bg-success-800 text-success-700 dark:text-success-200 rounded hover:bg-success-200 dark:hover:bg-success-700 transition-colors flex items-center space-x-1 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <Settings className="w-3 h-3" />
                         <span>Customize</span>
@@ -379,24 +379,24 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                   </div>
                   
                   {selectedTemplate ? (
-                    <div className="text-sm text-blue-800 dark:text-blue-200">
+                    <div className="text-sm text-primary-800 dark:text-primary-200">
                       <p><strong>Selected:</strong> {selectedTemplate.name}</p>
                       <p className="text-xs mt-1">{selectedTemplate.description}</p>
                       <div className="flex flex-wrap gap-1 mt-2">
                         {selectedTemplate.controls.slice(0, 3).map(control => (
-                          <span key={control} className="px-2 py-1 bg-blue-200 dark:bg-blue-700 text-blue-800 dark:text-blue-100 text-xs rounded">
+                          <span key={control} className="px-2 py-1 bg-primary-200 dark:bg-primary-700 text-primary-800 dark:text-primary-100 text-xs rounded">
                             {control}
                           </span>
                         ))}
                         {selectedTemplate.controls.length > 3 && (
-                          <span className="px-2 py-1 bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 text-xs rounded">
+                          <span className="px-2 py-1 bg-support-light dark:bg-primary-600 text-text-secondary-light dark:text-text-secondary-dark text-xs rounded">
                             +{selectedTemplate.controls.length - 3} more
                           </span>
                         )}
                       </div>
                     </div>
                   ) : (
-                    <div className="text-sm text-blue-800 dark:text-blue-200">
+                    <div className="text-sm text-primary-800 dark:text-primary-200">
                       <p>No template selected. Click "Browse Templates" to choose a complete SSP template.</p>
                       <button
                         onClick={() => {
@@ -405,7 +405,7 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                             setSelectedTemplate(sspTemplate);
                           }
                         }}
-                        className="mt-2 px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors flex items-center space-x-1"
+                        className="mt-2 px-3 py-1 bg-primary-600 text-white text-xs rounded hover:bg-primary-700 transition-colors flex items-center space-x-1"
                       >
                         <Template className="w-3 h-3" />
                         <span>Use Default SSP Template</span>
@@ -421,7 +421,7 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
           <button
             onClick={handleGenerate}
             disabled={!selectedAssessment || !organizationInfo.name || !organizationInfo.systemName || isGenerating}
-            className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center space-x-2"
+            className="w-full bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 disabled:bg-support-light disabled:cursor-not-allowed transition-colors flex items-center justify-center space-x-2"
           >
             {isGenerating ? (
               <>
@@ -442,7 +442,7 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
           {generatedSSP || generatedPOAM || generatedRACI ? (
             <>
               {/* Document Tabs */}
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+              <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
                 <div className="flex space-x-1 mb-6">
                   {[
                     { id: 'ssp', label: 'SSP', icon: FileText, available: !!generatedSSP },
@@ -455,10 +455,10 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                       disabled={!available}
                       className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                         activeTab === id
-                          ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+                          ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
                           : available
-                          ? 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                          : 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
+                          ? 'text-text-secondary-light dark:text-text-secondary-dark hover:bg-support-light dark:hover:bg-surface-dark'
+                          : 'text-text-muted-dark dark:text-text-secondary-light cursor-not-allowed'
                       }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -471,23 +471,23 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                 <div className="space-y-4">
                   {activeTab === 'ssp' && generatedSSP && (
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                      <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
                         System Security Plan
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">
                         Generated on {generatedSSP.generatedDate.toLocaleDateString()} for {generatedSSP.organization}
                       </p>
                       <div className="flex space-x-2">
                         <button
                           onClick={() => handleExport('ssp', 'html')}
-                          className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                          className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
                         >
                           <Download className="w-4 h-4" />
                           <span>Export HTML</span>
                         </button>
                         <button
                           onClick={() => handleExport('ssp', 'pdf')}
-                          className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                          className="flex items-center space-x-2 bg-error-600 text-white px-4 py-2 rounded-lg hover:bg-error-700 transition-colors"
                         >
                           <Download className="w-4 h-4" />
                           <span>Export PDF</span>
@@ -498,24 +498,24 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
 
                   {activeTab === 'poam' && generatedPOAM && (
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                      <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
                         Plan of Actions and Milestones
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">
                         {generatedPOAM.summary.totalMilestones} milestones • 
                         ${generatedPOAM.summary.estimatedTotalCost.toLocaleString()} estimated cost
                       </p>
                       <div className="flex space-x-2">
                         <button
                           onClick={() => handleExport('poam', 'html')}
-                          className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                          className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
                         >
                           <Download className="w-4 h-4" />
                           <span>Export HTML</span>
                         </button>
                         <button
                           onClick={() => handleExport('poam', 'pdf')}
-                          className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                          className="flex items-center space-x-2 bg-error-600 text-white px-4 py-2 rounded-lg hover:bg-error-700 transition-colors"
                         >
                           <Download className="w-4 h-4" />
                           <span>Export PDF</span>
@@ -526,23 +526,23 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
 
                   {activeTab === 'raci' && generatedRACI && (
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                      <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
                         RACI Matrix
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">
                         {generatedRACI.summary.totalRoles} roles • {generatedRACI.summary.totalControls} controls
                       </p>
                       <div className="flex space-x-2">
                         <button
                           onClick={() => handleExport('raci', 'html')}
-                          className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                          className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
                         >
                           <Download className="w-4 h-4" />
                           <span>Export HTML</span>
                         </button>
                         <button
                           onClick={() => handleExport('raci', 'pdf')}
-                          className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                          className="flex items-center space-x-2 bg-error-600 text-white px-4 py-2 rounded-lg hover:bg-error-700 transition-colors"
                         >
                           <Download className="w-4 h-4" />
                           <span>Export PDF</span>
@@ -554,12 +554,12 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
               </div>
             </>
           ) : (
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center">
-              <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-8 shadow-lg border border-support-light dark:border-support-dark text-center">
+              <FileText className="w-16 h-16 text-text-muted-dark mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
                 No Documents Generated
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark">
                 Select an assessment and fill in organization information, then click "Generate Documents" to create your SSP, POAM, and RACI Matrix.
               </p>
             </div>
@@ -570,23 +570,23 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
       {/* Template Preview Modal */}
       {showTemplatePreview && selectedTemplate && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Template Preview</h2>
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-support-light dark:border-support-dark">
+              <h2 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">Template Preview</h2>
               <button
                 onClick={() => setShowTemplatePreview(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
             <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
               <div className="mb-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{selectedTemplate.name}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">{selectedTemplate.description}</p>
+                <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">{selectedTemplate.name}</h3>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">{selectedTemplate.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {selectedTemplate.controls.map(control => (
-                    <span key={control} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                    <span key={control} className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded">
                       {control}
                     </span>
                   ))}
@@ -596,10 +596,10 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                 <div dangerouslySetInnerHTML={{ __html: templateService.getTemplatePreview(selectedTemplate.id) }} />
               </div>
             </div>
-            <div className="flex items-center justify-end space-x-3 p-6 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-end space-x-3 p-6 border-t border-support-light dark:border-support-dark">
               <button
                 onClick={() => setShowTemplatePreview(false)}
-                className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
               >
                 Close
               </button>
@@ -608,7 +608,7 @@ export const SSPGenerator: React.FC<SSPGeneratorProps> = ({
                   setShowTemplatePreview(false);
                   handleCustomizeTemplate(selectedTemplate);
                 }}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 Customize Template
               </button>

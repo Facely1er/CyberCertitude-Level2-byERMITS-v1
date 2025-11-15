@@ -76,24 +76,24 @@ export const POAMGenerator: React.FC = () => {
   const [selectedPOAM, setSelectedPOAM] = useState<string | null>(null);
 
   const statusColors: Record<string, string> = {
-    open: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
-    in_progress: 'bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-blue-200',
-    completed: 'bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-200',
+    open: 'bg-support-light text-text-primary-light dark:bg-surface-dark dark:text-text-primary-light',
+    in_progress: 'bg-primary-100 text-primary-800 dark:bg-primary-700 dark:text-primary-200',
+    completed: 'bg-success-100 text-success-800 dark:bg-success-700 dark:text-success-200',
     on_hold: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-200',
-    not_started: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
-    blocked: 'bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-200'
+    not_started: 'bg-support-light text-text-primary-light dark:bg-surface-dark dark:text-text-primary-light',
+    blocked: 'bg-error-100 text-error-800 dark:bg-error-700 dark:text-error-200'
   };
 
   const getPriorityIcon = (priority: POAMItem['priority']) => {
     switch (priority) {
       case 'critical':
-        return <AlertTriangle className="h-4 w-4 text-red-600" />;
+        return <AlertTriangle className="h-4 w-4 text-error-600" />;
       case 'high':
         return <AlertTriangle className="h-4 w-4 text-orange-600" />;
       case 'medium':
         return <AlertTriangle className="h-4 w-4 text-yellow-600" />;
       case 'low':
-        return <CheckCircle className="h-4 w-4 text-blue-600" />;
+        return <CheckCircle className="h-4 w-4 text-primary-600" />;
     }
   };
 
@@ -183,13 +183,13 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold mb-2">POA&M Generator</h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-text-secondary-light dark:text-text-muted-dark">
               Manage Plans of Action and Milestones for compliance gap remediation
             </p>
           </div>
           <button
             onClick={exportPOAM}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
           >
             <Download className="h-4 w-4" />
             Export POA&M Report
@@ -199,17 +199,17 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Items</h3>
-            <Target className="h-5 w-5 text-blue-600" />
+            <h3 className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">Total Items</h3>
+            <Target className="h-5 w-5 text-primary-600" />
           </div>
-          <div className="text-3xl font-bold text-gray-900 dark:text-white">{poams.length}</div>
+          <div className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">{poams.length}</div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</h3>
+            <h3 className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">In Progress</h3>
             <Clock className="h-5 w-5 text-orange-600" />
           </div>
           <div className="text-3xl font-bold text-orange-600">
@@ -217,19 +217,19 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</h3>
-            <CheckCircle className="h-5 w-5 text-green-600" />
+            <h3 className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">Completed</h3>
+            <CheckCircle className="h-5 w-5 text-success-600" />
           </div>
-          <div className="text-3xl font-bold text-green-600">
+          <div className="text-3xl font-bold text-success-600">
             {poams.filter(p => p.status === 'completed').length}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Budget</h3>
+            <h3 className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">Total Budget</h3>
             <DollarSign className="h-5 w-5 text-purple-600" />
           </div>
           <div className="text-3xl font-bold text-purple-600">
@@ -243,7 +243,7 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
         {poams.map((poam) => (
           <div
             key={poam.id}
-            className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 cursor-pointer transition-all ${
+            className={`bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6 cursor-pointer transition-all ${
               selectedPOAM === poam.id ? 'ring-2 ring-blue-500' : ''
             }`}
             onClick={() => setSelectedPOAM(selectedPOAM === poam.id ? null : poam.id)}
@@ -252,29 +252,29 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   {getPriorityIcon(poam.priority)}
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                     {poam.title}
                   </h3>
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[poam.status]}`}>
                     {poam.status.replace('_', ' ').toUpperCase()}
                   </span>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-3">{poam.description}</p>
+                <p className="text-text-secondary-light dark:text-text-muted-dark mb-3">{poam.description}</p>
                 <div className="flex flex-wrap gap-4 text-sm">
                   <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-gray-500" />
+                    <Users className="h-4 w-4 text-text-muted-light" />
                     <span>{poam.owner}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-gray-500" />
+                    <Calendar className="h-4 w-4 text-text-muted-light" />
                     <span>Due: {poam.dueDate}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <DollarSign className="h-4 w-4 text-gray-500" />
+                    <DollarSign className="h-4 w-4 text-text-muted-light" />
                     <span>${poam.budget.toLocaleString()}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-gray-500" />
+                    <Clock className="h-4 w-4 text-text-muted-light" />
                     <span>{poam.completionPercentage}% complete</span>
                   </div>
                 </div>
@@ -282,16 +282,16 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
             </div>
 
             {selectedPOAM === poam.id && (
-              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 space-y-4">
+              <div className="mt-6 pt-6 border-t border-support-light dark:border-support-dark space-y-4">
                 {/* Progress Bar */}
                 <div>
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-600 dark:text-gray-400">Progress</span>
+                    <span className="text-text-secondary-light dark:text-text-muted-dark">Progress</span>
                     <span className="font-medium">{poam.completionPercentage}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
                     <div
-                      className="bg-blue-600 h-2 rounded-full transition-all"
+                      className="bg-primary-600 h-2 rounded-full transition-all"
                       style={{ width: `${poam.completionPercentage}%` }}
                     />
                   </div>
@@ -307,7 +307,7 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
                     {poam.milestones.map((milestone) => (
                       <div
                         key={milestone.id}
-                        className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                        className="flex items-center justify-between p-3 bg-background-light dark:bg-surface-dark rounded-lg"
                       >
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
@@ -318,9 +318,9 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
                               }}
                             >
                               {milestone.status === 'completed' ? (
-                                <CheckCircle className="h-5 w-5 text-green-600" />
+                                <CheckCircle className="h-5 w-5 text-success-600" />
                               ) : (
-                                <div className="h-5 w-5 border-2 border-gray-400 rounded-full" />
+                                <div className="h-5 w-5 border-2 border-support-light rounded-full" />
                               )}
                             </button>
                             <span className="font-medium">{milestone.title}</span>
@@ -328,11 +328,11 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
                               {milestone.status.replace('_', ' ')}
                             </span>
                           </div>
-                          <div className="text-sm text-gray-600 dark:text-gray-400 ml-7">
+                          <div className="text-sm text-text-secondary-light dark:text-text-muted-dark ml-7">
                             Target: {milestone.targetDate}
                             {milestone.completedDate && <span className="ml-4">Completed: {milestone.completedDate}</span>}
                           </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-500 ml-7 mt-1">
+                          <div className="text-xs text-text-muted-light dark:text-text-muted-light ml-7 mt-1">
                             Deliverables: {milestone.deliverables.join(', ')}
                           </div>
                         </div>
@@ -350,18 +350,18 @@ FRAMEWORK: NIST SP 800-171 / CMMC 2.0
                     </h4>
                     <ul className="space-y-1">
                       {poam.risks.map((risk, idx) => (
-                        <li key={idx} className="text-sm text-gray-600 dark:text-gray-400">• {risk}</li>
+                        <li key={idx} className="text-sm text-text-secondary-light dark:text-text-muted-dark">• {risk}</li>
                       ))}
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2 flex items-center gap-2">
-                      <Target className="h-4 w-4 text-blue-600" />
+                      <Target className="h-4 w-4 text-primary-600" />
                       Dependencies
                     </h4>
                     <ul className="space-y-1">
                       {poam.dependencies.map((dep, idx) => (
-                        <li key={idx} className="text-sm text-gray-600 dark:text-gray-400">• {dep}</li>
+                        <li key={idx} className="text-sm text-text-secondary-light dark:text-text-muted-dark">• {dep}</li>
                       ))}
                     </ul>
                   </div>

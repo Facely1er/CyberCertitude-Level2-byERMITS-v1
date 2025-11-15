@@ -46,7 +46,7 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors whitespace-nowrap"
+        className="flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-2 text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors whitespace-nowrap"
         aria-expanded={isOpen}
         aria-haspopup="true"
         aria-label={isAuthenticated && userProfile ? "Account menu" : "Sign in to your account"}
@@ -61,18 +61,18 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
       
       {isOpen && (
         <div 
-          className="absolute top-full right-0 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50 mt-2"
+          className="absolute top-full right-0 w-64 bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark py-2 z-50 mt-2"
           role="menu"
           aria-label="Account menu"
         >
           {isAuthenticated && userProfile ? (
             <>
               {/* User info section */}
-              <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-                <div className="text-sm font-medium text-gray-900 dark:text-white">
+              <div className="px-4 py-3 border-b border-support-light dark:border-support-dark">
+                <div className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                   {userProfile.name || 'User'}
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                   {userProfile.email || 'user@example.com'}
                 </div>
               </div>
@@ -80,13 +80,13 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
               {/* Menu items */}
               <button
                 onClick={() => handleItemClick(() => navigate('/profile'))}
-                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
                 role="menuitem"
               >
                 <User className="w-4 h-4" aria-hidden="true" />
                 <div>
-                  <div className="font-medium text-gray-700 dark:text-gray-300">Profile</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="font-medium text-text-primary-light dark:text-text-secondary-dark">Profile</div>
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                     Manage user profile
                   </div>
                 </div>
@@ -94,13 +94,13 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
               
               <button
                 onClick={() => handleItemClick(() => navigate('/settings'))}
-                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
                 role="menuitem"
               >
                 <Settings className="w-4 h-4" aria-hidden="true" />
                 <div>
-                  <div className="font-medium text-gray-700 dark:text-gray-300">Settings</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="font-medium text-text-primary-light dark:text-text-secondary-dark">Settings</div>
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                     Application settings
                   </div>
                 </div>
@@ -108,28 +108,28 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
               
               <button
                 onClick={() => handleItemClick(() => navigate('/help'))}
-                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
                 role="menuitem"
               >
                 <HelpCircle className="w-4 h-4" aria-hidden="true" />
                 <div>
-                  <div className="font-medium text-gray-700 dark:text-gray-300">Help</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="font-medium text-text-primary-light dark:text-text-secondary-dark">Help</div>
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                     Help and support
                   </div>
                 </div>
               </button>
               
-              <div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
+              <div className="border-t border-support-light dark:border-support-dark mt-2 pt-2">
                 <button
                   onClick={handleSignOut}
-                  className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                  className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
                   role="menuitem"
                 >
                   <LogOut className="w-4 h-4" aria-hidden="true" />
                   <div>
-                    <div className="font-medium text-gray-700 dark:text-gray-300">Sign Out</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="font-medium text-text-primary-light dark:text-text-secondary-dark">Sign Out</div>
+                    <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                       Sign out of your account
                     </div>
                   </div>
@@ -141,13 +141,13 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
               {/* Not authenticated - show login and help options */}
               <button
                 onClick={() => handleItemClick(() => navigate('/login'))}
-                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
                 role="menuitem"
               >
                 <LogIn className="w-4 h-4" aria-hidden="true" />
                 <div>
-                  <div className="font-medium text-gray-700 dark:text-gray-300">Sign In</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="font-medium text-text-primary-light dark:text-text-secondary-dark">Sign In</div>
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                     Sign in to your account
                   </div>
                 </div>
@@ -155,13 +155,13 @@ export const AccountDropdown: React.FC<AccountDropdownProps> = ({
               
               <button
                 onClick={() => handleItemClick(() => navigate('/help'))}
-                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
                 role="menuitem"
               >
                 <HelpCircle className="w-4 h-4" aria-hidden="true" />
                 <div>
-                  <div className="font-medium text-gray-700 dark:text-gray-300">Help</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="font-medium text-text-primary-light dark:text-text-secondary-dark">Help</div>
+                  <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                     Help and support
                   </div>
                 </div>

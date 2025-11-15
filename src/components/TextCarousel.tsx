@@ -50,7 +50,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
               className={`w-2 h-2 rounded-full transition-all duration-200 ${
                 index === currentIndex
                   ? 'bg-teal-600 dark:bg-teal-400'
-                  : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                  : 'bg-support-light dark:bg-primary-600 hover:bg-support-light dark:hover:bg-support-light'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

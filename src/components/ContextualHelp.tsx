@@ -166,7 +166,7 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
       {/* Help Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-colors ${className}`}
+        className={`fixed bottom-6 right-6 z-50 p-3 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg transition-colors ${className}`}
         aria-label="Open help"
       >
         <HelpCircle className="w-6 h-6" />
@@ -178,31 +178,31 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             {/* Backdrop */}
             <div 
-              className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+              className="fixed inset-0 bg-support-light bg-opacity-75 transition-opacity"
               onClick={() => setIsOpen(false)}
             />
 
             {/* Modal */}
-            <div className="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+            <div className="inline-block align-bottom bg-surface-light dark:bg-surface-dark rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
               {/* Header */}
-              <div className="bg-white dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="bg-surface-light dark:bg-surface-dark px-6 py-4 border-b border-support-light dark:border-support-dark">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                      <HelpCircle className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                    <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                      <HelpCircle className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                         {pageGuidance.title}
                       </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                      <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                         {pageGuidance.description}
                       </p>
                     </div>
                   </div>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    className="text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark"
                   >
                     <X className="w-6 h-6" />
                   </button>
@@ -214,13 +214,13 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
                 {/* Search */}
                 <div className="mb-6">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-5 h-5" />
                     <input
                       type="text"
                       placeholder="Search help content..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -228,8 +228,8 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {/* Quick Actions */}
                   <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center space-x-2">
-                      <Zap className="w-5 h-5 text-blue-500" />
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3 flex items-center space-x-2">
+                      <Zap className="w-5 h-5 text-primary-500" />
                       <span>Quick Actions</span>
                     </h4>
                     <div className="space-y-2">
@@ -242,13 +242,13 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
                               setIsOpen(false);
                             }
                           }}
-                          className="w-full flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors text-left"
+                          className="w-full flex items-center space-x-3 p-3 bg-background-light dark:bg-surface-dark rounded-lg hover:bg-support-light dark:hover:bg-primary-600 transition-colors text-left"
                         >
-                          <action.icon className="w-5 h-5 text-blue-500" />
-                          <span className="text-sm font-medium text-gray-900 dark:text-white">
+                          <action.icon className="w-5 h-5 text-primary-500" />
+                          <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                             {action.label}
                           </span>
-                          <ChevronRight className="w-4 h-4 text-gray-400 ml-auto" />
+                          <ChevronRight className="w-4 h-4 text-text-muted-dark ml-auto" />
                         </button>
                       ))}
                     </div>
@@ -256,7 +256,7 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
 
                   {/* Page-Specific Tips */}
                   <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center space-x-2">
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3 flex items-center space-x-2">
                       <Lightbulb className="w-5 h-5 text-yellow-500" />
                       <span>Page Tips</span>
                     </h4>
@@ -264,7 +264,7 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
                       {filteredTips.map((tip, index) => (
                         <div key={index} className="flex items-start space-x-2 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
                           <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-sm text-gray-700 dark:text-gray-300">{tip}</span>
+                          <span className="text-sm text-text-primary-light dark:text-text-secondary-dark">{tip}</span>
                         </div>
                       ))}
                     </div>
@@ -273,15 +273,15 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
 
                 {/* Role-Based Tips */}
                 <div className="mt-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center space-x-2">
-                    <Users className="w-5 h-5 text-green-500" />
+                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3 flex items-center space-x-2">
+                    <Users className="w-5 h-5 text-success-500" />
                     <span>Role-Based Recommendations ({userRole.replace('-', ' ')})</span>
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {filteredRoleTips.map((tip, index) => (
-                      <div key={index} className="flex items-start space-x-2 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                        <div className="w-1.5 h-1.5 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
-                        <span className="text-sm text-gray-700 dark:text-gray-300">{tip}</span>
+                      <div key={index} className="flex items-start space-x-2 p-3 bg-success-50 dark:bg-success-900/20 rounded-lg">
+                        <div className="w-1.5 h-1.5 bg-success-400 rounded-full mt-2 flex-shrink-0"></div>
+                        <span className="text-sm text-text-primary-light dark:text-text-secondary-dark">{tip}</span>
                       </div>
                     ))}
                   </div>
@@ -289,11 +289,11 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
               </div>
 
               {/* Footer */}
-              <div className="bg-gray-50 dark:bg-gray-700/50 px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+              <div className="bg-background-light dark:bg-surface-dark/50 px-6 py-4 border-t border-support-light dark:border-support-dark">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <BookOpen className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600 dark:text-gray-300">Need more help?</span>
+                    <BookOpen className="w-4 h-4 text-text-muted-light" />
+                    <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Need more help?</span>
                   </div>
                   <div className="flex space-x-2">
                     <button
@@ -303,11 +303,11 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
                           setIsOpen(false);
                         }
                       }}
-                      className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                      className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
                     >
                       Help Center
                     </button>
-                    <span className="text-gray-300 dark:text-gray-600">|</span>
+                    <span className="text-text-secondary-dark dark:text-text-secondary-light">|</span>
                     <button
                       onClick={() => {
                         if (onNavigate) {
@@ -315,7 +315,7 @@ export const ContextualHelp: React.FC<ContextualHelpProps> = ({
                           setIsOpen(false);
                         }
                       }}
-                      className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                      className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
                     >
                       Workflow Guide
                     </button>

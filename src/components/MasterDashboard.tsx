@@ -235,8 +235,8 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
           <div className="flex items-center space-x-3">
             <img src="/cybercertitude.png" alt="CyberCertitude" className="w-8 h-8" />
             <div>
-              <h1 className="text-responsive-lg text-gray-800">Implementation Dashboard</h1>
-              <p className="text-sm sm:text-base text-gray-600">Track progress and manage compliance</p>
+              <h1 className="text-responsive-lg text-text-primary-light">Implementation Dashboard</h1>
+              <p className="text-sm sm:text-base text-text-secondary-light">Track progress and manage compliance</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-2 sm:gap-3">
@@ -260,34 +260,34 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
               </button>
 
               {showFormatMenu && !downloadingAll && (
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-10">
+                <div className="absolute right-0 mt-2 w-56 bg-surface-light rounded-lg shadow-xl border border-support-light z-10">
                   <button
                     onClick={() => downloadAllTemplates('md')}
-                    className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center justify-between text-sm border-b border-gray-100"
+                    className="w-full px-4 py-3 text-left hover:bg-background-light flex items-center justify-between text-sm border-b border-support-light"
                   >
                     <span>Markdown (.md)</span>
-                    <span className="text-xs text-gray-500">Text</span>
+                    <span className="text-xs text-text-muted-light">Text</span>
                   </button>
                   <button
                     onClick={() => downloadAllTemplates('docx')}
-                    className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center justify-between text-sm border-b border-gray-100"
+                    className="w-full px-4 py-3 text-left hover:bg-background-light flex items-center justify-between text-sm border-b border-support-light"
                   >
                     <span>Word (.docx)</span>
-                    <span className="text-xs text-gray-500">Editable</span>
+                    <span className="text-xs text-text-muted-light">Editable</span>
                   </button>
                   <button
                     onClick={() => downloadAllTemplates('pdf')}
-                    className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center justify-between text-sm border-b border-gray-100"
+                    className="w-full px-4 py-3 text-left hover:bg-background-light flex items-center justify-between text-sm border-b border-support-light"
                   >
                     <span>PDF (.pdf)</span>
-                    <span className="text-xs text-gray-500">Print</span>
+                    <span className="text-xs text-text-muted-light">Print</span>
                   </button>
                   <button
                     onClick={() => downloadAllTemplates('xlsx')}
-                    className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center justify-between text-sm rounded-b-lg"
+                    className="w-full px-4 py-3 text-left hover:bg-background-light flex items-center justify-between text-sm rounded-b-lg"
                   >
                     <span>Excel (.xlsx)</span>
-                    <span className="text-xs text-gray-500">Data</span>
+                    <span className="text-xs text-text-muted-light">Data</span>
                   </button>
                 </div>
               )}
@@ -296,49 +296,49 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-          <div className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500 hover:shadow-2xl transition-all duration-300 animate-slide-up">
+          <div className="bg-surface-light rounded-xl shadow-lg p-6 border-l-4 border-primary-500 hover:shadow-2xl transition-all duration-300 animate-slide-up">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Overall Progress</h3>
-              <TrendingUp className="w-5 h-5 text-blue-500" />
+              <h3 className="text-sm font-medium text-text-secondary-light">Overall Progress</h3>
+              <TrendingUp className="w-5 h-5 text-primary-500" />
             </div>
-            <div className="text-3xl font-bold text-gray-800 mb-2">{progress.overall}%</div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="text-3xl font-bold text-text-primary-light mb-2">{progress.overall}%</div>
+            <div className="w-full bg-support-light rounded-full h-2">
               <div
-                className="bg-blue-500 h-2 rounded-full transition-all duration-500"
+                className="bg-primary-500 h-2 rounded-full transition-all duration-500"
                 style={{ width: `${progress.overall}%` }}
               ></div>
             </div>
-            <p className="text-xs text-gray-500 mt-2">{Math.round(progress.overall * 110 / 100)}/110 controls</p>
+            <p className="text-xs text-text-muted-light mt-2">{Math.round(progress.overall * 110 / 100)}/110 controls</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-500 hover:shadow-2xl transition-all duration-300 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          <div className="bg-surface-light rounded-xl shadow-lg p-6 border-l-4 border-success-500 hover:shadow-2xl transition-all duration-300 animate-slide-up" style={{ animationDelay: '0.1s' }}>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Templates Available</h3>
-              <FileText className="w-5 h-5 text-green-500" />
+              <h3 className="text-sm font-medium text-text-secondary-light">Templates Available</h3>
+              <FileText className="w-5 h-5 text-success-500" />
             </div>
-            <div className="text-3xl font-bold text-gray-800 mb-2">19</div>
-            <p className="text-sm text-gray-600">Ready to download</p>
-            <p className="text-xs text-gray-500 mt-2">All key domains covered</p>
+            <div className="text-3xl font-bold text-text-primary-light mb-2">19</div>
+            <p className="text-sm text-text-secondary-light">Ready to download</p>
+            <p className="text-xs text-text-muted-light mt-2">All key domains covered</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-purple-500">
+          <div className="bg-surface-light rounded-xl shadow-lg p-6 border-l-4 border-purple-500">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Total Pages</h3>
+              <h3 className="text-sm font-medium text-text-secondary-light">Total Pages</h3>
               <Zap className="w-5 h-5 text-purple-500" />
             </div>
-            <div className="text-3xl font-bold text-gray-800 mb-2">500+</div>
-            <p className="text-sm text-gray-600">Documentation</p>
-            <p className="text-xs text-gray-500 mt-2">Production-ready content</p>
+            <div className="text-3xl font-bold text-text-primary-light mb-2">500+</div>
+            <p className="text-sm text-text-secondary-light">Documentation</p>
+            <p className="text-xs text-text-muted-light mt-2">Production-ready content</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-orange-500 hover:shadow-2xl transition-all duration-300 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+          <div className="bg-surface-light rounded-xl shadow-lg p-6 border-l-4 border-orange-500 hover:shadow-2xl transition-all duration-300 animate-slide-up" style={{ animationDelay: '0.3s' }}>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">C3PAO Ready</h3>
+              <h3 className="text-sm font-medium text-text-secondary-light">C3PAO Ready</h3>
               <CheckCircle className="w-5 h-5 text-orange-500" />
             </div>
-            <div className="text-3xl font-bold text-gray-800 mb-2">100%</div>
-            <p className="text-sm text-gray-600">Level 2 Compliance</p>
-            <p className="text-xs text-gray-500 mt-2">All requirements met</p>
+            <div className="text-3xl font-bold text-text-primary-light mb-2">100%</div>
+            <p className="text-sm text-text-secondary-light">Level 2 Compliance</p>
+            <p className="text-xs text-text-muted-light mt-2">All requirements met</p>
           </div>
         </div>
 
@@ -350,7 +350,7 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             <Link
               to="/templates/compliance-toolkit"
-              className="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left"
+              className="bg-surface-light bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left"
             >
               <FileText className="w-6 h-6 mb-2" />
               <h3 className="font-semibold mb-1">Browse Templates</h3>
@@ -359,7 +359,7 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
 
             <button
               onClick={exportProgress}
-              className="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left"
+              className="bg-surface-light bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left"
             >
               <Download className="w-6 h-6 mb-2" />
               <h3 className="font-semibold mb-1">Export Progress</h3>
@@ -374,7 +374,7 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
                   10000
                 );
               }}
-              className="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left"
+              className="bg-surface-light bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left"
             >
               <AlertCircle className="w-6 h-6 mb-2" />
               <h3 className="font-semibold mb-1">Implementation Guide</h3>
@@ -383,13 +383,13 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+        <div className="bg-surface-light rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
           <button
             onClick={() => setIsDomainProgressExpanded(!isDomainProgressExpanded)}
             className="w-full text-left mb-4 sm:mb-6"
           >
-            <h2 className="text-xl sm:text-2xl font-bold flex items-center text-gray-800 hover:text-blue-600 transition-colors">
-              <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 mr-2 sm:mr-3 text-green-600" />
+            <h2 className="text-xl sm:text-2xl font-bold flex items-center text-text-primary-light hover:text-primary-600 transition-colors">
+              <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 mr-2 sm:mr-3 text-success-600" />
               Domain Implementation Progress
               {isDomainProgressExpanded ? (
                 <ChevronUp className="w-5 h-5 ml-2" />
@@ -404,20 +404,20 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
             {domains.map((domain) => {
               const domainProgress = progress.domains[domain.id] || 0;
               return (
-                <div key={domain.id} className="border border-gray-200 rounded-lg p-4 hover:border-blue-400 transition">
+                <div key={domain.id} className="border border-support-light rounded-lg p-4 hover:border-primary-400 transition">
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <h3 className="font-semibold text-gray-800">
+                      <h3 className="font-semibold text-text-primary-light">
                         {domain.id} - {domain.name}
                       </h3>
-                      <p className="text-sm text-gray-600">{domain.controls} controls</p>
+                      <p className="text-sm text-text-secondary-light">{domain.controls} controls</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-blue-600">{domainProgress}%</div>
+                      <div className="text-2xl font-bold text-primary-600">{domainProgress}%</div>
                     </div>
                   </div>
 
-                  <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
+                  <div className="w-full bg-support-light rounded-full h-2 mb-3">
                     <div
                       className={`bg-${domain.color}-500 h-2 rounded-full transition-all duration-500`}
                       style={{ width: `${domainProgress}%` }}
@@ -435,7 +435,7 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
                     />
                     <button
                       onClick={() => updateDomainProgress(domain.id, 100)}
-                      className="px-3 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600 transition"
+                      className="px-3 py-1 bg-success-500 text-white text-xs rounded hover:bg-success-600 transition"
                     >
                       Complete
                     </button>
@@ -447,25 +447,25 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
           )}
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center text-gray-800">
+        <div className="bg-surface-light rounded-xl shadow-lg p-4 sm:p-6 lg:p-8">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center text-text-primary-light">
             <Package className="w-6 h-6 sm:w-7 sm:h-7 mr-2 sm:mr-3 text-purple-600" />
             Complete Toolkit Contents
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             {toolkitSections.map((section, idx) => (
-              <div key={idx} className="border border-gray-200 rounded-lg p-5">
+              <div key={idx} className="border border-support-light rounded-lg p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-lg font-bold text-gray-800">{section.name}</h3>
-                  <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
+                  <h3 className="text-lg font-bold text-text-primary-light">{section.name}</h3>
+                  <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold">
                     {section.count} items
                   </span>
                 </div>
                 <ul className="space-y-2">
                   {section.templates.map((template, tidx) => (
-                    <li key={tidx} className="flex items-start text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 mr-2 text-green-500 flex-shrink-0 mt-0.5" />
+                    <li key={tidx} className="flex items-start text-sm text-text-secondary-light">
+                      <CheckCircle className="w-4 h-4 mr-2 text-success-500 flex-shrink-0 mt-0.5" />
                       <span>{template}</span>
                     </li>
                   ))}
@@ -485,21 +485,21 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
                   <img src="/cybercertitude.png" alt="CyberCertitude" className="w-10 h-10 flex-shrink-0 mt-1" />
                   <div className="flex flex-col">
                     <h3 className="text-xl font-bold">CyberCertitude™</h3>
-                    <p className="text-base font-medium text-blue-100 tracking-wider">CMMC 2.0 Compliance</p>
-                    <p className="text-sm text-blue-200/80">by ERMITS</p>
+                    <p className="text-base font-medium text-primary-100 tracking-wider">CMMC 2.0 Compliance</p>
+                    <p className="text-sm text-primary-200/80">by ERMITS</p>
                   </div>
                 </div>
-                <p className="text-sm text-blue-200 mb-4">
+                <p className="text-sm text-primary-200 mb-4">
                   Complete Implementation Dashboard for CMMC 2.0 compliance
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-xs font-semibold">
+                  <span className="px-3 py-1 bg-surface-light bg-opacity-20 rounded-full text-xs font-semibold">
                     19 Templates
                   </span>
-                  <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-xs font-semibold">
+                  <span className="px-3 py-1 bg-surface-light bg-opacity-20 rounded-full text-xs font-semibold">
                     110 Controls
                   </span>
-                  <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-xs font-semibold">
+                  <span className="px-3 py-1 bg-surface-light bg-opacity-20 rounded-full text-xs font-semibold">
                     500+ Pages
                   </span>
                 </div>
@@ -513,16 +513,16 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
                 </h4>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-blue-100">CMMC Level 2 Ready</span>
-                    <CheckCircle className="w-4 h-4 text-green-300" />
+                    <span className="text-sm text-primary-100">CMMC Level 2 Ready</span>
+                    <CheckCircle className="w-4 h-4 text-success-300" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-blue-100">C3PAO Assessment Ready</span>
-                    <CheckCircle className="w-4 h-4 text-green-300" />
+                    <span className="text-sm text-primary-100">C3PAO Assessment Ready</span>
+                    <CheckCircle className="w-4 h-4 text-success-300" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-blue-100">NIST 800-171 Compliant</span>
-                    <CheckCircle className="w-4 h-4 text-green-300" />
+                    <span className="text-sm text-primary-100">NIST 800-171 Compliant</span>
+                    <CheckCircle className="w-4 h-4 text-success-300" />
                   </div>
                 </div>
               </div>
@@ -531,13 +531,13 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
               <div className="lg:col-span-1">
                 <h4 className="text-lg font-semibold mb-4">Support & Contact</h4>
                 <div className="space-y-3">
-                  <p className="text-sm text-blue-200">
+                  <p className="text-sm text-primary-200">
                     Questions or support needed?
                   </p>
                   <p className="text-sm font-medium">
                     cmmc-support@cybercertitude.com
                   </p>
-                  <div className="text-xs text-blue-300">
+                  <div className="text-xs text-primary-300">
                     <p>Version 1.0 • Last Updated: {new Date().toLocaleDateString()}</p>
                     <p>Next Review: {new Date(Date.now() + 90*24*60*60*1000).toLocaleDateString()}</p>
                   </div>
@@ -546,15 +546,15 @@ Documentation: https://github.com/cybercertitude-toolkit/docs
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-blue-400 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-xs text-blue-200 text-center sm:text-left">
+            <div className="border-t border-primary-400 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-xs text-primary-200 text-center sm:text-left">
                 © 2024 CyberCertitude™ by ERMITS. All rights reserved.
               </p>
               <div className="flex items-center space-x-4">
                 <button
                   onClick={syncToGitHub}
                   disabled={syncing}
-                  className="px-3 py-1 bg-white bg-opacity-20 hover:bg-opacity-30 rounded text-xs font-medium transition disabled:opacity-50 flex items-center"
+                  className="px-3 py-1 bg-surface-light bg-opacity-20 hover:bg-opacity-30 rounded text-xs font-medium transition disabled:opacity-50 flex items-center"
                 >
                   <Github className="w-3 h-3 mr-1" />
                   GitHub Sync

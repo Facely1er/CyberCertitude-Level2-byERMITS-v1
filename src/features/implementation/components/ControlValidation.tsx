@@ -21,49 +21,49 @@ const ControlValidation: React.FC = () => {
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Control Validation</h1>
-          <p className="text-gray-600 dark:text-gray-300">Verify implemented controls and document test results</p>
+          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">Control Validation</h1>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Verify implemented controls and document test results</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <CheckCircle className="w-8 h-8 text-green-600 mb-4" />
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">42</h3>
-          <p className="text-gray-600 dark:text-gray-300">Validated Controls</p>
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <CheckCircle className="w-8 h-8 text-success-600 mb-4" />
+          <h3 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">42</h3>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Validated Controls</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <Clock className="w-8 h-8 text-blue-600 mb-4" />
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">15</h3>
-          <p className="text-gray-600 dark:text-gray-300">Pending Tests</p>
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <Clock className="w-8 h-8 text-primary-600 mb-4" />
+          <h3 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">15</h3>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Pending Tests</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <XCircle className="w-8 h-8 text-red-600 mb-4" />
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">3</h3>
-          <p className="text-gray-600 dark:text-gray-300">Failed Tests</p>
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <XCircle className="w-8 h-8 text-error-600 mb-4" />
+          <h3 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">3</h3>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Failed Tests</p>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Validation Results</h2>
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Validation Results</h2>
         </div>
         <div className="p-6">
           <div className="space-y-4">
             {controls.map((control) => (
-              <div key={control.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <div key={control.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-gray-900 dark:text-white">{control.name}</h3>
+                  <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{control.name}</h3>
                   <span className={`px-3 py-1 rounded-full text-xs flex items-center space-x-1 ${
-                    control.status === 'Passed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    control.status === 'Passed' ? 'bg-success-100 text-success-800' : 'bg-error-100 text-error-800'
                   }`}>
                     {control.status === 'Passed' ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
                     <span>{control.status}</span>
                   </span>
                 </div>
-                <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300">
+                <div className="flex items-center space-x-4 text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   <span>Tested: {control.tested}</span>
                   <span>By: {control.tester}</span>
                 </div>

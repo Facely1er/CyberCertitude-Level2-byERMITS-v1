@@ -228,19 +228,19 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100';
-      case 'in-progress': return 'text-blue-600 bg-blue-100';
+      case 'completed': return 'text-success-600 bg-success-100';
+      case 'in-progress': return 'text-primary-600 bg-primary-100';
       case 'reviewed': return 'text-purple-600 bg-purple-100';
-      default: return 'text-gray-600 bg-gray-100';
+      default: return 'text-text-secondary-light bg-support-light';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 bg-red-100';
+      case 'critical': return 'text-error-600 bg-error-100';
       case 'high': return 'text-orange-600 bg-orange-100';
       case 'medium': return 'text-yellow-600 bg-yellow-100';
-      default: return 'text-green-600 bg-green-100';
+      default: return 'text-success-600 bg-success-100';
     }
   };
 
@@ -257,10 +257,10 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'completed': return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'in-progress': return <Clock className="w-5 h-5 text-blue-500" />;
+      case 'completed': return <CheckCircle className="w-5 h-5 text-success-500" />;
+      case 'in-progress': return <Clock className="w-5 h-5 text-primary-500" />;
       case 'reviewed': return <Eye className="w-5 h-5 text-purple-500" />;
-      default: return <AlertTriangle className="w-5 h-5 text-gray-500" />;
+      default: return <AlertTriangle className="w-5 h-5 text-text-muted-light" />;
     }
   };
 
@@ -279,27 +279,27 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
 
   const renderOverview = () => (
     <div className="space-y-6">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               C3PAO Preparation Tool
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-1">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
               Prepare for C3PAO assessment and CMMC 2.0 Level 2 certification
             </p>
           </div>
           <div className="flex gap-2">
             <button
               onClick={() => onSave?.(assessments)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               <Save className="w-4 h-4" />
               Save
             </button>
             <button
               onClick={() => onExport?.(assessments)}
-              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
             >
               <Download className="w-4 h-4" />
               Export
@@ -326,34 +326,34 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-6 mb-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                   {currentAssessment.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Scheduled: {currentAssessment.scheduledDate.toLocaleDateString()}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted-light dark:text-text-muted-dark">
                   Assessor: {currentAssessment.assessor}
                 </p>
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                <div className="text-3xl font-bold text-primary-600 dark:text-primary-400">
                   {currentAssessment.overallReadiness}%
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   Overall Readiness
                 </div>
               </div>
             </div>
             
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+            <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-3">
               <div 
                 className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300"
                 style={{ width: `${currentAssessment.overallReadiness}%` }}
               />
             </div>
             
-            <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 mt-2">
+            <div className="flex items-center justify-between text-sm text-text-secondary-light dark:text-text-secondary-dark mt-2">
               <span>
                 {currentAssessment.requirements.filter(req => req.status === 'completed').length} of {currentAssessment.requirements.length} requirements completed
               </span>
@@ -403,12 +403,12 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
               color: 'orange'
             }
           ].map((stat, index) => (
-            <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+            <div key={index} className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
               <div className="flex items-center justify-between mb-2">
-                <h4 className="font-semibold text-gray-900 dark:text-white">{stat.title}</h4>
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{stat.title}</h4>
                 <span className={`text-2xl font-bold text-${stat.color}-600`}>{stat.value}</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+              <div className="w-full bg-support-light dark:bg-primary-600 rounded-full h-2">
                 <div 
                   className={`bg-${stat.color}-500 h-2 rounded-full transition-all duration-300`}
                   style={{ width: `${stat.total > 0 ? (stat.value / stat.total) * 100 : 0}%` }}
@@ -425,14 +425,14 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               placeholder="Search requirements..."
             />
           </div>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="all">All Status</option>
             <option value="not-started">Not Started</option>
@@ -443,7 +443,7 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="all">All Categories</option>
             <option value="documentation">Documentation</option>
@@ -455,7 +455,7 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
           <select
             value={filterPriority}
             onChange={(e) => setFilterPriority(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="all">All Priorities</option>
             <option value="critical">Critical</option>
@@ -468,7 +468,7 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
         {/* Requirements List */}
         <div className="space-y-4">
           {filteredRequirements.length === 0 ? (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-8 text-text-muted-light dark:text-text-muted-dark">
               No requirements found matching your filters.
             </div>
           ) : (
@@ -477,8 +477,8 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
                 key={requirement.id}
                 className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                   activeRequirement === requirement.id
-                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                    : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                    : 'border-support-light dark:border-support-dark hover:border-support-light dark:hover:border-support-light'
                 }`}
                 onClick={() => {
                   setActiveRequirement(requirement.id);
@@ -488,14 +488,14 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                      <div className="p-2 bg-support-light dark:bg-surface-dark rounded-lg">
                         {getCategoryIcon(requirement.category)}
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-semibold text-gray-900 dark:text-white">
+                        <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                           {requirement.title}
                         </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                        <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                           {requirement.description}
                         </p>
                       </div>
@@ -508,10 +508,10 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(requirement.priority)}`}>
                         {requirement.priority.toUpperCase()}
                       </span>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
                         Due: {requirement.dueDate.toLocaleDateString()}
                       </span>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
                         Assigned: {requirement.assignedTo}
                       </span>
                     </div>
@@ -522,7 +522,7 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
                           {requirement.evidence.map((evidence, index) => (
                             <span
                               key={index}
-                              className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded"
+                              className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded"
                             >
                               {evidence}
                             </span>
@@ -533,7 +533,7 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
 
                     {requirement.notes && (
                       <div className="mt-2">
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                        <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                           <strong>Notes:</strong> {requirement.notes}
                         </p>
                       </div>
@@ -542,7 +542,7 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
                   
                   <div className="flex items-center gap-2 ml-4">
                     {getStatusIcon(requirement.status)}
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                    <ChevronRight className="w-4 h-4 text-text-muted-dark" />
                   </div>
                 </div>
               </div>
@@ -559,19 +559,19 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
 
     return (
       <div className="space-y-6">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 {requirement.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 {requirement.description}
               </p>
             </div>
             <button
               onClick={() => setShowRequirementDetails(false)}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Requirements
@@ -581,59 +581,59 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Requirement Information */}
             <div className="space-y-6">
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Requirement Details</h4>
+              <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Requirement Details</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Status:</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Status:</span>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(requirement.status)}`}>
                       {requirement.status.replace('-', ' ').toUpperCase()}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Priority:</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Priority:</span>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(requirement.priority)}`}>
                       {requirement.priority.toUpperCase()}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Category:</span>
-                    <span className="text-gray-900 dark:text-white">{requirement.category}</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Category:</span>
+                    <span className="text-text-primary-light dark:text-text-primary-dark">{requirement.category}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Due Date:</span>
-                    <span className="text-gray-900 dark:text-white">{requirement.dueDate.toLocaleDateString()}</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Due Date:</span>
+                    <span className="text-text-primary-light dark:text-text-primary-dark">{requirement.dueDate.toLocaleDateString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Assigned To:</span>
-                    <span className="text-gray-900 dark:text-white">{requirement.assignedTo}</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Assigned To:</span>
+                    <span className="text-text-primary-light dark:text-text-primary-dark">{requirement.assignedTo}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Required:</span>
-                    <span className="text-gray-900 dark:text-white">{requirement.isRequired ? 'Yes' : 'No'}</span>
+                    <span className="text-text-secondary-light dark:text-text-secondary-dark">Required:</span>
+                    <span className="text-text-primary-light dark:text-text-primary-dark">{requirement.isRequired ? 'Yes' : 'No'}</span>
                   </div>
                 </div>
               </div>
 
               {/* Status Actions */}
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Update Status</h4>
+              <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Update Status</h4>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => updateRequirementStatus(requirement.id, 'not-started')}
-                    className="px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm"
+                    className="px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-surface-dark transition-colors text-sm"
                   >
                     Not Started
                   </button>
                   <button
                     onClick={() => updateRequirementStatus(requirement.id, 'in-progress')}
-                    className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                    className="px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm"
                   >
                     In Progress
                   </button>
                   <button
                     onClick={() => updateRequirementStatus(requirement.id, 'completed')}
-                    className="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+                    className="px-3 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors text-sm"
                   >
                     Completed
                   </button>
@@ -649,27 +649,27 @@ const C3PAOPreparationTool: React.FC<C3PAOPreparationToolProps> = ({
 
             {/* Evidence and Notes */}
             <div className="space-y-6">
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Evidence</h4>
+              <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Evidence</h4>
                 <div className="space-y-2">
                   {requirement.evidence.map((evidence, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-2 p-2 bg-white dark:bg-gray-800 rounded-lg"
+                      className="flex items-center gap-2 p-2 bg-surface-light dark:bg-surface-dark rounded-lg"
                     >
-                      <FileText className="w-4 h-4 text-blue-500" />
-                      <span className="text-sm text-gray-900 dark:text-white">{evidence}</span>
+                      <FileText className="w-4 h-4 text-primary-500" />
+                      <span className="text-sm text-text-primary-light dark:text-text-primary-dark">{evidence}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Notes</h4>
+              <div className="bg-background-light dark:bg-surface-dark rounded-lg p-4">
+                <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Notes</h4>
                 <textarea
                   value={requirement.notes}
                   onChange={(e) => updateRequirementDetails(requirement.id, { notes: e.target.value })}
-                  className="w-full h-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white text-sm"
+                  className="w-full h-24 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark text-sm"
                   placeholder="Add notes about this requirement..."
                 />
               </div>

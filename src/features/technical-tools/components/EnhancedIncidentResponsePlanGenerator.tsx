@@ -108,28 +108,28 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case 'critical':
-        return 'border-red-500 bg-red-50 dark:bg-red-900/20';
+        return 'border-error-500 bg-error-50 dark:bg-error-900/20';
       case 'high':
         return 'border-orange-500 bg-orange-50 dark:bg-orange-900/20';
       case 'medium':
         return 'border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20';
       case 'low':
-        return 'border-green-500 bg-green-50 dark:bg-green-900/20';
+        return 'border-success-500 bg-success-50 dark:bg-success-900/20';
       default:
-        return 'border-gray-300 bg-gray-50 dark:bg-gray-700';
+        return 'border-support-light bg-background-light dark:bg-surface-dark';
     }
   };
 
   const renderOverview = () => (
     <div className="space-y-6">
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+      <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-4">
         <div className="flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+          <AlertCircle className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-0.5" />
           <div>
-            <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
+            <h3 className="font-semibold text-primary-900 dark:text-primary-100 mb-1">
               CMMC Level 2 Compliance
             </h3>
-            <p className="text-sm text-blue-800 dark:text-blue-200">
+            <p className="text-sm text-primary-800 dark:text-primary-200">
               This Incident Response Plan addresses CMMC controls IR.L2-3.6.1, IR.L2-3.6.2, and
               IR.L2-3.6.3, providing comprehensive procedures for incident handling, reporting,
               and testing.
@@ -140,26 +140,26 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Organization Name
           </label>
           <input
             type="text"
             value={organizationName}
             onChange={(e) => setOrganizationName(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="Enter organization name"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
             Plan Version
           </label>
           <input
             type="text"
             value={version}
             onChange={(e) => setVersion(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             placeholder="1.0"
           />
         </div>
@@ -167,31 +167,31 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
 
       {plan && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4">
+            <div className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               {plan.classifications.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">
               Incident Classifications
             </div>
           </div>
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4">
+            <div className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               {plan.responseTeam.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Response Team Members</div>
+            <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Response Team Members</div>
           </div>
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4">
+            <div className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               {plan.communicationTemplates.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Communication Templates</div>
+            <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Communication Templates</div>
           </div>
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4">
+            <div className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               {plan.responsePhases.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Response Phases</div>
+            <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Response Phases</div>
           </div>
         </div>
       )}
@@ -200,7 +200,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
         <button
           onClick={handleGenerateCompletePlan}
           disabled={loading || !organizationName}
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+          className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
         >
           {loading ? 'Generating...' : 'Generate Complete Plan'}
         </button>
@@ -215,10 +215,10 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
               Incident Classifications
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-sm text-text-secondary-light dark:text-text-muted-dark mt-1">
               Predefined classifications with CMMC control mappings
             </p>
           </div>
@@ -232,54 +232,54 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white capitalize mb-2">
+                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark capitalize mb-2">
                     {classification.category.replace(/-/g, ' ')}
                   </h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">Severity:</span>
-                      <span className="font-medium text-gray-900 dark:text-white uppercase">
+                      <span className="text-text-secondary-light dark:text-text-muted-dark">Severity:</span>
+                      <span className="font-medium text-text-primary-light dark:text-text-primary-dark uppercase">
                         {classification.severity}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">Priority:</span>
-                      <span className="font-medium text-gray-900 dark:text-white">
+                      <span className="text-text-secondary-light dark:text-text-muted-dark">Priority:</span>
+                      <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                         {classification.priority}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">Response Time:</span>
-                      <span className="font-medium text-gray-900 dark:text-white">
+                      <span className="text-text-secondary-light dark:text-text-muted-dark">Response Time:</span>
+                      <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                         {classification.responseTime}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">CUI Involved:</span>
+                      <span className="text-text-secondary-light dark:text-text-muted-dark">CUI Involved:</span>
                       <span
-                        className={`font-medium ${classification.cuiInvolved ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`}
+                        className={`font-medium ${classification.cuiInvolved ? 'text-error-600 dark:text-error-400' : 'text-text-primary-light dark:text-text-primary-dark'}`}
                       >
                         {classification.cuiInvolved ? 'Yes' : 'No'}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-600 dark:text-gray-400">
+                      <span className="text-text-secondary-light dark:text-text-muted-dark">
                         External Reporting:
                       </span>
-                      <span className="font-medium text-gray-900 dark:text-white">
+                      <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                         {classification.externalReportingRequired ? 'Required' : 'Not Required'}
                       </span>
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
-                    <div className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <div className="mt-3 pt-3 border-t border-support-light dark:border-support-dark">
+                    <div className="text-xs font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                       CMMC Controls:
                     </div>
                     <div className="flex flex-wrap gap-1">
                       {classification.cmmcControls.map((control, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-xs rounded"
+                          className="px-2 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-200 text-xs rounded"
                         >
                           {control}
                         </span>
@@ -302,10 +302,10 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
               Response Team ({plan.responseTeam.length} members)
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-sm text-text-secondary-light dark:text-text-muted-dark mt-1">
               Configure incident response team with RACI responsibilities
             </p>
           </div>
@@ -323,7 +323,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                 escalationLevel: 1
               })
             }
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add Team Member
@@ -331,13 +331,13 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
         </div>
 
         {editingTeamMember && (
-          <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-background-light dark:bg-background-dark border border-support-light dark:border-support-dark rounded-lg p-6">
+            <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
               Add Team Member
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Name
                 </label>
                 <input
@@ -346,14 +346,14 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                   onChange={(e) =>
                     setEditingTeamMember({ ...editingTeamMember, name: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   aria-label="Team member name"
                   title="Team member name"
                   placeholder="Enter team member name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Role
                 </label>
                 <input
@@ -362,14 +362,14 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                   onChange={(e) =>
                     setEditingTeamMember({ ...editingTeamMember, role: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   aria-label="Team member role"
                   title="Team member role"
                   placeholder="Enter team member role"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Email
                 </label>
                 <input
@@ -378,14 +378,14 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                   onChange={(e) =>
                     setEditingTeamMember({ ...editingTeamMember, email: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   aria-label="Team member email"
                   title="Team member email"
                   placeholder="Enter team member email"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Phone
                 </label>
                 <input
@@ -394,14 +394,14 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                   onChange={(e) =>
                     setEditingTeamMember({ ...editingTeamMember, phone: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   aria-label="Team member phone"
                   title="Team member phone"
                   placeholder="Enter team member phone"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   RACI Responsibility
                 </label>
                 <select
@@ -412,7 +412,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                       responsibility: e.target.value as 'R' | 'A' | 'C' | 'I'
                     })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   aria-label="RACI responsibility"
                   title="RACI responsibility"
                 >
@@ -423,7 +423,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   Escalation Level
                 </label>
                 <select
@@ -434,7 +434,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                       escalationLevel: Number(e.target.value)
                     })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                   aria-label="Escalation level"
                   title="Escalation level"
                 >
@@ -448,14 +448,14 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
             <div className="flex justify-end gap-2 mt-4">
               <button
                 onClick={() => setEditingTeamMember(null)}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="px-4 py-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleAddTeamMember}
                 disabled={!editingTeamMember.name || !editingTeamMember.email}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Add Member
               </button>
@@ -467,21 +467,21 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
           {plan.responseTeam.map((member) => (
             <div
               key={member.id}
-              className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4"
+              className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">{member.name}</h4>
-                    <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 text-xs rounded">
+                    <Users className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{member.name}</h4>
+                    <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-200 text-xs rounded">
                       {member.role}
                     </span>
-                    <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-xs rounded font-mono">
+                    <span className="px-2 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-200 text-xs rounded font-mono">
                       RACI: {member.responsibility}
                     </span>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-text-secondary-light dark:text-text-muted-dark">
                     <div className="flex items-center gap-2">
                       <Mail className="w-4 h-4" />
                       {member.email}
@@ -498,7 +498,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                 </div>
                 <button
                   onClick={() => handleRemoveTeamMember(member.id)}
-                  className="p-2 text-gray-400 hover:text-red-600 transition-colors"
+                  className="p-2 text-text-muted-dark hover:text-error-600 transition-colors"
                   aria-label={`Remove team member ${member.name}`}
                   title={`Remove team member ${member.name}`}
                 >
@@ -519,10 +519,10 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
               Communication Templates ({plan.communicationTemplates.length})
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-sm text-text-secondary-light dark:text-text-muted-dark mt-1">
               Pre-defined templates for incident notifications and reporting
             </p>
           </div>
@@ -532,17 +532,17 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
           {plan.communicationTemplates.map((template, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4"
+              className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">{template.name}</h4>
+                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{template.name}</h4>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded capitalize">
+                    <span className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark text-xs rounded capitalize">
                       {template.type}
                     </span>
                     {template.cmmcRequirement && (
-                      <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-xs rounded">
+                      <span className="px-2 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-200 text-xs rounded">
                         {template.cmmcRequirement}
                       </span>
                     )}
@@ -554,7 +554,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <div className="space-y-2 text-sm text-text-secondary-light dark:text-text-muted-dark">
                 <div>
                   <span className="font-medium">Send Timing:</span> {template.sendTiming}
                 </div>
@@ -578,10 +578,10 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
             Escalation Procedures
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm text-text-secondary-light dark:text-text-muted-dark mt-1">
             Four-level escalation path for incident severity and scope
           </p>
         </div>
@@ -590,19 +590,19 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
           {plan.escalationProcedures.map((procedure, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4"
+              className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                  <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
+                  <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
                     L{procedure.level}
                   </span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
+                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                     {procedure.name}
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-text-secondary-light dark:text-text-muted-dark">
                     Timeframe: {procedure.timeframe}
                   </p>
                 </div>
@@ -610,10 +610,10 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
 
               <div className="space-y-3">
                 <div>
-                  <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                  <h5 className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Trigger Conditions:
                   </h5>
-                  <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                  <ul className="list-disc list-inside text-sm text-text-secondary-light dark:text-text-muted-dark space-y-1">
                     {procedure.triggerConditions.map((condition, idx) => (
                       <li key={idx}>{condition}</li>
                     ))}
@@ -621,10 +621,10 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                 </div>
 
                 <div>
-                  <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                  <h5 className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Authority:
                   </h5>
-                  <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                  <ul className="list-disc list-inside text-sm text-text-secondary-light dark:text-text-muted-dark space-y-1">
                     {procedure.authority.map((auth, idx) => (
                       <li key={idx}>{auth}</li>
                     ))}
@@ -644,10 +644,10 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
             Response Phases ({plan.responsePhases.length})
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm text-text-secondary-light dark:text-text-muted-dark mt-1">
             Complete incident response lifecycle with CMMC control mappings
           </p>
         </div>
@@ -656,24 +656,24 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
           {plan.responsePhases.map((phase, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4"
+              className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4"
             >
               <div className="flex items-center gap-3 mb-3">
-                <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <Clock className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white">{phase.name}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{phase.name}</h4>
+                  <p className="text-sm text-text-secondary-light dark:text-text-muted-dark">
                     {phase.description}
                   </p>
                 </div>
-                <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 text-xs rounded">
+                <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-200 text-xs rounded">
                   {phase.estimatedDuration}
                 </span>
               </div>
 
               <div className="space-y-2 mb-3">
-                <h5 className="text-sm font-medium text-gray-900 dark:text-white">Objectives:</h5>
-                <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                <h5 className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">Objectives:</h5>
+                <ul className="list-disc list-inside text-sm text-text-secondary-light dark:text-text-muted-dark space-y-1">
                   {phase.objectives.map((obj, idx) => (
                     <li key={idx}>{obj}</li>
                   ))}
@@ -684,7 +684,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                 {phase.cmmcControls.map((control, idx) => (
                   <span
                     key={idx}
-                    className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-xs rounded"
+                    className="px-2 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-200 text-xs rounded"
                   >
                     {control}
                   </span>
@@ -703,10 +703,10 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
             CMMC Control Mapping
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm text-text-secondary-light dark:text-text-muted-dark mt-1">
             Complete mapping of incident response activities to CMMC Level 2 controls
           </p>
         </div>
@@ -715,30 +715,30 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
           {plan.cmmcMapping.map((mapping, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4"
+              className="bg-surface-light dark:bg-surface-dark border border-support-light dark:border-support-dark rounded-lg p-4"
             >
               <div className="flex items-start gap-3 mb-3">
-                <Shield className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
+                <Shield className="w-5 h-5 text-success-600 dark:text-success-400 mt-0.5" />
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-sm font-mono rounded">
+                    <span className="px-2 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-200 text-sm font-mono rounded">
                       {mapping.controlId}
                     </span>
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                       {mapping.controlName}
                     </h4>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <p className="text-sm text-text-secondary-light dark:text-text-muted-dark mb-2">
                     {mapping.requirement}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                    <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
                       Applies to:
                     </span>
                     {mapping.incidentPhases.map((phase, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 text-xs rounded capitalize"
+                        className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-200 text-xs rounded capitalize"
                       >
                         {phase}
                       </span>
@@ -774,15 +774,15 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <AlertTriangle className="w-6 h-6 text-red-600" />
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark flex items-center gap-2">
+                <AlertTriangle className="w-6 h-6 text-error-600" />
                 Incident Response Plan Generator
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 CMMC Level 2 compliant incident response planning with classifications, escalation, and templates
               </p>
             </div>
@@ -790,7 +790,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
               <button
                 onClick={handleExportHTML}
                 disabled={loading || !organizationName}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <Download className="w-4 h-4" />
                 Export HTML
@@ -799,7 +799,7 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-support-light dark:border-support-dark">
           <nav className="flex space-x-8 px-6 overflow-x-auto">
             {[
               { id: 'overview', label: 'Overview', icon: FileText },
@@ -815,8 +815,8 @@ const EnhancedIncidentResponsePlanGenerator: React.FC = () => {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                    ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                    : 'border-transparent text-text-muted-light hover:text-text-primary-light hover:border-support-light dark:text-text-muted-dark dark:hover:text-text-secondary-dark'
                 }`}
               >
                 <tab.icon className="w-4 h-4" />

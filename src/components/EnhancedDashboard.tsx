@@ -368,19 +368,19 @@ const EnhancedDashboard: React.FC = () => {
           <div className="bg-gradient-to-r from-primary-500 to-secondary-400 rounded-xl shadow-lg p-6 text-white">
             <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <button className="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left">
+              <button className="bg-surface-light bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left">
                 <Download className="w-6 h-6 mb-2" />
                 <h3 className="font-semibold mb-1">Download History</h3>
                 <p className="text-sm text-primary-100">View all downloaded templates</p>
               </button>
               
-              <button className="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left">
+              <button className="bg-surface-light bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left">
                 <Eye className="w-6 h-6 mb-2" />
                 <h3 className="font-semibold mb-1">Interactive Templates</h3>
                 <p className="text-sm text-primary-100">Customize templates online</p>
               </button>
               
-              <button className="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left">
+              <button className="bg-surface-light bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left">
                 <Target className="w-6 h-6 mb-2" />
                 <h3 className="font-semibold mb-1">Compliance Assessment</h3>
                 <p className="text-sm text-primary-100">Run compliance check</p>
@@ -388,7 +388,7 @@ const EnhancedDashboard: React.FC = () => {
               
               <button
                 onClick={loadProgress}
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left"
+                className="bg-surface-light bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition text-left"
               >
                 <Zap className="w-6 h-6 mb-2" />
                 <h3 className="font-semibold mb-1">Refresh Progress</h3>

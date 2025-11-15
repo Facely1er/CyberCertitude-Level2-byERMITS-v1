@@ -129,15 +129,15 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     
     return (
       <div className="w-full max-w-md mx-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-8">
           <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
-              <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+            <div className="mx-auto w-16 h-16 bg-success-100 dark:bg-success-900/30 rounded-full flex items-center justify-center mb-4">
+              <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               Check Your Email
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark mt-2">
               We've sent a magic link to <strong>{sentEmail}</strong>
             </p>
             {lastSentTime && (
@@ -158,7 +158,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
               <h3 className="font-medium text-primary-900 dark:text-primary-100 mb-2">
                 What to do next:
               </h3>
-              <ol className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+              <ol className="text-sm text-primary-800 dark:text-primary-200 space-y-1">
                 <li>1. Check your email inbox for a message from CyberCertitude™</li>
                 <li>2. Click the "Sign In" link in the email</li>
                 <li>3. You'll be automatically signed in</li>
@@ -167,14 +167,14 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             </div>
 
             <div className="text-center space-y-4">
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                 Didn't receive the email? Check your spam folder or
               </p>
               
               <button
                 onClick={handleResendLink}
                 disabled={isLoading || cooldown > 0}
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-medium disabled:opacity-50"
+                className="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 font-medium disabled:opacity-50"
               >
                 {isLoading ? 'Sending...' : 
                  cooldown > 0 ? `Resend in ${cooldown}s` : 
@@ -189,7 +189,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
                   setLastSentTime(null);
                   setError('');
                 }}
-                className="block w-full text-text-muted-light dark:text-text-muted-dark hover:text-gray-700 dark:hover:text-gray-300 text-sm"
+                className="block w-full text-text-muted-light dark:text-text-muted-dark hover:text-text-primary-light dark:hover:text-text-secondary-dark text-sm"
               >
                 ← Use a different email address
               </button>
@@ -202,38 +202,38 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-8">
         <div className="text-center mb-8">
-          <div className="mx-auto w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
-            <User className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          <div className="mx-auto w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-4">
+            <User className="w-6 h-6 text-primary-600 dark:text-primary-400" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
             Welcome Back
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 mt-2">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark mt-2">
             Sign in to your CyberCertitude™ account with a magic link
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+            <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
+              <p className="text-sm text-error-600 dark:text-error-400">{error}</p>
             </div>
           )}
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Email Address
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-dark" />
               <input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter your email"
                 autoComplete="email"
                 autoFocus
@@ -246,7 +246,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             <h3 className="font-medium text-primary-900 dark:text-primary-100 mb-1">
               Passwordless Authentication
             </h3>
-            <p className="text-sm text-blue-800 dark:text-blue-200">
+            <p className="text-sm text-primary-800 dark:text-primary-200">
               We'll send a secure magic link to your email. Click the link to sign in instantly - no password required!
             </p>
           </div>
@@ -254,7 +254,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center space-x-2"
+            className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center space-x-2"
           >
             {isLoading ? (
               <>
@@ -271,11 +271,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
             Don't have an account?{' '}
             <button
               onClick={onSwitchToSignUp}
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-medium"
+              className="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 font-medium"
             >
               Sign up
             </button>

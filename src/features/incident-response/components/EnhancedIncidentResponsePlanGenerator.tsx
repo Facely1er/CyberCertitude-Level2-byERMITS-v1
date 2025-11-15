@@ -437,11 +437,11 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'text-red-600 bg-red-50 border-red-200';
+      case 'critical': return 'text-error-600 bg-error-50 border-error-200';
       case 'high': return 'text-orange-600 bg-orange-50 border-orange-200';
       case 'medium': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'low': return 'text-green-600 bg-green-50 border-green-200';
-      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+      case 'low': return 'text-success-600 bg-success-50 border-success-200';
+      default: return 'text-text-secondary-light bg-background-light border-support-light';
     }
   };
 
@@ -450,25 +450,25 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
-              <Shield className="w-8 h-8 text-red-600" />
+            <h1 className="text-3xl font-bold text-text-primary-light flex items-center gap-3">
+              <Shield className="w-8 h-8 text-error-600" />
               Enhanced Incident Response Plan Generator
             </h1>
-            <p className="text-gray-600 mt-2">
+            <p className="text-text-secondary-light mt-2">
               Generate comprehensive CMMC 2.0 Level 2 compliant incident response plans
             </p>
           </div>
           <div className="flex gap-3">
             <button
               onClick={() => onNavigate?.('/incident-response')}
-              className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2"
+              className="px-4 py-2 text-text-secondary-light border border-support-light rounded-lg hover:bg-background-light flex items-center gap-2"
             >
               <Eye className="w-4 h-4" />
               View Plans
             </button>
             <button
               onClick={generateHTMLReport}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-2"
+              className="px-4 py-2 bg-error-600 text-white rounded-lg hover:bg-error-700 flex items-center gap-2"
             >
               <Download className="w-4 h-4" />
               Export Plan
@@ -477,50 +477,50 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
         </div>
 
         {/* Plan Configuration */}
-        <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Plan Configuration</h2>
+        <div className="bg-surface-light rounded-lg border border-support-light p-6 mb-6">
+          <h2 className="text-xl font-semibold text-text-primary-light mb-4">Plan Configuration</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Plan Title</label>
+              <label className="block text-sm font-medium text-text-primary-light mb-2">Plan Title</label>
               <input
                 type="text"
                 value={planTitle}
                 onChange={(e) => setPlanTitle(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full px-3 py-2 border border-support-light rounded-lg focus:ring-2 focus:ring-red-500 focus:border-error-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Organization Name</label>
+              <label className="block text-sm font-medium text-text-primary-light mb-2">Organization Name</label>
               <input
                 type="text"
                 value={organizationName}
                 onChange={(e) => setOrganizationName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full px-3 py-2 border border-support-light rounded-lg focus:ring-2 focus:ring-red-500 focus:border-error-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Effective Date</label>
+              <label className="block text-sm font-medium text-text-primary-light mb-2">Effective Date</label>
               <input
                 type="date"
                 value={effectiveDate}
                 onChange={(e) => setEffectiveDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full px-3 py-2 border border-support-light rounded-lg focus:ring-2 focus:ring-red-500 focus:border-error-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Review Date</label>
+              <label className="block text-sm font-medium text-text-primary-light mb-2">Review Date</label>
               <input
                 type="date"
                 value={reviewDate}
                 onChange={(e) => setReviewDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full px-3 py-2 border border-support-light rounded-lg focus:ring-2 focus:ring-red-500 focus:border-error-500"
               />
             </div>
           </div>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="border-b border-gray-200 mb-6">
+        <div className="border-b border-support-light mb-6">
           <nav className="-mb-px flex space-x-8">
             {[
               { id: 'overview', label: 'Overview', icon: FileText },
@@ -534,8 +534,8 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
-                    ? 'border-red-500 text-red-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-error-500 text-error-600'
+                    : 'border-transparent text-text-muted-light hover:text-text-primary-light hover:border-support-light'
                 }`}
               >
                 <tab.icon className="w-4 h-4" />
@@ -548,18 +548,18 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
         {/* Tab Content */}
         {activeTab === 'overview' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Plan Overview</h3>
+            <div className="bg-surface-light rounded-lg border border-support-light p-6">
+              <h3 className="text-lg font-semibold text-text-primary-light mb-4">Plan Overview</h3>
               <div className="prose max-w-none">
-                <p className="text-gray-700 mb-4">
+                <p className="text-text-primary-light mb-4">
                   This comprehensive incident response plan provides structured procedures for detecting, responding to, 
                   and recovering from security incidents that may affect {organizationName}'s information systems and 
                   Controlled Unclassified Information (CUI).
                 </p>
                 
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold text-red-900 mb-2">CMMC 2.0 Level 2 Compliance</h4>
-                  <p className="text-red-800">
+                <div className="bg-error-50 border border-error-200 rounded-lg p-4 mb-4">
+                  <h4 className="font-semibold text-error-900 mb-2">CMMC 2.0 Level 2 Compliance</h4>
+                  <p className="text-error-800">
                     This plan addresses CMMC 2.0 Level 2 requirements including IR.3.6.1 (Establish incident response capability), 
                     IR.3.6.2 (Track and document incidents), and IR.3.6.3 (Test incident response capability).
                   </p>
@@ -567,8 +567,8 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Key Features</h4>
-                    <ul className="text-gray-700 space-y-1">
+                    <h4 className="font-semibold text-text-primary-light mb-2">Key Features</h4>
+                    <ul className="text-text-primary-light space-y-1">
                       <li>• Comprehensive incident type coverage</li>
                       <li>• Defined response team roles and responsibilities</li>
                       <li>• Escalation procedures and timelines</li>
@@ -577,8 +577,8 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Incident Types Covered</h4>
-                    <ul className="text-gray-700 space-y-1">
+                    <h4 className="font-semibold text-text-primary-light mb-2">Incident Types Covered</h4>
+                    <ul className="text-text-primary-light space-y-1">
                       <li>• Data breaches and CUI exposure</li>
                       <li>• Malware infections</li>
                       <li>• Phishing attacks</li>
@@ -590,8 +590,8 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
               </div>
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Incident Severity Levels</h3>
+            <div className="bg-surface-light rounded-lg border border-support-light p-6">
+              <h3 className="text-lg font-semibold text-text-primary-light mb-4">Incident Severity Levels</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                   { level: 'Critical', color: 'red', description: 'Immediate threat to CUI or critical systems', time: '30 minutes' },
@@ -612,35 +612,35 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
 
         {activeTab === 'team' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Incident Response Team</h3>
+            <div className="bg-surface-light rounded-lg border border-support-light p-6">
+              <h3 className="text-lg font-semibold text-text-primary-light mb-4">Incident Response Team</h3>
               <div className="space-y-4">
                 {responseTeam.map((member, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg p-4">
+                  <div key={index} className="border border-support-light rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>
-                        <h4 className="font-medium text-gray-900">{member.name}</h4>
-                        <p className="text-sm text-gray-600">{member.role}</p>
-                        <p className="text-sm text-gray-500">{member.department}</p>
+                        <h4 className="font-medium text-text-primary-light">{member.name}</h4>
+                        <p className="text-sm text-text-secondary-light">{member.role}</p>
+                        <p className="text-sm text-text-muted-light">{member.department}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                       <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-gray-500" />
+                        <Phone className="w-4 h-4 text-text-muted-light" />
                         <span className="text-sm">{member.phone}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-gray-500" />
+                        <Mail className="w-4 h-4 text-text-muted-light" />
                         <span className="text-sm">{member.email}</span>
                       </div>
                     </div>
                     <div className="mb-3">
-                      <p className="text-sm font-medium text-gray-700 mb-1">Backup Contact:</p>
-                      <p className="text-sm text-gray-600">{member.backup}</p>
+                      <p className="text-sm font-medium text-text-primary-light mb-1">Backup Contact:</p>
+                      <p className="text-sm text-text-secondary-light">{member.backup}</p>
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-700 mb-1">Responsibilities:</p>
-                      <ul className="text-sm text-gray-600 list-disc list-inside">
+                      <p className="text-sm font-medium text-text-primary-light mb-1">Responsibilities:</p>
+                      <ul className="text-sm text-text-secondary-light list-disc list-inside">
                         {member.responsibilities.map((resp, i) => (
                           <li key={i}>{resp}</li>
                         ))}
@@ -655,31 +655,31 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
 
         {activeTab === 'procedures' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Incident Response Procedures</h3>
+            <div className="bg-surface-light rounded-lg border border-support-light p-6">
+              <h3 className="text-lg font-semibold text-text-primary-light mb-4">Incident Response Procedures</h3>
               <div className="space-y-6">
                 {incidentTypes.map((incident, index) => (
                   <div key={index} className={`border rounded-lg p-4 ${getSeverityColor(incident.severity)}`}>
                     <div className="flex items-start justify-between mb-3">
                       <div>
-                        <h4 className="font-medium text-gray-900">{incident.name}</h4>
-                        <p className="text-sm text-gray-600">{incident.description}</p>
+                        <h4 className="font-medium text-text-primary-light">{incident.name}</h4>
+                        <p className="text-sm text-text-secondary-light">{incident.description}</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSeverityColor(incident.severity)}`}>
                           {incident.severity.toUpperCase()}
                         </span>
-                        <span className="text-sm font-medium text-gray-600">
+                        <span className="text-sm font-medium text-text-secondary-light">
                           {incident.responseTime}
                         </span>
                       </div>
                     </div>
                     
                     <div className="mb-3">
-                      <p className="text-sm font-medium text-gray-700 mb-1">Escalation Path:</p>
+                      <p className="text-sm font-medium text-text-primary-light mb-1">Escalation Path:</p>
                       <div className="flex flex-wrap gap-2">
                         {incident.escalationPath.map((step, i) => (
-                          <span key={i} className="px-2 py-1 bg-white border border-gray-300 rounded text-xs">
+                          <span key={i} className="px-2 py-1 bg-surface-light border border-support-light rounded text-xs">
                             {step}
                           </span>
                         ))}
@@ -687,8 +687,8 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
                     </div>
 
                     <div className="mb-3">
-                      <p className="text-sm font-medium text-gray-700 mb-1">Response Procedures:</p>
-                      <ol className="text-sm text-gray-600 list-decimal list-inside space-y-1">
+                      <p className="text-sm font-medium text-text-primary-light mb-1">Response Procedures:</p>
+                      <ol className="text-sm text-text-secondary-light list-decimal list-inside space-y-1">
                         {incident.procedures.map((procedure, i) => (
                           <li key={i}>{procedure}</li>
                         ))}
@@ -696,8 +696,8 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
                     </div>
 
                     <div>
-                      <p className="text-sm font-medium text-gray-700 mb-1">Key Contacts:</p>
-                      <p className="text-sm text-gray-600">{incident.contacts.join(', ')}</p>
+                      <p className="text-sm font-medium text-text-primary-light mb-1">Key Contacts:</p>
+                      <p className="text-sm text-text-secondary-light">{incident.contacts.join(', ')}</p>
                     </div>
                   </div>
                 ))}
@@ -708,20 +708,20 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
 
         {activeTab === 'contacts' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Emergency Contacts</h3>
+            <div className="bg-surface-light rounded-lg border border-support-light p-6">
+              <h3 className="text-lg font-semibold text-text-primary-light mb-4">Emergency Contacts</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {responseTeam.map((member, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg p-4">
-                    <h4 className="font-medium text-gray-900 mb-2">{member.name}</h4>
-                    <p className="text-sm text-gray-600 mb-2">{member.role}</p>
+                  <div key={index} className="border border-support-light rounded-lg p-4">
+                    <h4 className="font-medium text-text-primary-light mb-2">{member.name}</h4>
+                    <p className="text-sm text-text-secondary-light mb-2">{member.role}</p>
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-gray-500" />
+                        <Phone className="w-4 h-4 text-text-muted-light" />
                         <span className="text-sm">{member.phone}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-gray-500" />
+                        <Mail className="w-4 h-4 text-text-muted-light" />
                         <span className="text-sm">{member.email}</span>
                       </div>
                     </div>
@@ -730,28 +730,28 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
               </div>
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">External Contacts</h3>
+            <div className="bg-surface-light rounded-lg border border-support-light p-6">
+              <h3 className="text-lg font-semibold text-text-primary-light mb-4">External Contacts</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Law Enforcement</h4>
-                  <p className="text-sm text-gray-600 mb-2">FBI Cyber Crime Unit</p>
-                  <p className="text-sm text-gray-500">+1 (202) 324-3000</p>
+                <div className="border border-support-light rounded-lg p-4">
+                  <h4 className="font-medium text-text-primary-light mb-2">Law Enforcement</h4>
+                  <p className="text-sm text-text-secondary-light mb-2">FBI Cyber Crime Unit</p>
+                  <p className="text-sm text-text-muted-light">+1 (202) 324-3000</p>
                 </div>
-                <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Legal Counsel</h4>
-                  <p className="text-sm text-gray-600 mb-2">External Legal Firm</p>
-                  <p className="text-sm text-gray-500">+1 (555) 999-0000</p>
+                <div className="border border-support-light rounded-lg p-4">
+                  <h4 className="font-medium text-text-primary-light mb-2">Legal Counsel</h4>
+                  <p className="text-sm text-text-secondary-light mb-2">External Legal Firm</p>
+                  <p className="text-sm text-text-muted-light">+1 (555) 999-0000</p>
                 </div>
-                <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Cyber Insurance</h4>
-                  <p className="text-sm text-gray-600 mb-2">Insurance Provider</p>
-                  <p className="text-sm text-gray-500">+1 (555) 888-0000</p>
+                <div className="border border-support-light rounded-lg p-4">
+                  <h4 className="font-medium text-text-primary-light mb-2">Cyber Insurance</h4>
+                  <p className="text-sm text-text-secondary-light mb-2">Insurance Provider</p>
+                  <p className="text-sm text-text-muted-light">+1 (555) 888-0000</p>
                 </div>
-                <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Forensic Services</h4>
-                  <p className="text-sm text-gray-600 mb-2">Digital Forensics Firm</p>
-                  <p className="text-sm text-gray-500">+1 (555) 777-0000</p>
+                <div className="border border-support-light rounded-lg p-4">
+                  <h4 className="font-medium text-text-primary-light mb-2">Forensic Services</h4>
+                  <p className="text-sm text-text-secondary-light mb-2">Digital Forensics Firm</p>
+                  <p className="text-sm text-text-muted-light">+1 (555) 777-0000</p>
                 </div>
               </div>
             </div>
@@ -760,28 +760,28 @@ export const EnhancedIncidentResponsePlanGenerator: React.FC<IncidentResponsePla
 
         {activeTab === 'templates' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Incident Response Templates</h3>
+            <div className="bg-surface-light rounded-lg border border-support-light p-6">
+              <h3 className="text-lg font-semibold text-text-primary-light mb-4">Incident Response Templates</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Incident Report Template</h4>
-                  <p className="text-sm text-gray-600 mb-3">Standard template for documenting security incidents</p>
-                  <button className="text-blue-600 text-sm hover:underline">Download Template</button>
+                <div className="border border-support-light rounded-lg p-4">
+                  <h4 className="font-medium text-text-primary-light mb-2">Incident Report Template</h4>
+                  <p className="text-sm text-text-secondary-light mb-3">Standard template for documenting security incidents</p>
+                  <button className="text-primary-600 text-sm hover:underline">Download Template</button>
                 </div>
-                <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Communication Templates</h4>
-                  <p className="text-sm text-gray-600 mb-3">Pre-approved communication templates for different audiences</p>
-                  <button className="text-blue-600 text-sm hover:underline">Download Templates</button>
+                <div className="border border-support-light rounded-lg p-4">
+                  <h4 className="font-medium text-text-primary-light mb-2">Communication Templates</h4>
+                  <p className="text-sm text-text-secondary-light mb-3">Pre-approved communication templates for different audiences</p>
+                  <button className="text-primary-600 text-sm hover:underline">Download Templates</button>
                 </div>
-                <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Evidence Collection Checklist</h4>
-                  <p className="text-sm text-gray-600 mb-3">Checklist for preserving evidence during incident response</p>
-                  <button className="text-blue-600 text-sm hover:underline">Download Checklist</button>
+                <div className="border border-support-light rounded-lg p-4">
+                  <h4 className="font-medium text-text-primary-light mb-2">Evidence Collection Checklist</h4>
+                  <p className="text-sm text-text-secondary-light mb-3">Checklist for preserving evidence during incident response</p>
+                  <button className="text-primary-600 text-sm hover:underline">Download Checklist</button>
                 </div>
-                <div className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Post-Incident Review Form</h4>
-                  <p className="text-sm text-gray-600 mb-3">Form for conducting lessons learned sessions</p>
-                  <button className="text-blue-600 text-sm hover:underline">Download Form</button>
+                <div className="border border-support-light rounded-lg p-4">
+                  <h4 className="font-medium text-text-primary-light mb-2">Post-Incident Review Form</h4>
+                  <p className="text-sm text-text-secondary-light mb-3">Form for conducting lessons learned sessions</p>
+                  <button className="text-primary-600 text-sm hover:underline">Download Form</button>
                 </div>
               </div>
             </div>

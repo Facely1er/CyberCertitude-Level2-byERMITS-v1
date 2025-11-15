@@ -209,17 +209,17 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="bg-surface-light rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-2xl font-bold">Evidence Collection</h2>
-              <p className="text-blue-100 mt-1">Submit evidence for CMMC controls</p>
+              <p className="text-primary-100 mt-1">Submit evidence for CMMC controls</p>
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:text-gray-200 transition-colors"
+              className="text-white hover:text-text-primary-light transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
@@ -233,13 +233,13 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
             <div className="space-y-6">
               {/* Control Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light mb-2">
                   Select Control *
                 </label>
                 <select
                   value={selectedControl}
                   onChange={(e) => setSelectedControl(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-support-light rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 >
                   <option value="">Choose a control...</option>
                   {availableControls.map(control => (
@@ -249,7 +249,7 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
                   ))}
                 </select>
                 {selectedControl && (
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="text-sm text-text-secondary-light mt-2">
                     {availableControls.find(c => c.id === selectedControl)?.description}
                   </p>
                 )}
@@ -257,7 +257,7 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
 
               {/* Evidence Type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light mb-2">
                   Evidence Type *
                 </label>
                 <div className="grid grid-cols-2 gap-3">
@@ -270,12 +270,12 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
                         className={`p-3 border-2 rounded-lg text-left transition-all ${
                           evidenceType === type.type
                             ? `border-${type.color}-500 bg-${type.color}-50`
-                            : 'border-gray-200 hover:border-gray-300'
+                            : 'border-support-light hover:border-support-light'
                         }`}
                       >
                         <Icon className={`w-5 h-5 mb-2 text-${type.color}-600`} />
-                        <div className="text-sm font-medium text-gray-800">{type.label}</div>
-                        <div className="text-xs text-gray-600">{type.description}</div>
+                        <div className="text-sm font-medium text-text-primary-light">{type.label}</div>
+                        <div className="text-xs text-text-secondary-light">{type.description}</div>
                       </button>
                     );
                   })}
@@ -284,14 +284,14 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
 
               {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light mb-2">
                   Description
                 </label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Describe the evidence being submitted..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-support-light rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   rows={3}
                 />
               </div>
@@ -301,10 +301,10 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
             <div className="space-y-6">
               {/* Upload Area */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light mb-2">
                   Upload Files *
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+                <div className="border-2 border-dashed border-support-light rounded-lg p-6 text-center hover:border-support-light transition-colors">
                   <input
                     type="file"
                     multiple
@@ -314,11 +314,11 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
                     accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif,.xlsx,.xls,.csv"
                   />
                   <label htmlFor="file-upload" className="cursor-pointer">
-                    <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <div className="text-lg font-medium text-gray-600 mb-2">
+                    <Upload className="w-12 h-12 text-text-muted-dark mx-auto mb-4" />
+                    <div className="text-lg font-medium text-text-secondary-light mb-2">
                       Click to upload files
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-text-muted-light">
                       PDF, DOC, DOCX, TXT, JPG, PNG, XLSX, CSV
                     </div>
                   </label>
@@ -329,7 +329,7 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
                   <button
                     onClick={handleCameraCapture}
                     disabled={isUploading}
-                    className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center justify-center disabled:opacity-50"
+                    className="w-full px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition flex items-center justify-center disabled:opacity-50"
                   >
                     <Camera className="w-4 h-4 mr-2" />
                     {isUploading ? 'Capturing...' : 'Take Photo'}
@@ -340,30 +340,30 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
               {/* Uploaded Files */}
               {uploadedFiles.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 mb-3">
+                  <h3 className="text-sm font-medium text-text-primary-light mb-3">
                     Uploaded Files ({uploadedFiles.length})
                   </h3>
                   <div className="space-y-2 max-h-48 overflow-y-auto">
                     {uploadedFiles.map(file => (
-                      <div key={file.id} className="flex items-center p-3 bg-gray-50 rounded-lg">
+                      <div key={file.id} className="flex items-center p-3 bg-background-light rounded-lg">
                         <div className="flex-shrink-0 mr-3">
                           {file.preview ? (
                             <img src={file.preview} alt="Preview" className="w-8 h-8 object-cover rounded" />
                           ) : (
-                            <File className="w-8 h-8 text-gray-400" />
+                            <File className="w-8 h-8 text-text-muted-dark" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium text-gray-800 truncate">
+                          <div className="text-sm font-medium text-text-primary-light truncate">
                             {file.name}
                           </div>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-text-muted-light">
                             {formatFileSize(file.size)} • {file.type}
                           </div>
                         </div>
                         <button
                           onClick={() => removeFile(file.id)}
-                          className="flex-shrink-0 ml-2 text-red-500 hover:text-red-700 transition-colors"
+                          className="flex-shrink-0 ml-2 text-error-500 hover:text-error-700 transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -377,17 +377,17 @@ const EvidenceCollection: React.FC<EvidenceCollectionProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="bg-gray-50 px-6 py-4 flex justify-end space-x-3">
+        <div className="bg-background-light px-6 py-4 flex justify-end space-x-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+            className="px-4 py-2 text-text-secondary-light hover:text-text-primary-light transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmitEvidence}
             disabled={!selectedControl || uploadedFiles.length === 0}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+            className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
           >
             <CheckCircle className="w-4 h-4 mr-2" />
             Submit Evidence

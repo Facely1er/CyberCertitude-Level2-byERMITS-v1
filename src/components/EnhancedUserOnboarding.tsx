@@ -407,7 +407,7 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-gray-200 dark:border-gray-700">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-support-light dark:border-support-dark">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
@@ -415,10 +415,10 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
               <IconComponent className={`w-6 h-6 text-${currentStepData.color}-600 dark:text-${currentStepData.color}-400`} />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h2 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                 CMMC Onboarding
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-text-muted-light dark:text-text-muted-dark">
                 Step {currentStep + 1} of {steps.length}
               </p>
             </div>
@@ -426,14 +426,14 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setShowTips(!showTips)}
-              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="p-2 text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark transition-colors"
               title="Toggle tips"
             >
               <HelpCircle className="w-5 h-5" />
             </button>
             <button
               onClick={handleSkip}
-              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="p-2 text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark transition-colors"
               title="Skip onboarding"
             >
               <X className="w-5 h-5" />
@@ -444,10 +444,10 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
         {/* Progress Bar */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Progress</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">{Math.round(progress)}%</span>
+            <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Progress</span>
+            <span className="text-sm text-text-muted-light dark:text-text-muted-dark">{Math.round(progress)}%</span>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+          <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
             <div 
               className={`bg-${currentStepData.color}-600 h-2 rounded-full transition-all duration-300`}
               style={{ width: `${progress}%` }}
@@ -458,14 +458,14 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
         {/* Step Content */}
         <div className="mb-8">
           <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <h3 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-3">
               {currentStepData.title}
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed mb-4">
               {currentStepData.description}
             </p>
             {currentStepData.estimatedTime && (
-              <div className="inline-flex items-center space-x-2 px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-600 dark:text-gray-300">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 bg-support-light dark:bg-surface-dark rounded-full text-sm text-text-secondary-light dark:text-text-secondary-dark">
                 <Clock className="w-4 h-4" />
                 <span>Estimated time: {currentStepData.estimatedTime}</span>
               </div>
@@ -475,14 +475,14 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
           {/* Features */}
           {currentStepData.features && (
             <div className="mb-6">
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+              <h4 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
                 What you'll learn:
               </h4>
               <div className="grid md:grid-cols-2 gap-3">
                 {currentStepData.features.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                  <div key={index} className="flex items-center space-x-3 p-3 bg-background-light dark:bg-surface-dark rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-success-500 flex-shrink-0" />
+                    <span className="text-text-primary-light dark:text-text-secondary-dark text-sm">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -491,14 +491,14 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
 
           {/* Tips */}
           {showTips && currentStepData.tips && (
-            <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <div className="mb-6 p-4 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg">
               <div className="flex items-center space-x-2 mb-3">
-                <Info className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                <h4 className="font-semibold text-blue-900 dark:text-blue-300">Pro Tips</h4>
+                <Info className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                <h4 className="font-semibold text-primary-900 dark:text-primary-300">Pro Tips</h4>
               </div>
               <ul className="space-y-2">
                 {currentStepData.tips.map((tip, index) => (
-                  <li key={index} className="flex items-start space-x-2 text-blue-800 dark:text-blue-200 text-sm">
+                  <li key={index} className="flex items-start space-x-2 text-primary-800 dark:text-primary-200 text-sm">
                     <ArrowRight className="w-4 h-4 mt-0.5 flex-shrink-0" />
                     <span>{tip}</span>
                   </li>
@@ -535,7 +535,7 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
             <button
               onClick={prevStep}
               disabled={currentStep === 0}
-              className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center space-x-2 px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Previous</span>
@@ -544,7 +544,7 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
             {currentStep > 0 && (
               <button
                 onClick={resetOnboarding}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-text-muted-light dark:text-text-muted-dark hover:text-text-primary-light dark:hover:text-text-secondary-dark transition-colors"
                 title="Restart onboarding"
               >
                 <RotateCcw className="w-4 h-4" />
@@ -556,7 +556,7 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
           <div className="flex items-center space-x-3">
             <button
               onClick={handleSkip}
-              className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+              className="text-sm text-text-muted-light dark:text-text-muted-dark hover:text-text-primary-light dark:hover:text-text-secondary-dark transition-colors"
             >
               Skip tour
             </button>
@@ -565,7 +565,7 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
               onClick={nextStep}
               className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-colors ${
                 currentStep === steps.length - 1
-                  ? 'bg-green-600 text-white hover:bg-green-700'
+                  ? 'bg-success-600 text-white hover:bg-success-700'
                   : `bg-${currentStepData.color}-600 text-white hover:bg-${currentStepData.color}-700`
               }`}
             >
@@ -587,7 +587,7 @@ export const EnhancedUserOnboarding: React.FC<EnhancedUserOnboardingProps> = ({
               className={`w-2 h-2 rounded-full transition-colors ${
                 index <= currentStep 
                   ? `bg-${currentStepData.color}-600` 
-                  : 'bg-gray-300 dark:bg-gray-600'
+                  : 'bg-support-light dark:bg-primary-600'
               }`}
             />
           ))}

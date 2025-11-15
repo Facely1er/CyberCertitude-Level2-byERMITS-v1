@@ -88,17 +88,17 @@ export const CuiDataFlowMapper: React.FC = () => {
   const [showAddElement, setShowAddElement] = useState(false);
 
   const elementTypes = {
-    system: { icon: Server, color: 'bg-blue-500' },
-    process: { icon: Network, color: 'bg-green-500' },
+    system: { icon: Server, color: 'bg-primary-500' },
+    process: { icon: Network, color: 'bg-success-500' },
     storage: { icon: Database, color: 'bg-purple-500' },
     user: { icon: Users, color: 'bg-orange-500' },
-    external: { icon: Share2, color: 'bg-red-500' }
+    external: { icon: Share2, color: 'bg-error-500' }
   };
 
   const securityLevels = {
-    low: { color: 'border-green-500 bg-green-50 dark:bg-green-900/20', badge: 'Low' },
+    low: { color: 'border-success-500 bg-success-50 dark:bg-success-900/20', badge: 'Low' },
     moderate: { color: 'border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20', badge: 'Moderate' },
-    high: { color: 'border-red-500 bg-red-50 dark:bg-red-900/20', badge: 'High' }
+    high: { color: 'border-error-500 bg-error-50 dark:bg-error-900/20', badge: 'High' }
   };
 
   const addElement = (type: DataElement['type']) => {
@@ -247,15 +247,15 @@ Document ID: CUI-MAP-${Date.now()}
         onClick={() => setSelectedElement(element.id)}
       >
         <div className={`
-          p-4 rounded-lg border-2 min-w-32 text-center shadow-lg bg-white dark:bg-gray-800
+          p-4 rounded-lg border-2 min-w-32 text-center shadow-lg bg-surface-light dark:bg-surface-dark
           ${securityLevels[element.securityLevel].color}
           ${isSelected ? 'ring-2 ring-blue-500' : ''}
         `}>
           <div className={`w-8 h-8 rounded-full ${elementTypes[element.type].color} flex items-center justify-center mx-auto mb-2`}>
             <ElementIcon className="h-4 w-4 text-white" />
           </div>
-          <div className="text-sm font-medium text-gray-900 dark:text-white">{element.name}</div>
-          <div className="text-xs text-gray-600 dark:text-gray-400">{element.cuiCategory}</div>
+          <div className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">{element.name}</div>
+          <div className="text-xs text-text-secondary-light dark:text-text-muted-dark">{element.cuiCategory}</div>
         </div>
       </div>
     );
@@ -316,21 +316,21 @@ Document ID: CUI-MAP-${Date.now()}
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold mb-2">CUI Data Flow Mapper</h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-text-secondary-light dark:text-text-muted-dark">
               Visualize and document Controlled Unclassified Information flows for NIST SP 800-171 compliance
             </p>
           </div>
           <div className="flex gap-2">
             <button
               onClick={generateReport}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
+              className="px-4 py-2 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-surface-dark transition-colors flex items-center gap-2"
             >
               <FileText className="h-4 w-4" />
               Generate Report
             </button>
             <button
               onClick={exportMapping}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
             >
               <Download className="h-4 w-4" />
               Export Mapping
@@ -342,36 +342,36 @@ Document ID: CUI-MAP-${Date.now()}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Canvas Area */}
         <div className="lg:col-span-3">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <Network className="h-5 w-5 text-blue-600" />
+                <Network className="h-5 w-5 text-primary-600" />
                 <h3 className="font-semibold text-lg">CUI Data Flow Canvas</h3>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setShowGrid(!showGrid)}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                  className="p-2 hover:bg-support-light dark:hover:bg-surface-dark rounded-lg"
                   title="Toggle Grid"
                 >
                   <Grid className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => setZoomLevel(Math.max(50, zoomLevel - 25))}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                  className="p-2 hover:bg-support-light dark:hover:bg-surface-dark rounded-lg"
                 >
                   <ZoomOut className="h-4 w-4" />
                 </button>
-                <span className="text-sm text-gray-600 dark:text-gray-400">{zoomLevel}%</span>
+                <span className="text-sm text-text-secondary-light dark:text-text-muted-dark">{zoomLevel}%</span>
                 <button
                   onClick={() => setZoomLevel(Math.min(200, zoomLevel + 25))}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                  className="p-2 hover:bg-support-light dark:hover:bg-surface-dark rounded-lg"
                 >
                   <ZoomIn className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => setZoomLevel(100)}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                  className="p-2 hover:bg-support-light dark:hover:bg-surface-dark rounded-lg"
                 >
                   <RotateCcw className="h-4 w-4" />
                 </button>
@@ -380,7 +380,7 @@ Document ID: CUI-MAP-${Date.now()}
             
             <div
               ref={canvasRef}
-              className={`relative w-full h-96 overflow-auto border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-900 ${
+              className={`relative w-full h-96 overflow-auto border-2 border-dashed border-support-light dark:border-support-dark rounded-lg bg-background-light dark:bg-background-dark ${
                 showGrid ? 'bg-grid-pattern' : ''
               }`}
               style={{
@@ -397,14 +397,14 @@ Document ID: CUI-MAP-${Date.now()}
               {mapping.elements.length === 0 && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <Database className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <Database className="h-12 w-12 text-text-muted-dark mx-auto mb-4" />
                     <h3 className="text-lg font-medium mb-2">No Elements Added</h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    <p className="text-text-secondary-light dark:text-text-muted-dark mb-4">
                       Start by adding system elements to map your CUI data flows
                     </p>
                     <button
                       onClick={() => setShowAddElement(true)}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 mx-auto"
+                      className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2 mx-auto"
                     >
                       <Plus className="h-4 w-4" />
                       Add System Element
@@ -416,9 +416,9 @@ Document ID: CUI-MAP-${Date.now()}
           </div>
 
           {/* Legend */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mt-6">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6 mt-6">
             <div className="flex items-center gap-2 mb-4">
-              <Info className="h-5 w-5 text-blue-600" />
+              <Info className="h-5 w-5 text-primary-600" />
               <h3 className="font-semibold">Legend</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -453,12 +453,12 @@ Document ID: CUI-MAP-${Date.now()}
         <div className="space-y-6">
           {/* Add Element Panel */}
           {showAddElement && (
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold">Add Element</h3>
                 <button
                   onClick={() => setShowAddElement(false)}
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                  className="text-text-secondary-light hover:text-text-primary-light dark:text-text-muted-dark dark:hover:text-text-primary-light"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -470,7 +470,7 @@ Document ID: CUI-MAP-${Date.now()}
                     <button
                       key={type}
                       onClick={() => addElement(type as DataElement['type'])}
-                      className="w-full flex items-center gap-3 p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                      className="w-full flex items-center gap-3 p-3 border border-support-light dark:border-support-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors"
                     >
                       <div className={`w-8 h-8 rounded-full ${config.color} flex items-center justify-center`}>
                         <Icon className="h-4 w-4 text-white" />
@@ -484,44 +484,44 @@ Document ID: CUI-MAP-${Date.now()}
           )}
 
           {/* Element Count */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
             <h3 className="font-semibold mb-4">Statistics</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">Elements</span>
+                <span className="text-text-secondary-light dark:text-text-muted-dark">Elements</span>
                 <span className="font-medium">{mapping.elements.length}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">Data Flows</span>
+                <span className="text-text-secondary-light dark:text-text-muted-dark">Data Flows</span>
                 <span className="font-medium">{mapping.flows.length}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">CUI Flows</span>
+                <span className="text-text-secondary-light dark:text-text-muted-dark">CUI Flows</span>
                 <span className="font-medium">{mapping.flows.filter(f => f.cuiInvolved).length}</span>
               </div>
             </div>
           </div>
 
           {/* Quick Actions */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
             <h3 className="font-semibold mb-4">Quick Actions</h3>
             <div className="space-y-2">
               <button
                 onClick={() => setShowAddElement(true)}
-                className="w-full flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="w-full flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Plus className="h-4 w-4" />
                 Add Element
               </button>
               {selectedElement && (
                 <>
-                  <button className="w-full flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <button className="w-full flex items-center gap-2 px-4 py-2 border border-support-light dark:border-support-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors">
                     <Edit className="h-4 w-4" />
                     Edit Element
                   </button>
                   <button
                     onClick={() => deleteElement(selectedElement)}
-                    className="w-full flex items-center gap-2 px-4 py-2 border border-red-300 dark:border-red-600 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                    className="w-full flex items-center gap-2 px-4 py-2 border border-error-300 dark:border-error-600 text-error-600 dark:text-error-400 rounded-lg hover:bg-error-50 dark:hover:bg-error-900/20 transition-colors"
                   >
                     <Trash2 className="h-4 w-4" />
                     Delete Element

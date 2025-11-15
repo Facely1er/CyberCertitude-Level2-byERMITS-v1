@@ -325,7 +325,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 max-w-4xl w-full shadow-2xl border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 sm:p-8 max-w-4xl w-full shadow-2xl border border-support-light dark:border-support-dark max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
@@ -333,10 +333,10 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
               <currentPhaseData.icon className={`w-6 h-6 text-${currentPhaseData.color}-600 dark:text-${currentPhaseData.color}-400`} />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h2 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                 {currentPhaseData.title}
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-text-muted-light dark:text-text-muted-dark">
                 Step {currentStepNumber} of {totalSteps}
               </p>
             </div>
@@ -344,7 +344,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           <div className="flex items-center space-x-2">
             <button
               onClick={handleSkip}
-              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="p-2 text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark transition-colors"
               title="Skip onboarding"
             >
               <X className="w-5 h-5" />
@@ -355,10 +355,10 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
         {/* Progress Bar */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Progress</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">{Math.round(progress)}%</span>
+            <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Progress</span>
+            <span className="text-sm text-text-muted-light dark:text-text-muted-dark">{Math.round(progress)}%</span>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+          <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
             <div 
               className={`bg-${currentPhaseData.color}-600 h-2 rounded-full transition-all duration-300`}
               style={{ width: `${progress}%` }}
@@ -374,7 +374,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
               className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 index === currentPhase
                   ? `bg-${phase.color}-100 text-${phase.color}-700 dark:bg-${phase.color}-900/30 dark:text-${phase.color}-300`
-                  : 'text-gray-500 dark:text-gray-400'
+                  : 'text-text-muted-light dark:text-text-muted-dark'
               }`}
             >
               <phase.icon className="w-4 h-4" />
@@ -386,10 +386,10 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
         {/* Step Content */}
         <div className="mb-8">
           <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <h3 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-3">
               {currentStepData.title}
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
               {currentStepData.description}
             </p>
           </div>
@@ -403,18 +403,18 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
                   onClick={() => updateUserProfile('role', role.id)}
                   className={`p-6 border-2 rounded-lg text-left transition-all ${
                     userProfile.role === role.id
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                      : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                      ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                      : 'border-support-light dark:border-support-dark hover:border-support-light dark:hover:border-support-light'
                   }`}
                 >
                   <div className="flex items-center space-x-3 mb-3">
-                    <role.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">{role.title}</h4>
+                    <role.icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{role.title}</h4>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{role.description}</p>
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark text-sm mb-4">{role.description}</p>
                   <div className="space-y-2">
                     {role.features.map((feature, index) => (
-                      <div key={index} className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                      <div key={index} className="flex items-center space-x-2 text-sm text-text-muted-light dark:text-text-muted-dark">
                         <CheckCircle className="w-4 h-4" />
                         <span>{feature}</span>
                       </div>
@@ -430,22 +430,22 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
             <div className="space-y-6">
               {currentStepData.content.fields.map((field) => (
                 <div key={field.name}>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    {field.label} {field.required && <span className="text-red-500">*</span>}
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
+                    {field.label} {field.required && <span className="text-error-500">*</span>}
                   </label>
                   {field.type === 'text' && (
                     <input
                       type="text"
                       value={userProfile[field.name as keyof typeof userProfile] || ''}
                       onChange={(e) => updateUserProfile(field.name, e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                     />
                   )}
                   {field.type === 'select' && (
                     <select
                       value={userProfile[field.name as keyof typeof userProfile] || ''}
                       onChange={(e) => updateUserProfile(field.name, e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                     >
                       <option value="">Select {field.label}</option>
                       {field.options?.map((option) => (
@@ -458,7 +458,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
                       value={userProfile[field.name as keyof typeof userProfile] || ''}
                       onChange={(e) => updateUserProfile(field.name, e.target.value)}
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                     />
                   )}
                   {field.type === 'multiselect' && (
@@ -476,9 +476,9 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
                                 updateUserProfile('goals', goals.filter(g => g !== option));
                               }
                             }}
-                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            className="rounded border-support-light text-primary-600 focus:ring-primary-500"
                           />
-                          <span className="text-sm text-gray-700 dark:text-gray-300">{option}</span>
+                          <span className="text-sm text-text-primary-light dark:text-text-secondary-dark">{option}</span>
                         </label>
                       ))}
                     </div>
@@ -492,9 +492,9 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           {currentStepData.content.features && (
             <div className="grid md:grid-cols-2 gap-4">
               {currentStepData.content.features.map((feature, index) => (
-                <div key={index} className="flex items-center space-x-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                <div key={index} className="flex items-center space-x-3 p-4 bg-background-light dark:bg-surface-dark rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-success-500 flex-shrink-0" />
+                  <span className="text-text-primary-light dark:text-text-secondary-dark">{feature}</span>
                 </div>
               ))}
             </div>
@@ -504,14 +504,14 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           {currentStepData.content.process && (
             <div className="space-y-4">
               {currentStepData.content.process.map((step, index) => (
-                <div key={index} className="flex items-start space-x-4 p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
-                  <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                    <span className="text-blue-600 dark:text-blue-400 font-semibold">{step.step}</span>
+                <div key={index} className="flex items-start space-x-4 p-4 border border-support-light dark:border-support-dark rounded-lg">
+                  <div className="flex-shrink-0 w-8 h-8 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
+                    <span className="text-primary-600 dark:text-primary-400 font-semibold">{step.step}</span>
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{step.title}</h4>
-                    <p className="text-gray-600 dark:text-gray-300 mb-2">{step.description}</p>
-                    <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">{step.duration}</span>
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">{step.title}</h4>
+                    <p className="text-text-secondary-light dark:text-text-secondary-dark mb-2">{step.description}</p>
+                    <span className="text-sm text-primary-600 dark:text-primary-400 font-medium">{step.duration}</span>
                   </div>
                 </div>
               ))}
@@ -522,12 +522,12 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           {currentStepData.content.sections && (
             <div className="space-y-4">
               {currentStepData.content.sections.map((section, index) => (
-                <div key={index} className="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{section.name}</h4>
-                  <p className="text-gray-600 dark:text-gray-300 mb-3">{section.description}</p>
+                <div key={index} className="p-4 border border-support-light dark:border-support-dark rounded-lg">
+                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">{section.name}</h4>
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark mb-3">{section.description}</p>
                   <div className="grid md:grid-cols-2 gap-2">
                     {section.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                      <div key={idx} className="flex items-center space-x-2 text-sm text-text-muted-light dark:text-text-muted-dark">
                         <CheckCircle className="w-4 h-4" />
                         <span>{feature}</span>
                       </div>
@@ -544,7 +544,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           <button
             onClick={prevStep}
             disabled={currentPhase === 0 && currentStep === 0}
-            className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center space-x-2 px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>Previous</span>
@@ -553,7 +553,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           <div className="flex items-center space-x-3">
             <button
               onClick={handleSkip}
-              className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+              className="text-sm text-text-muted-light dark:text-text-muted-dark hover:text-text-primary-light dark:hover:text-text-secondary-dark transition-colors"
             >
               Skip tour
             </button>
@@ -562,7 +562,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
               onClick={nextStep}
               className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-colors ${
                 currentStepNumber === totalSteps
-                  ? 'bg-green-600 text-white hover:bg-green-700'
+                  ? 'bg-success-600 text-white hover:bg-success-700'
                   : `bg-${currentPhaseData.color}-600 text-white hover:bg-${currentPhaseData.color}-700`
               }`}
             >

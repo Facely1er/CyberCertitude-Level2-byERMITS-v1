@@ -240,10 +240,10 @@ const ComplianceWorkflow: React.FC = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'completed': return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'in-progress': return <Clock className="w-5 h-5 text-blue-500" />;
-      case 'pending': return <Target className="w-5 h-5 text-gray-400" />;
-      default: return <Target className="w-5 h-5 text-gray-400" />;
+      case 'completed': return <CheckCircle className="w-5 h-5 text-success-500" />;
+      case 'in-progress': return <Clock className="w-5 h-5 text-primary-500" />;
+      case 'pending': return <Target className="w-5 h-5 text-text-muted-dark" />;
+      default: return <Target className="w-5 h-5 text-text-muted-dark" />;
     }
   };
 
@@ -275,7 +275,7 @@ const ComplianceWorkflow: React.FC = () => {
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -337,11 +337,11 @@ const ComplianceWorkflow: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Completed Phases</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400">
+              <p className="text-3xl font-bold text-success-600 dark:text-success-400">
                 {stats.completedPhases}/{stats.totalPhases}
               </p>
             </div>
-            <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+            <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
           </div>
         </div>
 
@@ -349,11 +349,11 @@ const ComplianceWorkflow: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Activities</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+              <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">
                 {stats.completedActivities}/{stats.totalActivities}
               </p>
             </div>
-            <Target className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+            <Target className="w-8 h-8 text-primary-600 dark:text-primary-400" />
           </div>
         </div>
 
@@ -396,7 +396,7 @@ const ComplianceWorkflow: React.FC = () => {
             {workflowPhases.map((phase, index) => (
               <div key={phase.id} className="relative">
                 {/* Phase Card */}
-                <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div className="border border-support-light dark:border-support-dark rounded-lg p-6 hover:shadow-md transition-shadow">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-start space-x-4 flex-1">
                       <div className="flex flex-col items-center">
@@ -404,13 +404,13 @@ const ComplianceWorkflow: React.FC = () => {
                           {index + 1}
                         </div>
                         {index < workflowPhases.length - 1 && (
-                          <div className="w-0.5 h-16 bg-gray-300 dark:bg-gray-600"></div>
+                          <div className="w-0.5 h-16 bg-support-light dark:bg-primary-600"></div>
                         )}
                       </div>
                       
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
-                          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                          <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                             {phase.title}
                           </h3>
                           <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(phase.status)}`}>
@@ -492,18 +492,18 @@ const ComplianceWorkflow: React.FC = () => {
                   
                   {/* Expanded Details */}
                   {selectedPhase === phase.id && (
-                    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <div className="mt-6 pt-6 border-t border-support-light dark:border-support-dark">
                       <div className="grid md:grid-cols-3 gap-6">
                         {/* Key Activities */}
                         <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                            <CheckCircle className="w-5 h-5 mr-2 text-green-600" />
+                          <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
+                            <CheckCircle className="w-5 h-5 mr-2 text-success-600" />
                             Key Activities
                           </h4>
                           <div className="space-y-2">
                             {phase.keyActivities.map((activity, actIndex) => (
                               <div key={actIndex} className="flex items-start space-x-2 text-sm">
-                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                                <div className="w-1.5 h-1.5 bg-success-500 rounded-full mt-2 flex-shrink-0"></div>
                                 <span className="text-text-primary-light dark:text-text-primary-dark">{activity}</span>
                               </div>
                             ))}
@@ -512,14 +512,14 @@ const ComplianceWorkflow: React.FC = () => {
                         
                         {/* Deliverables */}
                         <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                            <FileText className="w-5 h-5 mr-2 text-blue-600" />
+                          <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
+                            <FileText className="w-5 h-5 mr-2 text-primary-600" />
                             Deliverables
                           </h4>
                           <div className="space-y-2">
                             {phase.deliverables.map((deliverable, delIndex) => (
                               <div key={delIndex} className="flex items-center space-x-3 p-3 status-info rounded-lg">
-                                <FileText className="w-4 h-4 text-blue-500" />
+                                <FileText className="w-4 h-4 text-primary-500" />
                                 <span className="text-text-primary-light dark:text-text-primary-dark text-sm">{deliverable}</span>
                               </div>
                             ))}
@@ -528,7 +528,7 @@ const ComplianceWorkflow: React.FC = () => {
                         
                         {/* Platform Tools */}
                         <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                          <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
                             <Zap className="w-5 h-5 mr-2 text-purple-600" />
                             Platform Tools
                           </h4>
@@ -536,7 +536,7 @@ const ComplianceWorkflow: React.FC = () => {
                             {phase.platformTools.map((tool, toolIndex) => (
                               <div key={toolIndex} className="flex items-center space-x-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
                                 <Tool className="w-4 h-4 text-purple-500" />
-                                <span className="text-gray-700 dark:text-gray-300 text-sm">{tool}</span>
+                                <span className="text-text-primary-light dark:text-text-secondary-dark text-sm">{tool}</span>
                               </div>
                             ))}
                           </div>
@@ -555,10 +555,10 @@ const ComplianceWorkflow: React.FC = () => {
       {viewMode === 'roles' && (
         <div className="card-standard p-6 mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">
               CMMC Implementation Team Roles
             </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
+            <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
               Key roles and responsibilities for successful CMMC implementation
             </p>
           </div>
@@ -567,16 +567,16 @@ const ComplianceWorkflow: React.FC = () => {
             {teamRoles.map((role) => {
               const RoleIcon = getRoleIcon(role.id);
               return (
-                <div key={role.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div key={role.id} className="border border-support-light dark:border-support-dark rounded-lg p-6 hover:shadow-md transition-shadow">
                   <div className="flex items-start space-x-4 mb-4">
-                    <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                      <RoleIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                    <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-xl">
+                      <RoleIcon className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                      <h3 className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark mb-2">
                         {role.title}
                       </h3>
-                      <div className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                      <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3">
                         <strong>Time Commitment:</strong> {role.timeCommitment}
                       </div>
                     </div>
@@ -585,15 +585,15 @@ const ComplianceWorkflow: React.FC = () => {
                   <div className="space-y-4">
                     {/* Key Responsibilities */}
                     <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
-                        <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
+                      <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center">
+                        <CheckCircle className="w-4 h-4 mr-2 text-success-600" />
                         Key Responsibilities
                       </h4>
                       <ul className="space-y-1">
                         {role.keyResponsibilities.map((responsibility, respIndex) => (
                           <li key={respIndex} className="flex items-start space-x-2 text-sm">
-                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span className="text-gray-700 dark:text-gray-300">{responsibility}</span>
+                            <div className="w-1.5 h-1.5 bg-success-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <span className="text-text-primary-light dark:text-text-secondary-dark">{responsibility}</span>
                           </li>
                         ))}
                       </ul>
@@ -601,7 +601,7 @@ const ComplianceWorkflow: React.FC = () => {
                     
                     {/* Required Skills */}
                     <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                      <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center">
                         <Award className="w-4 h-4 mr-2 text-purple-600" />
                         Required Skills
                       </h4>
@@ -619,7 +619,7 @@ const ComplianceWorkflow: React.FC = () => {
                     
                     {/* Assigned Phases */}
                     <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                      <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center">
                         <Calendar className="w-4 h-4 mr-2 text-orange-600" />
                         Active in Phases
                       </h4>
@@ -649,9 +649,9 @@ const ComplianceWorkflow: React.FC = () => {
                   
                   {/* Expanded Role Details */}
                   {selectedRole === role.id && (
-                    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
-                      <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
-                        <h5 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
+                    <div className="mt-4 pt-4 border-t border-support-light dark:border-support-dark space-y-3">
+                      <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-4">
+                        <h5 className="font-medium text-primary-900 dark:text-primary-100 mb-2">
                           Phase Participation
                         </h5>
                         <div className="grid grid-cols-5 gap-2">
@@ -660,8 +660,8 @@ const ComplianceWorkflow: React.FC = () => {
                               key={pIndex}
                               className={`text-center p-2 rounded text-xs ${
                                 role.phase.includes(phase.id)
-                                  ? 'bg-blue-600 text-white'
-                                  : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+                                  ? 'bg-primary-600 text-white'
+                                  : 'bg-support-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark'
                               }`}
                             >
                               Phase {pIndex + 1}
@@ -694,29 +694,29 @@ const ComplianceWorkflow: React.FC = () => {
       {viewMode === 'planning' && (
         <div className="space-y-8">
           {/* RACI Matrix */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-              <Users className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+              <Users className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
               RACI Matrix - Role Assignment
             </h2>
             
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200 dark:border-gray-700">
-                    <th className="text-left py-3 px-4 font-medium text-gray-500 dark:text-gray-400">
+                  <tr className="border-b border-support-light dark:border-support-dark">
+                    <th className="text-left py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark">
                       Phase / Activity
                     </th>
-                    <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark">
                       Project Manager
                     </th>
-                    <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark">
                       ISSO
                     </th>
-                    <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark">
                       Control Implementers
                     </th>
-                    <th className="text-center py-3 px-4 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="text-center py-3 px-4 font-medium text-text-muted-light dark:text-text-muted-dark">
                       Evidence Manager
                     </th>
                   </tr>
@@ -724,7 +724,7 @@ const ComplianceWorkflow: React.FC = () => {
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                   {workflowPhases.map((phase, index) => (
                     <tr key={phase.id}>
-                      <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">
+                      <td className="py-4 px-4 font-medium text-text-primary-light dark:text-text-primary-dark">
                         {phase.title}
                       </td>
                       <td className="py-4 px-4 text-center">
@@ -738,7 +738,7 @@ const ComplianceWorkflow: React.FC = () => {
                       <td className="py-4 px-4 text-center">
                         <span className={`inline-block w-8 h-8 rounded-full text-white text-sm font-bold flex items-center justify-center ${
                           phase.assignedRoles.includes('ISSO') 
-                            ? 'bg-green-600' : 'bg-gray-300 dark:bg-gray-600'
+                            ? 'bg-success-600' : 'bg-support-light dark:bg-primary-600'
                         }`}>
                           {phase.assignedRoles.includes('ISSO') ? 'A' : 'C'}
                         </span>
@@ -746,7 +746,7 @@ const ComplianceWorkflow: React.FC = () => {
                       <td className="py-4 px-4 text-center">
                         <span className={`inline-block w-8 h-8 rounded-full text-white text-sm font-bold flex items-center justify-center ${
                           phase.assignedRoles.includes('Control Implementers') 
-                            ? 'bg-purple-600' : 'bg-gray-300 dark:bg-gray-600'
+                            ? 'bg-purple-600' : 'bg-support-light dark:bg-primary-600'
                         }`}>
                           {phase.assignedRoles.includes('Control Implementers') ? 'R' : 'I'}
                         </span>
@@ -754,7 +754,7 @@ const ComplianceWorkflow: React.FC = () => {
                       <td className="py-4 px-4 text-center">
                         <span className={`inline-block w-8 h-8 rounded-full text-white text-sm font-bold flex items-center justify-center ${
                           phase.assignedRoles.includes('Evidence Manager') 
-                            ? 'bg-orange-600' : 'bg-gray-300 dark:bg-gray-600'
+                            ? 'bg-orange-600' : 'bg-support-light dark:bg-primary-600'
                         }`}>
                           {phase.assignedRoles.includes('Evidence Manager') ? 'R' : 'C'}
                         </span>
@@ -765,51 +765,51 @@ const ComplianceWorkflow: React.FC = () => {
               </table>
             </div>
             
-            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-              <h4 className="font-medium text-gray-900 dark:text-white mb-2">RACI Legend</h4>
+            <div className="mt-4 p-4 bg-background-light dark:bg-surface-dark/50 rounded-lg">
+              <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-2">RACI Legend</h4>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div className="flex items-center space-x-2">
-                  <span className="inline-block w-6 h-6 bg-blue-600 text-white rounded-full text-xs font-bold flex items-center justify-center">R</span>
-                  <span className="text-gray-700 dark:text-gray-300">Responsible</span>
+                  <span className="inline-block w-6 h-6 bg-primary-600 text-white rounded-full text-xs font-bold flex items-center justify-center">R</span>
+                  <span className="text-text-primary-light dark:text-text-secondary-dark">Responsible</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="inline-block w-6 h-6 bg-green-600 text-white rounded-full text-xs font-bold flex items-center justify-center">A</span>
-                  <span className="text-gray-700 dark:text-gray-300">Accountable</span>
+                  <span className="inline-block w-6 h-6 bg-success-600 text-white rounded-full text-xs font-bold flex items-center justify-center">A</span>
+                  <span className="text-text-primary-light dark:text-text-secondary-dark">Accountable</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="inline-block w-6 h-6 bg-gray-600 text-white rounded-full text-xs font-bold flex items-center justify-center">C</span>
-                  <span className="text-gray-700 dark:text-gray-300">Consulted</span>
+                  <span className="inline-block w-6 h-6 bg-primary-600 text-white rounded-full text-xs font-bold flex items-center justify-center">C</span>
+                  <span className="text-text-primary-light dark:text-text-secondary-dark">Consulted</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="inline-block w-6 h-6 bg-gray-600 text-white rounded-full text-xs font-bold flex items-center justify-center">I</span>
-                  <span className="text-gray-700 dark:text-gray-300">Informed</span>
+                  <span className="inline-block w-6 h-6 bg-primary-600 text-white rounded-full text-xs font-bold flex items-center justify-center">I</span>
+                  <span className="text-text-primary-light dark:text-text-secondary-dark">Informed</span>
                 </div>
               </div>
             </div>
           </div>
           
           {/* Resource Planning */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-              <Briefcase className="w-6 h-6 mr-3 text-green-600 dark:text-green-400" />
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+              <Briefcase className="w-6 h-6 mr-3 text-success-600 dark:text-success-400" />
               Resource Planning & Time Allocation
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h3 className="font-medium text-gray-900 dark:text-white mb-4">Phase-Based Resource Allocation</h3>
+                <h3 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-4">Phase-Based Resource Allocation</h3>
                 <div className="space-y-3">
                   {workflowPhases.map((phase, index) => (
-                    <div key={phase.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                    <div key={phase.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium text-gray-900 dark:text-white">
+                        <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           Phase {index + 1}: {phase.title}
                         </span>
-                        <span className="text-sm text-gray-600 dark:text-gray-300">
+                        <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                           {phase.duration}
                         </span>
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">
+                      <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                         Roles: {phase.assignedRoles.join(', ')}
                       </div>
                     </div>
@@ -818,15 +818,15 @@ const ComplianceWorkflow: React.FC = () => {
               </div>
               
               <div>
-                <h3 className="font-medium text-gray-900 dark:text-white mb-4">Role Utilization Timeline</h3>
+                <h3 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-4">Role Utilization Timeline</h3>
                 <div className="space-y-3">
                   {teamRoles.map((role) => (
-                    <div key={role.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                    <div key={role.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium text-gray-900 dark:text-white">
+                        <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {role.title}
                         </span>
-                        <span className="text-sm text-gray-600 dark:text-gray-300">
+                        <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                           {role.timeCommitment}
                         </span>
                       </div>
@@ -836,8 +836,8 @@ const ComplianceWorkflow: React.FC = () => {
                             key={pIndex}
                             className={`h-2 rounded ${
                               role.phase.includes(phase.id)
-                                ? 'bg-blue-500'
-                                : 'bg-gray-200 dark:bg-gray-700'
+                                ? 'bg-primary-500'
+                                : 'bg-support-light dark:bg-surface-dark'
                             }`}
                             title={`Phase ${pIndex + 1}`}
                           />
@@ -856,71 +856,71 @@ const ComplianceWorkflow: React.FC = () => {
       {viewMode === 'planning' && (
         <div className="space-y-8">
           {/* Milestone Timeline */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-              <Calendar className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+              <Calendar className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
               Project Milestones & Timeline
             </h2>
             
             <div className="relative">
               {/* Timeline Line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600"></div>
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-support-light dark:bg-primary-600"></div>
               
               <div className="space-y-8">
                 {workflowPhases.map((phase, index) => (
                   <div key={phase.id} className="relative flex items-start space-x-4">
                     {/* Timeline Dot */}
-                    <div className={`w-4 h-4 rounded-full border-2 border-white dark:border-gray-800 ${
-                      phase.status === 'completed' ? 'bg-green-500' :
-                      phase.status === 'in-progress' ? 'bg-blue-500' : 'bg-gray-300'
+                    <div className={`w-4 h-4 rounded-full border-2 border-white dark:border-support-dark ${
+                      phase.status === 'completed' ? 'bg-success-500' :
+                      phase.status === 'in-progress' ? 'bg-primary-500' : 'bg-support-light'
                     } z-10`}></div>
                     
-                    <div className="flex-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+                    <div className="flex-1 bg-background-light dark:bg-surface-dark/50 rounded-lg p-4">
                       <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-bold text-gray-900 dark:text-white">
+                        <h3 className="font-bold text-text-primary-light dark:text-text-primary-dark">
                           Milestone {index + 1}: {phase.title}
                         </h3>
                         <div className="text-right">
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">
+                          <div className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                             {phase.duration}
                           </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                          <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                             Duration
                           </div>
                         </div>
                       </div>
                       
-                      <p className="text-gray-600 dark:text-gray-300 mb-3">
+                      <p className="text-text-secondary-light dark:text-text-secondary-dark mb-3">
                         {phase.description}
                       </p>
                       
                       <div className="grid md:grid-cols-3 gap-4">
                         <div>
-                          <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Key Milestones</h4>
+                          <h4 className="font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">Key Milestones</h4>
                           <ul className="space-y-1 text-sm">
                             {phase.deliverables.map((deliverable, delIndex) => (
                               <li key={delIndex} className="flex items-center space-x-2">
-                                <CheckCircle className="w-3 h-3 text-green-500" />
-                                <span className="text-gray-600 dark:text-gray-400">{deliverable}</span>
+                                <CheckCircle className="w-3 h-3 text-success-500" />
+                                <span className="text-text-secondary-light dark:text-text-muted-dark">{deliverable}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
                         
                         <div>
-                          <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Platform Integration</h4>
+                          <h4 className="font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">Platform Integration</h4>
                           <ul className="space-y-1 text-sm">
                             {phase.platformTools.map((tool, toolIndex) => (
                               <li key={toolIndex} className="flex items-center space-x-2">
                                 <Zap className="w-3 h-3 text-purple-500" />
-                                <span className="text-gray-600 dark:text-gray-400">{tool}</span>
+                                <span className="text-text-secondary-light dark:text-text-muted-dark">{tool}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
                         
                         <div>
-                          <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Responsible Roles</h4>
+                          <h4 className="font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">Responsible Roles</h4>
                           <div className="flex flex-wrap gap-1">
                             {phase.assignedRoles.map((role, roleIndex) => (
                               <span
@@ -941,25 +941,25 @@ const ComplianceWorkflow: React.FC = () => {
           </div>
 
           {/* Risk Management */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
               <AlertTriangle className="w-6 h-6 mr-3 text-orange-600 dark:text-orange-400" />
               Implementation Risk Management
             </h2>
             
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h3 className="font-medium text-gray-900 dark:text-white mb-4">Identified Risks</h3>
+                <h3 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-4">Identified Risks</h3>
                 <div className="space-y-3">
-                  <div className="border border-red-200 dark:border-red-800 rounded-lg p-4 bg-red-50 dark:bg-red-900/20">
+                  <div className="border border-error-200 dark:border-error-800 rounded-lg p-4 bg-error-50 dark:bg-error-900/20">
                     <div className="flex items-start space-x-3">
-                      <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5" />
+                      <AlertTriangle className="w-5 h-5 text-error-600 dark:text-error-400 mt-0.5" />
                       <div>
-                        <h4 className="font-medium text-red-800 dark:text-red-300">Resource Availability</h4>
-                        <p className="text-red-700 dark:text-red-400 text-sm">
+                        <h4 className="font-medium text-error-800 dark:text-error-300">Resource Availability</h4>
+                        <p className="text-error-700 dark:text-error-400 text-sm">
                           Key personnel may not be available during critical implementation phases
                         </p>
-                        <div className="text-red-600 dark:text-red-400 text-xs mt-1">
+                        <div className="text-error-600 dark:text-error-400 text-xs mt-1">
                           Mitigation: Cross-train team members and maintain resource buffer
                         </div>
                       </div>
@@ -984,23 +984,23 @@ const ComplianceWorkflow: React.FC = () => {
               </div>
               
               <div>
-                <h3 className="font-medium text-gray-900 dark:text-white mb-4">Success Factors</h3>
+                <h3 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-4">Success Factors</h3>
                 <div className="space-y-3">
-                  <div className="flex items-center space-x-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                    <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
-                    <span className="text-green-800 dark:text-green-300 text-sm">Executive leadership support and commitment</span>
+                  <div className="flex items-center space-x-3 p-3 bg-success-50 dark:bg-success-900/20 rounded-lg border border-success-200 dark:border-success-800">
+                    <CheckCircle className="w-5 h-5 text-success-600 dark:text-success-400" />
+                    <span className="text-success-800 dark:text-success-300 text-sm">Executive leadership support and commitment</span>
                   </div>
-                  <div className="flex items-center space-x-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                    <Users className="w-5 h-5 text-green-600 dark:text-green-400" />
-                    <span className="text-green-800 dark:text-green-300 text-sm">Clear role definitions and accountability</span>
+                  <div className="flex items-center space-x-3 p-3 bg-success-50 dark:bg-success-900/20 rounded-lg border border-success-200 dark:border-success-800">
+                    <Users className="w-5 h-5 text-success-600 dark:text-success-400" />
+                    <span className="text-success-800 dark:text-success-300 text-sm">Clear role definitions and accountability</span>
                   </div>
-                  <div className="flex items-center space-x-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                    <Target className="w-5 h-5 text-green-600 dark:text-green-400" />
-                    <span className="text-green-800 dark:text-green-300 text-sm">Regular progress monitoring and course correction</span>
+                  <div className="flex items-center space-x-3 p-3 bg-success-50 dark:bg-success-900/20 rounded-lg border border-success-200 dark:border-success-800">
+                    <Target className="w-5 h-5 text-success-600 dark:text-success-400" />
+                    <span className="text-success-800 dark:text-success-300 text-sm">Regular progress monitoring and course correction</span>
                   </div>
-                  <div className="flex items-center space-x-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                    <Award className="w-5 h-5 text-green-600 dark:text-green-400" />
-                    <span className="text-green-800 dark:text-green-300 text-sm">Continuous stakeholder communication</span>
+                  <div className="flex items-center space-x-3 p-3 bg-success-50 dark:bg-success-900/20 rounded-lg border border-success-200 dark:border-success-800">
+                    <Award className="w-5 h-5 text-success-600 dark:text-success-400" />
+                    <span className="text-success-800 dark:text-success-300 text-sm">Continuous stakeholder communication</span>
                   </div>
                 </div>
               </div>
@@ -1010,53 +1010,53 @@ const ComplianceWorkflow: React.FC = () => {
       )}
 
       {/* Quick Actions */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+        <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
           Quick Actions
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
             to="/assessment-intro"
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
           >
-            <Target className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <Target className="w-6 h-6 text-primary-600 dark:text-primary-400" />
             <div>
-              <div className="font-medium text-gray-900 dark:text-white">Start Assessment</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Begin CMMC evaluation</div>
+              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Start Assessment</div>
+              <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Begin CMMC evaluation</div>
             </div>
           </Link>
           
           <Link
             to="/evidence"
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
           >
-            <FileText className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <FileText className="w-6 h-6 text-success-600 dark:text-success-400" />
             <div>
-              <div className="font-medium text-gray-900 dark:text-white">Collect Evidence</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Upload documentation</div>
+              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Collect Evidence</div>
+              <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Upload documentation</div>
             </div>
           </Link>
           
           <Link
             to="/tasks"
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
           >
             <CheckCircle className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             <div>
-              <div className="font-medium text-gray-900 dark:text-white">Manage Tasks</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Track implementation</div>
+              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Manage Tasks</div>
+              <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Track implementation</div>
             </div>
           </Link>
           
           <Link
             to="/team"
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+            className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors text-left"
           >
             <Users className="w-6 h-6 text-orange-600 dark:text-orange-400" />
             <div>
-              <div className="font-medium text-gray-900 dark:text-white">Team Collaboration</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Coordinate efforts</div>
+              <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Team Collaboration</div>
+              <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Coordinate efforts</div>
             </div>
           </Link>
         </div>
@@ -1067,14 +1067,14 @@ const ComplianceWorkflow: React.FC = () => {
         <h2 className="text-3xl font-bold text-white mb-6">
           Ready to Start Implementation?
         </h2>
-        <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
           Follow our structured 5-phase approach to achieve CMMC 2.0 certification with defined roles and responsibilities
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             to="/assessment-intro"
-            className="bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
+            className="bg-surface-light text-primary-600 px-8 py-4 rounded-xl font-bold hover:bg-background-light transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
           >
             <Play className="w-5 h-5" />
             <span>Start Phase 1: Assessment</span>
@@ -1082,14 +1082,14 @@ const ComplianceWorkflow: React.FC = () => {
           
           <Link
             to="/team"
-            className="border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all duration-200 flex items-center justify-center space-x-2"
+            className="border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-surface-light/10 transition-all duration-200 flex items-center justify-center space-x-2"
           >
             <Users className="w-5 h-5" />
             <span>Setup Implementation Team</span>
           </Link>
         </div>
         
-        <div className="mt-6 text-blue-100 text-sm">
+        <div className="mt-6 text-primary-100 text-sm">
           <p>
             <strong>Total Timeline:</strong> 12-30 weeks • <strong>Team Size:</strong> 4-8 members • <strong>Platform Support:</strong> Integrated tools and automation
           </p>
@@ -1097,14 +1097,14 @@ const ComplianceWorkflow: React.FC = () => {
       </div>
 
       {/* Implementation Best Practices */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark:border-blue-800">
-        <h3 className="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-4">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-8 border border-primary-200 dark:border-primary-800">
+        <h3 className="text-2xl font-bold text-primary-900 dark:text-primary-100 mb-4">
           CMMC Implementation Best Practices
         </h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-3">Project Success Factors</h4>
-            <ul className="space-y-2 text-blue-700 dark:text-blue-300">
+            <h4 className="font-semibold text-primary-800 dark:text-primary-200 mb-3">Project Success Factors</h4>
+            <ul className="space-y-2 text-primary-700 dark:text-primary-300">
               <li>• Secure executive sponsorship and dedicated budget</li>
               <li>• Establish clear project governance and decision rights</li>
               <li>• Implement phased approach with regular milestone reviews</li>
@@ -1113,8 +1113,8 @@ const ComplianceWorkflow: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-3">Key Implementation Milestones</h4>
-            <ul className="space-y-2 text-blue-700 dark:text-blue-300">
+            <h4 className="font-semibold text-primary-800 dark:text-primary-200 mb-3">Key Implementation Milestones</h4>
+            <ul className="space-y-2 text-primary-700 dark:text-primary-300">
               <li>• Baseline assessment and gap analysis completion</li>
               <li>• Team roles and RACI matrix establishment</li>
               <li>• Technical and process controls implementation</li>

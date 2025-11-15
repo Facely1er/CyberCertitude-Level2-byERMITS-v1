@@ -130,30 +130,30 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
 
   const getCriticalityColor = (level: CriticalityLevel) => {
     switch (level) {
-      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+      case 'critical': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300';
       case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'low': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+      case 'low': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
     }
   };
 
   const getStatusColor = (status: AssetStatus) => {
     switch (status) {
-      case 'active': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'inactive': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      case 'active': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'inactive': return 'bg-support-light dark:bg-background-dark/30 text-text-primary-light dark:text-text-secondary-dark';
       case 'maintenance': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'quarantined': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-      case 'disposed': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
-      case 'decommissioned': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      case 'quarantined': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      case 'disposed': return 'bg-support-light dark:bg-background-dark/30 text-text-primary-light dark:text-text-secondary-dark';
+      case 'decommissioned': return 'bg-support-light dark:bg-background-dark/30 text-text-primary-light dark:text-text-secondary-dark';
     }
   };
 
   const getClassificationColor = (classification: InformationClassification) => {
     switch (classification) {
-      case 'public': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+      case 'public': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300';
       case 'internal': return 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300';
       case 'confidential': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
-      case 'restricted': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+      case 'restricted': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
       case 'top-secret': return 'bg-black text-white';
     }
   };
@@ -197,20 +197,20 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 Asset Inventory
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 Manage and track all organizational assets
               </p>
             </div>
             
             <div className="flex items-center space-x-3">
-              <label className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+              <label className="flex items-center space-x-2 px-4 py-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors cursor-pointer">
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
                 <input
@@ -223,7 +223,7 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               
               <button
                 onClick={onExportAssets}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -231,7 +231,7 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               
               <button
                 onClick={onCreateAsset}
-                className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Asset</span>
@@ -328,13 +328,13 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
       />
       
       {/* Sort and View Controls */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8 p-6">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8 p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="name">Sort by Name</option>
               <option value="category">Sort by Category</option>
@@ -361,23 +361,23 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                 link.click();
                 URL.revokeObjectURL(url);
               }}
-              className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
             >
               <Download className="w-4 h-4" />
               <span>Template</span>
             </button>
           </div>
           
-          <div className="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
+          <div className="flex border border-support-light dark:border-support-dark rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode('table')}
-              className={`px-4 py-3 ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white'} transition-colors`}
+              className={`px-4 py-3 ${viewMode === 'table' ? 'bg-primary-600 text-white' : 'bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark'} transition-colors`}
             >
               <BarChart3 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-4 py-3 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white'} transition-colors`}
+              className={`px-4 py-3 ${viewMode === 'grid' ? 'bg-primary-600 text-white' : 'bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark'} transition-colors`}
             >
               <Shield className="w-4 h-4" />
             </button>
@@ -386,14 +386,14 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
       </div>
 
       {/* Results Summary */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6 mb-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <span className="text-gray-900 dark:text-white font-medium">
+            <span className="text-text-primary-light dark:text-text-primary-dark font-medium">
               {filteredAssets.length} of {assets.length} assets
             </span>
             {selectedAssets.length > 0 && (
-              <span className="text-blue-600 dark:text-blue-400 font-medium">
+              <span className="text-primary-600 dark:text-primary-400 font-medium">
                 {selectedAssets.length} selected
               </span>
             )}
@@ -406,13 +406,13 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                   selectedAssets.forEach(id => onDeleteAsset(id));
                   setSelectedAssets([]);
                 }}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
+                className="px-4 py-2 bg-error-600 text-white rounded-lg hover:bg-error-700 transition-colors text-sm"
               >
                 Delete Selected
               </button>
               <button
                 onClick={() => setSelectedAssets([])}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm"
+                className="px-4 py-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors text-sm"
               >
                 Clear Selection
               </button>
@@ -422,7 +422,7 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
       </div>
 
       {/* Asset Display */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
         {loading ? (
           <div className="p-6">
             <LoadingTable rows={5} columns={6} />
@@ -443,35 +443,35 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
         ) : viewMode === 'table' ? (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-gray-700">
+              <thead className="bg-background-light dark:bg-surface-dark">
                 <tr>
                   <th className="px-6 py-3 text-left">
                     <input
                       type="checkbox"
                       checked={selectedAssets.length === filteredAssets.length}
                       onChange={selectAllAssets}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      className="rounded border-support-light text-primary-600 focus:ring-primary-500"
                     />
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                     Asset
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                     Category
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                     Criticality
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                     Classification
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                     Owner
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -480,32 +480,32 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                 {filteredAssets.map((asset) => {
                   const IconComponent = getCategoryIcon(asset.category);
                   return (
-                    <tr key={asset.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                    <tr key={asset.id} className="hover:bg-background-light dark:hover:bg-surface-dark/50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
                           checked={selectedAssets.includes(asset.id)}
                           onChange={() => toggleAssetSelection(asset.id)}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-support-light text-primary-600 focus:ring-primary-500"
                         />
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center space-x-3">
-                          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                            <IconComponent className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                          <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                            <IconComponent className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                           </div>
                           <div>
-                            <div className="font-medium text-gray-900 dark:text-white">
+                            <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                               {asset.name}
                             </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-300">
+                            <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                               {asset.description.length > 50 ? `${asset.description.substring(0, 50)}...` : asset.description}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="capitalize text-gray-900 dark:text-white">
+                        <span className="capitalize text-text-primary-light dark:text-text-primary-dark">
                           {asset.category.replace('-', ' ')}
                         </span>
                       </td>
@@ -524,21 +524,21 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                           {asset.informationClassification}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                      <td className="px-6 py-4 whitespace-nowrap text-text-primary-light dark:text-text-primary-dark">
                         {asset.owner}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex space-x-2">
                           <button
                             onClick={() => onViewAsset(asset)}
-                            className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                            className="p-2 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 rounded-lg transition-colors"
                             title="View Asset"
                           >
                             <Eye className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => onEditAsset(asset)}
-                            className="p-2 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
+                            className="p-2 text-success-600 dark:text-success-400 hover:bg-success-100 dark:hover:bg-success-900/30 rounded-lg transition-colors"
                             title="Edit Asset"
                           >
                             <Edit3 className="w-4 h-4" />
@@ -549,7 +549,7 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                                 onDeleteAsset(asset.id);
                               }
                             }}
-                            className="p-2 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors"
+                            className="p-2 text-error-600 dark:text-error-400 hover:bg-error-100 dark:hover:bg-error-900/30 rounded-lg transition-colors"
                             title="Delete Asset"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -567,91 +567,91 @@ const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             {filteredAssets.map((asset) => {
               const IconComponent = getCategoryIcon(asset.category);
               return (
-                <div key={asset.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div key={asset.id} className="border border-support-light dark:border-support-dark rounded-lg p-6 hover:shadow-md transition-shadow">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <input
                         type="checkbox"
                         checked={selectedAssets.includes(asset.id)}
                         onChange={() => toggleAssetSelection(asset.id)}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-support-light text-primary-600 focus:ring-primary-500"
                       />
-                      <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                        <IconComponent className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                        <IconComponent className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                       </div>
                     </div>
                     <div className="flex space-x-1">
                       <button
                         onClick={() => onViewAsset(asset)}
-                        className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                        className="p-2 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 rounded-lg transition-colors"
                       >
                         <Eye className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onEditAsset(asset)}
-                        className="p-2 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
+                        className="p-2 text-success-600 dark:text-success-400 hover:bg-success-100 dark:hover:bg-success-900/30 rounded-lg transition-colors"
                       >
                         <Edit3 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onDeleteAsset(asset.id)}
-                        className="p-2 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors"
+                        className="p-2 text-error-600 dark:text-error-400 hover:bg-error-100 dark:hover:bg-error-900/30 rounded-lg transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
                   
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
                     {asset.name}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-4">
                     {asset.description.length > 100 ? `${asset.description.substring(0, 100)}...` : asset.description}
                   </p>
                   
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Category</span>
-                      <span className="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                      <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Category</span>
+                      <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark capitalize">
                         {asset.category.replace('-', ' ')}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Criticality</span>
+                      <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Criticality</span>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCriticalityColor(asset.criticality)}`}>
                         {asset.criticality}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Status</span>
+                      <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Status</span>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(asset.status)}`}>
                         {asset.status}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Classification</span>
+                      <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Classification</span>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getClassificationColor(asset.informationClassification)}`}>
                         {asset.informationClassification}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">Owner</span>
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">
+                      <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Owner</span>
+                      <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                         {asset.owner}
                       </span>
                     </div>
                   </div>
                   
                   {asset.tags && asset.tags.length > 0 && (
-                    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div className="mt-4 pt-4 border-t border-support-light dark:border-support-dark">
                       <div className="flex flex-wrap gap-2">
                         {asset.tags.slice(0, 3).map((tag, index) => (
-                          <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
+                          <span key={index} className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark text-xs rounded">
                             #{tag}
                           </span>
                         ))}
                         {asset.tags.length > 3 && (
-                          <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
+                          <span className="px-2 py-1 bg-support-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark text-xs rounded">
                             +{asset.tags.length - 3} more
                           </span>
                         )}

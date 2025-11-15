@@ -22,25 +22,25 @@ const C3PAOPrep: React.FC = () => {
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">C3PAO Preparation</h1>
-          <p className="text-gray-600 dark:text-gray-300">Prepare for third-party assessment</p>
+          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">C3PAO Preparation</h1>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Prepare for third-party assessment</p>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Assessment Readiness Checklist</h2>
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Assessment Readiness Checklist</h2>
           <div className="space-y-3">
             {checklist.map((item) => (
-              <div key={item.id} className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <div key={item.id} className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg">
                 {item.status ? (
-                  <CheckCircle className="w-6 h-6 text-green-600" />
+                  <CheckCircle className="w-6 h-6 text-success-600" />
                 ) : (
                   <AlertTriangle className="w-6 h-6 text-orange-600" />
                 )}
-                <span className={item.status ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300'}>
+                <span className={item.status ? 'text-text-primary-light dark:text-text-primary-dark' : 'text-text-secondary-light dark:text-text-secondary-dark'}>
                   {item.item}
                 </span>
               </div>
@@ -50,16 +50,16 @@ const C3PAOPrep: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Estimated Readiness</h3>
-          <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">75%</div>
-          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-            <div className="bg-blue-600 h-2 rounded-full" style={{ width: '75%' }}></div>
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Estimated Readiness</h3>
+          <div className="text-4xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">75%</div>
+          <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
+            <div className="bg-primary-600 h-2 rounded-full" style={{ width: '75%' }}></div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Recommended Assessment Date</h3>
-          <div className="flex items-center space-x-2 text-xl text-gray-900 dark:text-white">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Recommended Assessment Date</h3>
+          <div className="flex items-center space-x-2 text-xl text-text-primary-light dark:text-text-primary-dark">
             <Calendar className="w-6 h-6" />
             <span>Q2 2024</span>
           </div>

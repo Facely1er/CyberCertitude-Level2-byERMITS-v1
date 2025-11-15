@@ -62,56 +62,56 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
       id: 'welcome',
       title: 'Welcome to CyberCertitude™ CMMC Portal',
       description: 'Your complete solution for CMMC 2.0 Level 2 compliance',
-      icon: <Shield className="w-8 h-8 text-blue-600" />,
+      icon: <Shield className="w-8 h-8 text-primary-600" />,
       isCompleted: completedSteps.has('welcome'),
       isRequired: true,
       estimatedTime: '2 minutes',
       content: (
         <div className="space-y-6">
           <div className="text-center">
-            <div className="mx-auto w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
-              <Shield className="w-8 h-8 text-blue-600" />
+            <div className="mx-auto w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mb-4">
+              <Shield className="w-8 h-8 text-primary-600" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">
               Welcome to CyberCertitude™
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark mb-6">
 
               Your comprehensive CMMC 2.0 Level 2 compliance platform designed specifically for Government contractors
             </p>
           </div>
 
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
               What You'll Accomplish
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
+                <CheckCircle className="w-5 h-5 text-success-500 mt-1" />
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white">Complete CMMC Assessment</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Assess all 110 CMMC 2.0 Level 2 controls</p>
+                  <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark">Complete CMMC Assessment</h4>
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Assess all 110 CMMC 2.0 Level 2 controls</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
+                <CheckCircle className="w-5 h-5 text-success-500 mt-1" />
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white">Generate Compliance Reports</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Create detailed compliance documentation</p>
+                  <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark">Generate Compliance Reports</h4>
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Create detailed compliance documentation</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
+                <CheckCircle className="w-5 h-5 text-success-500 mt-1" />
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white">Collect Evidence</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Organize and manage compliance evidence</p>
+                  <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark">Collect Evidence</h4>
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Organize and manage compliance evidence</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
+                <CheckCircle className="w-5 h-5 text-success-500 mt-1" />
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white">Prepare for C3PAO</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Get ready for C3PAO assessment</p>
+                  <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark">Prepare for C3PAO</h4>
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Get ready for C3PAO assessment</p>
                 </div>
               </div>
             </div>
@@ -137,42 +137,42 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
       id: 'organization',
       title: 'Organization Information',
       description: 'Tell us about your organization and compliance needs',
-      icon: <Users className="w-8 h-8 text-green-600" />,
+      icon: <Users className="w-8 h-8 text-success-600" />,
       isCompleted: completedSteps.has('organization'),
       isRequired: true,
       estimatedTime: '3 minutes',
       content: (
         <div className="space-y-6">
           <div className="text-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
               Organization Information
             </h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark">
               Help us customize your CMMC compliance experience
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Organization Name *
               </label>
               <input
                 type="text"
                 value={organizationInfo.name}
                 onChange={(e) => setOrganizationInfo(prev => ({ ...prev, name: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter organization name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Industry *
               </label>
               <select
                 value={organizationInfo.industry}
                 onChange={(e) => setOrganizationInfo(prev => ({ ...prev, industry: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 <option value="">Select Industry</option>
                 <option value="aerospace">Aerospace & Military</option>
@@ -184,13 +184,13 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Organization Size *
               </label>
               <select
                 value={organizationInfo.size}
                 onChange={(e) => setOrganizationInfo(prev => ({ ...prev, size: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 <option value="">Select Size</option>
                 <option value="small">Small (1-50 employees)</option>
@@ -199,13 +199,13 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Current Security Level
               </label>
               <select
                 value={organizationInfo.currentSecurityLevel}
                 onChange={(e) => setOrganizationInfo(prev => ({ ...prev, currentSecurityLevel: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 <option value="">Select Level</option>
                 <option value="basic">Basic Security</option>
@@ -215,33 +215,33 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Primary Contact *
               </label>
               <input
                 type="text"
                 value={organizationInfo.primaryContact}
                 onChange={(e) => setOrganizationInfo(prev => ({ ...prev, primaryContact: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter contact name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Email *
               </label>
               <input
                 type="email"
                 value={organizationInfo.email}
                 onChange={(e) => setOrganizationInfo(prev => ({ ...prev, email: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter email address"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Compliance Requirements
             </label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -263,9 +263,9 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
                         }));
                       }
                     }}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-support-light text-primary-600 focus:ring-primary-500"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">{req}</span>
+                  <span className="text-sm text-text-primary-light dark:text-text-secondary-dark">{req}</span>
                 </label>
               ))}
             </div>
@@ -277,9 +277,9 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
               id="hasCMMCExperience"
               checked={organizationInfo.hasCMMCExperience}
               onChange={(e) => setOrganizationInfo(prev => ({ ...prev, hasCMMCExperience: e.target.checked }))}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-support-light text-primary-600 focus:ring-primary-500"
             />
-            <label htmlFor="hasCMMCExperience" className="text-sm text-gray-700 dark:text-gray-300">
+            <label htmlFor="hasCMMCExperience" className="text-sm text-text-primary-light dark:text-text-secondary-dark">
               Our organization has previous CMMC compliance experience
             </label>
           </div>
@@ -297,10 +297,10 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
       content: (
         <div className="space-y-6">
           <div className="text-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
               CMMC 2.0 Level 2 Compliance Journey
             </h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark">
               Your roadmap to CMMC 2.0 Level 2 certification
             </p>
           </div>
@@ -336,28 +336,28 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
                 color: 'purple'
               }
             ].map((phase, index) => (
-              <div key={index} className="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div key={index} className="flex items-start gap-4 p-4 bg-background-light dark:bg-surface-dark rounded-lg">
                 <div className={`w-10 h-10 bg-${phase.color}-100 dark:bg-${phase.color}-900/30 rounded-full flex items-center justify-center text-${phase.color}-600`}>
                   {phase.icon}
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white">{phase.phase}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{phase.description}</p>
-                  <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{phase.phase}</h4>
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-2">{phase.description}</p>
+                  <div className="flex items-center gap-2 text-xs text-text-muted-light dark:text-text-muted-dark">
                     <Clock className="w-3 h-3" />
                     <span>{phase.duration}</span>
                   </div>
                 </div>
-                <div className="text-2xl font-bold text-gray-300 dark:text-gray-600">
+                <div className="text-2xl font-bold text-text-secondary-dark dark:text-text-secondary-light">
                   {index + 1}
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
-            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">Key Success Factors</h4>
-            <ul className="space-y-1 text-sm text-blue-800 dark:text-blue-200">
+          <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-4">
+            <h4 className="font-semibold text-primary-900 dark:text-primary-100 mb-2">Key Success Factors</h4>
+            <ul className="space-y-1 text-sm text-primary-800 dark:text-primary-200">
               <li>• Executive leadership commitment and support</li>
               <li>• Dedicated compliance team and resources</li>
               <li>• Regular progress monitoring and reporting</li>
@@ -379,10 +379,10 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
       content: (
         <div className="space-y-6">
           <div className="text-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
               Platform Tools & Features
             </h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark">
               Discover the comprehensive tools available for your CMMC compliance journey
             </p>
           </div>
@@ -434,7 +434,7 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
             ].map((tool, index) => (
               <div
                 key={index}
-                className="p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-gray-300 dark:hover:border-gray-500 transition-colors cursor-pointer"
+                className="p-4 border border-support-light dark:border-support-dark rounded-lg hover:border-support-light dark:hover:border-support-light transition-colors cursor-pointer"
                 onClick={() => onNavigate?.(tool.path)}
               >
                 <div className="flex items-start gap-3">
@@ -442,18 +442,18 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
                     {tool.icon}
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{tool.name}</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{tool.description}</p>
+                    <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-1">{tool.name}</h4>
+                    <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">{tool.description}</p>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-gray-400" />
+                  <ArrowRight className="w-4 h-4 text-text-muted-dark" />
                 </div>
               </div>
             ))}
           </div>
 
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-6">
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Getting Started</h4>
-            <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+            <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">Getting Started</h4>
+            <div className="space-y-2 text-sm text-text-primary-light dark:text-text-secondary-dark">
               <p>1. Complete your organization profile and requirements</p>
               <p>2. Start with the CMMC Journey Workflow for guided compliance</p>
               <p>3. Use the Control Assessor to evaluate your current state</p>
@@ -475,73 +475,73 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
       content: (
         <div className="space-y-6">
           <div className="text-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
               Resources & Support
             </h3>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark">
               Access helpful resources to support your CMMC compliance journey
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white">Documentation</h4>
+              <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">Documentation</h4>
               <div className="space-y-3">
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                  <BookOpen className="w-5 h-5 text-blue-500" />
+                <div className="flex items-center gap-3 p-3 bg-background-light dark:bg-surface-dark rounded-lg">
+                  <BookOpen className="w-5 h-5 text-primary-500" />
                   <div>
-                    <h5 className="font-medium text-gray-900 dark:text-white">CMMC 2.0 Level 2 Guide</h5>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Complete reference guide</p>
+                    <h5 className="font-medium text-text-primary-light dark:text-text-primary-dark">CMMC 2.0 Level 2 Guide</h5>
+                    <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Complete reference guide</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                  <FileText className="w-5 h-5 text-green-500" />
+                <div className="flex items-center gap-3 p-3 bg-background-light dark:bg-surface-dark rounded-lg">
+                  <FileText className="w-5 h-5 text-success-500" />
                   <div>
-                    <h5 className="font-medium text-gray-900 dark:text-white">Implementation Templates</h5>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Ready-to-use templates</p>
+                    <h5 className="font-medium text-text-primary-light dark:text-text-primary-dark">Implementation Templates</h5>
+                    <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Ready-to-use templates</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-background-light dark:bg-surface-dark rounded-lg">
                   <Download className="w-5 h-5 text-purple-500" />
                   <div>
-                    <h5 className="font-medium text-gray-900 dark:text-white">Checklists & Forms</h5>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Assessment and audit forms</p>
+                    <h5 className="font-medium text-text-primary-light dark:text-text-primary-dark">Checklists & Forms</h5>
+                    <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Assessment and audit forms</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white">Support</h4>
+              <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">Support</h4>
               <div className="space-y-3">
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-background-light dark:bg-surface-dark rounded-lg">
                   <Users className="w-5 h-5 text-orange-500" />
                   <div>
-                    <h5 className="font-medium text-gray-900 dark:text-white">Expert Consultation</h5>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Get help from CMMC experts</p>
+                    <h5 className="font-medium text-text-primary-light dark:text-text-primary-dark">Expert Consultation</h5>
+                    <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Get help from CMMC experts</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                  <ExternalLink className="w-5 h-5 text-red-500" />
+                <div className="flex items-center gap-3 p-3 bg-background-light dark:bg-surface-dark rounded-lg">
+                  <ExternalLink className="w-5 h-5 text-error-500" />
                   <div>
-                    <h5 className="font-medium text-gray-900 dark:text-white">Community Forum</h5>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Connect with other users</p>
+                    <h5 className="font-medium text-text-primary-light dark:text-text-primary-dark">Community Forum</h5>
+                    <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Connect with other users</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-background-light dark:bg-surface-dark rounded-lg">
                   <AlertTriangle className="w-5 h-5 text-yellow-500" />
                   <div>
-                    <h5 className="font-medium text-gray-900 dark:text-white">Emergency Support</h5>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">24/7 critical support</p>
+                    <h5 className="font-medium text-text-primary-light dark:text-text-primary-dark">Emergency Support</h5>
+                    <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">24/7 critical support</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
-            <h4 className="font-semibold text-green-900 dark:text-green-100 mb-2">Pro Tips</h4>
-            <ul className="space-y-1 text-sm text-green-800 dark:text-green-200">
+          <div className="bg-success-50 dark:bg-success-900/20 rounded-lg p-4">
+            <h4 className="font-semibold text-success-900 dark:text-success-100 mb-2">Pro Tips</h4>
+            <ul className="space-y-1 text-sm text-success-800 dark:text-success-200">
               <li>• Bookmark the CMMC Journey Workflow for easy access</li>
               <li>• Set up regular progress reviews with your team</li>
               <li>• Use the evidence collector to maintain organized documentation</li>
@@ -582,22 +582,22 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
   const progress = ((currentStep + 1) / steps.length) * 100;
 
   return (
-    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-background-dark bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 CMMC Onboarding
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 Step {currentStep + 1} of {steps.length}: {currentStepData.title}
               </p>
             </div>
             <button
               onClick={handleSkip}
-              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              className="text-text-muted-light hover:text-text-primary-light dark:text-text-muted-dark dark:hover:text-text-primary-light"
             >
               Skip
             </button>
@@ -605,11 +605,11 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
           
           {/* Progress Bar */}
           <div className="mt-4">
-            <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
+            <div className="flex items-center justify-between text-sm text-text-secondary-light dark:text-text-secondary-dark mb-2">
               <span>Progress</span>
               <span>{Math.round(progress)}%</span>
             </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
               <div 
                 className="bg-gradient-to-r from-blue-500 to-indigo-500 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
@@ -624,9 +624,9 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-t border-support-light dark:border-support-dark">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex items-center gap-2 text-sm text-text-muted-light dark:text-text-muted-dark">
               <Clock className="w-4 h-4" />
               <span>Estimated time: {currentStepData.estimatedTime}</span>
             </div>
@@ -635,7 +635,7 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
               {currentStep > 0 && (
                 <button
                   onClick={handlePrevious}
-                  className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   Previous
@@ -644,7 +644,7 @@ export const CMMCOnboardingFlow: React.FC<CMMCOnboardingFlowProps> = ({
               
               <button
                 onClick={handleNext}
-                className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 {currentStep === steps.length - 1 ? 'Complete' : 'Next'}
                 <ArrowRight className="w-4 h-4" />

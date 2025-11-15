@@ -33,53 +33,53 @@ const ProjectCharter: React.FC = () => {
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Project Charter</h1>
-          <p className="text-gray-600 dark:text-gray-300">Define scope, objectives, and timeline for CMMC 2.0 implementation</p>
+          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">Project Charter</h1>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Define scope, objectives, and timeline for CMMC 2.0 implementation</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Scope</h2>
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Project Scope</h2>
             <textarea
               value={scope}
               onChange={(e) => setScope(e.target.value)}
               placeholder="Define the scope of the CMMC 2.0 implementation project..."
-              className="w-full h-32 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full h-32 px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
             />
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Objectives</h2>
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Objectives</h2>
             <textarea
               value={objectives}
               onChange={(e) => setObjectives(e.target.value)}
               placeholder="Define key objectives and success criteria..."
-              className="w-full h-32 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full h-32 px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
             />
           </div>
         </div>
 
         <div className="space-y-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Timeline</h2>
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Project Timeline</h2>
             <div className="space-y-4">
               {milestones.map((milestone) => (
-                <div key={milestone.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <div key={milestone.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-gray-900 dark:text-white">{milestone.name}</h3>
+                    <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{milestone.name}</h3>
                     <span className={`px-2 py-1 rounded text-xs ${
-                      milestone.status === 'completed' ? 'bg-green-100 text-green-800' :
-                      milestone.status === 'in-progress' ? 'bg-blue-100 text-blue-800' :
-                      'bg-gray-100 text-gray-800'
+                      milestone.status === 'completed' ? 'bg-success-100 text-success-800' :
+                      milestone.status === 'in-progress' ? 'bg-primary-100 text-primary-800' :
+                      'bg-support-light text-text-primary-light'
                     }`}>
                       {milestone.status}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                     {milestone.dueDate.toLocaleDateString()}
                   </p>
                 </div>
@@ -87,14 +87,14 @@ const ProjectCharter: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Budget</h2>
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">Project Budget</h2>
             <input
               type="text"
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
               placeholder="Enter budget amount"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
             />
           </div>
         </div>

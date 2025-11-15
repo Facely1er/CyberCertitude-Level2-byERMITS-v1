@@ -217,14 +217,14 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200 dark:border-gray-700">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl border border-support-light dark:border-support-dark">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
             {initialData ? 'Edit Asset' : 'Create New Asset'}
           </h2>
           <button
             onClick={onCancel}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            className="text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark"
           >
             <X className="w-6 h-6" />
           </button>
@@ -267,7 +267,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                       { value: 'specified', label: 'CUI Specified', description: 'Additional safeguarding requirements' },
                       { value: 'cui-sp', label: 'CUI SP', description: 'Specified categories with enhanced controls' }
                     ].map((category) => (
-                      <label key={category.value} className="flex items-start space-x-3 p-3 bg-white dark:bg-gray-800 rounded-lg border border-orange-200 dark:border-orange-600">
+                      <label key={category.value} className="flex items-start space-x-3 p-3 bg-surface-light dark:bg-surface-dark rounded-lg border border-orange-200 dark:border-orange-600">
                         <input
                           type="checkbox"
                           checked={formData.cuiCategory?.some(c => c.category === category.value) || false}
@@ -319,7 +319,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                         assessmentScope: e.target.value as any
                       }
                     }))}
-                    className="w-full px-4 py-2 border border-orange-300 dark:border-orange-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-orange-300 dark:border-orange-600 rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   >
                     <option value="not-applicable">Not Applicable</option>
                     <option value="full">Full CMMC Scope</option>
@@ -345,7 +345,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                         networks: []
                       }
                     }))}
-                    className="w-full px-4 py-2 border border-orange-300 dark:border-orange-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-orange-300 dark:border-orange-600 rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="e.g., Technical Data, Financial Information, Legal Documents"
                   />
                 </div>
@@ -357,7 +357,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
           {/* Basic Information */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Asset Name *
               </label>
               <input
@@ -365,20 +365,20 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 required
                 value={formData.name}
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Enter asset name"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Category *
               </label>
               <select
                 required
                 value={formData.category}
                 onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value as AssetCategory }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {categoryOptions.map(option => (
                   <option key={option.value} value={option.value}>
@@ -390,7 +390,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Description *
             </label>
             <textarea
@@ -398,7 +398,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
               value={formData.description}
               onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
               rows={3}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
               placeholder="Describe the asset and its purpose"
             />
           </div>
@@ -406,14 +406,14 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
           {/* Classification and Criticality */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Criticality Level *
               </label>
               <select
                 required
                 value={formData.criticality}
                 onChange={(e) => setFormData(prev => ({ ...prev, criticality: e.target.value as CriticalityLevel }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="critical">Critical</option>
                 <option value="high">High</option>
@@ -423,12 +423,12 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
             </div>
             
             <div>
-              <label className="flex items-center justify-between text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="flex items-center justify-between text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Information Classification *
                 <button
                   type="button"
                   onClick={() => setShowClassificationHelp(!showClassificationHelp)}
-                  className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="text-text-muted-dark hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
                   <Info className="w-4 h-4" />
                 </button>
@@ -437,7 +437,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 required
                 value={formData.informationClassification}
                 onChange={(e) => setFormData(prev => ({ ...prev, informationClassification: e.target.value as InformationClassification }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="public">Public</option>
                 <option value="internal">Internal</option>
@@ -447,8 +447,8 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
               </select>
               
               {showClassificationHelp && (
-                <div className="mt-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                  <div className="text-xs text-blue-800 dark:text-blue-200 space-y-1">
+                <div className="mt-2 p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
+                  <div className="text-xs text-primary-800 dark:text-primary-200 space-y-1">
                     <div><strong>Public:</strong> Information intended for public access</div>
                     <div><strong>Internal:</strong> Internal business information</div>
                     <div><strong>Confidential:</strong> Sensitive business information</div>
@@ -460,14 +460,14 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Status *
               </label>
               <select
                 required
                 value={formData.status}
                 onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as AssetStatus }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
@@ -480,15 +480,15 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
           </div>
           
           {/* Enhanced Data Classification Section */}
-          <div className="border border-blue-200 dark:border-blue-700 rounded-xl p-6 bg-blue-50 dark:bg-blue-900/20">
-            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4 flex items-center">
+          <div className="border border-primary-200 dark:border-primary-700 rounded-xl p-6 bg-primary-50 dark:bg-primary-900/20">
+            <h3 className="text-lg font-semibold text-primary-900 dark:text-primary-100 mb-4 flex items-center">
               <Lock className="w-5 h-5 mr-2" />
               Enhanced Data Classification
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+                <label className="block text-sm font-medium text-primary-800 dark:text-primary-200 mb-2">
                   Sensitivity Level
                 </label>
                 <select
@@ -500,7 +500,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                       sensitivityLevel: e.target.value as any 
                     } 
                   }))}
-                  className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-primary-300 dark:border-primary-600 rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="low">Low Sensitivity</option>
                   <option value="medium">Medium Sensitivity</option>
@@ -510,7 +510,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+                <label className="block text-sm font-medium text-primary-800 dark:text-primary-200 mb-2">
                   Access Restrictions
                 </label>
                 <select
@@ -522,7 +522,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                       accessRestrictions: e.target.value as any 
                     } 
                   }))}
-                  className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-primary-300 dark:border-primary-600 rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="public">Public Access</option>
                   <option value="standard">Standard Access</option>
@@ -533,7 +533,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
             </div>
             
             <div className="mt-4">
-              <label className="block text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+              <label className="block text-sm font-medium text-primary-800 dark:text-primary-200 mb-2">
                 Regulatory Requirements (comma-separated)
               </label>
               <input
@@ -546,13 +546,13 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     regulatoryRequirements: e.target.value.split(',').map(r => r.trim()).filter(Boolean)
                   } 
                 }))}
-                className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-primary-300 dark:border-primary-600 rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="e.g., GDPR, HIPAA, SOX, PCI-DSS"
               />
             </div>
             
             <div className="mt-4">
-              <label className="block text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+              <label className="block text-sm font-medium text-primary-800 dark:text-primary-200 mb-2">
                 Data Types (comma-separated)
               </label>
               <input
@@ -565,7 +565,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     dataTypes: e.target.value.split(',').map(d => d.trim()).filter(Boolean)
                   } 
                 }))}
-                className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-primary-300 dark:border-primary-600 rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="e.g., PII, PHI, Financial, Customer Data"
               />
             </div>
@@ -574,7 +574,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
           {/* Ownership */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Asset Owner *
               </label>
               <input
@@ -582,20 +582,20 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 required
                 value={formData.owner}
                 onChange={(e) => setFormData(prev => ({ ...prev, owner: e.target.value }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Person responsible for the asset"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Asset Custodian
               </label>
               <input
                 type="text"
                 value={formData.custodian}
                 onChange={(e) => setFormData(prev => ({ ...prev, custodian: e.target.value }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Person managing day-to-day operations"
               />
             </div>
@@ -604,7 +604,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
           {/* Location */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Building
               </label>
               <input
@@ -614,13 +614,13 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                   ...prev, 
                   location: { ...prev.location, building: e.target.value }
                 }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Building name or number"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Room
               </label>
               <input
@@ -630,13 +630,13 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                   ...prev, 
                   location: { ...prev.location, room: e.target.value }
                 }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Room number or name"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Address
               </label>
               <input
@@ -646,7 +646,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                   ...prev, 
                   location: { ...prev.location, address: e.target.value }
                 }))}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Physical address"
               />
             </div>
@@ -654,9 +654,9 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
 
           {/* Tags */}
           <div>
-            <label className="flex items-center justify-between text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center justify-between text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Tags (comma-separated)
-              <div className="text-xs text-gray-500 dark:text-gray-400">
+              <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
                 Use for categorization and search
               </div>
             </label>
@@ -664,17 +664,17 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
               type="text"
               value={formData.tags}
               onChange={(e) => setFormData(prev => ({ ...prev, tags: e.target.value }))}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               placeholder="critical, production, finance, compliance, encrypted"
             />
-            <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            <div className="mt-2 text-xs text-text-muted-light dark:text-text-muted-dark">
               Suggested tags: compliance, encryption, backup, critical-infrastructure, customer-data, financial, hr, legal
             </div>
           </div>
           
           {/* Quick Classification Presets */}
-          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+          <div className="bg-background-light dark:bg-surface-dark/50 rounded-xl p-6">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
               <Award className="w-5 h-5 mr-2" />
               Quick Classification Presets
             </h3>
@@ -696,10 +696,10 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     tags: prev.tags + (prev.tags ? ', ' : '') + 'customer-data, privacy, high-risk'
                   }));
                 }}
-                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-600 transition-colors text-left"
+                className="p-3 border border-support-light dark:border-support-dark rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:border-primary-300 dark:hover:border-primary-600 transition-colors text-left"
               >
-                <div className="font-medium text-gray-900 dark:text-white">Customer Data</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">PII, GDPR/CCPA protected</div>
+                <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Customer Data</div>
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">PII, GDPR/CCPA protected</div>
               </button>
               
               <button
@@ -719,10 +719,10 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     tags: prev.tags + (prev.tags ? ', ' : '') + 'healthcare, phi, hipaa-protected'
                   }));
                 }}
-                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-300 dark:hover:border-red-600 transition-colors text-left"
+                className="p-3 border border-support-light dark:border-support-dark rounded-lg hover:bg-error-50 dark:hover:bg-error-900/20 hover:border-error-300 dark:hover:border-error-600 transition-colors text-left"
               >
-                <div className="font-medium text-gray-900 dark:text-white">Healthcare Data</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">PHI, HIPAA protected</div>
+                <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Healthcare Data</div>
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">PHI, HIPAA protected</div>
               </button>
               
               <button
@@ -742,10 +742,10 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     tags: prev.tags + (prev.tags ? ', ' : '') + 'financial, payment-data, sox-compliance'
                   }));
                 }}
-                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:border-yellow-300 dark:hover:border-yellow-600 transition-colors text-left"
+                className="p-3 border border-support-light dark:border-support-dark rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:border-yellow-300 dark:hover:border-yellow-600 transition-colors text-left"
               >
-                <div className="font-medium text-gray-900 dark:text-white">Financial Data</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">SOX, PCI-DSS protected</div>
+                <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Financial Data</div>
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">SOX, PCI-DSS protected</div>
               </button>
               
               <button
@@ -765,23 +765,23 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     tags: prev.tags + (prev.tags ? ', ' : '') + 'public, non-sensitive'
                   }));
                 }}
-                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 hover:border-green-300 dark:hover:border-green-600 transition-colors text-left"
+                className="p-3 border border-support-light dark:border-support-dark rounded-lg hover:bg-success-50 dark:hover:bg-success-900/20 hover:border-success-300 dark:hover:border-success-600 transition-colors text-left"
               >
-                <div className="font-medium text-gray-900 dark:text-white">Public Information</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">No access restrictions</div>
+                <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Public Information</div>
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">No access restrictions</div>
               </button>
             </div>
           </div>
           
           {/* Business Value Classification */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Business Value Classification
             </label>
             <select
               value={formData.businessValue}
               onChange={(e) => setFormData(prev => ({ ...prev, businessValue: e.target.value as BusinessValue }))}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="mission-critical">Mission Critical</option>
               <option value="business-important">Business Important</option>
@@ -796,13 +796,13 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+              className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark rounded-xl hover:bg-background-light dark:hover:bg-surface-dark transition-colors font-medium"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2"
+              className="flex-1 px-6 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors font-medium flex items-center justify-center space-x-2"
             >
               <Save className="w-4 h-4" />
               <span>{initialData ? 'Update Asset' : 'Create Asset'}</span>

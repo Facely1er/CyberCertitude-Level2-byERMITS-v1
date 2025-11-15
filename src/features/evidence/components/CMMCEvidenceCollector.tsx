@@ -530,19 +530,19 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'approved': return 'text-green-600 bg-green-100';
+      case 'approved': return 'text-success-600 bg-success-100';
       case 'review': return 'text-yellow-600 bg-yellow-100';
-      case 'rejected': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'rejected': return 'text-error-600 bg-error-100';
+      default: return 'text-text-secondary-light bg-support-light';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 bg-red-100';
+      case 'critical': return 'text-error-600 bg-error-100';
       case 'high': return 'text-orange-600 bg-orange-100';
       case 'medium': return 'text-yellow-600 bg-yellow-100';
-      default: return 'text-green-600 bg-green-100';
+      default: return 'text-success-600 bg-success-100';
     }
   };
 
@@ -570,27 +570,27 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
 
   const renderOverview = () => (
     <div className="space-y-6">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               CMMC Evidence Collection
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-1">
+            <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
               Collect, organize, and manage evidence for CMMC 2.0 Level 2 compliance
             </p>
           </div>
           <div className="flex gap-2">
             <button
               onClick={() => setShowAddForm(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               <Plus className="w-4 h-4" />
               Add Evidence
             </button>
             <button
               onClick={() => onSave?.(categories)}
-              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
             >
               <Save className="w-4 h-4" />
               Save
@@ -608,20 +608,20 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
         {/* Overall Progress */}
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
               Evidence Collection Progress
             </h3>
-            <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
               {overallProgress}%
             </span>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+          <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-3">
             <div 
               className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all duration-300"
               style={{ width: `${overallProgress}%` }}
             />
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-2">
             {categories.reduce((acc, category) => acc + category.items.filter(item => item.status === 'approved').length, 0)} of {categories.reduce((acc, category) => acc + category.items.length, 0)} evidence items approved
           </p>
         </div>
@@ -629,19 +629,19 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-4 h-4" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full pl-10 pr-4 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               placeholder="Search evidence..."
             />
           </div>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="all">All Status</option>
             <option value="draft">Draft</option>
@@ -652,7 +652,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="all">All Types</option>
             {EVIDENCE_TYPES.map(type => (
@@ -662,7 +662,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
           <select
             value={filterPriority}
             onChange={(e) => setFilterPriority(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
           >
             <option value="all">All Priorities</option>
             <option value="critical">Critical</option>
@@ -679,8 +679,8 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
               key={category.id}
               className={`border-2 rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                 activeCategory === category.id
-                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                  : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                  : 'border-support-light dark:border-support-dark hover:border-support-light dark:hover:border-support-light'
               }`}
               onClick={() => setActiveCategory(category.id)}
             >
@@ -689,10 +689,10 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                   {category.icon}
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
+                  <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                     {category.name}
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                     {category.items.length} items
                   </p>
                 </div>
@@ -700,20 +700,20 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
               
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-300">Approved</span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">Approved</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                     {category.items.filter(item => item.status === 'approved').length}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-300">In Review</span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">In Review</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                     {category.items.filter(item => item.status === 'review').length}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-300">Draft</span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">Draft</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                     {category.items.filter(item => item.status === 'draft').length}
                   </span>
                 </div>
@@ -731,27 +731,27 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
 
     return (
       <div className="space-y-6">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 {category.name}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mt-1">
+              <p className="text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 {category.description}
               </p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 Add Evidence
               </button>
               <button
                 onClick={() => setActiveCategory('')}
-                className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+                className="flex items-center gap-2 px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Overview
@@ -761,7 +761,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
 
           <div className="space-y-4">
             {category.items.length === 0 ? (
-              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <div className="text-center py-8 text-text-muted-light dark:text-text-muted-dark">
                 No evidence items found. Click "Add Evidence" to get started.
               </div>
             ) : (
@@ -770,8 +770,8 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                   key={item.id}
                   className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                     activeItem === item.id
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                      : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                      ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                      : 'border-support-light dark:border-support-dark hover:border-support-light dark:hover:border-support-light'
                   }`}
                   onClick={() => {
                     setActiveItem(item.id);
@@ -781,14 +781,14 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                        <div className="p-2 bg-support-light dark:bg-surface-dark rounded-lg">
                           {getTypeIcon(item.type)}
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
+                          <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
                             {item.title}
                           </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
+                          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                             {item.description}
                           </p>
                         </div>
@@ -801,17 +801,17 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(item.priority)}`}>
                           {item.priority.toUpperCase()}
                         </span>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                        <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
                           {item.controlId}
                         </span>
                         {item.isRequired && (
-                          <span className="px-2 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs rounded-full">
+                          <span className="px-2 py-1 bg-error-100 dark:bg-error-900 text-error-800 dark:text-error-200 text-xs rounded-full">
                             REQUIRED
                           </span>
                         )}
                       </div>
 
-                      <div className="flex items-center gap-4 mt-2 text-xs text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center gap-4 mt-2 text-xs text-text-muted-light dark:text-text-muted-dark">
                         <span>Uploaded: {item.uploadedDate.toLocaleDateString()}</span>
                         <span>Version: {item.version}</span>
                         {item.fileSize && (
@@ -824,7 +824,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                           {item.tags.map((tag, index) => (
                             <span
                               key={index}
-                              className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded"
+                              className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded"
                             >
                               {tag}
                             </span>
@@ -839,7 +839,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                           e.stopPropagation();
                           updateEvidenceItem(category.id, item.id, { status: 'approved' });
                         }}
-                        className="p-2 text-gray-500 hover:text-green-600 transition-colors"
+                        className="p-2 text-text-muted-light hover:text-success-600 transition-colors"
                         title="Approve"
                       >
                         <CheckCircle className="w-4 h-4" />
@@ -849,7 +849,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                           e.stopPropagation();
                           updateEvidenceItem(category.id, item.id, { status: 'review' });
                         }}
-                        className="p-2 text-gray-500 hover:text-yellow-600 transition-colors"
+                        className="p-2 text-text-muted-light hover:text-yellow-600 transition-colors"
                         title="Mark for Review"
                       >
                         <Eye className="w-4 h-4" />
@@ -859,7 +859,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                           e.stopPropagation();
                           deleteEvidenceItem(category.id, item.id);
                         }}
-                        className="p-2 text-gray-500 hover:text-red-600 transition-colors"
+                        className="p-2 text-text-muted-light hover:text-error-600 transition-colors"
                         title="Delete"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -877,34 +877,34 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
 
   const renderAddForm = () => (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
             Add Evidence Item
           </h3>
         </div>
         <div className="p-6 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Title *
               </label>
               <input
                 type="text"
                 value={newItem.title}
                 onChange={(e) => setNewItem(prev => ({ ...prev, title: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter evidence title"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Type *
               </label>
               <select
                 value={newItem.type}
                 onChange={(e) => setNewItem(prev => ({ ...prev, type: e.target.value as any }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 {EVIDENCE_TYPES.map(type => (
                   <option key={type.value} value={type.value}>{type.label}</option>
@@ -914,21 +914,21 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Description *
             </label>
             <textarea
               value={newItem.description}
               onChange={(e) => setNewItem(prev => ({ ...prev, description: e.target.value }))}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               placeholder="Enter evidence description"
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 CMMC Control *
               </label>
               <select
@@ -942,7 +942,7 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                     domain: control?.domain || ''
                   }));
                 }}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 <option value="">Select Control</option>
                 {filteredControls.map(control => (
@@ -953,13 +953,13 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Category *
               </label>
               <select
                 value={newItem.category}
                 onChange={(e) => setNewItem(prev => ({ ...prev, category: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 {categories.map(category => (
                   <option key={category.id} value={category.id}>{category.name}</option>
@@ -970,13 +970,13 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Priority
               </label>
               <select
                 value={newItem.priority}
                 onChange={(e) => setNewItem(prev => ({ ...prev, priority: e.target.value as any }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -985,13 +985,13 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Status
               </label>
               <select
                 value={newItem.status}
                 onChange={(e) => setNewItem(prev => ({ ...prev, status: e.target.value as any }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               >
                 <option value="draft">Draft</option>
                 <option value="review">Review</option>
@@ -1005,26 +1005,26 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                   type="checkbox"
                   checked={newItem.isRequired}
                   onChange={(e) => setNewItem(prev => ({ ...prev, isRequired: e.target.checked }))}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-support-light text-primary-600 focus:ring-primary-500"
                 />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Required</span>
+                <span className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">Required</span>
               </label>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               File Upload
             </label>
             <input
               type="file"
               onChange={(e) => e.target.files?.[0] && handleFileUpload(e.target.files[0])}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Tags
             </label>
             <div className="flex gap-2 mb-2">
@@ -1033,12 +1033,12 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && addTag()}
-                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="flex-1 px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
                 placeholder="Enter tag"
               />
               <button
                 onClick={addTag}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 Add
               </button>
@@ -1047,12 +1047,12 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
               {(newItem.tags || []).map((tag, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
+                  className="inline-flex items-center gap-1 px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-sm rounded-full"
                 >
                   {tag}
                   <button
                     onClick={() => removeTag(tag)}
-                    className="ml-1 text-blue-600 hover:text-blue-800"
+                    className="ml-1 text-primary-600 hover:text-primary-800"
                   >
                     <XCircle className="w-3 h-3" />
                   </button>
@@ -1062,28 +1062,28 @@ const CMMCEvidenceCollector: React.FC<CMMCEvidenceCollectorProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
               Notes
             </label>
             <textarea
               value={newItem.notes}
               onChange={(e) => setNewItem(prev => ({ ...prev, notes: e.target.value }))}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-surface-dark dark:text-text-primary-dark"
               placeholder="Enter additional notes"
             />
           </div>
         </div>
-        <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">
+        <div className="p-6 border-t border-support-light dark:border-support-dark flex justify-end gap-3">
           <button
             onClick={() => setShowAddForm(false)}
-            className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors"
+            className="px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-white transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={addEvidenceItem}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             Add Evidence
           </button>

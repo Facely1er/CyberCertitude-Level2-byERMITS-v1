@@ -137,37 +137,37 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'assessment': return 'text-primary-600 dark:text-primary-400';
-      case 'review': return 'text-green-600 dark:text-green-400';
+      case 'review': return 'text-success-600 dark:text-success-400';
       case 'training': return 'text-purple-600 dark:text-purple-400';
       case 'meeting': return 'text-orange-600 dark:text-orange-400';
-      case 'audit': return 'text-red-600 dark:text-red-400';
+      case 'audit': return 'text-error-600 dark:text-error-400';
       case 'deadline': return 'text-yellow-600 dark:text-yellow-400';
       case 'milestone': return 'text-indigo-600 dark:text-indigo-400';
       case 'compliance-check': return 'text-pink-600 dark:text-pink-400';
       case 'incident-response': return 'text-cyan-600 dark:text-cyan-400';
       case 'maintenance': return 'text-teal-600 dark:text-teal-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      default: return 'text-text-secondary-light dark:text-text-muted-dark';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'scheduled': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+      case 'scheduled': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300';
       case 'in-progress': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'completed': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'cancelled': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-      case 'postponed': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
-      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      case 'completed': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'cancelled': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      case 'postponed': return 'bg-support-light dark:bg-background-dark/30 text-text-primary-light dark:text-text-secondary-dark';
+      default: return 'bg-support-light dark:bg-background-dark/30 text-text-primary-light dark:text-text-secondary-dark';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 dark:text-red-400';
+      case 'critical': return 'text-error-600 dark:text-error-400';
       case 'high': return 'text-orange-600 dark:text-orange-400';
       case 'medium': return 'text-yellow-600 dark:text-yellow-400';
-      case 'low': return 'text-green-600 dark:text-green-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'low': return 'text-success-600 dark:text-success-400';
+      default: return 'text-text-secondary-light dark:text-text-muted-dark';
     }
   };
 
@@ -203,7 +203,7 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -223,14 +223,14 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
             <div className="flex space-x-3">
               <button
                 onClick={handleGenerateDefaultEvents}
-                className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 <span>Generate Default Events</span>
               </button>
               <button
                 onClick={() => addNotification('info', 'Event creation is available through the event editor')}
-                className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 <span>Create Event</span>
@@ -243,40 +243,40 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
       {/* Statistics */}
       {statistics && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Events</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">Total Events</p>
                 <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{statistics.totalEvents}</p>
               </div>
               <Calendar className="w-8 h-8 text-primary-600 dark:text-primary-400" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Upcoming Events</p>
-                <p className="text-3xl font-bold text-green-600 dark:text-green-400">{statistics.upcomingEvents}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">Upcoming Events</p>
+                <p className="text-3xl font-bold text-success-600 dark:text-success-400">{statistics.upcomingEvents}</p>
               </div>
-              <Clock className="w-8 h-8 text-green-600 dark:text-green-400" />
+              <Clock className="w-8 h-8 text-success-600 dark:text-success-400" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Overdue Events</p>
-                <p className="text-3xl font-bold text-red-600 dark:text-red-400">{statistics.overdueEvents}</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">Overdue Events</p>
+                <p className="text-3xl font-bold text-error-600 dark:text-error-400">{statistics.overdueEvents}</p>
               </div>
-              <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
+              <AlertTriangle className="w-8 h-8 text-error-600 dark:text-error-400" />
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">This Week</p>
+                <p className="text-sm font-medium text-text-secondary-light dark:text-text-muted-dark">This Week</p>
                 <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{statistics.thisWeekEvents}</p>
               </div>
               <Activity className="w-8 h-8 text-purple-600 dark:text-purple-400" />
@@ -288,14 +288,14 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
       {/* Quick Stats */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {/* Upcoming Events */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
           <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
-            <Clock className="w-5 h-5 mr-2 text-green-600 dark:text-green-400" />
+            <Clock className="w-5 h-5 mr-2 text-success-600 dark:text-success-400" />
             Upcoming Events
           </h3>
           <div className="space-y-3">
             {getUpcomingEvents().map((event) => (
-              <div key={event.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div key={event.id} className="flex items-center justify-between p-3 bg-background-light dark:bg-surface-dark rounded-lg">
                 <div className="flex-1">
                   <p className="font-medium text-text-primary-light dark:text-text-primary-dark">{event.title}</p>
                   <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
@@ -308,15 +308,15 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
               </div>
             ))}
             {getUpcomingEvents().length === 0 && (
-              <p className="text-gray-500 dark:text-gray-400 text-center py-4">No upcoming events</p>
+              <p className="text-text-muted-light dark:text-text-muted-dark text-center py-4">No upcoming events</p>
             )}
           </div>
         </div>
 
         {/* Overdue Events */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
           <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
-            <AlertTriangle className="w-5 h-5 mr-2 text-red-600 dark:text-red-400" />
+            <AlertTriangle className="w-5 h-5 mr-2 text-error-600 dark:text-error-400" />
             Overdue Events
           </h3>
           <div className="space-y-3">
@@ -334,24 +334,24 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
               </div>
             ))}
             {getOverdueEvents().length === 0 && (
-              <p className="text-gray-500 dark:text-gray-400 text-center py-4">No overdue events</p>
+              <p className="text-text-muted-light dark:text-text-muted-dark text-center py-4">No overdue events</p>
             )}
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8 p-6">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8 p-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
           <div className="flex-1 max-w-lg">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search events..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -361,7 +361,7 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
               aria-label="Filter by event type"
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Types</option>
               <option value="assessment">Assessment</option>
@@ -380,7 +380,7 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
               aria-label="Filter by event status"
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Status</option>
               <option value="scheduled">Scheduled</option>
@@ -394,7 +394,7 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
               value={filterPriority}
               onChange={(e) => setFilterPriority(e.target.value)}
               aria-label="Filter by event priority"
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Priorities</option>
               <option value="low">Low</option>
@@ -405,7 +405,7 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
 
             <button
               onClick={handleExportEvents}
-              className="flex items-center space-x-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-3 bg-success-600 text-white rounded-lg hover:bg-success-700 transition-colors"
             >
               <Download className="w-4 h-4" />
               <span>Export</span>
@@ -415,8 +415,8 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
       </div>
 
       {/* Events List */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
           <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">
             Calendar Events ({filteredEvents.length})
           </h2>
@@ -425,7 +425,7 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
         <div className="p-6">
           <div className="space-y-6">
             {filteredEvents.map((event) => (
-              <div key={event.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div key={event.id} className="border border-support-light dark:border-support-dark rounded-lg p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
@@ -449,25 +449,25 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Start Date:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Start Date:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {event.startDate.toLocaleDateString()}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Time:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Time:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {formatEventTime(event)}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Location:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Location:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {event.location || 'N/A'}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Organizer:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Organizer:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {event.organizer}
                         </div>
@@ -476,25 +476,25 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Attendees:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Attendees:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {event.attendees.length} member(s)
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Access Level:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Access Level:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {event.accessLevel}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Confidential:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Confidential:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {event.isConfidential ? 'Yes' : 'No'}
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Recurring:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Recurring:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {event.recurrence ? 'Yes' : 'No'}
                         </div>
@@ -503,10 +503,10 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
 
                     {event.tags && event.tags.length > 0 && (
                       <div className="mb-4">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Tags:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Tags:</span>
                         <div className="mt-1 flex flex-wrap gap-2">
                           {event.tags.map((tag, index) => (
-                            <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full">
+                            <span key={index} className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 text-xs rounded-full">
                               {tag}
                             </span>
                           ))}
@@ -516,14 +516,14 @@ const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
 
                     {event.relatedControl && (
                       <div className="mb-4">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Related Control:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Related Control:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{event.relatedControl}</div>
                       </div>
                     )}
 
                     {event.relatedPolicy && (
                       <div className="mb-4">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Related Policy:</span>
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Related Policy:</span>
                         <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{event.relatedPolicy}</div>
                       </div>
                     )}
@@ -553,7 +553,7 @@ Tags: ${event.tags.join(', ')}`;
                       
                       addNotification('info', eventDetails);
                     }}
-                    className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
                   >
                     <Calendar className="w-4 h-4" />
                     <span>View Details</span>
@@ -563,7 +563,7 @@ Tags: ${event.tags.join(', ')}`;
                     value={event.status}
                     onChange={(e) => handleStatusChange(event.id, e.target.value as CalendarEvent['status'])}
                     aria-label={`Change status for ${event.title}`}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   >
                     <option value="scheduled">Scheduled</option>
                     <option value="in-progress">In Progress</option>
@@ -574,7 +574,7 @@ Tags: ${event.tags.join(', ')}`;
                   
                   <button
                     onClick={() => addNotification('info', 'Event editing is available through the event editor')}
-                    className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                    className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
                   >
                     <Calendar className="w-4 h-4" />
                     <span>Edit</span>
@@ -582,7 +582,7 @@ Tags: ${event.tags.join(', ')}`;
                   
                   <button
                     onClick={() => handleDeleteEvent(event.id)}
-                    className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                    className="flex items-center space-x-2 bg-error-600 text-white px-4 py-2 rounded-lg hover:bg-error-700 transition-colors"
                   >
                     <Calendar className="w-4 h-4" />
                     <span>Delete</span>
@@ -594,7 +594,7 @@ Tags: ${event.tags.join(', ')}`;
           
           {filteredEvents.length === 0 && (
             <div className="text-center py-12">
-              <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <Calendar className="w-16 h-16 text-text-muted-dark mx-auto mb-4" />
               <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                 No Events Found
               </h3>
@@ -607,13 +607,13 @@ Tags: ${event.tags.join(', ')}`;
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button
                     onClick={handleGenerateDefaultEvents}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors"
                   >
                     Generate Default Events
                   </button>
                   <button
                     onClick={() => addNotification('info', 'Event creation is available through the event editor')}
-                    className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark px-6 py-3 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors"
                   >
                     Create Event
                   </button>

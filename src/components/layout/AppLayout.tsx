@@ -108,7 +108,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setShowMobileMenu(true)}
-                className="lg:hidden p-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                className="lg:hidden p-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 hover:bg-support-light dark:hover:bg-surface-dark rounded-lg transition-colors"
                 aria-label="Open navigation menu"
               >
                 <Menu className="w-5 h-5" />
@@ -117,7 +117,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               {/* Desktop Menu Toggle for smaller screens */}
               <button
                 onClick={() => setShowMobileMenu(true)}
-                className="md:hidden lg:flex xl:hidden p-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                className="md:hidden lg:flex xl:hidden p-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-500 dark:hover:text-primary-400 hover:bg-support-light dark:hover:bg-surface-dark rounded-lg transition-colors"
                 aria-label="Open navigation menu"
               >
                 <Menu className="w-5 h-5" />

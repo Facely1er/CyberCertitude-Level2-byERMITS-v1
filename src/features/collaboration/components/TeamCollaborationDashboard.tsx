@@ -122,10 +122,10 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+      case 'active': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
       case 'inactive': return 'bg-support-light dark:bg-support-dark text-text-primary-light dark:text-text-primary-dark';
       case 'pending': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'suspended': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+      case 'suspended': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
       default: return 'bg-support-light dark:bg-support-dark text-text-primary-light dark:text-text-primary-dark';
     }
   };
@@ -134,9 +134,9 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
     switch (role) {
       case 'CISO': return 'text-purple-600 dark:text-purple-400';
       case 'Security Manager': return 'text-primary-600 dark:text-primary-400';
-      case 'Compliance Officer': return 'text-green-600 dark:text-green-400';
+      case 'Compliance Officer': return 'text-success-600 dark:text-success-400';
       case 'IT Manager': return 'text-orange-600 dark:text-orange-400';
-      case 'Implementation Team': return 'text-red-600 dark:text-red-400';
+      case 'Implementation Team': return 'text-error-600 dark:text-error-400';
       case 'Domain Expert': return 'text-indigo-600 dark:text-indigo-400';
       case 'Auditor': return 'text-pink-600 dark:text-pink-400';
       case 'Executive': return 'text-yellow-600 dark:text-yellow-400';
@@ -148,31 +148,31 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
 
   const getTaskStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'in-progress': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+      case 'completed': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'in-progress': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300';
       case 'not-started': return 'bg-support-light dark:bg-support-dark text-text-primary-light dark:text-text-primary-dark';
       case 'on-hold': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'cancelled': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+      case 'cancelled': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
       default: return 'bg-support-light dark:bg-support-dark text-text-primary-light dark:text-text-primary-dark';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 dark:text-red-400';
+      case 'critical': return 'text-error-600 dark:text-error-400';
       case 'high': return 'text-orange-600 dark:text-orange-400';
       case 'medium': return 'text-yellow-600 dark:text-yellow-400';
-      case 'low': return 'text-green-600 dark:text-green-400';
+      case 'low': return 'text-success-600 dark:text-success-400';
       default: return 'text-text-secondary-light dark:text-text-secondary-dark';
     }
   };
 
   const getMeetingStatusColor = (status: string) => {
     switch (status) {
-      case 'scheduled': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+      case 'scheduled': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300';
       case 'in-progress': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'completed': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'cancelled': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+      case 'completed': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'cancelled': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
       default: return 'bg-support-light dark:bg-support-dark text-text-primary-light dark:text-text-primary-dark';
     }
   };
@@ -205,7 +205,7 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
             <div className="flex space-x-3">
               <button
                 onClick={handleGenerateDefaultTeam}
-                className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 <span>Generate Default Team</span>
@@ -239,9 +239,9 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Active Members</p>
-                <p className="text-3xl font-bold text-green-600 dark:text-green-400">{statistics.activeMembers}</p>
+                <p className="text-3xl font-bold text-success-600 dark:text-success-400">{statistics.activeMembers}</p>
               </div>
-              <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+              <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
             </div>
           </div>
 
@@ -259,9 +259,9 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Overdue Tasks</p>
-                <p className="text-3xl font-bold text-red-600 dark:text-red-400">{statistics.overdueTasks}</p>
+                <p className="text-3xl font-bold text-error-600 dark:text-error-400">{statistics.overdueTasks}</p>
               </div>
-              <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
+              <AlertTriangle className="w-8 h-8 text-error-600 dark:text-error-400" />
             </div>
           </div>
         </div>
@@ -276,7 +276,7 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'members'
                   ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                  : 'border-transparent text-text-muted-light hover:text-text-primary-light hover:border-support-light dark:text-text-muted-dark dark:hover:text-text-secondary-dark'
               }`}
             >
               Team Members ({filteredMembers.length})
@@ -286,7 +286,7 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'tasks'
                   ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                  : 'border-transparent text-text-muted-light hover:text-text-primary-light hover:border-support-light dark:text-text-muted-dark dark:hover:text-text-secondary-dark'
               }`}
             >
               Tasks ({tasks.length})
@@ -296,7 +296,7 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'meetings'
                   ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                  : 'border-transparent text-text-muted-light hover:text-text-primary-light hover:border-support-light dark:text-text-muted-dark dark:hover:text-text-secondary-dark'
               }`}
             >
               Meetings ({meetings.length})
@@ -310,7 +310,7 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
               <div className="flex-1 max-w-lg">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-5 h-5" />
                   <input
                     type="text"
                     placeholder="Search team members..."
@@ -430,7 +430,7 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
                             <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Skills:</span>
                             <div className="mt-1 flex flex-wrap gap-2">
                               {member.skills.map((skill, index) => (
-                                <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full">
+                                <span key={index} className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 text-xs rounded-full">
                                   {skill}
                                 </span>
                               ))}
@@ -443,7 +443,7 @@ const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
                             <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Certifications:</span>
                             <div className="mt-1 flex flex-wrap gap-2">
                               {member.certifications.map((cert, index) => (
-                                <span key={index} className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs rounded-full">
+                                <span key={index} className="px-2 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300 text-xs rounded-full">
                                   {cert}
                                 </span>
                               ))}
@@ -497,7 +497,7 @@ Compliance Score: ${member.performanceMetrics.complianceScore}%`;
                     
                     <button
                       onClick={() => addNotification('info', 'Member editing is available through the member editor')}
-                      className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                      className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
                     >
                       <Settings className="w-4 h-4" />
                       <span>Edit</span>
@@ -505,7 +505,7 @@ Compliance Score: ${member.performanceMetrics.complianceScore}%`;
                     
                     <button
                       onClick={() => handleDeleteMember(member.id)}
-                      className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                      className="flex items-center space-x-2 bg-error-600 text-white px-4 py-2 rounded-lg hover:bg-error-700 transition-colors"
                     >
                       <Users className="w-4 h-4" />
                       <span>Delete</span>
@@ -516,7 +516,7 @@ Compliance Score: ${member.performanceMetrics.complianceScore}%`;
               
               {filteredMembers.length === 0 && (
                 <div className="text-center py-12">
-                  <Users className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                  <Users className="w-16 h-16 text-text-muted-dark mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     No Team Members Found
                   </h3>
@@ -596,7 +596,7 @@ Compliance Score: ${member.performanceMetrics.complianceScore}%`;
                           <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Tags:</span>
                           <div className="mt-1 flex flex-wrap gap-2">
                             {task.tags.map((tag, index) => (
-                              <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full">
+                              <span key={index} className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 text-xs rounded-full">
                                 {tag}
                               </span>
                             ))}
@@ -617,7 +617,7 @@ Compliance Score: ${member.performanceMetrics.complianceScore}%`;
                     
                     <button
                       onClick={() => addNotification('info', 'Task editing is available through the task editor')}
-                      className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                      className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
                     >
                       <Settings className="w-4 h-4" />
                       <span>Edit</span>
@@ -628,7 +628,7 @@ Compliance Score: ${member.performanceMetrics.complianceScore}%`;
               
               {tasks.length === 0 && (
                 <div className="text-center py-12">
-                  <CheckSquare className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                  <CheckSquare className="w-16 h-16 text-text-muted-dark mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     No Tasks Found
                   </h3>
@@ -694,7 +694,7 @@ Compliance Score: ${member.performanceMetrics.complianceScore}%`;
                       {meeting.agenda && meeting.agenda.length > 0 && (
                         <div className="mb-4">
                           <span className="text-sm text-text-muted-light dark:text-text-muted-dark">Agenda:</span>
-                          <ul className="mt-1 list-disc list-inside text-sm text-gray-700 dark:text-gray-300">
+                          <ul className="mt-1 list-disc list-inside text-sm text-text-primary-light dark:text-text-secondary-dark">
                             {meeting.agenda.map((item, index) => (
                               <li key={index}>{item}</li>
                             ))}
@@ -715,7 +715,7 @@ Compliance Score: ${member.performanceMetrics.complianceScore}%`;
                     
                     <button
                       onClick={() => addNotification('info', 'Meeting editing is available through the meeting editor')}
-                      className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                      className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
                     >
                       <Settings className="w-4 h-4" />
                       <span>Edit</span>
@@ -726,7 +726,7 @@ Compliance Score: ${member.performanceMetrics.complianceScore}%`;
               
               {meetings.length === 0 && (
                 <div className="text-center py-12">
-                  <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                  <Calendar className="w-16 h-16 text-text-muted-dark mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     No Meetings Found
                   </h3>

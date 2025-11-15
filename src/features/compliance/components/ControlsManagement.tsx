@@ -20,50 +20,50 @@ const ControlsManagement: React.FC = () => {
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Controls Management</h1>
-          <p className="text-gray-600 dark:text-gray-300">Manage security controls implementation and maturity</p>
+          <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">Controls Management</h1>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Manage security controls implementation and maturity</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <CheckCircle className="w-8 h-8 text-green-600 mb-4" />
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">42</h3>
-          <p className="text-gray-600 dark:text-gray-300">Implemented Controls</p>
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <CheckCircle className="w-8 h-8 text-success-600 mb-4" />
+          <h3 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">42</h3>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Implemented Controls</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <Shield className="w-8 h-8 text-blue-600 mb-4" />
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">15</h3>
-          <p className="text-gray-600 dark:text-gray-300">In Progress</p>
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <Shield className="w-8 h-8 text-primary-600 mb-4" />
+          <h3 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">15</h3>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">In Progress</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <AlertTriangle className="w-8 h-8 text-red-600 mb-4" />
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">53</h3>
-          <p className="text-gray-600 dark:text-gray-300">Total Controls</p>
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <AlertTriangle className="w-8 h-8 text-error-600 mb-4" />
+          <h3 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">53</h3>
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">Total Controls</p>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Control Status</h2>
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
+        <div className="p-6 border-b border-support-light dark:border-support-dark">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Control Status</h2>
         </div>
         <div className="p-6">
           <div className="space-y-4">
             {controls.map((control) => (
-              <div key={control.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <div key={control.id} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-gray-900 dark:text-white">{control.name}</h3>
+                  <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">{control.name}</h3>
                   <span className={`px-3 py-1 rounded-full text-xs ${
-                    control.status === 'Implemented' ? 'bg-green-100 text-green-800' :
-                    control.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
-                    'bg-gray-100 text-gray-800'
+                    control.status === 'Implemented' ? 'bg-success-100 text-success-800' :
+                    control.status === 'In Progress' ? 'bg-primary-100 text-primary-800' :
+                    'bg-support-light text-text-primary-light'
                   }`}>
                     {control.status}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{control.domain} • Maturity: {control.maturity}</p>
+                <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">{control.domain} • Maturity: {control.maturity}</p>
               </div>
             ))}
           </div>

@@ -113,17 +113,17 @@ const ReportView: React.FC<ReportViewProps> = ({
   }, [assessment, framework]);
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 dark:text-green-400';
+    if (score >= 80) return 'text-success-600 dark:text-success-400';
     if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
-    return 'text-red-600 dark:text-red-400';
+    return 'text-error-600 dark:text-error-400';
   };
 
   const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-green-100 dark:bg-green-900/30';
+    if (score >= 80) return 'bg-success-100 dark:bg-success-900/30';
     if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30';
     if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30';
-    return 'bg-red-100 dark:bg-red-900/30';
+    return 'bg-error-100 dark:bg-error-900/30';
   };
 
   const exportReport = (format: 'json' | 'csv' | 'pdf') => {
@@ -149,18 +149,18 @@ const ReportView: React.FC<ReportViewProps> = ({
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8 no-print">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8 no-print">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
-                <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <FileText className="w-8 h-8 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                   Assessment Report
                 </h1>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
                   Detailed compliance assessment analysis
                 </p>
               </div>
@@ -169,7 +169,7 @@ const ReportView: React.FC<ReportViewProps> = ({
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => exportReport('json')}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export JSON</span>
@@ -177,7 +177,7 @@ const ReportView: React.FC<ReportViewProps> = ({
               
               <button
                 onClick={() => exportReport('pdf')}
-                className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <FileText className="w-4 h-4" />
                 <span>Export PDF</span>
@@ -190,9 +190,9 @@ const ReportView: React.FC<ReportViewProps> = ({
       {/* Report Content */}
       <div className="space-y-8">
         {/* Executive Summary */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
               Executive Summary
             </h2>
             <div className="flex items-center justify-center space-x-8 mb-6">
@@ -200,7 +200,7 @@ const ReportView: React.FC<ReportViewProps> = ({
                 <div className={`text-6xl font-bold ${getScoreColor(metrics.overallScore)} mb-2`}>
                   {metrics.overallScore}%
                 </div>
-                <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                <div className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
                   Overall Maturity Score
                 </div>
               </div>
@@ -209,13 +209,13 @@ const ReportView: React.FC<ReportViewProps> = ({
                   <Award className="w-6 h-6 mr-2" />
                   {metrics.maturityLevel.name}
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-2">
                   Maturity Level
                 </div>
               </div>
             </div>
             
-            <div className="max-w-4xl mx-auto text-gray-600 dark:text-gray-300 leading-relaxed">
+            <div className="max-w-4xl mx-auto text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
               <p>
                 This assessment evaluated your organization's cybersecurity maturity using the {framework.name} framework. 
                 Your current maturity score is {metrics.overallScore}%, placing you at the {metrics.maturityLevel.name.toLowerCase()} level. 
@@ -226,20 +226,20 @@ const ReportView: React.FC<ReportViewProps> = ({
 
           {/* Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
-              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+            <div className="text-center p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
+              <div className="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-2">
                 {metrics.answeredQuestions}/{metrics.totalQuestions}
               </div>
-              <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <div className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">
                 Questions Completed
               </div>
             </div>
             
-            <div className="text-center p-6 bg-green-50 dark:bg-green-900/20 rounded-xl">
-              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+            <div className="text-center p-6 bg-success-50 dark:bg-success-900/20 rounded-xl">
+              <div className="text-3xl font-bold text-success-600 dark:text-success-400 mb-2">
                 {framework?.sections?.length || 0}
               </div>
-              <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <div className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">
                 Sections Assessed
               </div>
             </div>
@@ -248,7 +248,7 @@ const ReportView: React.FC<ReportViewProps> = ({
               <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
                 {new Date(assessment.lastModified).toLocaleDateString()}
               </div>
-              <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <div className="text-sm font-medium text-text-primary-light dark:text-text-secondary-dark">
                 Assessment Date
               </div>
             </div>
@@ -257,19 +257,19 @@ const ReportView: React.FC<ReportViewProps> = ({
 
         {/* Organization Information */}
         {(assessment.organizationInfo || userProfile) && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-              <Building className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+              <Building className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
               Organization Information
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {assessment.organizationInfo?.name && (
                 <div className="flex items-center space-x-3">
-                  <Building className="w-5 h-5 text-gray-400" />
+                  <Building className="w-5 h-5 text-text-muted-dark" />
                   <div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Organization</div>
-                    <div className="font-medium text-gray-900 dark:text-white">
+                    <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Organization</div>
+                    <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                       {assessment.organizationInfo.name}
                     </div>
                   </div>
@@ -278,10 +278,10 @@ const ReportView: React.FC<ReportViewProps> = ({
               
               {assessment.organizationInfo?.assessor && (
                 <div className="flex items-center space-x-3">
-                  <User className="w-5 h-5 text-gray-400" />
+                  <User className="w-5 h-5 text-text-muted-dark" />
                   <div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Assessor</div>
-                    <div className="font-medium text-gray-900 dark:text-white">
+                    <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Assessor</div>
+                    <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                       {assessment.organizationInfo.assessor}
                     </div>
                   </div>
@@ -290,10 +290,10 @@ const ReportView: React.FC<ReportViewProps> = ({
               
               {assessment.organizationInfo?.industry && (
                 <div className="flex items-center space-x-3">
-                  <Target className="w-5 h-5 text-gray-400" />
+                  <Target className="w-5 h-5 text-text-muted-dark" />
                   <div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Industry</div>
-                    <div className="font-medium text-gray-900 dark:text-white">
+                    <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Industry</div>
+                    <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                       {assessment.organizationInfo.industry}
                     </div>
                   </div>
@@ -302,10 +302,10 @@ const ReportView: React.FC<ReportViewProps> = ({
               
               {assessment.organizationInfo?.location && (
                 <div className="flex items-center space-x-3">
-                  <MapPin className="w-5 h-5 text-gray-400" />
+                  <MapPin className="w-5 h-5 text-text-muted-dark" />
                   <div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Location</div>
-                    <div className="font-medium text-gray-900 dark:text-white">
+                    <div className="text-sm text-text-secondary-light dark:text-text-muted-dark">Location</div>
+                    <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
                       {assessment.organizationInfo.location}
                     </div>
                   </div>
@@ -316,16 +316,16 @@ const ReportView: React.FC<ReportViewProps> = ({
         )}
 
         {/* Section Analysis */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-            <BarChart3 className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
+          <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+            <BarChart3 className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
             Section Analysis
           </h3>
           
           <div className="grid lg:grid-cols-2 gap-8 mb-8">
             {/* Radar Chart */}
             <div>
-              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+              <h4 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-4">
                 Maturity Radar Chart
               </h4>
               <div className="h-80">
@@ -337,45 +337,45 @@ const ReportView: React.FC<ReportViewProps> = ({
                   className="h-full"
                 />
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mt-3 text-center">
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-3 text-center">
                 Current maturity scores vs. target benchmark (75%)
               </p>
             </div>
 
             {/* Section Scores List */}
             <div>
-              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+              <h4 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark mb-4">
                 Section Breakdown
               </h4>
               <div className="space-y-4">
                 {metrics.sectionAnalysis.map((section, index) => (
-                  <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div key={index} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <h5 className="font-medium text-gray-900 dark:text-white">
+                      <h5 className="font-medium text-text-primary-light dark:text-text-primary-dark">
                         {section.section}
                       </h5>
                       <div className="flex items-center space-x-3">
                         <span className={`text-lg font-bold ${getScoreColor(section.score)}`}>
                           {section.score}%
                         </span>
-                        <span className="text-sm text-gray-600 dark:text-gray-300">
+                        <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                           {section.questionsAnswered}/{section.totalQuestions}
                         </span>
                       </div>
                     </div>
                     
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-2">
                       <div
                         className={`h-2 rounded-full transition-all duration-300 ${
-                          section.score >= 80 ? 'bg-green-500' :
+                          section.score >= 80 ? 'bg-success-500' :
                           section.score >= 60 ? 'bg-yellow-500' :
-                          section.score >= 40 ? 'bg-orange-500' : 'bg-red-500'
+                          section.score >= 40 ? 'bg-orange-500' : 'bg-error-500'
                         }`}
                         style={{ width: `${section.score}%` }}
                       />
                     </div>
                     
-                    <div className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                    <div className="mt-2 text-sm text-text-secondary-light dark:text-text-secondary-dark">
                       Completion: {section.completionRate}%
                     </div>
                   </div>
@@ -386,9 +386,9 @@ const ReportView: React.FC<ReportViewProps> = ({
         </div>
 
         {/* Remediation Timeline */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-            <Calendar className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
+          <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+            <Calendar className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
             Remediation Timeline
           </h3>
           
@@ -402,7 +402,7 @@ const ReportView: React.FC<ReportViewProps> = ({
         </div>
 
         {/* Smart Recommendations */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
           <SmartRecommendationEngine
             assessment={assessment}
             framework={framework}
@@ -410,41 +410,41 @@ const ReportView: React.FC<ReportViewProps> = ({
         </div>
 
         {/* Detailed Category Performance Table */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-            <Target className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
+          <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+            <Target className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
             Detailed Category Performance
           </h3>
           
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">Section</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">Category</th>
-                  <th className="text-center py-3 px-4 font-medium text-gray-900 dark:text-white">Score</th>
-                  <th className="text-center py-3 px-4 font-medium text-gray-900 dark:text-white">Progress</th>
-                  <th className="text-center py-3 px-4 font-medium text-gray-900 dark:text-white">Priority</th>
+                <tr className="border-b border-support-light dark:border-support-dark">
+                  <th className="text-left py-3 px-4 font-medium text-text-primary-light dark:text-text-primary-dark">Section</th>
+                  <th className="text-left py-3 px-4 font-medium text-text-primary-light dark:text-text-primary-dark">Category</th>
+                  <th className="text-center py-3 px-4 font-medium text-text-primary-light dark:text-text-primary-dark">Score</th>
+                  <th className="text-center py-3 px-4 font-medium text-text-primary-light dark:text-text-primary-dark">Progress</th>
+                  <th className="text-center py-3 px-4 font-medium text-text-primary-light dark:text-text-primary-dark">Priority</th>
                 </tr>
               </thead>
               <tbody>
                 {metrics.categoryPerformance.map((category, index) => (
-                  <tr key={index} className="border-b border-gray-100 dark:border-gray-700/50">
-                    <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{category.section}</td>
-                    <td className="py-3 px-4 text-gray-900 dark:text-white font-medium">{category.category}</td>
+                  <tr key={index} className="border-b border-support-light dark:border-support-dark/50">
+                    <td className="py-3 px-4 text-text-primary-light dark:text-text-secondary-dark">{category.section}</td>
+                    <td className="py-3 px-4 text-text-primary-light dark:text-text-primary-dark font-medium">{category.category}</td>
                     <td className="py-3 px-4 text-center">
                       <span className={`font-bold ${getScoreColor(category.score)}`}>
                         {category.score}%
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-center text-gray-600 dark:text-gray-300">
+                    <td className="py-3 px-4 text-center text-text-secondary-light dark:text-text-secondary-dark">
                       {category.questionsAnswered}/{category.totalQuestions}
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        category.priority === 'high' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' :
+                        category.priority === 'high' ? 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300' :
                         category.priority === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
-                        'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
+                        'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300'
                       }`}>
                         {category.priority}
                       </span>
@@ -458,8 +458,8 @@ const ReportView: React.FC<ReportViewProps> = ({
 
         {/* Gap Analysis */}
         {metrics.gaps.length > 0 && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
               <AlertTriangle className="w-6 h-6 mr-3 text-orange-600 dark:text-orange-400" />
               Gap Analysis
             </h3>
@@ -468,22 +468,22 @@ const ReportView: React.FC<ReportViewProps> = ({
               {metrics.gaps.map((gap, index) => (
                 <div key={index} className="border border-orange-200 dark:border-orange-800 rounded-lg p-4 bg-orange-50 dark:bg-orange-900/20">
                   <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-medium text-gray-900 dark:text-white">
+                    <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark">
                       {gap.section} - {gap.category}
                     </h4>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">
+                      <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                         Current: 
                       </span>
                       <span className={`font-bold ${getScoreColor(gap.score)}`}>
                         {gap.score}%
                       </span>
-                      <span className="text-sm text-gray-600 dark:text-gray-300">
+                      <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                         Recommendation: 75%+
                       </span>
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                     Gap: {75 - gap.score}% improvement needed • 
                     {gap.questionsAnswered}/{gap.totalQuestions} questions completed
                   </div>
@@ -494,20 +494,20 @@ const ReportView: React.FC<ReportViewProps> = ({
         )}
 
         {/* Next Steps */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-            <CheckCircle className="w-6 h-6 mr-3 text-green-600 dark:text-green-400" />
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
+          <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+            <CheckCircle className="w-6 h-6 mr-3 text-success-600 dark:text-success-400" />
             Next Steps
           </h3>
           
           <div className="space-y-4">
             {[1, 2, 3, 4, 5].map((step) => (
               <div key={step} className="flex items-start space-x-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold text-sm">
+                <div className="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-semibold text-sm">
                   {step}
                 </div>
                 <div className="flex-1">
-                  <p className="text-gray-700 dark:text-gray-300">
+                  <p className="text-text-primary-light dark:text-text-secondary-dark">
                     Step {step}: {
                       step === 1 ? 'Review and prioritize identified gaps' :
                       step === 2 ? 'Develop remediation plans for high-priority items' :
@@ -524,9 +524,9 @@ const ReportView: React.FC<ReportViewProps> = ({
 
         {/* Assessment Notes */}
         {assessment.questionNotes && Object.keys(assessment.questionNotes).length > 0 && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-              <MessageCircle className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-8">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+              <MessageCircle className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
               Assessment Notes & Comments
             </h3>
             
@@ -541,23 +541,23 @@ const ReportView: React.FC<ReportViewProps> = ({
                 if (!question || !note.trim()) return null;
                 
                 return (
-                  <div key={questionId} className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+                  <div key={questionId} className="border border-support-light dark:border-support-dark rounded-lg p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
                     <div className="mb-3">
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                      <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
                         {question.text}
                       </h4>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">
+                      <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                         Question ID: {questionId}
                       </div>
                     </div>
-                    <div className="bg-white dark:bg-gray-700 rounded-lg p-4 border border-blue-200 dark:border-blue-600">
+                    <div className="bg-surface-light dark:bg-surface-dark rounded-lg p-4 border border-primary-200 dark:border-primary-600">
                       <div className="flex items-start space-x-3">
-                        <MessageCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+                        <MessageCircle className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-0.5 flex-shrink-0" />
                         <div className="flex-1">
-                          <div className="text-sm font-medium text-blue-900 dark:text-blue-100 mb-2">
+                          <div className="text-sm font-medium text-primary-900 dark:text-primary-100 mb-2">
                             Assessor Notes:
                           </div>
-                          <div className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                          <div className="text-text-primary-light dark:text-text-secondary-dark leading-relaxed whitespace-pre-wrap">
                             {note}
                           </div>
                         </div>
@@ -571,7 +571,7 @@ const ReportView: React.FC<ReportViewProps> = ({
         )}
 
         {/* Footer */}
-        <div className="text-center text-gray-600 dark:text-gray-300 py-4">
+        <div className="text-center text-text-secondary-light dark:text-text-secondary-dark py-4">
           <p className="mb-2">
             Report generated on {new Date().toLocaleDateString()} • {framework.name} v{framework.version}
           </p>
