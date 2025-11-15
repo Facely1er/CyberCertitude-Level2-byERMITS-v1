@@ -42,23 +42,23 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   );
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 ${className}`}>
+    <div className={`bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6 ${className}`}>
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
         {/* Search */}
         <div className="flex-1 max-w-lg">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-5 h-5" />
             <input
               type="text"
               placeholder={searchPlaceholder}
               value={searchValue}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
             {searchValue && (
               <button
                 onClick={() => onSearchChange('')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark hover:text-text-secondary-light"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -71,7 +71,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
           {hasActiveFilters && (
             <button
               onClick={onClearFilters}
-              className="text-sm text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+              className="text-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-error-600 dark:hover:text-error-400 transition-colors"
             >
               Clear Filters
             </button>
@@ -81,14 +81,14 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             onClick={() => setShowFilters(!showFilters)}
             className={`flex items-center space-x-2 px-4 py-3 border rounded-lg transition-colors ${
               hasActiveFilters
-                ? 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
+                ? 'border-primary-300 dark:border-primary-600 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                : 'border-support-light dark:border-support-dark bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-secondary-dark hover:bg-background-light dark:hover:bg-primary-600'
             }`}
           >
             <Filter className="w-4 h-4" />
             <span>Filters</span>
             {hasActiveFilters && (
-              <span className="bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              <span className="bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 {Object.values(selectedFilters).filter(v => 
                   Array.isArray(v) ? v.length > 0 : v !== '' && v !== null
                 ).length}
@@ -101,11 +101,11 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
       
       {/* Expanded Filters */}
       {showFilters && filterGroups.length > 0 && (
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-6 pt-6 border-t border-support-light dark:border-support-dark">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filterGroups.map((group) => (
               <div key={group.id}>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                   {group.label}
                 </label>
                 {group.multiple ? (
@@ -116,7 +116,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
                       const values = Array.from(e.target.selectedOptions, option => option.value);
                       onFilterChange(group.id, values);
                     }}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     size={Math.min(group.options.length, 4)}
                   >
                     {group.options.map(option => (
@@ -129,7 +129,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
                   <select
                     value={selectedFilters[group.id] || ''}
                     onChange={(e) => onFilterChange(group.id, e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   >
                     <option value="">All {group.label}</option>
                     {group.options.map(option => (

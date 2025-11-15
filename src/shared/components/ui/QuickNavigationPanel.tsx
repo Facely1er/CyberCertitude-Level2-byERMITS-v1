@@ -90,8 +90,8 @@ export const QuickNavigationPanel: React.FC<QuickNavigationPanelProps> = ({
 
   const getCategoryColor = (category: string) => {
     const colors = {
-      assessment: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
-      monitoring: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800',
+      assessment: 'bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800',
+      monitoring: 'bg-success-50 dark:bg-success-900/20 border-success-200 dark:border-success-800',
       documentation: 'bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800',
       management: 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800',
       collaboration: 'bg-pink-50 dark:bg-pink-900/20 border-pink-200 dark:border-pink-800',
@@ -103,9 +103,9 @@ export const QuickNavigationPanel: React.FC<QuickNavigationPanelProps> = ({
 
   const getPriorityIcon = (priority: string) => {
     switch (priority) {
-      case 'high': return <AlertTriangle className="w-3 h-3 text-red-500" />;
+      case 'high': return <AlertTriangle className="w-3 h-3 text-error-500" />;
       case 'medium': return <Clock className="w-3 h-3 text-yellow-500" />;
-      case 'low': return <CheckCircle className="w-3 h-3 text-green-500" />;
+      case 'low': return <CheckCircle className="w-3 h-3 text-success-500" />;
       default: return null;
     }
   };
@@ -114,11 +114,11 @@ export const QuickNavigationPanel: React.FC<QuickNavigationPanelProps> = ({
   const filteredLinks = quickLinks.filter(link => link.href !== currentPage);
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 ${className}`}>
+    <div className={`bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6 ${className}`}>
       {showTitle && (
         <div className="flex items-center space-x-3 mb-6">
-          <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <Zap className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
             Quick Navigation
           </h3>
         </div>
@@ -134,14 +134,14 @@ export const QuickNavigationPanel: React.FC<QuickNavigationPanelProps> = ({
           >
             <div className="flex items-start justify-between mb-2">
               <div className="flex items-center space-x-2">
-                <link.icon className="w-4 h-4 text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
-                <span className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <link.icon className="w-4 h-4 text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors" />
+                <span className="font-medium text-text-primary-light dark:text-text-primary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                   {link.title}
                 </span>
               </div>
               {getPriorityIcon(link.priority)}
             </div>
-            <p className="text-xs text-gray-600 dark:text-gray-300 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors">
+            <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark group-hover:text-text-primary-light dark:group-hover:text-text-primary-light transition-colors">
               {link.description}
             </p>
           </Link>

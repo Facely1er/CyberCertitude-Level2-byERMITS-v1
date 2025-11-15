@@ -362,12 +362,12 @@ export const ResponsiveModal: React.FC<{
   if (!isOpen) return null;
   
   const modalClasses = type === 'mobile' 
-    ? 'fixed inset-0 z-50 bg-white' 
+    ? 'fixed inset-0 z-50 bg-surface-light' 
     : 'fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center';
   
   const contentClasses = type === 'mobile'
     ? 'h-full overflow-y-auto p-4'
-    : 'bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto';
+    : 'bg-surface-light rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto';
   
   return (
     <div className={modalClasses}>
@@ -377,7 +377,7 @@ export const ResponsiveModal: React.FC<{
             <h2 className="text-lg font-semibold">{title}</h2>
             <button
               onClick={onClose}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-text-muted-light hover:text-text-primary-light"
               aria-label="Close modal"
             >
               ✕
@@ -409,7 +409,7 @@ export const ResponsiveTable: React.FC<{
     return (
       <div className={`space-y-4 ${className}`}>
         {data.map((row, index) => (
-          <div key={index} className="bg-white p-4 rounded-lg shadow">
+          <div key={index} className="bg-surface-light p-4 rounded-lg shadow">
             {columns.filter(col => col.mobile !== false).map(column => (
               <div key={column.key} className="flex justify-between py-2 border-b last:border-b-0">
                 <span className="font-medium">{column.label}:</span>
@@ -425,11 +425,11 @@ export const ResponsiveTable: React.FC<{
   // Show as table on tablet/desktop
   return (
     <div className={`overflow-x-auto ${className}`}>
-      <table className="min-w-full bg-white shadow rounded-lg">
+      <table className="min-w-full bg-surface-light shadow rounded-lg">
         <thead>
-          <tr className="bg-gray-50">
+          <tr className="bg-background-light">
             {columns.map(column => (
-              <th key={column.key} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th key={column.key} className="px-4 py-3 text-left text-xs font-medium text-text-muted-light uppercase tracking-wider">
                 {column.label}
               </th>
             ))}
@@ -437,9 +437,9 @@ export const ResponsiveTable: React.FC<{
         </thead>
         <tbody className="divide-y divide-gray-200">
           {data.map((row, index) => (
-            <tr key={index} className="hover:bg-gray-50">
+            <tr key={index} className="hover:bg-background-light">
               {columns.map(column => (
-                <td key={column.key} className="px-4 py-3 text-sm text-gray-900">
+                <td key={column.key} className="px-4 py-3 text-sm text-text-primary-light">
                   {row[column.key]}
                 </td>
               ))}

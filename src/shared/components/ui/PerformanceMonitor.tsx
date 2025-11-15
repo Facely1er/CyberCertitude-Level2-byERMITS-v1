@@ -54,9 +54,9 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
   if (!isVisible) return null;
 
   const getPerformanceStatus = (avgTime: number) => {
-    if (avgTime < 100) return { color: 'text-green-600', icon: CheckCircle, label: 'Excellent' };
+    if (avgTime < 100) return { color: 'text-success-600', icon: CheckCircle, label: 'Excellent' };
     if (avgTime < 300) return { color: 'text-yellow-600', icon: Clock, label: 'Good' };
-    return { color: 'text-red-600', icon: AlertTriangle, label: 'Needs Attention' };
+    return { color: 'text-error-600', icon: AlertTriangle, label: 'Needs Attention' };
   };
 
   const formatTime = (ms: number) => {
@@ -74,17 +74,17 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700 max-h-[80vh] overflow-y-auto">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-support-light dark:border-support-dark max-h-[80vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
-            <Activity className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <Activity className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               Performance Monitor
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl"
+            className="text-text-muted-dark hover:text-text-secondary-light dark:hover:text-text-secondary-dark text-2xl"
           >
             ×
           </button>
@@ -92,13 +92,13 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
 
         {/* Performance Metrics */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+          <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
             <Zap className="w-5 h-5 mr-2 text-yellow-500" />
             Operation Performance
           </h3>
           
           {Object.keys(metrics).length === 0 ? (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-8 text-text-muted-light dark:text-text-muted-dark">
               <Clock className="w-12 h-12 mx-auto mb-3 opacity-50" />
               <p>No performance data available yet.</p>
               <p className="text-sm mt-1">Use the application to generate metrics.</p>
@@ -110,9 +110,9 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                 const StatusIcon = status.icon;
                 
                 return (
-                  <div key={operation} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div key={operation} className="border border-support-light dark:border-support-dark rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <h4 className="font-medium text-gray-900 dark:text-white capitalize">
+                      <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark capitalize">
                         {operation.replace(/([A-Z])/g, ' $1').trim()}
                       </h4>
                       <StatusIcon className={`w-4 h-4 ${status.color}`} />
@@ -120,26 +120,26 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                     
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-gray-600 dark:text-gray-300">Average:</span>
+                        <span className="text-text-secondary-light dark:text-text-secondary-dark">Average:</span>
                         <span className={`font-medium ${status.color}`}>
                           {formatTime(data.average)}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600 dark:text-gray-300">Latest:</span>
-                        <span className="font-medium text-gray-900 dark:text-white">
+                        <span className="text-text-secondary-light dark:text-text-secondary-dark">Latest:</span>
+                        <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {formatTime(data.latest)}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600 dark:text-gray-300">Count:</span>
-                        <span className="font-medium text-gray-900 dark:text-white">
+                        <span className="text-text-secondary-light dark:text-text-secondary-dark">Count:</span>
+                        <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                           {data.count}
                         </span>
                       </div>
                     </div>
                     
-                    <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <div className="mt-3 pt-3 border-t border-support-light dark:border-support-dark">
                       <span className={`text-xs font-medium ${status.color}`}>
                         {status.label}
                       </span>
@@ -154,7 +154,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
         {/* Memory Usage */}
         {Object.keys(memoryUsage).length > 0 && (
           <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
               <Database className="w-5 h-5 mr-2 text-purple-500" />
               Memory Usage
             </h3>
@@ -162,20 +162,20 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600 dark:text-gray-300">Used Heap Size:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">Used Heap Size:</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                     {formatBytes(memoryUsage.usedJSHeapSize)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600 dark:text-gray-300">Total Heap Size:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">Total Heap Size:</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                     {formatBytes(memoryUsage.totalJSHeapSize)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600 dark:text-gray-300">Heap Limit:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="text-text-secondary-light dark:text-text-secondary-dark">Heap Limit:</span>
+                  <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                     {formatBytes(memoryUsage.jsHeapSizeLimit)}
                   </span>
                 </div>
@@ -183,23 +183,23 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
               
               <div>
                 <div className="mb-2 flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Memory Usage</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Memory Usage</span>
+                  <span className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark">
                     {memoryUsage.usagePercentage?.toFixed(1)}%
                   </span>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                <div className="w-full bg-support-light dark:bg-surface-dark rounded-full h-4">
                   <div
                     className={`h-4 rounded-full transition-all duration-300 ${
-                      memoryUsage.usagePercentage > 80 ? 'bg-red-500' :
+                      memoryUsage.usagePercentage > 80 ? 'bg-error-500' :
                       memoryUsage.usagePercentage > 60 ? 'bg-yellow-500' :
-                      'bg-green-500'
+                      'bg-success-500'
                     }`}
                     style={{ width: `${Math.min(memoryUsage.usagePercentage || 0, 100)}%` }}
                   />
                 </div>
                 {memoryUsage.usagePercentage > 80 && (
-                  <p className="text-xs text-red-600 dark:text-red-400 mt-2">
+                  <p className="text-xs text-error-600 dark:text-error-400 mt-2">
                     High memory usage detected. Consider refreshing the page.
                   </p>
                 )}
@@ -209,11 +209,11 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
         )}
 
         {/* Performance Tips */}
-        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800">
-          <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">
+        <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-6 border border-primary-200 dark:border-primary-800">
+          <h3 className="text-lg font-semibold text-primary-900 dark:text-primary-100 mb-3">
             Performance Tips
           </h3>
-          <ul className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+          <ul className="space-y-2 text-sm text-primary-800 dark:text-primary-200">
             <li>• Close unused browser tabs to free up memory</li>
             <li>• Refresh the page if memory usage exceeds 80%</li>
             <li>• Use the latest version of your browser for best performance</li>
@@ -232,13 +232,13 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
           </button>
           <button
             onClick={() => window.location.reload()}
-            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+            className="bg-error-600 text-white px-4 py-2 rounded-lg hover:bg-error-700 transition-colors"
           >
             Reload Application
           </button>
           <button
             onClick={onClose}
-            className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-secondary-dark px-4 py-2 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors"
           >
             Close
           </button>

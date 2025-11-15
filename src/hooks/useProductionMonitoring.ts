@@ -106,10 +106,10 @@ export const useProductionMonitoring = () => {
 
   const getHealthStatusColor = (status: string) => {
     switch (status) {
-      case 'healthy': return 'text-green-600 dark:text-green-400';
+      case 'healthy': return 'text-success-600 dark:text-success-400';
       case 'degraded': return 'text-yellow-600 dark:text-yellow-400';
-      case 'unhealthy': return 'text-red-600 dark:text-red-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'unhealthy': return 'text-error-600 dark:text-error-400';
+      default: return 'text-text-secondary-light dark:text-text-muted-dark';
     }
   };
 

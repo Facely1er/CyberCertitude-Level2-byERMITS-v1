@@ -117,33 +117,33 @@ const HelpView: React.FC<HelpViewProps> = ({ onBack, addNotification, onShowTemp
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack}
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <div className="h-6 w-px bg-support-light dark:bg-primary-600" />
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 Help & Support
               </h1>
             </div>
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => setShowOnboarding(true)}
-                className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
               >
                 <Play className="w-4 h-4" />
                 <span>Get Started</span>
               </button>
               <button
                 onClick={() => setShowInteractiveManual(true)}
-                className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <BookOpen className="w-4 h-4" />
                 <span>Interactive Manual</span>
@@ -157,23 +157,23 @@ const HelpView: React.FC<HelpViewProps> = ({ onBack, addNotification, onShowTemp
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-8">
           {/* Search */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-dark w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search help articles and FAQs..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
           </div>
 
           {/* Quick Start Guides */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-              <BookOpen className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+              <BookOpen className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
               Quick Start Guides
             </h2>
             
@@ -182,23 +182,23 @@ const HelpView: React.FC<HelpViewProps> = ({ onBack, addNotification, onShowTemp
                 <button
                   key={index}
                   onClick={guide.action}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer text-left group"
+                  className="border border-support-light dark:border-support-dark rounded-lg p-4 hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors cursor-pointer text-left group"
                 >
                   <div className="flex items-center space-x-3 mb-3">
-                    <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
-                      <guide.icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition-colors">
+                      <guide.icon className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                     </div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                       {guide.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3">
                     {guide.description}
                   </p>
-                  <ul className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+                  <ul className="text-xs text-text-muted-light dark:text-text-muted-dark space-y-1">
                     {guide.topics.map((topic, topicIndex) => (
                       <li key={topicIndex} className="flex items-center">
-                        <div className="w-1 h-1 bg-blue-500 rounded-full mr-2" />
+                        <div className="w-1 h-1 bg-primary-500 rounded-full mr-2" />
                         {topic}
                       </li>
                     ))}
@@ -209,31 +209,31 @@ const HelpView: React.FC<HelpViewProps> = ({ onBack, addNotification, onShowTemp
           </div>
 
           {/* FAQ Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
               Frequently Asked Questions
             </h2>
             
             <div className="space-y-4">
               {filteredFaqs.map((faq, index) => (
-                <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <div key={index} className="border border-support-light dark:border-support-dark rounded-lg">
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    className="w-full flex items-center justify-between p-4 text-left hover:bg-background-light dark:hover:bg-surface-dark/50 transition-colors"
                   >
-                    <span className="font-medium text-gray-900 dark:text-white">
+                    <span className="font-medium text-text-primary-light dark:text-text-primary-dark">
                       {faq.question}
                     </span>
                     {expandedFaq === index ? (
-                      <ChevronDown className="w-5 h-5 text-gray-500" />
+                      <ChevronDown className="w-5 h-5 text-text-muted-light" />
                     ) : (
-                      <ChevronRight className="w-5 h-5 text-gray-500" />
+                      <ChevronRight className="w-5 h-5 text-text-muted-light" />
                     )}
                   </button>
                   
                   {expandedFaq === index && (
                     <div className="px-4 pb-4">
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                      <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>
@@ -247,161 +247,161 @@ const HelpView: React.FC<HelpViewProps> = ({ onBack, addNotification, onShowTemp
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Contact Support */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
               Contact Support
             </h3>
             
             <div className="space-y-4">
               <button
                 onClick={() => window.open('mailto:support@ermits.com?subject=CMMC Platform Support&body=Please describe your issue:', '_blank')}
-                className="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors w-full text-left"
+                className="flex items-center space-x-3 p-3 rounded-lg border border-support-light dark:border-support-dark hover:bg-background-light dark:hover:bg-surface-dark transition-colors w-full text-left"
               >
-                <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <Mail className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                 <div>
-                  <div className="font-medium text-gray-900 dark:text-white">Email Support</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">support@ermits.com</div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Email Support</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">support@ermits.com</div>
                 </div>
               </button>
               
               <button
                 onClick={() => window.open('tel:+1-555-0123', '_blank')}
-                className="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors w-full text-left"
+                className="flex items-center space-x-3 p-3 rounded-lg border border-support-light dark:border-support-dark hover:bg-background-light dark:hover:bg-surface-dark transition-colors w-full text-left"
               >
-                <Phone className="w-5 h-5 text-green-600 dark:text-green-400" />
+                <Phone className="w-5 h-5 text-success-600 dark:text-success-400" />
                 <div>
-                  <div className="font-medium text-gray-900 dark:text-white">Phone Support</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">+1 (555) 012-3456</div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Phone Support</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">+1 (555) 012-3456</div>
                 </div>
               </button>
               
               <button
                 onClick={() => addNotification?.('info', 'Live chat feature coming soon! Please use email support for immediate assistance.')}
-                className="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors w-full text-left"
+                className="flex items-center space-x-3 p-3 rounded-lg border border-support-light dark:border-support-dark hover:bg-background-light dark:hover:bg-surface-dark transition-colors w-full text-left"
               >
                 <MessageCircle className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 <div>
-                  <div className="font-medium text-gray-900 dark:text-white">Live Chat</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">Coming soon</div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Live Chat</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Coming soon</div>
                 </div>
               </button>
             </div>
           </div>
 
           {/* Resources */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
               Additional Resources
             </h3>
             
             <div className="space-y-3">
               <button
                 onClick={() => setShowOnboarding(true)}
-                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors group"
               >
                 <div className="flex items-center space-x-3">
-                  <Play className="w-5 h-5 text-green-600 dark:text-green-400" />
-                  <span className="text-gray-700 dark:text-gray-300 group-hover:text-green-600 dark:group-hover:text-green-400">
+                  <Play className="w-5 h-5 text-success-600 dark:text-success-400" />
+                  <span className="text-text-primary-light dark:text-text-secondary-dark group-hover:text-success-600 dark:group-hover:text-success-400">
                     Interactive Onboarding
                   </span>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-400" />
+                <ChevronRight className="w-4 h-4 text-text-muted-dark group-hover:text-success-600 dark:group-hover:text-success-400" />
               </button>
               <button
                 onClick={() => setShowInteractiveManual(true)}
-                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors group"
               >
                 <div className="flex items-center space-x-3">
-                  <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                  <span className="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                  <BookOpen className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                  <span className="text-text-primary-light dark:text-text-secondary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400">
                     Interactive User Manual
                   </span>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                <ChevronRight className="w-4 h-4 text-text-muted-dark group-hover:text-primary-600 dark:group-hover:text-primary-400" />
               </button>
               <button
                 onClick={() => setShowUserManual(true)}
-                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors group"
               >
                 <div className="flex items-center space-x-3">
-                  <FileText className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                  <span className="text-gray-700 dark:text-gray-300 group-hover:text-gray-600 dark:group-hover:text-gray-400">
+                  <FileText className="w-5 h-5 text-text-secondary-light dark:text-text-muted-dark" />
+                  <span className="text-text-primary-light dark:text-text-secondary-dark group-hover:text-text-secondary-light dark:group-hover:text-text-muted-dark">
                     Complete User Manual
                   </span>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-400" />
+                <ChevronRight className="w-4 h-4 text-text-muted-dark group-hover:text-text-secondary-light dark:group-hover:text-text-muted-dark" />
               </button>
               
               <button
                 onClick={() => addNotification?.('info', 'Video tutorials are coming soon! Check back for comprehensive training videos.')}
-                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors group"
               >
-                <span className="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                <span className="text-text-primary-light dark:text-text-secondary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400">
                   Video Tutorials
                 </span>
-                <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                <ExternalLink className="w-4 h-4 text-text-muted-dark group-hover:text-primary-600 dark:group-hover:text-primary-400" />
               </button>
               
               <button
                 onClick={() => window.open('https://www.cmmcab.org/frameworks', '_blank')}
-                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors group"
               >
-                <span className="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                <span className="text-text-primary-light dark:text-text-secondary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400">
                   Framework Documentation
                 </span>
-                <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                <ExternalLink className="w-4 h-4 text-text-muted-dark group-hover:text-primary-600 dark:group-hover:text-primary-400" />
               </button>
               
               <button
                 onClick={() => window.open('https://www.nist.gov/cyberframework', '_blank')}
-                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors group"
               >
-                <span className="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                <span className="text-text-primary-light dark:text-text-secondary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400">
                   Best Practices Guide
                 </span>
-                <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                <ExternalLink className="w-4 h-4 text-text-muted-dark group-hover:text-primary-600 dark:group-hover:text-primary-400" />
               </button>
               
               <button
                 onClick={() => addNotification?.('info', 'API documentation is available for enterprise customers. Contact support for access.')}
-                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-background-light dark:hover:bg-surface-dark transition-colors group"
               >
-                <span className="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                <span className="text-text-primary-light dark:text-text-secondary-dark group-hover:text-primary-600 dark:group-hover:text-primary-400">
                   API Documentation
                 </span>
-                <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                <ExternalLink className="w-4 h-4 text-text-muted-dark group-hover:text-primary-600 dark:group-hover:text-primary-400" />
               </button>
             </div>
           </div>
 
           {/* System Status */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
               System Status
             </h3>
             
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-gray-700 dark:text-gray-300">Application</span>
+                <span className="text-text-primary-light dark:text-text-secondary-dark">Application</span>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full" />
-                  <span className="text-sm text-green-600 dark:text-green-400">Operational</span>
+                  <div className="w-2 h-2 bg-success-500 rounded-full" />
+                  <span className="text-sm text-success-600 dark:text-success-400">Operational</span>
                 </div>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-gray-700 dark:text-gray-300">Data Storage</span>
+                <span className="text-text-primary-light dark:text-text-secondary-dark">Data Storage</span>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full" />
-                  <span className="text-sm text-green-600 dark:text-green-400">Operational</span>
+                  <div className="w-2 h-2 bg-success-500 rounded-full" />
+                  <span className="text-sm text-success-600 dark:text-success-400">Operational</span>
                 </div>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-gray-700 dark:text-gray-300">Report Generation</span>
+                <span className="text-text-primary-light dark:text-text-secondary-dark">Report Generation</span>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full" />
-                  <span className="text-sm text-green-600 dark:text-green-400">Operational</span>
+                  <div className="w-2 h-2 bg-success-500 rounded-full" />
+                  <span className="text-sm text-success-600 dark:text-success-400">Operational</span>
                 </div>
               </div>
             </div>

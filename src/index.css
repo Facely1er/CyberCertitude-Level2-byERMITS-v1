@@ -110,7 +110,7 @@
   }
   
   .card-responsive {
-    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700;
+    @apply bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark;
   }
   
   .button-primary {
@@ -191,7 +191,7 @@ body, #root, .scroll-container {
   }
   
   .dark\:text-dark-text,
-  .dark\:text-gray-300 {
+  .dark\:text-text-secondary-dark {
     color: black !important;
   }
 }

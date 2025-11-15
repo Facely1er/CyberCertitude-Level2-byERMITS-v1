@@ -193,12 +193,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
           {linkedEvidenceItems.map((evidence) => {
             const IconComponent = getEvidenceTypeIcon(evidence.type);
             return (
-              <div key={evidence.id} className="bg-surface-light dark:bg-gray-8          )
-          }
-00 rounded-lg p-4 border border-purple-200 dark:border-purple
-        }
-  )
-}-700 hover:shadow-md transition-shadow">
+              <div key={evidence.id} className="bg-surface-light dark:bg-surface-dark rounded-lg p-4 border border-purple-200 dark:border-purple-700 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-3 flex-1">
                     <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">

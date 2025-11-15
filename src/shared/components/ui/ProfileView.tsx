@@ -126,19 +126,19 @@ const ProfileView: React.FC<ProfileViewProps> = ({
       </div>
 
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack}
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <div className="h-6 w-px bg-support-light dark:bg-primary-600" />
+              <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
                 User Profile
               </h1>
             </div>
@@ -148,15 +148,15 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Personal Information */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-            <User className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+            <User className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
             Personal Information
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="profile-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="profile-name" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Full Name *
               </label>
               <input
@@ -165,13 +165,13 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 id="profile-name"
                 value={formData.name || ''}
                 onChange={(e) => handleInputChange('name', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Enter your full name"
               />
             </div>
             
             <div>
-              <label htmlFor="profile-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="profile-email" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Email Address *
               </label>
               <input
@@ -180,13 +180,13 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 id="profile-email"
                 value={formData.email || ''}
                 onChange={(e) => handleInputChange('email', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Enter your email address"
               />
             </div>
             
             <div>
-              <label htmlFor="profile-role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="profile-role" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Job Title/Role *
               </label>
               <select
@@ -194,7 +194,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 id="profile-role"
                 value={formData.role || ''}
                 onChange={(e) => handleInputChange('role', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="">Select your role</option>
                 {roles.map(role => (
@@ -206,15 +206,15 @@ const ProfileView: React.FC<ProfileViewProps> = ({
         </div>
 
         {/* Organization Information */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-            <Building className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+            <Building className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
             Organization Information
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="org-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="org-name" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Organization Name *
               </label>
               <input
@@ -223,13 +223,13 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 id="org-name"
                 value={formData.organization || ''}
                 onChange={(e) => handleInputChange('organization', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Enter organization name"
               />
             </div>
             
             <div>
-              <label htmlFor="org-industry" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="org-industry" className="block text-sm font-medium text-text-primary-light dark:text-text-secondary-dark mb-2">
                 Industry *
               </label>
               <select
@@ -237,7 +237,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 id="org-industry"
                 value={formData.industry || ''}
                 onChange={(e) => handleInputChange('industry', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="">Select industry</option>
                 {industries.map(industry => (
@@ -249,9 +249,9 @@ const ProfileView: React.FC<ProfileViewProps> = ({
         </div>
 
         {/* Certifications */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-            <Award className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6 flex items-center">
+            <Award className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
             Professional Certifications
           </h2>
           
@@ -261,14 +261,14 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 type="text"
                 value={newCertification}
                 onChange={(e) => setNewCertification(e.target.value)}
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Add certification (e.g., CISSP, CISM, CISA)"
                 onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addCertification())}
               />
               <button
                 type="button"
                 onClick={addCertification}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 Add
               </button>
@@ -279,13 +279,13 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 {formData.certifications.map((cert, index) => (
                   <span
                     key={index}
-                    className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300"
+                    className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300"
                   >
                     {cert}
                     <button
                       type="button"
                       onClick={() => removeCertification(index)}
-                      className="ml-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
+                      className="ml-2 text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-200"
                     >
                       ×
                     </button>
@@ -297,18 +297,18 @@ const ProfileView: React.FC<ProfileViewProps> = ({
         </div>
 
         {/* Preferences */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <h2 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
             Preferences
           </h2>
           
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark">
                   Auto-save Progress
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   Automatically save assessment progress while answering questions
                 </p>
               </div>
@@ -316,11 +316,11 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 type="button"
                 onClick={() => handlePreferenceChange('autoSave', !formData.preferences?.autoSave)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  formData.preferences?.autoSave ? 'bg-blue-600' : 'bg-gray-200'
+                  formData.preferences?.autoSave ? 'bg-primary-600' : 'bg-support-light'
                 }`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  className={`inline-block h-4 w-4 transform rounded-full bg-surface-light transition-transform ${
                     formData.preferences?.autoSave ? 'translate-x-6' : 'translate-x-1'
                   }`}
                 />
@@ -329,10 +329,10 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark">
                   Email Notifications
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   Receive email updates about assessment progress and reminders
                 </p>
               </div>
@@ -340,11 +340,11 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 type="button"
                 onClick={() => handlePreferenceChange('emailNotifications', !formData.preferences?.emailNotifications)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  formData.preferences?.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'
+                  formData.preferences?.emailNotifications ? 'bg-primary-600' : 'bg-support-light'
                 }`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  className={`inline-block h-4 w-4 transform rounded-full bg-surface-light transition-transform ${
                     formData.preferences?.emailNotifications ? 'translate-x-6' : 'translate-x-1'
                   }`}
                 />
@@ -353,17 +353,17 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h3 className="text-lg font-medium text-text-primary-light dark:text-text-primary-dark">
                   Default Report Format
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                   Choose the default format for generated reports
                 </p>
               </div>
               <select
                 value={formData.preferences?.reportFormat || 'detailed'}
                 onChange={(e) => handlePreferenceChange('reportFormat', e.target.value)}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="detailed">Detailed Report</option>
                 <option value="summary">Summary Report</option>
@@ -377,7 +377,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
         <div className="flex justify-end">
           <button
             type="submit"
-            className="flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="flex items-center space-x-2 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium"
           >
             <Save className="w-5 h-5" />
             <span>Save Profile</span>

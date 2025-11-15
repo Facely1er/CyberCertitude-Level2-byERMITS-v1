@@ -102,10 +102,10 @@ export const StartScreen: React.FC<StartScreenProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           {/* Welcome Back Header */}
           <div className="text-center mb-8 sm:mb-12">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary-light dark:text-text-primary-dark mb-3 sm:mb-4">
               Welcome back, {userProfile.name}
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8">
+            <p className="text-lg sm:text-xl text-text-secondary-light dark:text-text-secondary-dark mb-6 sm:mb-8">
               Continue your CMMC 2.0 Level 2 compliance journey
             </p>
             
@@ -120,7 +120,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
               
               <button
                 onClick={onStartAssessment}
-                className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex items-center justify-center space-x-2 sm:space-x-3"
+                className="border-2 border-primary-600 text-primary-600 dark:text-primary-400 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 flex items-center justify-center space-x-2 sm:space-x-3"
               >
                 <Play className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span>Start New Assessment</span>
@@ -131,14 +131,14 @@ export const StartScreen: React.FC<StartScreenProps> = ({
           {/* Platform Features */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {platformFeatures.map((feature, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div key={index} className="bg-surface-light dark:bg-surface-dark rounded-xl p-4 sm:p-6 shadow-lg border border-support-light dark:border-support-dark hover:shadow-xl transition-all duration-300 hover:scale-105">
                 <div className={`p-2 sm:p-3 bg-gradient-to-br ${feature.color} rounded-xl mb-3 sm:mb-4 w-fit`}>
                   <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-base sm:text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
+                <p className="text-text-secondary-light dark:text-text-secondary-dark text-xs sm:text-sm">
                   {feature.description}
                 </p>
               </div>
@@ -322,7 +322,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={onStartAssessment}
-              className="bg-white text-primary-600 dark:text-primary-500 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
+              className="bg-surface-light text-primary-600 dark:text-primary-500 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
             >
               <Target className="w-5 h-5" />
               <span>Begin Assessment</span>
@@ -330,7 +330,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
             
             <Link
               to="/dashboard"
-              className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold hover:bg-white/10 transition-all duration-200 flex items-center justify-center space-x-2"
+              className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold hover:bg-surface-light/10 transition-all duration-200 flex items-center justify-center space-x-2"
             >
               <ArrowRight className="w-5 h-5" />
               <span>Explore Platform</span>
