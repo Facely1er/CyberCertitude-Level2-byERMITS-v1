@@ -152,8 +152,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             value={value}
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
             placeholder={fieldDef.placeholder}
-            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
+            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark ${
+              fieldDef.required && !value ? 'border-error-300 dark:border-error-700' : 'border-support-light dark:border-support-dark'
             }`}
           />
         );
@@ -165,8 +165,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
             placeholder={fieldDef.placeholder}
             rows={3}
-            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
+            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark ${
+              fieldDef.required && !value ? 'border-error-300 dark:border-error-700' : 'border-support-light dark:border-support-dark'
             }`}
           />
         );
@@ -178,8 +178,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             value={value}
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
             placeholder={fieldDef.placeholder}
-            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
+            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark ${
+              fieldDef.required && !value ? 'border-error-300 dark:border-error-700' : 'border-support-light dark:border-support-dark'
             }`}
           />
         );
@@ -191,8 +191,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             value={value}
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
             placeholder={fieldDef.placeholder}
-            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
+            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark ${
+              fieldDef.required && !value ? 'border-error-300 dark:border-error-700' : 'border-support-light dark:border-support-dark'
             }`}
           />
         );
@@ -205,8 +205,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
             aria-label={fieldDef.placeholder || fieldName}
             title={fieldDef.placeholder || fieldName}
-            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
+            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark ${
+              fieldDef.required && !value ? 'border-error-300 dark:border-error-700' : 'border-support-light dark:border-support-dark'
             }`}
           />
         );
@@ -218,8 +218,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             value={value}
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
             placeholder={fieldDef.placeholder}
-            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
+            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark ${
+              fieldDef.required && !value ? 'border-error-300 dark:border-error-700' : 'border-support-light dark:border-support-dark'
             }`}
           />
         );
@@ -231,8 +231,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
             aria-label={fieldDef.placeholder || fieldName}
             title={fieldDef.placeholder || fieldName}
-            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
+            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark ${
+              fieldDef.required && !value ? 'border-error-300 dark:border-error-700' : 'border-support-light dark:border-support-dark'
             }`}
           >
             <option value="">Select an option</option>
@@ -254,7 +254,7 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             }}
             aria-label={fieldDef.placeholder || fieldName}
             title={fieldDef.placeholder || fieldName}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
           />
         );
 
@@ -265,8 +265,8 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             value={value}
             onChange={(e) => handleFieldChange(fieldName, e.target.value)}
             placeholder={fieldDef.placeholder}
-            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              fieldDef.required && !value ? 'border-red-300' : 'border-gray-300'
+            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark ${
+              fieldDef.required && !value ? 'border-error-300 dark:border-error-700' : 'border-support-light dark:border-support-dark'
             }`}
           />
         );
@@ -285,7 +285,7 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             <div key={fieldName}>
               <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-1">
                 {fieldDef.placeholder}
-                {fieldDef.required && <span className="text-red-500 ml-1">*</span>}
+                {fieldDef.required && <span className="text-error-500 ml-1">*</span>}
               </label>
               {renderField(fieldName, fieldDef)}
             </div>
@@ -446,7 +446,7 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
             <button
               onClick={handleSave}
               disabled={saving || !validation.valid}
-              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+              className="px-4 py-2 bg-primary-600 dark:bg-primary-500 text-white rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 transition-colors duration-200"
             >
               {saving ? (
                 <RefreshCw className="w-4 h-4 animate-spin" />
@@ -460,7 +460,7 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
               <button
                 onClick={() => handleExport('markdown')}
                 disabled={loading || !validation.valid}
-                className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1"
+                className="px-3 py-2 bg-primary-600 dark:bg-primary-500 text-white rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1 transition-colors duration-200"
               >
                 <Download className="w-4 h-4" />
                 <span>MD</span>
@@ -469,7 +469,7 @@ export const TemplateCustomizationModal: React.FC<TemplateCustomizationModalProp
               <button
                 onClick={() => handleExport('html')}
                 disabled={loading || !validation.valid}
-                className="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1"
+                className="px-3 py-2 bg-success-600 dark:bg-success-500 text-white rounded-lg hover:bg-success-700 dark:hover:bg-success-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1 transition-colors duration-200"
               >
                 <Download className="w-4 h-4" />
                 <span>HTML</span>
