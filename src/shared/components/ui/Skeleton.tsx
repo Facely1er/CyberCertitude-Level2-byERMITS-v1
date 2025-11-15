@@ -23,33 +23,73 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     rectangular: 'rounded-lg',
   };
 
+  // Convert width/height to CSS values
+  const getWidthValue = (w?: string | number, defaultVal = '100%') => {
+    if (!w) return defaultVal;
+    return typeof w === 'number' ? `${w}px` : w;
+  };
+
+  const getHeightValue = (h?: string | number, defaultVal = '1rem') => {
+    if (!h) return defaultVal;
+    return typeof h === 'number' ? `${h}px` : h;
+  };
+
   if (variant === 'text' && lines > 1) {
     return (
       <div className={`space-y-2 ${className}`}>
-        {Array.from({ length: lines }).map((_, i) => (
-          <div
-            key={i}
-            className={`${baseClasses} ${variantClasses.text}`}
-            // eslint-disable-next-line react/forbid-dom-props
-            style={{
-              width: i === lines - 1 ? '75%' : width || '100%',
-              height: height || '1rem',
-            }}
-          />
-        ))}
+        {Array.from({ length: lines }).map((_, i) => {
+          const lineWidth = i === lines - 1 ? '75%' : getWidthValue(width);
+          const lineHeight = getHeightValue(height);
+          return (
+            <div
+              key={i}
+              className={`${baseClasses} ${variantClasses.text}`}
+              data-width={lineWidth}
+              data-height={lineHeight}
+            />
+          );
+        })}
+        <style>{`
+          .space-y-2 > div[data-width] {
+            width: var(--skeleton-width, 100%);
+            height: var(--skeleton-height, 1rem);
+          }
+          ${Array.from({ length: lines }).map((_, i) => {
+            const lineWidth = i === lines - 1 ? '75%' : getWidthValue(width);
+            const lineHeight = getHeightValue(height);
+            return `
+              .space-y-2 > div[data-width]:nth-child(${i + 1}) {
+                --skeleton-width: ${lineWidth};
+                --skeleton-height: ${lineHeight};
+              }
+            `;
+          }).join('')}
+        `}</style>
       </div>
     );
   }
 
+  const skeletonWidth = getWidthValue(width);
+  const skeletonHeight = getHeightValue(height);
+
   return (
-    <div
-      className={`${baseClasses} ${variantClasses[variant]} ${className}`}
-      // eslint-disable-next-line react/forbid-dom-props
-      style={{
-        width: width || '100%',
-        height: height || '1rem',
-      }}
-    />
+    <>
+      <div
+        className={`${baseClasses} ${variantClasses[variant]} ${className}`}
+        data-skeleton-width={skeletonWidth}
+        data-skeleton-height={skeletonHeight}
+      />
+      <style>{`
+        div[data-skeleton-width] {
+          width: var(--skeleton-width, 100%);
+          height: var(--skeleton-height, 1rem);
+        }
+        div[data-skeleton-width="${skeletonWidth}"][data-skeleton-height="${skeletonHeight}"] {
+          --skeleton-width: ${skeletonWidth};
+          --skeleton-height: ${skeletonHeight};
+        }
+      `}</style>
+    </>
   );
 };
 
