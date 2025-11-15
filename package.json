@@ -46,7 +46,9 @@
     "check:env": "node ./scripts/check-env.js",
     "build:production": "npm run check:env && npm run check:production && npm run build",
     "security:scan": "node scripts/security-audit.js",
-    "security:fix": "npm audit fix && npm run lint -- --fix"
+    "security:fix": "npm audit fix && npm run lint -- --fix",
+    "fix:colors": "node scripts/fix-hardcoded-colors.js",
+    "fix:colors:dry-run": "node scripts/fix-hardcoded-colors.js --dry-run"
   },
   "dependencies": {
     "@sentry/react": "^10.8.0",

@@ -68,20 +68,20 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-100 dark:from-background-dark dark:to-surface-dark flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
           <div className="flex items-center justify-center space-x-3 mb-6">
             <img src="/cybercertitude.png" alt="CyberCertitude" className="w-12 h-12" />
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
               CyberCertitude™
             </h1>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">
             {isSignUp ? 'Create Account' : 'Welcome Back'}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-text-secondary-light dark:text-text-secondary-dark">
             {isSignUp 
               ? 'Join the CMMC compliance platform' 
               : 'Sign in to your CMMC compliance account'
@@ -90,11 +90,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
         </div>
 
         {/* Form */}
-        <div className="bg-white dark:bg-gray-800 py-8 px-6 shadow-xl rounded-lg">
+        <div className="bg-surface-light dark:bg-surface-dark py-8 px-6 shadow-xl rounded-lg">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-                <p className="text-red-800 dark:text-red-300 text-sm">{error}</p>
+              <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
+                <p className="text-error-800 dark:text-error-300 text-sm">{error}</p>
               </div>
             )}
 
@@ -102,11 +102,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
               <>
                 {/* Name */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Full Name
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-light dark:text-text-muted-dark" />
                     <input
                       id="name"
                       name="name"
@@ -114,7 +114,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
                       required={isSignUp}
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                      className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark placeholder-text-muted-light dark:placeholder-text-muted-dark"
                       placeholder="Enter your full name"
                     />
                   </div>
@@ -122,11 +122,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
 
                 {/* Organization */}
                 <div>
-                  <label htmlFor="organization" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="organization" className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Organization
                   </label>
                   <div className="relative">
-                    <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-light dark:text-text-muted-dark" />
                     <input
                       id="organization"
                       name="organization"
@@ -134,7 +134,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
                       required={isSignUp}
                       value={formData.organization}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                      className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark placeholder-text-muted-light dark:placeholder-text-muted-dark"
                       placeholder="Enter your organization name"
                     />
                   </div>
@@ -142,7 +142,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
 
                 {/* Role */}
                 <div>
-                  <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="role" className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                     Role
                   </label>
                   <select
@@ -150,7 +150,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
                     name="role"
                     value={formData.role}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark"
                   >
                     <option value="user">User</option>
                     <option value="admin">Administrator</option>
@@ -163,11 +163,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted-light dark:text-text-muted-dark" />
                 <input
                   id="email"
                   name="email"
@@ -175,18 +175,18 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                  className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark placeholder-text-muted-light dark:placeholder-text-muted-dark"
                   placeholder="Enter your email address"
                 />
               </div>
             </div>
 
             {/* Magic Link Info */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-              <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-1">
+            <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-4">
+              <h3 className="font-medium text-primary-900 dark:text-primary-100 mb-1">
                 🪄 Passwordless Authentication
               </h3>
-              <p className="text-sm text-blue-800 dark:text-blue-200">
+              <p className="text-sm text-primary-800 dark:text-primary-200">
                 {isSignUp 
                   ? 'Create your account securely without a password. We\'ll send you a magic link to complete registration.'
                   : 'Sign in securely with a magic link sent to your email - no password required!'
@@ -199,7 +199,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors space-x-2"
+                className="w-full flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 dark:bg-primary-500 hover:bg-primary-700 dark:hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors space-x-2"
               >
                 {loading ? (
                   <>
@@ -218,12 +218,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
 
           {/* Toggle Sign Up/Sign In */}
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
               {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
               <button
                 type="button"
                 onClick={() => setIsSignUp(!isSignUp)}
-                className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
               >
                 {isSignUp ? 'Sign In' : 'Sign Up'}
               </button>
@@ -236,7 +236,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
               <button
                 type="button"
                 onClick={onBack}
-                className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
+                className="text-sm text-text-muted-light hover:text-text-primary-light dark:text-text-muted-dark dark:hover:text-text-primary-dark transition-colors"
               >
                 ← Back to app
               </button>
@@ -246,7 +246,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack }) => {
 
         {/* Demo Notice */}
         <div className="text-center">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-text-muted-light dark:text-text-muted-dark">
             Demo mode: Magic link authentication for secure access
           </p>
         </div>
