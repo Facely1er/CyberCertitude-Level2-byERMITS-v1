@@ -125,22 +125,22 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
 
   const getCriticalityColor = (level: string) => {
     switch (level) {
-      case 'critical': return 'text-red-600 dark:text-red-400';
-      case 'high': return 'text-orange-600 dark:text-orange-400';
-      case 'medium': return 'text-yellow-600 dark:text-yellow-400';
-      case 'low': return 'text-green-600 dark:text-green-400';
+      case 'critical': return 'text-error-600 dark:text-error-400';
+      case 'high': return 'text-warning-600 dark:text-warning-400';
+      case 'medium': return 'text-warning-600 dark:text-warning-400';
+      case 'low': return 'text-success-600 dark:text-success-400';
       default: return 'text-text-secondary-light dark:text-text-secondary-dark';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-      case 'inactive': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
-      case 'maintenance': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'quarantined': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-      case 'disposed': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
-      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      case 'active': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'inactive': return 'bg-support-light dark:bg-support-dark/30 text-text-primary-light dark:text-text-primary-dark';
+      case 'maintenance': return 'bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-300';
+      case 'quarantined': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      case 'disposed': return 'bg-support-light dark:bg-support-dark/30 text-text-primary-light dark:text-text-primary-dark';
+      default: return 'bg-support-light dark:bg-support-dark/30 text-text-primary-light dark:text-text-primary-dark';
     }
   };
 
@@ -292,7 +292,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
             <div className="flex items-center space-x-3">
               <button
                 onClick={onViewInventory}
-                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark px-4 py-2 rounded-lg hover:bg-support-light dark:hover:bg-support-dark transition-colors"
               >
                 <Eye className="w-4 h-4" />
                 <span>Full Inventory</span>
@@ -300,7 +300,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <button
                 onClick={handleExportAssets}
-                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark px-4 py-2 rounded-lg hover:bg-support-light dark:hover:bg-support-dark transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -308,7 +308,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <button
                 onClick={() => setShowImportModal(true)}
-                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark px-4 py-2 rounded-lg hover:bg-support-light dark:hover:bg-support-dark transition-colors"
               >
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
@@ -316,7 +316,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <button
                 onClick={onCreateAsset}
-                className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center space-x-2 bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Asset</span>
@@ -357,8 +357,8 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                     { category: 'Facilities', icon: Building, description: 'Buildings, rooms, physical locations' },
                     { category: 'Services', icon: Cloud, description: 'Cloud services, outsourced functions' }
                   ].map((item, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                      <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                    <div key={index} className="flex items-center space-x-3 p-3 bg-support-light dark:bg-support-dark/50 rounded-lg">
+                      <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
                         <item.icon className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                       </div>
                       <div>
@@ -374,13 +374,13 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-4">Data Classifications</h4>
                 <div className="space-y-3">
                   {[
-                    { level: 'Public', color: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300', description: 'Information intended for public access' },
-                    { level: 'Internal', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300', description: 'Internal business information' },
-                    { level: 'Confidential', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300', description: 'Sensitive business information' },
-                    { level: 'Restricted', color: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300', description: 'Highly sensitive, regulated data' },
-                    { level: 'Top Secret', color: 'bg-black text-white', description: 'Maximum security classification' }
+                    { level: 'Public', color: 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300', description: 'Information intended for public access' },
+                    { level: 'Internal', color: 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300', description: 'Internal business information' },
+                    { level: 'Confidential', color: 'bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-300', description: 'Sensitive business information' },
+                    { level: 'Restricted', color: 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300', description: 'Highly sensitive, regulated data' },
+                    { level: 'Top Secret', color: 'bg-text-primary-dark text-white', description: 'Maximum security classification' }
                   ].map((item, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div key={index} className="flex items-center space-x-3 p-3 bg-support-light dark:bg-support-dark/50 rounded-lg">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${item.color}`}>
                         {item.level}
                       </span>
@@ -391,14 +391,14 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               </div>
             </div>
             
-            <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-              <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">Import Assets</h4>
-              <p className="text-sm text-blue-800 dark:text-blue-200 mb-3">
+            <div className="mt-8 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
+              <h4 className="font-medium text-primary-900 dark:text-primary-100 mb-2">Import Assets</h4>
+              <p className="text-sm text-primary-800 dark:text-primary-200 mb-3">
                 You can import assets from JSON files exported from other systems or previous backups.
               </p>
               <button
                 onClick={() => setShowImportModal(true)}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                className="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors font-medium"
               >
                 Import Assets
               </button>
@@ -425,11 +425,11 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Critical Assets</p>
-                  <p className="text-3xl font-bold text-red-600 dark:text-red-400">
+                  <p className="text-3xl font-bold text-error-600 dark:text-error-400">
                     {metrics.assetsByCriticality.critical || 0}
                   </p>
                 </div>
-                <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
+                <AlertTriangle className="w-8 h-8 text-error-600 dark:text-error-400" />
               </div>
             </div>
 
@@ -534,10 +534,10 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                   <button
                     key={category}
                     onClick={onViewCategories}
-                    className="p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left group"
+                    className="p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
                   >
                     <div className="flex items-center space-x-3 mb-3">
-                      <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
+                      <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition-colors">
                         <IconComponent className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                       </div>
                       <div>
@@ -552,8 +552,8 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                     
                     {criticalCount > 0 && (
                       <div className="flex items-center space-x-2">
-                        <AlertTriangle className="w-4 h-4 text-red-500" />
-                        <span className="text-sm text-red-600 dark:text-red-400 font-medium">
+                        <AlertTriangle className="w-4 h-4 text-error-500" />
+                        <span className="text-sm text-error-600 dark:text-error-400 font-medium">
                           {criticalCount} critical
                         </span>
                       </div>
@@ -589,9 +589,9 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                       <button
                         key={asset.id}
                         onClick={() => onViewAsset(asset)}
-                        className="w-full flex items-center space-x-4 p-3 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                        className="w-full flex items-center space-x-4 p-3 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
                       >
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                        <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
                           <IconComponent className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                         </div>
                         <div className="flex-1">
@@ -617,11 +617,11 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               {assets.length === 0 && (
                 <div className="text-center py-8">
-                  <Shield className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                  <Shield className="w-12 h-12 text-text-muted-light dark:text-text-muted-dark mx-auto mb-3" />
                   <p className="text-text-secondary-light dark:text-text-secondary-dark">No assets found</p>
                   <button
                     onClick={onCreateAsset}
-                    className="mt-3 text-primary-600 dark:text-primary-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+                    className="mt-3 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
                   >
                     Add your first asset
                   </button>
@@ -653,13 +653,13 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
 
                 {/* Open Vulnerabilities */}
                 {metrics.vulnerabilityCount > 0 && (
-                  <div className="flex items-start space-x-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
-                    <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5" />
+                  <div className="flex items-start space-x-3 p-4 bg-error-50 dark:bg-error-900/20 rounded-lg border border-error-200 dark:border-error-800">
+                    <AlertTriangle className="w-5 h-5 text-error-600 dark:text-error-400 mt-0.5" />
                     <div>
-                      <h4 className="font-medium text-red-800 dark:text-red-300">
+                      <h4 className="font-medium text-error-800 dark:text-error-300">
                         Open Vulnerabilities
                       </h4>
-                      <p className="text-sm text-red-700 dark:text-red-400">
+                      <p className="text-sm text-error-700 dark:text-error-400">
                         {metrics.vulnerabilityCount} vulnerabilities require attention
                       </p>
                     </div>
@@ -708,7 +708,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               <button
                 onClick={onViewInventory}
-                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
               >
                 <BarChart3 className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                 <div>
@@ -719,7 +719,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <button
                 onClick={onViewCategories}
-                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
               >
                 <Target className="w-6 h-6 text-green-600 dark:text-green-400" />
                 <div>
@@ -730,7 +730,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <button
                 onClick={onViewDependencies}
-                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
               >
                 <Shield className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 <div>
@@ -741,7 +741,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <button
                 onClick={onCreateAsset}
-                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
               >
                 <Plus className="w-6 h-6 text-orange-600 dark:text-orange-400" />
                 <div>
@@ -761,7 +761,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
              <Link
                to="/compliance-workflow"
-               className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left group"
+               className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
              >
                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors">
                  <Activity className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -774,9 +774,9 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
              
               <Link
                 to="/assets/workflow"
-                className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left group"
+                className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
               >
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
+                <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition-colors">
                   <CheckSquare className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                 </div>
                 <div>
@@ -787,7 +787,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <Link
                 to="/assets/roadmap"
-                className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left group"
+                className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
               >
                 <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800/50 transition-colors">
                   <Calendar className="w-6 h-6 text-green-600 dark:text-green-400" />
@@ -800,7 +800,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <Link
                 to="/assets/action-plan"
-                className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left group"
+                className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
               >
                 <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors">
                   <Target className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -832,7 +832,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
                   Select File
                 </label>
                 <input
@@ -848,7 +848,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               </div>
               
               {importFile && (
-                <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                <div className="p-3 bg-support-light dark:bg-support-dark/50 rounded-lg">
                   <div className="text-sm text-text-primary-light dark:text-text-primary-dark font-medium">
                     {importFile.name}
                   </div>
@@ -858,9 +858,9 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 </div>
               )}
               
-              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">Supported Formats</h4>
-                <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+              <div className="p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
+                <h4 className="font-medium text-primary-900 dark:text-primary-100 mb-2">Supported Formats</h4>
+                <ul className="text-sm text-primary-800 dark:text-primary-200 space-y-1">
                   <li>• JSON files from asset management systems</li>
                   <li>• CSV files with asset inventory data</li>
                   <li>• Previous export files from this system</li>
@@ -868,7 +868,7 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
               </div>
               
               {importStatus === 'error' && (
-                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                <div className="p-3 bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg">
                   <p className="text-red-700 dark:text-red-300 text-sm">
                     Import failed. Please check the file format and try again.
                   </p>
@@ -891,14 +891,14 @@ const AssetDashboard: React.FC<AssetDashboardProps> = ({
                   setImportFile(null);
                   setImportStatus('idle');
                 }}
-                className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark rounded-xl hover:bg-support-light dark:hover:bg-support-dark transition-colors font-medium"
               >
                 Cancel
               </button>
               <button
                 onClick={handleImportAssets}
                 disabled={!importFile || importStatus === 'importing'}
-                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-6 py-3 bg-primary-500 text-white rounded-xl hover:bg-primary-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {importStatus === 'importing' ? 'Importing...' : 'Import Assets'}
               </button>
