@@ -1,0 +1,107 @@
+================================================================================
+COMMIT INSTRUCTIONS - Runtime Error Fixes
+================================================================================
+
+Since Git is not available in the terminal, please use one of these methods:
+
+================================================================================
+METHOD 1: Using VS Code (RECOMMENDED)
+================================================================================
+
+1. Open VS Code in this project directory
+2. Press Ctrl+Shift+G to open Source Control panel
+3. You'll see all changed files listed
+4. Click the "+" button next to "Changes" to stage all files
+5. In the message box, enter:
+
+fix: resolve critical runtime errors and improve null safety
+
+- Add date validation utilities and fix date operations
+- Add null checks for responses, statistics, and riskDistribution objects
+- Fix DOM element validation in main.tsx
+- Remove unused variables and imports
+- Improve defensive programming patterns across components
+
+Fixes runtime errors in:
+- AdvancedDashboard.tsx (date operations, null checks)
+- EvidenceCollectionDashboard.tsx (statistics null checks)
+- main.tsx (DOM element validation)
+
+Adds new utility:
+- src/utils/dateUtils.ts (comprehensive date validation)
+
+6. Press Ctrl+Enter to commit
+7. Click the "..." menu in Source Control panel
+8. Select "Push" to push to origin/main
+
+================================================================================
+METHOD 2: Using Git Bash or Command Prompt
+================================================================================
+
+If you have Git installed, open Git Bash or Command Prompt in this directory:
+
+1. Stage all changes:
+   git add .
+
+2. Commit with message:
+   git commit -m "fix: resolve critical runtime errors and improve null safety
+
+- Add date validation utilities and fix date operations
+- Add null checks for responses, statistics, and riskDistribution objects
+- Fix DOM element validation in main.tsx
+- Remove unused variables and imports
+- Improve defensive programming patterns across components
+
+Fixes runtime errors in:
+- AdvancedDashboard.tsx (date operations, null checks)
+- EvidenceCollectionDashboard.tsx (statistics null checks)
+- main.tsx (DOM element validation)
+
+Adds new utility:
+- src/utils/dateUtils.ts (comprehensive date validation)"
+
+3. Push to main:
+   git push origin main
+
+================================================================================
+METHOD 3: Using GitHub Desktop
+================================================================================
+
+1. Open GitHub Desktop
+2. Select this repository
+3. You'll see all changes listed
+4. Write the commit message (same as above)
+5. Click "Commit to main"
+6. Click "Push origin" button
+
+================================================================================
+FILES TO BE COMMITTED
+================================================================================
+
+Modified Files:
+- src/features/assessment/components/AdvancedDashboard.tsx
+- src/features/evidence/components/EvidenceCollectionDashboard.tsx
+- src/main.tsx
+
+New Files:
+- src/utils/dateUtils.ts
+- RUNTIME_ERRORS_INSPECTION_REPORT.md
+- DEPLOYMENT_CHECKLIST.md
+- DEPLOYMENT_READY.md
+- commit-runtime-fixes.ps1
+- COMMIT_NOW.txt (this file)
+
+================================================================================
+VERIFICATION AFTER COMMIT
+================================================================================
+
+After pushing, deployment should automatically trigger if:
+- Vercel is connected to your repository (auto-deploys on push to main)
+- Netlify is connected to your repository (auto-deploys on push to main)
+
+Check deployment status:
+- Vercel: https://vercel.com/dashboard
+- Netlify: Your Netlify dashboard
+
+================================================================================
+

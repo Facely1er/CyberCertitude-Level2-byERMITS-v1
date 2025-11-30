@@ -1,0 +1,1105 @@
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { SquareCheck as CheckSquare, TriangleAlert as AlertTriangle, Plus, Search, Calendar, Target, Eye, CreditCard as Edit3, Trash2, MessageSquare, Paperclip, CircleCheck as CheckCircle, Circle as XCircle } from 'lucide-react';
+import { Task, TaskFilter, TaskMetrics, TaskStatus, TaskPriority, TaskType } from '../types';
+import { useAuth } from '../../../shared/hooks/useAuth';
+import { dataService } from '../../../services/dataService';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+import { logger } from '@/utils/logger';
+
+// ProgressBar component that uses refs to set CSS variables (avoiding inline styles)
+const ProgressBar: React.FC<{ progress: number; className?: string; showTransition?: boolean }> = ({ 
+  progress, 
+  className = '', 
+  showTransition = false 
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const progressValue = Math.min(100, Math.max(0, progress));
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.style.setProperty('--progress-width', `${progressValue}%`);
+    }
+  }, [progressValue]);
+
+  return (
+    <div 
+      ref={containerRef}
+      className={`w-full bg-support-light dark:bg-support-dark rounded-full h-2 ${className}`}
+    >
+      <div
+        className={`progress-bar-fill bg-success-500 h-2 rounded-full ${showTransition ? 'transition-all duration-300' : ''}`}
+        aria-label={`Task progress: ${progress}%`}
+        title={`Task progress: ${progress}%`}
+      />
+    </div>
+  );
+};
+
+
+interface TaskManagementDashboardProps {
+  onBack: () => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+}
+
+
+const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
+  addNotification
+}) => {
+  const { user, currentOrganization } = useAuth();
+  const { breadcrumbs } = useInternalLinking();
+  const [activeView, setActiveView] = useState<'kanban' | 'list' | 'calendar'>('kanban');
+  const [filters, setFilters] = useState<TaskFilter>({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showCreateTask, setShowCreateTask] = useState(false);
+  // const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [filterAssignee, setFilterAssignee] = useState('all');
+  const [taskFormData, setTaskFormData] = useState({
+    title: '',
+    description: '',
+    type: 'assessment' as TaskType,
+    priority: 'medium' as TaskPriority,
+    nistFunction: 'Identify',
+    nistCategory: '',
+    nistSubcategory: '',
+    assignedTo: '',
+    dueDate: '',
+    estimatedHours: 8,
+    tags: '',
+    businessImpact: 'medium' as 'low' | 'medium' | 'high' | 'critical',
+    technicalComplexity: 'medium' as 'low' | 'medium' | 'high',
+    framework: 'NIST CSF v2.0' as string
+  });
+
+  // Load tasks on component mount and when user/organization changes
+  React.useEffect(() => {
+    if (user) {
+      loadTasks();
+    }
+  }, [user, currentOrganization]);
+
+  const loadTasks = async () => {
+    if (!user) return;
+    
+    try {
+      // Load tasks from centralized data service
+      const fetchedTasks = dataService.getTasks();
+      setTasks(fetchedTasks);
+    } catch (error) {
+      logger.error('Failed to load tasks:', error);
+      setTasks([]); // Start with empty array if loading fails
+      addNotification('warning', 'Failed to load tasks from storage');
+    }
+  };
+
+  const metrics: TaskMetrics = useMemo(() => {
+    const totalTasks = tasks.length;
+    const completedTasks = tasks.filter(t => t.status === 'completed').length;
+    const overdueTasks = tasks.filter(
+      t =>
+        !!t.dueDate &&
+        !isNaN(new Date(t.dueDate).getTime()) &&
+        new Date(t.dueDate) < new Date() &&
+        t.status !== 'completed'
+    ).length;
+    const tasksByStatus = tasks.reduce((acc, task) => {
+      acc[task.status] = (acc[task.status] || 0) + 1;
+      return acc;
+    }, {} as Record<TaskStatus, number>);
+
+    const tasksByPriority = tasks.reduce((acc, task) => {
+      acc[task.priority] = (acc[task.priority] || 0) + 1;
+      return acc;
+    }, {} as Record<TaskPriority, number>);
+
+    const tasksByFunction = tasks.reduce((acc, task) => {
+      acc[task.nistFunction] = (acc[task.nistFunction] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const upcomingDeadlines = tasks.filter(t => {
+      if (!t.dueDate) return false;
+      const dueDateTime = new Date(t.dueDate).getTime();
+      if (isNaN(dueDateTime)) return false;
+      const daysUntilDue = (dueDateTime - new Date().getTime()) / (1000 * 60 * 60 * 24);
+      return daysUntilDue <= 7 && daysUntilDue > 0 && t.status !== 'completed';
+    }).length;
+
+    const blockedTasks = tasks.filter(t => t.status === 'blocked').length;
+    const cuiRelatedTasks = tasks.filter(t => t.cuiImpact && t.cuiImpact !== 'low').length;
+    const sspTasks = tasks.filter(t => t.type === 'ssp-development' || t.sspSection).length;
+    const poamTasks = tasks.filter(t => t.type === 'poam-creation').length;
+
+    return {
+      totalTasks,
+      completedTasks,
+      overdueTasks,
+      tasksByStatus,
+      tasksByPriority,
+      tasksByFunction,
+      tasksByAssignee: {},
+      averageCompletionTime: 0,
+      upcomingDeadlines,
+      blockedTasks,
+      cuiRelatedTasks,
+      sspTasks,
+      poamTasks
+    };
+  }, [tasks]);
+
+  const getStatusColor = (status: TaskStatus) => {
+    switch (status) {
+      case 'completed': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'in-progress': return 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300';
+      case 'blocked': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      case 'review': return 'bg-secondary-100 dark:bg-secondary-900/30 text-secondary-800 dark:text-secondary-300';
+      case 'overdue': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      default: return 'bg-support-light dark:bg-support-dark/30 text-text-primary-light dark:text-text-primary-dark';
+    }
+  };
+
+  const getPriorityColor = (priority: TaskPriority) => {
+    switch (priority) {
+      case 'critical': return 'text-error-600 dark:text-error-400';
+      case 'high': return 'text-orange-600 dark:text-orange-400';
+      case 'medium': return 'text-yellow-600 dark:text-yellow-400';
+      case 'low': return 'text-success-600 dark:text-success-400';
+    }
+  };
+
+  const filteredTasks = useMemo(() => {
+    if (!tasks || !Array.isArray(tasks)) {
+      return [];
+    }
+    return tasks.filter(task => {
+      // Defensive checks for task properties
+      if (!task || typeof task !== 'object') {
+        return false;
+      }
+      
+      const taskTitle = task.title || '';
+      const taskDescription = task.description || '';
+      const matchesSearch = taskTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           taskDescription.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesFunction = !filters.cmmcDomain?.length || (task.cmmcDomain && filters.cmmcDomain.includes(task.cmmcDomain));
+      const matchesType = !filters.type?.length || filters.type.includes(task.type);
+      const matchesStatus = !filters.status?.length || filters.status.includes(task.status);
+      const matchesPriority = !filters.priority?.length || filters.priority.includes(task.priority);
+      const matchesAssignee = filterAssignee === 'all' || task.assignedTo.includes(filterAssignee);
+      
+      return matchesSearch && matchesFunction && matchesType && matchesStatus && matchesPriority && matchesAssignee;
+    });
+  }, [tasks, searchTerm, filters, filterAssignee]);
+
+  const kanbanColumns = [
+    { id: 'not-started', title: 'Not Started', tasks: filteredTasks.filter(t => t.status === 'not-started') },
+    { id: 'in-progress', title: 'In Progress', tasks: filteredTasks.filter(t => t.status === 'in-progress') },
+    { id: 'blocked', title: 'Blocked', tasks: filteredTasks.filter(t => t.status === 'blocked') },
+    { id: 'review', title: 'Review', tasks: filteredTasks.filter(t => t.status === 'review') },
+    { id: 'completed', title: 'Completed', tasks: filteredTasks.filter(t => t.status === 'completed') }
+  ];
+
+  const handleCreateTask = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!taskFormData.title.trim() || !taskFormData.description.trim()) {
+      addNotification('error', 'Title and description are required');
+      return;
+    }
+    
+    if (!taskFormData.assignedTo) {
+      addNotification('error', 'Please assign the task to a team member');
+      return;
+    }
+    
+    if (!user) {
+      addNotification('error', 'User not authenticated');
+      return;
+    }
+
+    if (!taskFormData.dueDate) {
+      addNotification('error', 'Due date is required');
+      return;
+    }
+    const newTask: Task = {
+      id: `task-${Date.now()}`,
+      title: taskFormData.title,
+      description: taskFormData.description,
+      type: taskFormData.type,
+      priority: taskFormData.priority,
+      status: 'not-started',
+      nistFunction: taskFormData.nistFunction as any,
+      nistCategory: taskFormData.nistCategory,
+      nistSubcategory: taskFormData.nistSubcategory,
+      relatedControlId: taskFormData.nistSubcategory.toLowerCase().replace('.', '.'),
+      assignedTo: [taskFormData.assignedTo],
+      assignedBy: user.id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      dueDate: new Date(taskFormData.dueDate),
+      startDate: undefined,
+      completedAt: undefined,
+      estimatedHours: taskFormData.estimatedHours,
+      actualHours: undefined,
+      progress: 0,
+      dependencies: [],
+      subtasks: [],
+      attachments: [],
+      comments: [],
+      evidence: [],
+      approvalRequired: false,
+      tags: taskFormData.tags ? taskFormData.tags.split(',').map(t => t.trim()).filter(Boolean) : [taskFormData.type, taskFormData.nistFunction.toLowerCase()],
+      producedEvidenceIds: [],
+      requiredEvidenceIds: [],
+      deliverables: [],
+      segregationOfDuties: false,
+      nistSP800171Mapping: [],
+      metadata: {
+        businessImpact: taskFormData.businessImpact,
+        technicalComplexity: taskFormData.technicalComplexity,
+        riskReduction: 10,
+        complianceImpact: [taskFormData.framework || 'NIST CSF v2.0'],
+        successCriteria: ['Task completed on time', 'Deliverables approved'],
+        cmmcImpact: taskFormData.nistFunction === 'CMMC' ? [taskFormData.nistCategory] : [],
+        c3paoRequired: taskFormData.nistFunction === 'CMMC' && taskFormData.priority === 'critical'
+      }
+    };
+
+    try {
+      // Save using data service directly
+      dataService.saveTask(newTask);
+      
+      setTasks(prev => [...prev, newTask]);
+      addNotification('success', `Task "${newTask.title}" assigned to ${taskFormData.assignedTo} successfully`);
+      setShowCreateTask(false);
+      
+      // Reset form
+      setTaskFormData({
+        title: '',
+        description: '',
+        type: 'assessment',
+        priority: 'medium',
+        nistFunction: 'Identify',
+        nistCategory: '',
+        nistSubcategory: '',
+        assignedTo: '',
+        dueDate: '',
+        estimatedHours: 8,
+        tags: '',
+        businessImpact: 'medium',
+        technicalComplexity: 'medium',
+        framework: 'NIST CSF v2.0'
+      });
+    } catch (error) {
+      logger.error('Failed to create task:', error);
+      addNotification('error', 'Failed to assign task');
+    }
+  };
+
+  const handleUpdateTaskStatus = async (taskId: string, newStatus: TaskStatus) => {
+    if (!user) {
+      addNotification('error', 'User not authenticated');
+      return;
+    }
+    
+    const task = tasks.find(t => t.id === taskId);
+    if (!task) {
+      addNotification('error', 'Task not found');
+      return;
+    }
+
+    try {
+      const updatedTask = { 
+        ...task, 
+        status: newStatus, 
+        updatedAt: new Date(),
+        completedAt: newStatus === 'completed' ? new Date() : task.completedAt,
+        progress: newStatus === 'completed' ? 100 : task.progress
+      };
+      
+      // Save using data service directly
+      dataService.saveTask(updatedTask);
+      
+      setTasks(prev => prev.map(t => t.id === taskId ? updatedTask : t));
+      addNotification('success', `Task status updated to ${newStatus.replace('-', ' ')}`);
+    } catch (error) {
+      logger.error('Failed to update task:', error);
+      addNotification('error', 'Failed to update task status');
+    }
+  };
+
+  const handleDeleteTask = async (taskId: string) => {
+    if (!user) {
+      addNotification('error', 'User not authenticated');
+      return;
+    }
+    
+    const task = tasks.find(t => t.id === taskId);
+    const taskTitle = task ? task.title : 'Unknown Task';
+    
+    if (window.confirm(`Are you sure you want to delete "${taskTitle}"?\n\nThis action cannot be undone.`)) {
+      try {
+        // Delete using data service directly
+        dataService.deleteTask(taskId);
+        setTasks(prev => prev.filter(t => t.id !== taskId));
+        addNotification('success', `Task "${taskTitle}" deleted successfully`);
+      } catch (error) {
+        logger.error('Failed to delete task:', error);
+        addNotification('error', `Failed to delete task "${taskTitle}"`);
+      }
+    }
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
+      {/* Header */}
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
+        <div className="p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-xl">
+                <CheckSquare className="w-8 h-8 text-success-600 dark:text-success-400" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
+                  Task Management
+                </h1>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
+                  Track compliance implementation tasks and deliverables across Privacy, CMMC, and NIST CSF v2.0 frameworks
+                </p>
+              </div>
+            </div>
+            
+            <button
+              onClick={() => setShowCreateTask(true)}
+              className="flex items-center space-x-2 bg-success-600 text-white px-4 py-2 rounded-lg hover:bg-success-700 transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Create Task</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 md:gap-6 mb-8">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Total Tasks</p>
+              <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{metrics.totalTasks}</p>
+            </div>
+            <CheckSquare className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+          </div>
+        </div>
+
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Completed</p>
+              <p className="text-3xl font-bold text-success-600 dark:text-success-400">{metrics.completedTasks}</p>
+            </div>
+            <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
+          </div>
+        </div>
+
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Overdue</p>
+              <p className="text-3xl font-bold text-error-600 dark:text-error-400">{metrics.overdueTasks}</p>
+            </div>
+            <AlertTriangle className="w-8 h-8 text-error-600 dark:text-error-400" />
+          </div>
+        </div>
+
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Blocked</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{metrics.blockedTasks}</p>
+            </div>
+            <XCircle className="w-8 h-8 text-orange-600 dark:text-orange-400" />
+          </div>
+        </div>
+
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Due This Week</p>
+              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{metrics.upcomingDeadlines}</p>
+            </div>
+            <Calendar className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+          </div>
+        </div>
+
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Completion Rate</p>
+              <p className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
+                {metrics.totalTasks > 0 ? Math.round((metrics.completedTasks / metrics.totalTasks) * 100) : 0}%
+              </p>
+            </div>
+            <Target className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+          </div>
+        </div>
+      </div>
+
+      {/* Filters and Controls */}
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8 p-6">
+        <div className="flex flex-col space-y-4 mb-6">
+          <div className="flex-1 max-w-lg">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search tasks..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <div className="flex space-x-1 bg-support-light dark:bg-support-dark rounded-lg p-1">
+              {(['kanban', 'list', 'calendar'] as const).map((view) => (
+                <button
+                  key={view}
+                  onClick={() => setActiveView(view)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
+                    activeView === view
+                      ? 'bg-success-600 text-white'
+                      : 'text-text-secondary-light dark:text-text-secondary-dark hover:bg-support-light dark:hover:bg-support-dark'
+                  }`}
+                >
+                  {view}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Filters */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <select
+            aria-label="Filter by NIST Function"
+            title="Filter by NIST Function"
+            onChange={(e) => setFilters(prev => ({ 
+              ...prev, 
+              cmmcDomain: e.target.value === 'all' ? undefined : [e.target.value] 
+            }))}
+            className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          >
+            <option value="all">All Functions</option>
+            <option value="Govern">Govern</option>
+            <option value="Identify">Identify</option>
+            <option value="Protect">Protect</option>
+            <option value="Detect">Detect</option>
+            <option value="Respond">Respond</option>
+            <option value="Recover">Recover</option>
+            <option value="Privacy">Privacy</option>
+            <option value="CMMC">CMMC</option>
+          </select>
+
+          <select
+            aria-label="Filter by Priority"
+            title="Filter by Priority"
+            onChange={(e) => setFilters(prev => ({ 
+              ...prev, 
+              priority: e.target.value === 'all' ? undefined : [e.target.value as TaskPriority] 
+            }))}
+            className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          >
+            <option value="all">All Priorities</option>
+            <option value="critical">Critical</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+            <option value="privacy">Privacy</option>
+            <option value="cmmc">CMMC</option>
+          </select>
+
+          <select
+            aria-label="Filter by Status"
+            title="Filter by Status"
+            onChange={(e) => setFilters(prev => ({ 
+              ...prev, 
+              status: e.target.value === 'all' ? undefined : [e.target.value as TaskStatus] 
+            }))}
+            className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          >
+            <option value="all">All Status</option>
+            <option value="not-started">Not Started</option>
+            <option value="in-progress">In Progress</option>
+            <option value="blocked">Blocked</option>
+            <option value="review">Review</option>
+            <option value="completed">Completed</option>
+          </select>
+          
+          <select
+            aria-label="Filter by Assignee"
+            onChange={(e) => setFilterAssignee(e.target.value)}
+            className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          >
+            <option value="all">All Assignees</option>
+            <option value="user-001">Sarah Johnson (CISO)</option>
+            <option value="user-002">Mike Chen (Security Analyst)</option>
+            <option value="user-003">Emily Rodriguez (Compliance)</option>
+            <option value="team-security">Security Team</option>
+            <option value="team-compliance">Compliance Team</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Kanban Board */}
+      {activeView === 'kanban' && (
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            {kanbanColumns.map((column) => (
+              <div key={column.id} className="space-y-4">
+                <div className="flex items-center justify-between p-3 bg-support-light dark:bg-support-dark/50 rounded-lg">
+                  <h3 className="font-semibold text-text-primary-light dark:text-text-primary-dark">
+                    {column.title}
+                  </h3>
+                  <span className="bg-support-light dark:bg-support-dark text-text-primary-light dark:text-text-primary-dark px-2 py-1 rounded-full text-xs font-medium">
+                    {column.tasks.length}
+                  </span>
+                </div>
+
+                <div className="space-y-3 min-h-[400px]">
+                  {column.tasks.map((task) => (
+                    <div key={task.id} className="border border-support-light dark:border-support-dark rounded-lg p-4 hover:shadow-md transition-shadow bg-surface-light dark:bg-surface-dark">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-1">
+                            {task.title}
+                          </h4>
+                          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark line-clamp-2">
+                            {task.description}
+                          </p>
+                        </div>
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${getPriorityColor(task.priority)}`}>
+                          {task.priority}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 text-xs rounded">
+                          {task.nistSubcategory || task.relatedControlId}
+                        </span>
+                        <span className="text-xs text-text-muted-light dark:text-text-muted-dark">
+                          {task.dueDate.toLocaleDateString()}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="text-xs text-text-muted-light dark:text-text-muted-dark">
+                          Progress: {task.progress}%
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          {task.comments.length > 0 && (
+                            <span className="flex items-center space-x-1 text-xs text-text-muted-light dark:text-text-muted-dark">
+                              <MessageSquare className="w-3 h-3" />
+                              <span>{task.comments.length}</span>
+                            </span>
+                          )}
+                          {task.attachments.length > 0 && (
+                            <span className="flex items-center space-x-1 text-xs text-text-muted-light dark:text-text-muted-dark">
+                              <Paperclip className="w-3 h-3" />
+                              <span>{task.attachments.length}</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <ProgressBar progress={task.progress} className="mb-3" showTransition />
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex -space-x-2">
+                          {task.assignedTo.slice(0, 3).map((userId, index) => (
+                            <div key={index} className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-support-dark">
+                              {userId.charAt(userId.length - 1)}
+                            </div>
+                          ))}
+                          {task.assignedTo.length > 3 && (
+                            <div className="w-6 h-6 bg-support-light dark:bg-support-dark rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-support-dark">
+                              +{task.assignedTo.length - 3}
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div className="flex space-x-1">
+                          <button
+                            onClick={() => {
+                              const taskDetails = `Task Details:
+
+Title: ${task.title}
+Description: ${task.description}
+Type: ${task.type}
+Priority: ${task.priority}
+Status: ${task.status}
+NIST Function: ${task.nistFunction}
+Control ID: ${task.relatedControlId}
+
+Assigned To: ${task.assignedTo.join(', ')}
+Assigned By: ${task.assignedBy}
+Due Date: ${task.dueDate.toLocaleDateString()}
+Progress: ${task.progress}%
+Estimated Hours: ${task.estimatedHours}
+
+Business Impact: ${task.metadata.businessImpact}
+Technical Complexity: ${task.metadata.technicalComplexity}
+Risk Reduction: ${task.metadata.riskReduction}%
+
+Created: ${task.createdAt.toLocaleDateString()}
+Updated: ${task.updatedAt.toLocaleDateString()}`;
+                              
+                              addNotification('info', taskDetails);
+                            }}
+                            className="p-1 text-text-muted-light dark:text-text-muted-dark hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                            aria-label="View task details"
+                            title="View task details"
+                          >
+                            <Eye className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteTask(task.id)}
+                            className="p-1 text-text-muted-light dark:text-text-muted-dark hover:text-error-600 dark:hover:text-error-400 transition-colors"
+                            aria-label="Delete task"
+                            title="Delete task"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* Quick Status Update */}
+                      <div className="mt-3 pt-3 border-t border-support-light dark:border-support-dark">
+                        <div className="flex space-x-1">
+                          <button
+                            onClick={() => handleUpdateTaskStatus(task.id, 'in-progress')}
+                            disabled={task.status === 'in-progress'}
+                            className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 px-2 py-1 rounded hover:bg-primary-200 dark:hover:bg-primary-800/50 disabled:opacity-50 transition-colors"
+                          >
+                            Start
+                          </button>
+                          <button
+                            onClick={() => handleUpdateTaskStatus(task.id, 'completed')}
+                            disabled={task.status === 'completed'}
+                            className="text-xs bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300 px-2 py-1 rounded hover:bg-success-200 dark:hover:bg-success-800/50 disabled:opacity-50 transition-colors"
+                          >
+                            Complete
+                          </button>
+                          <button
+                            onClick={() => handleUpdateTaskStatus(task.id, 'blocked')}
+                            disabled={task.status === 'blocked'}
+                            className="text-xs bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300 px-2 py-1 rounded hover:bg-error-200 dark:hover:bg-error-800/50 disabled:opacity-50 transition-colors"
+                          >
+                            Block
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* List View */}
+      {activeView === 'list' && (
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-support-light dark:bg-support-dark">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
+                    Task
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
+                    NIST Function
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
+                    Assignee
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
+                    Priority
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
+                    Due Date
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
+                    Progress
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                {filteredTasks.map((task) => (
+                  <tr key={task.id} className="hover:bg-support-light dark:hover:bg-support-dark/50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">
+                          {task.title}
+                        </div>
+                        <div className="text-sm text-text-muted-light dark:text-text-muted-dark">
+                          {task.nistSubcategory || task.relatedControlId || task.nistFunction}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-text-primary-light dark:text-text-primary-dark">
+                      {task.nistFunction}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex -space-x-2">
+                        {task.assignedTo.slice(0, 2).map((userId, index) => (
+                          <div key={index} className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-support-dark">
+                            {userId.charAt(userId.length - 1)}
+                          </div>
+                        ))}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`font-medium ${getPriorityColor(task.priority)}`}>
+                        {task.priority}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(task.status)}`}>
+                        {task.status.replace('-', ' ')}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-text-primary-light dark:text-text-primary-dark">
+                      {task.dueDate.toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center space-x-2">
+                        <div className="flex-1">
+                          <ProgressBar progress={task.progress} />
+                        </div>
+                        <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+                          {task.progress}%
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => {
+                            const taskDetails = `Task Details:
+
+Title: ${task.title}
+Description: ${task.description}
+Type: ${task.type}
+Priority: ${task.priority}
+Status: ${task.status}
+NIST Function: ${task.nistFunction}
+Control ID: ${task.relatedControlId}
+
+Assigned To: ${task.assignedTo.join(', ')}
+Assigned By: ${task.assignedBy}
+Due Date: ${task.dueDate.toLocaleDateString()}
+Progress: ${task.progress}%
+Estimated Hours: ${task.estimatedHours}
+
+Business Impact: ${task.metadata.businessImpact}
+Technical Complexity: ${task.metadata.technicalComplexity}
+Risk Reduction: ${task.metadata.riskReduction}%
+
+Created: ${task.createdAt.toLocaleDateString()}
+Updated: ${task.updatedAt.toLocaleDateString()}`;
+                            
+                            addNotification('info', taskDetails);
+                          }}
+                          className="p-2 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 rounded-lg transition-colors"
+                          aria-label="View task details"
+                          title="View task details"
+                        >
+                          <Eye className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => addNotification('info', 'Task editing feature coming soon')}
+                          className="p-2 text-success-600 dark:text-success-400 hover:bg-success-100 dark:hover:bg-success-900/30 rounded-lg transition-colors"
+                          aria-label="Edit task"
+                          title="Edit task"
+                        >
+                          <Edit3 className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteTask(task.id)}
+                          className="p-2 text-error-600 dark:text-error-400 hover:bg-error-100 dark:hover:bg-error-900/30 rounded-lg transition-colors"
+                          aria-label="Delete task"
+                          title="Delete task"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Create Task Modal */}
+      {showCreateTask && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-8 max-w-2xl w-full mx-4 shadow-2xl border border-support-light dark:border-support-dark max-h-[90vh] overflow-y-auto">
+            <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
+              Create Compliance Task
+            </h3>
+            
+            <form onSubmit={handleCreateTask} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                  Task Title *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={taskFormData.title}
+                  onChange={(e) => setTaskFormData(prev => ({ ...prev, title: e.target.value }))}
+                  className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  placeholder="Enter task title"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                  Description *
+                </label>
+                <textarea
+                  required
+                  value={taskFormData.description}
+                  onChange={(e) => setTaskFormData(prev => ({ ...prev, description: e.target.value }))}
+                  rows={3}
+                  className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                  placeholder="Describe the compliance task objectives and deliverables (Privacy, CMMC, or NIST CSF v2.0)"
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                    Task Type *
+                  </label>
+                  <select
+                    required
+                    value={taskFormData.type}
+                    onChange={(e) => setTaskFormData(prev => ({ ...prev, type: e.target.value as TaskType }))}
+                    className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    aria-label="Select task type"
+                    title="Select task type"
+                  >
+                    <option value="assessment">Assessment</option>
+                    <option value="evidence-collection">Evidence Collection</option>
+                    <option value="policy-development">Policy Development</option>
+                    <option value="control-implementation">Control Implementation</option>
+                    <option value="testing-validation">Testing & Validation</option>
+                    <option value="documentation">Documentation</option>
+                    <option value="training">Training</option>
+                    <option value="review-approval">Review & Approval</option>
+                    <option value="monitoring">Monitoring</option>
+                    <option value="remediation">Remediation</option>
+                    <option value="privacy-assessment">Privacy Assessment</option>
+                    <option value="data-mapping">Data Mapping</option>
+                    <option value="consent-management">Consent Management</option>
+                    <option value="breach-response">Breach Response</option>
+                    <option value="dpia-creation">DPIA Creation</option>
+                    <option value="vendor-assessment">Vendor Assessment</option>
+                    <option value="cmmc-implementation">CMMC Implementation</option>
+                    <option value="cui-protection">CUI Protection</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                    Priority *
+                  </label>
+                  <select
+                    required
+                    value={taskFormData.priority}
+                    onChange={(e) => setTaskFormData(prev => ({ ...prev, priority: e.target.value as TaskPriority }))}
+                    className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    aria-label="Select task priority"
+                    title="Select task priority"
+                  >
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="critical">Critical</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                    Compliance Framework *
+                  </label>
+                  <select
+                    required
+                    value={taskFormData.nistFunction}
+                    onChange={(e) => setTaskFormData(prev => ({ ...prev, nistFunction: e.target.value }))}
+                    className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    aria-label="Select compliance framework"
+                    title="Select compliance framework"
+                  >
+                    <option value="Govern">Govern</option>
+                    <option value="Identify">Identify</option>
+                    <option value="Protect">Protect</option>
+                    <option value="Detect">Detect</option>
+                    <option value="Respond">Respond</option>
+                    <option value="Recover">Recover</option>
+                    <option value="Privacy">Privacy</option>
+                    <option value="CMMC">CMMC</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                    Framework Category
+                  </label>
+                  <input
+                    type="text"
+                    value={taskFormData.nistCategory}
+                    onChange={(e) => setTaskFormData(prev => ({ ...prev, nistCategory: e.target.value }))}
+                    className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="e.g., Asset Management, Data Protection, Access Control"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                    Control/Requirement ID
+                  </label>
+                  <input
+                    type="text"
+                    value={taskFormData.nistSubcategory}
+                    onChange={(e) => setTaskFormData(prev => ({ ...prev, nistSubcategory: e.target.value }))}
+                    className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="e.g., ID.AM-01, PR.DS-01, CMMC.AC.1.001"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                    Assigned To *
+                  </label>
+                  <select
+                    required
+                    value={taskFormData.assignedTo}
+                    onChange={(e) => setTaskFormData(prev => ({ ...prev, assignedTo: e.target.value }))}
+                    className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    aria-label="Select team member to assign task"
+                    title="Select team member to assign task"
+                  >
+                    <option value="">Select team member</option>
+                    <option value="user-001">Sarah Johnson (CISO)</option>
+                    <option value="user-002">Mike Chen (Security Analyst)</option>
+                    <option value="user-003">Emily Rodriguez (Compliance Officer)</option>
+                    <option value="user-004">Data Protection Officer</option>
+                    <option value="user-005">Privacy Manager</option>
+                    <option value="team-it">IT Team</option>
+                    <option value="team-security">Security Team</option>
+                    <option value="team-compliance">Compliance Team</option>
+                    <option value="team-privacy">Privacy Team</option>
+                    <option value="team-legal">Legal Team</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                    Due Date *
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={taskFormData.dueDate}
+                    onChange={(e) => setTaskFormData(prev => ({ ...prev, dueDate: e.target.value }))}
+                    className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    aria-label="Task due date"
+                    title="Task due date"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                    Estimated Hours
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={taskFormData.estimatedHours}
+                    onChange={(e) => setTaskFormData(prev => ({ ...prev, estimatedHours: parseInt(e.target.value) || 8 }))}
+                    className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    aria-label="Estimated hours to complete task"
+                    title="Estimated hours to complete task"
+                    placeholder="8"
+                  />
+                </div>
+              </div>
+              
+              <div className="flex space-x-4 pt-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowCreateTask(false);
+                    setTaskFormData({
+                      title: '',
+                      description: '',
+                      type: 'assessment',
+                      priority: 'medium',
+                      nistFunction: 'Identify',
+                      nistCategory: '',
+                      nistSubcategory: '',
+                      assignedTo: '',
+                      dueDate: '',
+                      estimatedHours: 8,
+                      tags: '',
+                      businessImpact: 'medium',
+                      technicalComplexity: 'medium',
+                      framework: 'NIST CSF v2.0'
+                    });
+                  }}
+                  className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark rounded-xl hover:bg-background-light dark:hover:bg-surface-dark transition-colors font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-6 py-3 bg-success-600 text-white rounded-xl hover:bg-success-700 transition-colors font-medium"
+                >
+                  Create Task
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+export default TaskManagementDashboard; 

@@ -1,0 +1,57 @@
+name: Deploy to Netlify
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build application
+      run: npm run build
+      env:
+        # Note: Supabase anon keys are PUBLIC and meant to be exposed in frontend code
+        # They are restricted by Row Level Security (RLS) policies in the database
+        VITE_SUPABASE_URL: https://rjyyicattwrqtjiqwwvv.supabase.co
+        VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqeXlpY2F0dHdycXRqaXF3d3Z2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE1NDA2NjMsImV4cCI6MjA3NzExNjY2M30.GMVCQ3Gx9roGV652YvAn6aYJ-q_ET-CDrsvAypBrk_Y
+        
+    - name: Check Netlify secrets
+      run: |
+        if [ -z "${{ secrets.NETLIFY_AUTH_TOKEN }}" ] || [ -z "${{ secrets.NETLIFY_SITE_ID }}" ]; then
+          echo "⚠️ Warning: Netlify secrets not configured"
+          echo "Add NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID to GitHub secrets"
+          echo "Deployment will continue but may fail"
+        else
+          echo "✅ Netlify secrets configured"
+        fi
+        
+    - name: Deploy to Netlify
+      uses: nwtgck/actions-netlify@v3.0
+      continue-on-error: true
+      with:
+        publish-dir: './dist'
+        production-branch: main
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy from GitHub Actions"
+        enable-pull-request-comment: false
+        enable-commit-comment: true
+        overwrites-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      timeout-minutes: 1

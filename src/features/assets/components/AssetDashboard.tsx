@@ -1,0 +1,913 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Shield, ChartBar as BarChart3, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Target, Server, Database, Users, Building, FileText, Cloud, Clock, Plus, Download, Upload, Eye, Calendar, SquareCheck as CheckSquare, Activity } from 'lucide-react';
+import { Asset, AssetMetrics } from '@/shared/types/assets';
+import { PieChart } from '@/shared/components/charts/PieChart';
+import { BarChart } from '@/shared/components/charts/BarChart';
+import { RelatedLinks, EmptyState } from '@/shared/components/ui';
+import { Breadcrumbs } from '@/shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '@/shared/hooks/useInternalLinking';
+import { logger } from '@/utils/logger';
+
+
+interface AssetDashboardProps {
+  assets: Asset[];
+  onViewAsset: (asset: Asset) => void;
+  onCreateAsset: () => void;
+  onViewInventory: () => void;
+  onViewCategories: () => void;
+  onViewDependencies: () => void;
+  onViewWorkflow: () => void;
+  onViewRoadmap: () => void;
+  onViewActionPlan: () => void;
+  className?: string;
+}
+
+const AssetDashboard: React.FC<AssetDashboardProps> = ({
+  assets,
+  onViewAsset,
+  onCreateAsset,
+  onViewInventory,
+  onViewCategories,
+  onViewDependencies
+}) => {
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importFile, setImportFile] = useState<File | null>(null);
+  const [importStatus, setImportStatus] = useState<'idle' | 'importing' | 'success' | 'error'>('idle');
+  const { breadcrumbs } = useInternalLinking();
+
+  // Calculate asset metrics
+  const metrics: AssetMetrics = React.useMemo(() => {
+    const safeAssets = assets || [];
+    const totalAssets = safeAssets.length;
+    
+    const assetsByCategory = safeAssets.reduce((acc, asset) => {
+      acc[asset.category] = (acc[asset.category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const assetsByCriticality = safeAssets.reduce((acc, asset) => {
+      acc[asset.criticality] = (acc[asset.criticality] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const assetsByStatus = safeAssets.reduce((acc, asset) => {
+      acc[asset.status] = (acc[asset.status] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const assetsByClassification = safeAssets.reduce((acc, asset) => {
+      acc[asset.informationClassification] = (acc[asset.informationClassification] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const riskDistribution = safeAssets.reduce((acc, asset) => {
+      if (asset.riskAssessment && asset.riskAssessment.overallRisk) {
+        acc[asset.riskAssessment.overallRisk] = (acc[asset.riskAssessment.overallRisk] || 0) + 1;
+      }
+      return acc;
+    }, {} as Record<string, number>);
+
+    const implementedControls = safeAssets.reduce((sum, asset) => {
+      const controls = asset.controls || [];
+      return sum + controls.filter(c => c.implementationStatus === 'implemented').length;
+    }, 0);
+    const totalControls = safeAssets.reduce((sum, asset) => sum + (asset.controls || []).length, 0);
+    const controlCoverage = totalControls > 0 ? Math.round((implementedControls / totalControls) * 100) : 0;
+
+    const vulnerabilityCount = safeAssets.reduce((sum, asset) => {
+      const vulnerabilities = asset.vulnerabilities || [];
+      return sum + vulnerabilities.filter(v => v.status === 'open').length;
+    }, 0);
+
+    const maintenanceOverdue = safeAssets.filter(asset => {
+      const lifecycle = asset.lifecycle || {};
+      const schedule = lifecycle.maintenanceSchedule;
+      if (!schedule || !schedule.nextMaintenance) return false;
+      return new Date(schedule.nextMaintenance) < new Date();
+    }).length;
+
+    const now = new Date();
+    const averageAge = safeAssets.length > 0 ? safeAssets.reduce((sum, asset) => {
+      const lifecycle = asset.lifecycle || {};
+      const deploymentDate = lifecycle.deploymentDate || asset.createdAt;
+      if (!deploymentDate) return sum;
+      const ageInDays = (now.getTime() - new Date(deploymentDate).getTime()) / (1000 * 60 * 60 * 24);
+      return sum + ageInDays;
+    }, 0) / safeAssets.length : 0;
+
+    return {
+      totalAssets,
+      assetsByCategory,
+      assetsByCriticality,
+      assetsByStatus,
+      assetsByClassification,
+      riskDistribution,
+      complianceRate: controlCoverage,
+      averageAge: Math.round(averageAge),
+      maintenanceOverdue,
+      vulnerabilityCount,
+      controlCoverage
+    };
+  }, [assets]);
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'hardware': return Server;
+      case 'software': return Database;
+      case 'data': return FileText;
+      case 'personnel': return Users;
+      case 'facilities': return Building;
+      case 'services': return Cloud;
+      default: return Shield;
+    }
+  };
+
+  const getCriticalityColor = (level: string) => {
+    switch (level) {
+      case 'critical': return 'text-error-600 dark:text-error-400';
+      case 'high': return 'text-warning-600 dark:text-warning-400';
+      case 'medium': return 'text-warning-600 dark:text-warning-400';
+      case 'low': return 'text-success-600 dark:text-success-400';
+      default: return 'text-text-secondary-light dark:text-text-secondary-dark';
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active': return 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300';
+      case 'inactive': return 'bg-support-light dark:bg-support-dark/30 text-text-primary-light dark:text-text-primary-dark';
+      case 'maintenance': return 'bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-300';
+      case 'quarantined': return 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300';
+      case 'disposed': return 'bg-support-light dark:bg-support-dark/30 text-text-primary-light dark:text-text-primary-dark';
+      default: return 'bg-support-light dark:bg-support-dark/30 text-text-primary-light dark:text-text-primary-dark';
+    }
+  };
+
+  // Asset import/export handlers
+  const handleExportAssets = () => {
+    try {
+      const exportData = {
+        timestamp: new Date().toISOString(),
+        version: '1.0',
+        assets: Array.isArray(assets) ? assets.map(asset => ({
+          ...asset,
+          exportMetadata: {
+            exportedAt: new Date().toISOString(),
+            dataClassification: asset.informationClassification,
+            category: asset.category,
+            businessValue: asset.businessValue
+          }
+        })) : [],
+        categories: Object.entries(metrics.assetsByCategory),
+        classifications: Object.entries(metrics.assetsByClassification),
+        summary: {
+          totalAssets: metrics.totalAssets,
+          criticalAssets: metrics.assetsByCriticality.critical || 0,
+          categories: Object.keys(metrics.assetsByCategory).length,
+          classifications: Object.keys(metrics.assetsByClassification).length
+        }
+      };
+
+      const dataStr = JSON.stringify(exportData, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `assets-export-${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      logger.error('Export failed:', error);
+    }
+  };
+
+  const handleImportAssets = () => {
+    if (!importFile) return;
+
+    setImportStatus('importing');
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+      try {
+        const importedData = JSON.parse(e.target?.result as string);
+        
+        // Validate imported data structure
+        if (!importedData.assets || !Array.isArray(importedData.assets)) {
+          throw new Error('Invalid file format: missing assets array');
+        }
+
+        // Process imported assets
+        const processedAssets = Array.isArray(importedData.assets) ? importedData.assets.map((asset: any) => ({
+          ...asset,
+          id: asset.id || Date.now().toString() + Math.random().toString(36).substr(2, 9),
+          createdAt: asset.createdAt ? new Date(asset.createdAt) : new Date(),
+          updatedAt: new Date(),
+          lastReviewed: asset.lastReviewed ? new Date(asset.lastReviewed) : new Date(),
+          nextReview: asset.nextReview ? new Date(asset.nextReview) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+          importMetadata: {
+            importedAt: new Date().toISOString(),
+            sourceFile: importFile.name,
+            originalId: asset.id
+          }
+        })) : [];
+
+        // Save imported assets using existing handlers
+        processedAssets.forEach(() => {
+          // This would call the parent component's asset creation handler
+          onCreateAsset();
+        });
+
+        setImportStatus('success');
+        setTimeout(() => {
+          setImportStatus('idle');
+          setShowImportModal(false);
+          setImportFile(null);
+        }, 2000);
+        
+      } catch (error) {
+        logger.error('Import failed:', error);
+        setImportStatus('error');
+        setTimeout(() => setImportStatus('idle'), 3000);
+      }
+    };
+    
+    reader.onerror = () => {
+      setImportStatus('error');
+      setTimeout(() => setImportStatus('idle'), 3000);
+    };
+    
+    reader.readAsText(importFile);
+  };
+
+  // Define contextual links for related resources
+  const contextualLinks = [
+    {
+      href: '/compliance/status',
+      title: 'Compliance Status',
+      description: 'View real-time compliance implementation progress'
+    },
+    {
+      href: '/evidence',
+      title: 'Evidence Collection',
+      description: 'Manage compliance documentation and evidence'
+    },
+    {
+      href: '/controls',
+      title: 'Security Controls',
+      description: 'Implement and monitor security controls'
+    },
+    {
+      href: '/reports',
+      title: 'Asset Reports',
+      description: 'Generate comprehensive asset reports'
+    }
+  ];
+
+  return (
+    <div className="container-responsive section-padding">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
+      {/* Header */}
+      <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark mb-8">
+        <div className="p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
+                <Shield className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">
+                  Asset Management
+                </h1>
+                <p className="text-text-secondary-light dark:text-text-secondary-dark">
+                  Comprehensive view of your organization's asset inventory and security posture
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={onViewInventory}
+                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark px-4 py-2 rounded-lg hover:bg-support-light dark:hover:bg-support-dark transition-colors"
+              >
+                <Eye className="w-4 h-4" />
+                <span>Full Inventory</span>
+              </button>
+              
+              <button
+                onClick={handleExportAssets}
+                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark px-4 py-2 rounded-lg hover:bg-support-light dark:hover:bg-support-dark transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                <span>Export</span>
+              </button>
+              
+              <button
+                onClick={() => setShowImportModal(true)}
+                className="flex items-center space-x-2 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark px-4 py-2 rounded-lg hover:bg-support-light dark:hover:bg-support-dark transition-colors"
+              >
+                <Upload className="w-4 h-4" />
+                <span>Import</span>
+              </button>
+              
+              <button
+                onClick={onCreateAsset}
+                className="flex items-center space-x-2 bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add Asset</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Show empty state if no assets */}
+      {(!assets || assets.length === 0) ? (
+        <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-12 space-y-8">
+          <EmptyState
+            title="No Assets Found"
+            description="Start building your asset inventory by adding your first asset"
+            action={{
+              label: 'Add First Asset',
+              onClick: onCreateAsset
+            }}
+            icon={Shield}
+          />
+          
+          {/* Asset Categories and Classifications Guide */}
+          <div className="border-t border-support-light dark:border-support-dark pt-8">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
+              Asset Categories & Classifications
+            </h3>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-4">Asset Categories</h4>
+                <div className="space-y-3">
+                  {[
+                    { category: 'Hardware', icon: Server, description: 'Physical devices, servers, workstations' },
+                    { category: 'Software', icon: Database, description: 'Applications, operating systems, databases' },
+                    { category: 'Data', icon: FileText, description: 'Information assets, databases, documents' },
+                    { category: 'Personnel', icon: Users, description: 'Staff, contractors, vendors' },
+                    { category: 'Facilities', icon: Building, description: 'Buildings, rooms, physical locations' },
+                    { category: 'Services', icon: Cloud, description: 'Cloud services, outsourced functions' }
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center space-x-3 p-3 bg-support-light dark:bg-support-dark/50 rounded-lg">
+                      <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                        <item.icon className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-text-primary-light dark:text-text-primary-dark">{item.category}</div>
+                        <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">{item.description}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark mb-4">Data Classifications</h4>
+                <div className="space-y-3">
+                  {[
+                    { level: 'Public', color: 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-300', description: 'Information intended for public access' },
+                    { level: 'Internal', color: 'bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300', description: 'Internal business information' },
+                    { level: 'Confidential', color: 'bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-300', description: 'Sensitive business information' },
+                    { level: 'Restricted', color: 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-300', description: 'Highly sensitive, regulated data' },
+                    { level: 'Top Secret', color: 'bg-text-primary-dark text-white', description: 'Maximum security classification' }
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center space-x-3 p-3 bg-support-light dark:bg-support-dark/50 rounded-lg">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${item.color}`}>
+                        {item.level}
+                      </span>
+                      <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">{item.description}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-8 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
+              <h4 className="font-medium text-primary-900 dark:text-primary-100 mb-2">Import Assets</h4>
+              <p className="text-sm text-primary-800 dark:text-primary-200 mb-3">
+                You can import assets from JSON files exported from other systems or previous backups.
+              </p>
+              <button
+                onClick={() => setShowImportModal(true)}
+                className="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors font-medium"
+              >
+                Import Assets
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-8">
+          {/* Key Metrics */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Total Assets</p>
+                  <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">
+                    {metrics.totalAssets}
+                  </p>
+                </div>
+                <Shield className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+              </div>
+            </div>
+
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Critical Assets</p>
+                  <p className="text-3xl font-bold text-error-600 dark:text-error-400">
+                    {metrics.assetsByCriticality.critical || 0}
+                  </p>
+                </div>
+                <AlertTriangle className="w-8 h-8 text-error-600 dark:text-error-400" />
+              </div>
+            </div>
+
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Control Coverage</p>
+                  <p className="text-3xl font-bold text-success-600 dark:text-success-400">
+                    {metrics.controlCoverage}%
+                  </p>
+                </div>
+                <CheckCircle className="w-8 h-8 text-success-600 dark:text-success-400" />
+              </div>
+            </div>
+
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-lg border border-support-light dark:border-support-dark">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Open Vulnerabilities</p>
+                  <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
+                    {metrics.vulnerabilityCount}
+                  </p>
+                </div>
+                <AlertTriangle className="w-8 h-8 text-orange-600 dark:text-orange-400" />
+              </div>
+            </div>
+          </div>
+
+          {/* Charts Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Asset Distribution by Category */}
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+              <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
+                Assets by Category
+              </h3>
+              <div className="h-80">
+                <PieChart
+                  labels={Object.keys(metrics.assetsByCategory)}
+                  data={Object.values(metrics.assetsByCategory)}
+                  backgroundColor={[
+                    'rgba(59, 130, 246, 0.8)',    // Blue
+                    'rgba(34, 197, 94, 0.8)',     // Green
+                    'rgba(249, 115, 22, 0.8)',    // Orange
+                    'rgba(147, 51, 234, 0.8)',    // Purple
+                    'rgba(239, 68, 68, 0.8)',     // Red
+                    'rgba(234, 179, 8, 0.8)',     // Yellow
+                    'rgba(20, 184, 166, 0.8)',    // Teal
+                    'rgba(219, 39, 119, 0.8)'     // Pink
+                  ]}
+                  className="h-full"
+                />
+              </div>
+            </div>
+
+            {/* Criticality Distribution */}
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+              <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
+                Criticality Distribution
+              </h3>
+              <div className="h-80">
+                <BarChart
+                  data={{
+                    labels: Object.keys(metrics.assetsByCriticality),
+                    datasets: [{
+                      label: 'Assets',
+                      data: Object.values(metrics.assetsByCriticality),
+                      backgroundColor: [
+                        'rgba(239, 68, 68, 0.8)',    // Critical - Red
+                        'rgba(249, 115, 22, 0.8)',   // High - Orange
+                        'rgba(234, 179, 8, 0.8)',    // Medium - Yellow
+                        'rgba(34, 197, 94, 0.8)'     // Low - Green
+                      ],
+                      borderColor: [
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(249, 115, 22, 1)',
+                        'rgba(234, 179, 8, 1)',
+                        'rgba(34, 197, 94, 1)'
+                      ],
+                      borderWidth: 2
+                    }]
+                  }}
+                  height={320}
+                  showLegend={false}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Asset Categories Overview */}
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
+              Asset Categories Overview
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {Object.entries(metrics.assetsByCategory).map(([category, count]) => {
+                const IconComponent = getCategoryIcon(category);
+                const categoryAssets = assets.filter(a => a.category === category);
+                const criticalCount = categoryAssets.filter(a => a.criticality === 'critical').length;
+                
+                return (
+                  <button
+                    key={category}
+                    onClick={onViewCategories}
+                    className="p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
+                  >
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition-colors">
+                        <IconComponent className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-text-primary-light dark:text-text-primary-dark capitalize">
+                          {category.replace('-', ' ')}
+                        </h4>
+                        <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+                          {count} assets
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {criticalCount > 0 && (
+                      <div className="flex items-center space-x-2">
+                        <AlertTriangle className="w-4 h-4 text-error-500" />
+                        <span className="text-sm text-error-600 dark:text-error-400 font-medium">
+                          {criticalCount} critical
+                        </span>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Recent Activity & Alerts */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Recent Assets */}
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+              <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
+                Recently Added Assets
+              </h3>
+              
+              <div className="space-y-4">
+                {assets
+                  .sort((a, b) => {
+                    const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+                    const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+                    if (isNaN(aTime) || isNaN(bTime)) {
+                      return isNaN(aTime) && isNaN(bTime) ? 0 : (isNaN(aTime) ? 1 : -1);
+                    }
+                    return bTime - aTime;
+                  })
+                  .slice(0, 5)
+                  .map((asset) => {
+                    const IconComponent = getCategoryIcon(asset.category);
+                    return (
+                      <button
+                        key={asset.id}
+                        onClick={() => onViewAsset(asset)}
+                        className="w-full flex items-center space-x-4 p-3 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
+                      >
+                        <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                          <IconComponent className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-medium text-text-primary-light dark:text-text-primary-dark">
+                            {asset.name}
+                          </h4>
+                          <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+                            {asset.category} • {asset.owner}
+                          </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(asset.status)}`}>
+                            {asset.status}
+                          </span>
+                          <span className={`text-sm font-medium ${getCriticalityColor(asset.criticality)}`}>
+                            {asset.criticality}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+              </div>
+              
+              {assets.length === 0 && (
+                <div className="text-center py-8">
+                  <Shield className="w-12 h-12 text-text-muted-light dark:text-text-muted-dark mx-auto mb-3" />
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark">No assets found</p>
+                  <button
+                    onClick={onCreateAsset}
+                    className="mt-3 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
+                  >
+                    Add your first asset
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Security Alerts */}
+            <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+              <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
+                Security Alerts & Issues
+              </h3>
+              
+              <div className="space-y-4">
+                {/* Overdue Maintenance */}
+                {metrics.maintenanceOverdue > 0 && (
+                  <div className="flex items-start space-x-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                    <Clock className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-yellow-800 dark:text-yellow-300">
+                        Overdue Maintenance
+                      </h4>
+                      <p className="text-sm text-yellow-700 dark:text-yellow-400">
+                        {metrics.maintenanceOverdue} assets require maintenance
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Open Vulnerabilities */}
+                {metrics.vulnerabilityCount > 0 && (
+                  <div className="flex items-start space-x-3 p-4 bg-error-50 dark:bg-error-900/20 rounded-lg border border-error-200 dark:border-error-800">
+                    <AlertTriangle className="w-5 h-5 text-error-600 dark:text-error-400 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-error-800 dark:text-error-300">
+                        Open Vulnerabilities
+                      </h4>
+                      <p className="text-sm text-error-700 dark:text-error-400">
+                        {metrics.vulnerabilityCount} vulnerabilities require attention
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Low Control Coverage */}
+                {metrics.controlCoverage < 80 && (
+                  <div className="flex items-start space-x-3 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                    <Target className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-orange-800 dark:text-orange-300">
+                        Low Control Coverage
+                      </h4>
+                      <p className="text-sm text-orange-700 dark:text-orange-400">
+                        Security controls coverage at {metrics.controlCoverage}%
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* All Good State */}
+                {metrics.maintenanceOverdue === 0 && metrics.vulnerabilityCount === 0 && metrics.controlCoverage >= 80 && (
+                  <div className="flex items-start space-x-3 p-4 bg-success-50 dark:bg-success-900/20 rounded-lg border border-success-200 dark:border-success-800">
+                    <CheckCircle className="w-5 h-5 text-success-600 dark:text-success-400 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-success-800 dark:text-success-300">
+                        All Systems Healthy
+                      </h4>
+                      <p className="text-sm text-success-700 dark:text-success-400">
+                        No critical issues detected
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
+              Quick Actions
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <button
+                onClick={onViewInventory}
+                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
+              >
+                <BarChart3 className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                <div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">View Inventory</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Full asset list</div>
+                </div>
+              </button>
+              
+              <button
+                onClick={onViewCategories}
+                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
+              >
+                <Target className="w-6 h-6 text-success-600 dark:text-success-400" />
+                <div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Categorization</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Manage categories</div>
+                </div>
+              </button>
+              
+              <button
+                onClick={onViewDependencies}
+                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
+              >
+                <Shield className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Dependencies</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Asset relationships</div>
+                </div>
+              </button>
+              
+              <button
+                onClick={onCreateAsset}
+                className="flex items-center space-x-3 p-4 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left"
+              >
+                <Plus className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                <div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Add Asset</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Create new asset</div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Implementation & Planning */}
+          <div className="bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-support-light dark:border-support-dark p-6">
+            <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-6">
+              Implementation & Planning
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+             <Link
+               to="/compliance-workflow"
+               className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
+             >
+               <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors">
+                 <Activity className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+               </div>
+               <div>
+                 <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Implementation Workflow</div>
+                 <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Complete structured roadmap</div>
+               </div>
+             </Link>
+             
+              <Link
+                to="/assets/workflow"
+                className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
+              >
+                <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition-colors">
+                  <CheckSquare className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                </div>
+                <div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Guided Workflow</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Step-by-step implementation guide</div>
+                </div>
+              </Link>
+              
+              <Link
+                to="/assets/roadmap"
+                className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
+              >
+                <div className="p-3 bg-success-100 dark:bg-success-900/30 rounded-lg group-hover:bg-success-200 dark:group-hover:bg-success-800/50 transition-colors">
+                  <Calendar className="w-6 h-6 text-success-600 dark:text-success-400" />
+                </div>
+                <div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Implementation Roadmap</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Timeline and milestones</div>
+                </div>
+              </Link>
+              
+              <Link
+                to="/assets/action-plan"
+                className="flex items-center space-x-3 p-6 border border-support-light dark:border-support-dark rounded-lg hover:bg-support-light dark:hover:bg-support-dark/50 transition-colors text-left group"
+              >
+                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors">
+                  <Target className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                </div>
+                <div>
+                  <div className="font-medium text-text-primary-light dark:text-text-primary-dark">Action Plan</div>
+                  <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Detailed tasks and assignments</div>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          {/* Related Links */}
+          <RelatedLinks
+            links={contextualLinks}
+            title="Asset Management Resources"
+            maxItems={4}
+          />
+        </div>
+      )}
+
+      {/* Import Modal */}
+      {showImportModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-support-light dark:border-support-dark">
+            <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-6">
+              Import Assets
+            </h3>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">
+                  Select File
+                </label>
+                <input
+                  type="file"
+                  id="import-file-input"
+                  accept=".json,.csv"
+                  title="Select a JSON or CSV file to import"
+                  placeholder="Choose a file"
+                  aria-label="Import File"
+                  onChange={(e) => setImportFile(e.target.files?.[0] || null)}
+                  className="w-full px-4 py-2 border border-support-light dark:border-support-dark rounded-lg bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                />
+              </div>
+              
+              {importFile && (
+                <div className="p-3 bg-support-light dark:bg-support-dark/50 rounded-lg">
+                  <div className="text-sm text-text-primary-light dark:text-text-primary-dark font-medium">
+                    {importFile.name}
+                  </div>
+                  <div className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                    {(importFile.size / 1024).toFixed(1)} KB
+                  </div>
+                </div>
+              )}
+              
+              <div className="p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
+                <h4 className="font-medium text-primary-900 dark:text-primary-100 mb-2">Supported Formats</h4>
+                <ul className="text-sm text-primary-800 dark:text-primary-200 space-y-1">
+                  <li>• JSON files from asset management systems</li>
+                  <li>• CSV files with asset inventory data</li>
+                  <li>• Previous export files from this system</li>
+                </ul>
+              </div>
+              
+              {importStatus === 'error' && (
+                <div className="p-3 bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg">
+                  <p className="text-error-700 dark:text-error-300 text-sm">
+                    Import failed. Please check the file format and try again.
+                  </p>
+                </div>
+              )}
+              
+              {importStatus === 'success' && (
+                <div className="p-3 bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800 rounded-lg">
+                  <p className="text-success-700 dark:text-success-300 text-sm">
+                    Assets imported successfully!
+                  </p>
+                </div>
+              )}
+            </div>
+            
+            <div className="flex space-x-4 mt-8">
+              <button
+                onClick={() => {
+                  setShowImportModal(false);
+                  setImportFile(null);
+                  setImportStatus('idle');
+                }}
+                className="flex-1 px-6 py-3 border border-support-light dark:border-support-dark text-text-primary-light dark:text-text-primary-dark rounded-xl hover:bg-support-light dark:hover:bg-support-dark transition-colors font-medium"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleImportAssets}
+                disabled={!importFile || importStatus === 'importing'}
+                className="flex-1 px-6 py-3 bg-primary-500 text-white rounded-xl hover:bg-primary-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {importStatus === 'importing' ? 'Importing...' : 'Import Assets'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AssetDashboard;
